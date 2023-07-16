@@ -1,0 +1,24 @@
+name: CI
+
+# Trigger CI for pull requests to the main branch or when a release is made
+# Do not trigger CI for draft pull request
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+  pull_request:  
+    types: [opened, synchronize, reopened, ready_for_review]
+
+
+jobs:
+  test:
+    name: C++ - ${{ matrix.os }} - ${{ github.event_name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
