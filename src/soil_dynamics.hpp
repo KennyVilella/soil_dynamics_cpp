@@ -11,6 +11,8 @@ namespace soil_simulator
     public:
         void init();
         void step();
+        void check();
+        void write_outputs();
     };
 }
 #endif
