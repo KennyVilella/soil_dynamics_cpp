@@ -9,7 +9,7 @@
 
 namespace soil_simulator
 {   
-    class grid : public soil_dynamics
+    class grid
     {
     public:
         /* Class member */
@@ -31,7 +31,7 @@ namespace soil_simulator
         );
     };
 
-    class bucket : public soil_dynamics
+    class bucket
     {
     public:
         /* Class member */
@@ -52,7 +52,7 @@ namespace soil_simulator
         );
     };
 
-    class sim_param : public soil_dynamics
+    class sim_param
     {
     public:
         /* Class member */
@@ -66,7 +66,7 @@ namespace soil_simulator
         );
     };
 
-    class sim_out : public soil_dynamics
+    class sim_out
     {
     public:
         /* Class member */
