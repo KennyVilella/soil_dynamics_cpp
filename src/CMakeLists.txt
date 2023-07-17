@@ -1,9 +1,9 @@
 add_executable(soil_dynamics)
 
 target_sources(soil_dynamics
-    PRIVATE
-        soil_dynamics.cpp
-        soil_dynamics.hpp
-        types.cpp
-        types.hpp
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/soil_dynamics.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/soil_dynamics.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/types.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/types.hpp
 )
