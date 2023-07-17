@@ -1,6 +1,9 @@
 # Build fodler
 build/
 
+# Swap files
+*.swp
+
 # Prerequisites
 *.d
 
