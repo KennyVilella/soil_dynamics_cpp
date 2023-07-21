@@ -29,6 +29,9 @@ namespace soil_simulator
             float grid_size_x = 4.0, float grid_size_y = 4.0, float grid_size_z = 4.0,
             float cell_size_xy = 0.05, float cell_size_z = 0.01
         );
+
+        /* Destructor */
+        ~grid();
     };
 
     class bucket
@@ -50,6 +53,9 @@ namespace soil_simulator
             std::vector<float> t_pos_init = {0.7, 0.0, -0.5},
             float width = 0.5
         );
+
+        /* Destructor */
+        ~bucket();
     };
 
     class sim_param
@@ -64,6 +70,9 @@ namespace soil_simulator
         sim_param(
             float repose_angle = 0.85, int max_iterations = 10, int cell_buffer = 4
         );
+
+        /* Destructor */
+        ~sim_param();
     };
 
     class sim_out
@@ -81,6 +90,8 @@ namespace soil_simulator
 
         /* Constructor */
         sim_out(int terrain, grid grid);
+
+       ~sim_out();
     };
 }
 #endif /*TYPES_H*/
