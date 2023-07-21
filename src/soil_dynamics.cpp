@@ -17,6 +17,6 @@ void soil_simulator::soil_dynamics::write_outputs() {
 int main() {
     soil_simulator::soil_dynamics sim;
     soil_simulator::grid grid(4.0, 4.0, 4.0, 0.05, 0.05);
-    std::cout << grid.half_length_x;
+    std::cout << grid.vect_x[0];
     return 0;
 }

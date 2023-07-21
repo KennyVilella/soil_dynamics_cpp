@@ -53,21 +53,21 @@ soil_simulator::grid::grid(
     cell_area = cell_size_xy * cell_size_xy;
     cell_volume = cell_area * cell_size_z;
 
-    std::vector<float> vect_x(2 * half_length_x + 1);
-    std::vector<float> vect_y(2 * half_length_y + 1);
-    std::vector<float> vect_z(2 * half_length_z + 1);
+    vect_x.resize(2 * half_length_x + 1);
+    vect_y.resize(2 * half_length_y + 1);
+    vect_z.resize(2 * half_length_z + 1);
 
-    vect_x[0] = -half_length_x;
+    vect_x[0] = -grid_size_x;
     for (auto ii = 1 ; ii <  vect_x.size() ; ii++)
-        vect_x[ii] = vect_x[ii-1] + 1;
+        vect_x[ii] = vect_x[ii-1] + cell_size_xy;
 
-    vect_y[0] = -half_length_y;
+    vect_y[0] = -grid_size_y;
     for (auto ii = 1 ; ii <  vect_y.size() ; ii++)
-        vect_y[ii] = vect_y[ii-1] + 1;
+        vect_y[ii] = vect_y[ii-1] + cell_size_xy;
 
-    vect_z[0] = -half_length_z;
+    vect_z[0] = -grid_size_z;
     for (auto ii = 1 ; ii <  vect_z.size() ; ii++)
-        vect_z[ii] = vect_z[ii-1] + 1;
+        vect_z[ii] = vect_z[ii-1] + cell_size_z;
 }
 
 soil_simulator::bucket::bucket(
