@@ -4,8 +4,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include <vector>
 #include "soil_dynamics.hpp"
+#include <vector>
 
 namespace soil_simulator
 {   
