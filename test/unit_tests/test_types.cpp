@@ -160,6 +160,33 @@ TEST(UnitTestTypes, simParam) {
 }
 
 TEST(UnitTestTypes, simOut) {
+    /* Testing member of the grid class */
+    soil_simulator::grid grid(2.0, 2.0, 2.0, 1.0, 0.01);
+    soil_simulator::sim_out sim_out(grid);
+    EXPECT_EQ(sim_out.equilibrium, false);
+    for (auto ii = 0 ; ii < 5 ; ii++)
+        for (auto jj = 0 ; jj < 5 ; jj++)
+            EXPECT_NEAR(sim_out.terrain[ii][jj], 0.0, 1e-8);
+    EXPECT_TRUE(sim_out.terrain.size() == 5);
+    EXPECT_TRUE(sim_out.terrain[0].size() == 5);
+    for (auto ii = 0 ; ii < 4 ; ii++)
+        for (auto jj = 0 ; jj < 5 ; jj++)
+            for (auto kk = 0 ; kk < 5 ; kk++) {
+                EXPECT_NEAR(sim_out.body[ii][jj][kk], 0.0, 1e-8);
+                EXPECT_NEAR(sim_out.body_soil[ii][jj][kk], 0.0, 1e-8);
+            }
+    EXPECT_TRUE(sim_out.body.size() == 4);
+    EXPECT_TRUE(sim_out.body[0].size() == 5);
+    EXPECT_TRUE(sim_out.body[0][0].size() == 5);
+    EXPECT_TRUE(sim_out.body_soil.size() == 4);
+    EXPECT_TRUE(sim_out.body_soil[0].size() == 5);
+    EXPECT_TRUE(sim_out.body_soil[0][0].size() == 5);
+    for (auto ii = 0 ; ii < 2 ; ii++)
+        for (auto jj = 0 ; jj < 2 ; jj++) {
+            EXPECT_NEAR(sim_out.bucket_area[ii][jj], 0.0, 1e-8);
+            EXPECT_NEAR(sim_out.relax_area[ii][jj], 0.0, 1e-8);
+            EXPECT_NEAR(sim_out.impact_area[ii][jj], 0.0, 1e-8);
+        }
 }
 
 int main(int argc, char **argv) {
