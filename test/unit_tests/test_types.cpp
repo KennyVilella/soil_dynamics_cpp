@@ -135,6 +135,28 @@ TEST(UnitTestTypes, bucket) {
 }
 
 TEST(UnitTestTypes, simParam) {
+    /* Testing member of the grid class */
+    soil_simulator::sim_param sim_param(0.85, 5, 4);
+    // Asserting values
+    EXPECT_NEAR(sim_param.repose_angle, 0.85, 1e-7);
+    EXPECT_EQ(sim_param.max_iterations, 5);
+    EXPECT_EQ(sim_param.cell_buffer, 4);
+
+    /* Testing that exceptions are properly sent */
+    EXPECT_THROW(
+        soil_simulator::sim_param sim_param(3.14, 5, 4),
+        std::invalid_argument);  // repose_angle > pi/2
+    EXPECT_THROW(
+        soil_simulator::sim_param sim_param(-0.85, 5, 4),
+        std::invalid_argument);  // repose_angle < 0.0
+    // max_iterations = 0.0
+    EXPECT_NO_THROW(soil_simulator::sim_param sim_param(0.85, 0.0, 4));
+    EXPECT_THROW(
+        soil_simulator::sim_param sim_param(0.85, -5, 4),
+        std::invalid_argument);  // max_iterations < 0.0
+    EXPECT_THROW(
+        soil_simulator::sim_param sim_param(0.85, 5, 1),
+        std::invalid_argument);  // cell_buffer < 2.0
 }
 
 TEST(UnitTestTypes, simOut) {
