@@ -44,11 +44,11 @@ class bucket {
 
      /* Constructor */
      bucket(
-         std::vector<float> o_pos_init = {0.0, 0.0, 0.0},
-         std::vector<float> j_pos_init = {0.0, 0.0, 0.0},
-         std::vector<float> b_pos_init = {0.0, 0.0, -0.5},
-         std::vector<float> t_pos_init = {0.7, 0.0, -0.5},
-         float width = 0.5
+         std::vector<float> o_pos = {0.0, 0.0, 0.0},
+         std::vector<float> j_pos = {0.0, 0.0, 0.0},
+         std::vector<float> b_pos = {0.0, 0.0, -0.5},
+         std::vector<float> t_pos = {0.7, 0.0, -0.5},
+         float bucket_width = 0.5
      );
 
      /* Destructor */

@@ -58,56 +58,64 @@ soil_simulator::grid::grid(
     vect_z.resize(2 * half_length_z + 1);
 
     vect_x[0] = -grid_size_x;
-    for (auto ii = 1 ; ii <  vect_x.size() ; ii++)
+    for (auto ii = 1 ; ii < vect_x.size() ; ii++)
         vect_x[ii] = vect_x[ii-1] + cell_size_xy;
 
     vect_y[0] = -grid_size_y;
-    for (auto ii = 1 ; ii <  vect_y.size() ; ii++)
+    for (auto ii = 1 ; ii < vect_y.size() ; ii++)
         vect_y[ii] = vect_y[ii-1] + cell_size_xy;
 
     vect_z[0] = -grid_size_z;
-    for (auto ii = 1 ; ii <  vect_z.size() ; ii++)
+    for (auto ii = 1 ; ii < vect_z.size() ; ii++)
         vect_z[ii] = vect_z[ii-1] + cell_size_z;
 }
 
 soil_simulator::bucket::bucket(
-    std::vector<float> o_pos_init, std::vector<float> j_pos_init,
-    std::vector<float> b_pos_init, std::vector<float> t_pos_init, float width
+    std::vector<float> o_pos, std::vector<float> j_pos, std::vector<float> b_pos,
+    std::vector<float> t_pos, float bucket_width
 ) {
-    if (o_pos_init.size() != 3)
-        throw std::invalid_argument("o_pos_init should be a vector of size 3");
+    if (o_pos.size() != 3)
+        throw std::invalid_argument("o_pos should be a vector of size 3");
 
-    if (j_pos_init.size() != 3)
-        throw std::invalid_argument("j_pos_init should be a vector of size 3");
+    if (j_pos.size() != 3)
+        throw std::invalid_argument("j_pos should be a vector of size 3");
 
-    if (b_pos_init.size() != 3)
-        throw std::invalid_argument("b_pos_init should be a vector of size 3");
+    if (b_pos.size() != 3)
+        throw std::invalid_argument("b_pos should be a vector of size 3");
 
-    if (t_pos_init.size() != 3)
-        throw std::invalid_argument("t_pos_init should be a vector of size 3");
+    if (t_pos.size() != 3)
+        throw std::invalid_argument("t_pos should be a vector of size 3");
 
-    if (j_pos_init == b_pos_init)
-        throw std::invalid_argument("j_pos_init should not be equal to"
-            " b_pos_init");
+    if (j_pos == b_pos)
+        throw std::invalid_argument("j_pos should not be equal to b_pos");
 
-    if (j_pos_init == t_pos_init)
-        throw std::invalid_argument("j_pos_init should not be equal to"
-            " t_pos_init");
+    if (j_pos == t_pos)
+        throw std::invalid_argument("j_pos should not be equal to  t_pos");
 
-    if (b_pos_init == t_pos_init)
-        throw std::invalid_argument("b_pos_init should not be equal to"
-            " t_pos_init");
+    if (b_pos == t_pos)
+        throw std::invalid_argument("b_pos should not be equal to t_pos");
 
-    if (width <= 0.0)
-        throw std::invalid_argument("width should be greater than zero");
+    if (bucket_width <= 0.0)
+        throw std::invalid_argument("bucket_width should be greater than zero");
 
-    std::vector<float> pos(3, 0.0);
-    std::vector<float> ori(4, 0.0);
+    width = bucket_width;
 
-    for (auto ii = 0 ; ii <  3 ; ii++) {
-        j_pos_init[ii] -= o_pos_init[ii];
-        b_pos_init[ii] -= o_pos_init[ii];
-        t_pos_init[ii] -= o_pos_init[ii];
+    pos.resize(3);
+    for (auto ii = 0 ; ii < 3 ; ii++)
+        pos[ii] = 0.0;
+
+    ori.resize(4);
+    for (auto ii = 0 ; ii < 4 ; ii++)
+        ori[ii] = 0.0;
+
+    j_pos_init.resize(3);
+    b_pos_init.resize(3);
+    t_pos_init.resize(3);
+
+    for (auto ii = 0 ; ii < 3 ; ii++) {
+        j_pos_init[ii] = j_pos[ii] - o_pos[ii];
+        b_pos_init[ii] = b_pos[ii] - o_pos[ii];
+        t_pos_init[ii] = t_pos[ii] - o_pos[ii];
     }
 }
 
