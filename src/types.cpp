@@ -139,24 +139,25 @@ soil_simulator::sim_param::sim_param(
 }
 
 soil_simulator::sim_out::sim_out(
-    int terrain, grid grid
+    grid grid
 ) {
-    if (std::extent_v<decltype(terrain), 0> != 2 * grid.half_length_x + 1)
-        throw std::invalid_argument("Dimension of terrain in X does not match"
-            " with the grid size");
+    equilibrium = false;
 
-    if (std::extent_v<decltype(terrain), 1> != 2 * grid.half_length_y + 1)
-        throw std::invalid_argument("Dimension of terrain in Y does not match"
-            " with the grid size");
+    terrain.resize(
+        2*grid.half_length_x+1, std::vector<float>(2*grid.half_length_y+1, 0.0));
+    body.resize(
+        4, std::vector<std::vector<float>>(2*grid.half_length_x+1,
+        std::vector<float>(2*grid.half_length_y+1, 0.0)));
+    body_soil.resize(
+        4, std::vector<std::vector<float>>(2*grid.half_length_x+1,
+        std::vector<float>(2*grid.half_length_y+1, 0.0)));
 
-    bool equilibrium = false;
+    body_soil_pos.resize(1);
 
-    float body[4][2*grid.half_length_x+1][2*grid.half_length_x+1] = {0.0};
-    float body_soil[4][2*grid.half_length_x+1][2*grid.half_length_x+1] = {0.0};
-
-    std::vector<std::vector<int>> body_soil_pos[1];
-
-    int bucket_area[2][2] = {0};
-    int relax_area[2][2] = {0};
-    int impact_area[2][2] = {0};
+    for (auto ii = 0 ; ii < 2 ; ii++)
+        for (auto jj = 0 ; jj < 2 ; jj++) {
+            bucket_area[ii][jj] = 0.0;
+            relax_area[ii][jj] = 0.0;
+            impact_area[ii][jj] = 0.0;
+        }
 }

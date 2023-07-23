@@ -64,7 +64,8 @@ class sim_param {
 
      /* Constructor */
      sim_param(
-         float repose_angle = 0.85, int max_iterations = 10, int cell_buffer = 4
+         float in_repose_angle = 0.85, int in_max_iterations = 10,
+         int in_cell_buffer = 4
      );
 
      /* Destructor */
@@ -75,16 +76,16 @@ class sim_out {
  public:
      /* Class member */
      bool equilibrium;
-     float terrain;
-     float body;
-     float body_soil;
+     std::vector<std::vector<float>> terrain;
+     std::vector<std::vector<std::vector<float>>> body;
+     std::vector<std::vector<std::vector<float>>> body_soil;
      std::vector<std::vector<int>> body_soil_pos;
-     int bucket_area;
-     int relax_area;
-     int impact_area;
+     int bucket_area[2][2];
+     int relax_area[2][2];
+     int impact_area[2][2];
 
      /* Constructor */
-     sim_out(int terrain, grid grid);
+     sim_out(grid grid);
 
     ~sim_out() {}
 };
