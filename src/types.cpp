@@ -120,20 +120,22 @@ soil_simulator::bucket::bucket(
 }
 
 soil_simulator::sim_param::sim_param(
-    float repose_angle, int max_iterations, int cell_buffer
+    float in_repose_angle, int in_max_iterations, int in_cell_buffer
 ) {
-    if ((repose_angle > std::numbers::pi / 2) || (repose_angle < 0.0))
+    if ((in_repose_angle > std::numbers::pi / 2) || (in_repose_angle < 0.0))
         throw std::invalid_argument("repose_angle should be betweem 0.0 and"
             " pi/2");
 
-    if (max_iterations < 0.0)
+    if (in_max_iterations < 0.0)
         throw std::invalid_argument("max_iterations should be greater or equal"
             " to zero");
 
-    if (cell_buffer < 2.0) {
-        std::cout << "cell_buffer too low, setting to 2";
-        cell_buffer = 2;
-    }
+    if (in_cell_buffer < 2.0)
+        throw std::invalid_argument("cell_buffer should be greater or equal to 2");
+
+    repose_angle = in_repose_angle;
+    max_iterations = in_max_iterations;
+    cell_buffer = in_cell_buffer;
 }
 
 soil_simulator::sim_out::sim_out(
