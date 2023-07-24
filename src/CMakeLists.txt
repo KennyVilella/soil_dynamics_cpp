@@ -6,4 +6,6 @@ target_sources(soil_dynamics
         ${CMAKE_CURRENT_SOURCE_DIR}/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/types.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/bucket_pos.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/bucket_pos.hpp
 )
