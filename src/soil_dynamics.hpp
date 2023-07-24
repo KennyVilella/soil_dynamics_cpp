@@ -5,11 +5,11 @@ Copyright, 2023,  Vilella Kenny.
 
 namespace soil_simulator {
 
-class soil_dynamics {
+class SoilDynamics {
  public:
      void init();
      void step();
      void check();
-     void write_outputs();
+     void WriteOutputs();
 };
 }  // namespace soil_simulator
