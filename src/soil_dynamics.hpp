@@ -1,4 +1,6 @@
 /*
+This file declares the main class of this simulator.
+
 Copyright, 2023,  Vilella Kenny.
 */
 #pragma once

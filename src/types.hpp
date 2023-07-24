@@ -1,4 +1,6 @@
 /*
+This file declares the classes used by the simulator to hold the data.
+
 Copyright, 2023,  Vilella Kenny.
 */
 #pragma once

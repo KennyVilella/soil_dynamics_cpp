@@ -1,4 +1,8 @@
 /*
+This file implements the constructor for the classes used by the simulator to
+hold the data.
+Checks are conducted to verify the integrity and validity of the data.
+
 Copyright, 2023,  Vilella Kenny.
 */
 #include <math.h>
