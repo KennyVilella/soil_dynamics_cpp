@@ -27,7 +27,7 @@ Copyright, 2023,  Vilella Kenny.
 //     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
 //
 // This would create a grid of size [-4, 4] in the X direction, [-4, 4] in
-// the Y direction, [-3, 3] in the Z direction, and with cells of size 
+// the Y direction, [-3, 3] in the Z direction, and with cells of size
 // 0.05 x 0.05 x 0.01 in the XYZ direction.
 soil_simulator::Grid::Grid(
     float grid_size_x, float grid_size_y, float grid_size_z, float cell_size_xy,
