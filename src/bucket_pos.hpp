@@ -16,6 +16,8 @@ void DecomposeVectorRectangle();
 void CalcTrianglePos();
 void DecomposeVectorTriangle();
 
+// This function determines all the cells that lie on a straight line between
+// two Cartesian coordinates.
 std::vector<std::vector<int>> CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta, Grid grid);
 

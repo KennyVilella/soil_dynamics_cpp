@@ -25,6 +25,28 @@ void soil_simulator::CalcTrianglePos() {
 void soil_simulator::DecomposeVectorTriangle() {
 }
 
+// For the sake of accuracy, the line is divided into smaller segments using a
+// spatial increment `delta`.
+//
+// The coordinates of each sub-point (ab_i) along the line can then be
+// calculated as
+//
+//    ab_i = a + ab * i * delta / norm(ab)
+//
+// where i is the increment number and ab = b - a.
+// The Cartesian coordinates can then be converted into indices
+//
+//    ab_i_ind = ab_i / cell_size + grid_half_length + 1
+//
+// Finally, the floating-point values are rounded to obtain the cell indices in
+// the X, Y, Z directions.
+// As the center of each cell is considered to be on the center of the top
+// surface, `round` should be used for getting the cell indices in the X and Y
+// direction, while `ceil` should be used for the Z direction.
+//
+// Note:
+// When the line follows a cell border, the exact location of the line becomes
+// ambiguous. It is assumed that the caller resolves this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta,
     Grid grid
