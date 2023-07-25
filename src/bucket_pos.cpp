@@ -23,7 +23,7 @@ void soil_simulator::CalcTrianglePos() {
 void soil_simulator::DecomposeVectorTriangle() {
 }
 
-void soil_simulator::CalcLinePos(
+std::vector<std::vector<float>> soil_simulator::CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta,
     Grid grid
 ) {
@@ -58,9 +58,9 @@ void soil_simulator::CalcLinePos(
             round(c_y + d_y * unit_vect[ii]));
         line_pos[ii][2] = static_cast<int>(
             std::ceil(c_z + d_z * unit_vect[ii]));
-/*
+    }
+
     return line_pos;
-*/
 }
 
 void soil_simulator::UpdateBody() {

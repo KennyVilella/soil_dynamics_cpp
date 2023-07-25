@@ -191,8 +191,3 @@ TEST(UnitTestTypes, SimOut) {
             EXPECT_NEAR(sim_out.impact_area_[ii][jj], 0.0, 1e-8);
         }
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
