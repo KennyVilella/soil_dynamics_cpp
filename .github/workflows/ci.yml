@@ -34,12 +34,21 @@ jobs:
 
       - name: Run cpplint on the unit test files
         run: |
-          cd test/unit_test/
+          cd test/unit_tests/
           cpplint --filter=-'build/include' *
           cd ../..
 
+      - name: Install Google test
+        run: |
+          sudo apt-get install libgtest-dev
+          cd /usr/src/gtest
+          sudo cmake CMakeLists.txt
+          sudo make
+
       - name: Build the unit test
-        run: cmake --build build --target unit_tests
+        run: |
+          cmake -S . -B build
+          cmake --build build --target unit_tests
 
       - name: Run the unit test
         run: ./build/test/unit_tests/unit_tests
