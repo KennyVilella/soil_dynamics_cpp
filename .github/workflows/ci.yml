@@ -44,7 +44,6 @@ jobs:
           cd /usr/src/gtest
           sudo cmake CMakeLists.txt
           sudo make
-          sudo cp *.a /usr/lib
 
       - name: Build the unit test
         run: |
