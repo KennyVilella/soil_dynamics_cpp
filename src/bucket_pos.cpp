@@ -36,10 +36,10 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
 
     // Creating unit vector
     float norm_ab = std::sqrt(ab[0] * ab[0] + ab[1] * ab[1] + ab[2] * ab[2]);
-    int nn = std::max(2, static_cast<int>(round(norm_ab / delta + 1)));
+    int nn = std::max(2, static_cast<int>(round(norm_ab / delta) + 1));
     std::vector<float> unit_vect(nn);
     for (auto ii = 0; ii < nn; ii++)
-        unit_vect[ii] = ii * delta;
+        unit_vect[ii] = ii * 1.0 / (nn - 1);
 
     // Setting constants used for the vectorial decomposition
     float c_x = a[0] / grid.cell_size_xy_ + grid.half_length_x_ + 1;
