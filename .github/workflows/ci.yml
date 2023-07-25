@@ -39,7 +39,12 @@ jobs:
           cd ../..
 
       - name: Install Google test
-        run: apt-get install libgtest-dev
+        run: |
+          sudo apt-get install libgtest-dev
+          cd /usr/src/gtest
+          sudo cmake CMakeLists.txt
+          sudo make
+          sudo cp *.a /usr/lib
 
       - name: Build the unit test
         run: |
