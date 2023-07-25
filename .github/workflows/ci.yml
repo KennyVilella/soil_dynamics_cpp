@@ -38,6 +38,9 @@ jobs:
           cpplint --filter=-'build/include' *
           cd ../..
 
+      - name: Install Google test
+        run: apt-get install libgtest-dev
+
       - name: Build the unit test
         run: |
           cmake -S . -B build
