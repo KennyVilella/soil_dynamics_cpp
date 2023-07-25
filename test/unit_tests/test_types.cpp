@@ -1,7 +1,7 @@
 /*
 This file implements unit tests for the classes in types.cpp.
 
-Copyright, 2023,  Vilella Kenny.
+Copyright, 2023, Vilella Kenny.
 */
 #include <vector>
 #include <exception>

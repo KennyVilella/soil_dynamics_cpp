@@ -1,7 +1,7 @@
 /*
 This file implements the main functions of the simulator.
 
-Copyright, 2023,  Vilella Kenny.
+Copyright, 2023, Vilella Kenny.
 */
 #include <iostream>
 #include "src/soil_dynamics.hpp"

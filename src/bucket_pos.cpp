@@ -1,7 +1,7 @@
 /*
 This file implements the functions used to calculate the bucket position.
 
-Copyright, 2023,  Vilella Kenny.
+Copyright, 2023, Vilella Kenny.
 */
 #include <cmath>
 #include <vector>
