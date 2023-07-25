@@ -1,30 +1,24 @@
 /*
+This file implements the main functions of the simulator.
 
+Copyright, 2023,  Vilella Kenny.
 */
-
-#include "soil_dynamics.hpp"
 #include <iostream>
+#include "src/soil_dynamics.hpp"
+#include "src/types.hpp"
 
-using namespace soil_simulator;
-
-void soil_dynamics::init() {
-    std::cout << "Hello";
+void soil_simulator::SoilDynamics::step() {
 }
 
-void soil_dynamics::step() {
-
+void soil_simulator::SoilDynamics::check() {
 }
 
-void soil_dynamics::check() {
-
-}
-
-void soil_dynamics::write_outputs() {
-
+void soil_simulator::SoilDynamics::WriteOutputs() {
 }
 
 int main() {
-    soil_dynamics sim;
-    sim.init();
+    soil_simulator::SoilDynamics sim;
+    soil_simulator::Grid grid(4.0, 4.0, 4.0, 0.05, 0.05);
+    std::cout << grid.vect_x_[0];
     return 0;
 }

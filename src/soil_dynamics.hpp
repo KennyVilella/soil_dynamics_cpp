@@ -1,18 +1,17 @@
 /*
+This file declares the main class of this simulator.
 
+Copyright, 2023,  Vilella Kenny.
 */
-#ifndef SOIL_DYNAMICS_H
-#define SOIL_DYNAMICS_H
+#pragma once
 
-namespace soil_simulator
-{
-    class soil_dynamics
-    {
-    public:
-        void init();
-        void step();
-        void check();
-        void write_outputs();
-    };
-}
-#endif
+namespace soil_simulator {
+
+class SoilDynamics {
+ public:
+     void init();
+     void step();
+     void check();
+     void WriteOutputs();
+};
+}  // namespace soil_simulator
