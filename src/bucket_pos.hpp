@@ -16,7 +16,7 @@ void DecomposeVectorRectangle();
 void CalcTrianglePos();
 void DecomposeVectorTriangle();
 
-std::vector<std::vector<float>> CalcLinePos(
+std::vector<std::vector<int>> CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta, Grid grid);
 
 void UpdateBody();

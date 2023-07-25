@@ -3,7 +3,9 @@ This file implements the functions used to calculate the bucket position.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <vector>
 #include "src/bucket_pos.hpp"
 #include "src/types.hpp"
@@ -23,11 +25,10 @@ void soil_simulator::CalcTrianglePos() {
 void soil_simulator::DecomposeVectorTriangle() {
 }
 
-std::vector<std::vector<float>> soil_simulator::CalcLinePos(
+std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta,
     Grid grid
 ) {
-
     // Vector ab
     std::vector<float> ab(3);
     for (auto ii = 0; ii < 3; ii++)
@@ -49,14 +50,14 @@ std::vector<std::vector<float>> soil_simulator::CalcLinePos(
     float d_z = ab[2] / grid.cell_size_z_;
 
     // Determining the cells where the line is located
-    std::vector<std::vector<float>> line_pos;
-    line_pos.resize(3, std::vector<float>(nn, 0.0));
+    std::vector<std::vector<int>> line_pos;
+    line_pos.resize(3, std::vector<int>(nn, 0));
     for (auto ii = 0; ii < nn; ii++) {
-        line_pos[ii][0] = static_cast<int>(
+        line_pos[0][ii] = static_cast<int>(
             round(c_x + d_x * unit_vect[ii]));
-        line_pos[ii][1] = static_cast<int>(
+        line_pos[1][ii] = static_cast<int>(
             round(c_y + d_y * unit_vect[ii]));
-        line_pos[ii][2] = static_cast<int>(
+        line_pos[2][ii] = static_cast<int>(
             std::ceil(c_z + d_z * unit_vect[ii]));
     }
 
