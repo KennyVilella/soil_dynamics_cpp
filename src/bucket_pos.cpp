@@ -51,13 +51,13 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
 
     // Determining the cells where the line is located
     std::vector<std::vector<int>> line_pos;
-    line_pos.resize(3, std::vector<int>(nn, 0));
+    line_pos.resize(nn, std::vector<int>(3, 0));
     for (auto ii = 0; ii < nn; ii++) {
-        line_pos[0][ii] = static_cast<int>(
+        line_pos[ii][0] = static_cast<int>(
             round(c_x + d_x * unit_vect[ii]));
-        line_pos[1][ii] = static_cast<int>(
+        line_pos[ii][1] = static_cast<int>(
             round(c_y + d_y * unit_vect[ii]));
-        line_pos[2][ii] = static_cast<int>(
+        line_pos[ii][2] = static_cast<int>(
             std::ceil(c_z + d_z * unit_vect[ii]));
     }
 
