@@ -22,17 +22,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
         a, b, delta, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {11, 11, 11}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {12, 11, 11}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {13, 11, 11}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {14, 11, 11}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 11, 11}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 11, 11}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {17, 11, 11}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {18, 11, 11}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {19, 11, 11}));
-    EXPECT_TRUE((line_pos[9] == std::vector<int> {20, 11, 11}));
-    EXPECT_TRUE((line_pos[10] == std::vector<int> {21, 11, 11}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 10, 10}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 10}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 10}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 10, 10}));
+    EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 10}));
+    EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 10}));
 
     // -- Testing for a line following the X axis with a larger delta --
     a = {0.0 + 1e-5, 0.0 - 1e-5, 0.0 - 1e-5};
@@ -41,9 +41,9 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
 
     EXPECT_EQ(line_pos.size(), 3);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {11, 11, 11}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {16, 11, 11}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {21, 11, 11}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {20, 10, 10}));
 
     // -- Testing that the rounding is done properly --
     a = {0.04 + 1e-5,  0.04 - 1e-5, -0.09 + 1e-5};
@@ -52,17 +52,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {11, 11, 11}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {12, 11, 11}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {13, 11, 11}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {14, 11, 11}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 11, 11}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 11, 11}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {17, 11, 11}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {18, 11, 11}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {19, 11, 11}));
-    EXPECT_TRUE((line_pos[9] == std::vector<int> {20, 11, 11}));
-    EXPECT_TRUE((line_pos[10] == std::vector<int> {21, 11, 11}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 10, 10}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 10}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 10}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 10, 10}));
+    EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 10}));
+    EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 10}));
 
     // -- Testing for a line following the Y axis --
     a = {0.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
@@ -71,17 +71,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {11, 11, 11}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 12, 11}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {11, 13, 11}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {11, 14, 11}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {11, 15, 11}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {11, 16, 11}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {11, 17, 11}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {11, 18, 11}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {11, 19, 11}));
-    EXPECT_TRUE((line_pos[9] == std::vector<int> {11, 20, 11}));
-    EXPECT_TRUE((line_pos[10] == std::vector<int> {11, 21, 11}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {10, 11, 10}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {10, 12, 10}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {10, 13, 10}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {10, 14, 10}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {10, 15, 10}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {10, 16, 10}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {10, 17, 10}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {10, 18, 10}));
+    EXPECT_TRUE((line_pos[9] == std::vector<int> {10, 19, 10}));
+    EXPECT_TRUE((line_pos[10] == std::vector<int> {10, 20, 10}));
 
     // -- Testing for an arbitrary line (results obtained manually) --
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
@@ -91,15 +91,15 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {14, 17, 11}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {15, 17, 11}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {15, 18, 11}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {16, 18, 11}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {16, 19, 11}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {17, 19, 11}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {17, 20, 11}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {18, 20, 11}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 21, 11}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {13, 16, 10}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {14, 16, 10}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {14, 17, 10}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {15, 17, 10}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 18, 10}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 18, 10}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 19, 10}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 19, 10}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {17, 20, 10}));
 
     // -- Testing for an arbitrary line in the XZ plane --
     a = {0.34 + 1e-8, 0.0 - 1e-8, 0.56 + 1e-8};
@@ -109,15 +109,15 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {14, 11, 17}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {15, 11, 17}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {15, 11, 18}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {16, 11, 18}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {16, 11, 19}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {17, 11, 19}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {17, 11, 20}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {18, 11, 20}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 11, 21}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {13, 10, 16}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {14, 10, 16}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {14, 10, 17}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {15, 10, 17}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 10, 18}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 10, 18}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 19}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 19}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {17, 10, 20}));
 
     // -- Testing for the edge case where the line is a point --
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
@@ -127,7 +127,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {16, 16, 16}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 15}));
 
     // -- Testing for the edge case where the line is a point --
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
@@ -137,5 +137,5 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {16, 16, 17}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 16}));
 }

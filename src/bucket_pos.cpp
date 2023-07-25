@@ -64,9 +64,9 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
         unit_vect[ii] = ii * 1.0 / (nn - 1);
 
     // Setting constants used for the vectorial decomposition
-    float c_x = a[0] / grid.cell_size_xy_ + grid.half_length_x_ + 1;
-    float c_y = a[1] / grid.cell_size_xy_ + grid.half_length_y_ + 1;
-    float c_z = a[2] / grid.cell_size_z_ + grid.half_length_z_ + 1;
+    float c_x = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    float c_y = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    float c_z = a[2] / grid.cell_size_z_ + grid.half_length_z_;
     float d_x = ab[0] / grid.cell_size_xy_;
     float d_y = ab[1] / grid.cell_size_xy_;
     float d_z = ab[2] / grid.cell_size_z_;
