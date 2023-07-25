@@ -39,7 +39,9 @@ jobs:
           cd ../..
 
       - name: Build the unit test
-        run: cmake --build build --target unit_tests
+        run: |
+          cmake -S . -B build
+          cmake --build build --target unit_tests
 
       - name: Run the unit test
         run: ./build/test/unit_tests/unit_tests
