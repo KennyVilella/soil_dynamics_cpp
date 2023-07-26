@@ -14,6 +14,32 @@ Copyright, 2023, Vilella Kenny.
 void soil_simulator::CalcBucketPos() {
 }
 
+// The rectangle is defined by providing the Cartesian coordinates of its four
+// vertices in the proper order.
+//
+// To optimize performance, the function iterates over a portion of the
+// horizontal grid where the rectangle is located. For each cell, the function
+// calculates the height of the plane formed by the rectangle at the top right
+// corner of the cell. If the cell is within the rectangle area, the calcualted
+// height is added to the results for the four neighboring cells.
+//
+// This method works because when a plane intersects with a rectangular cell,
+// the minimum and maximum height of the plane within the cell occurs at one of
+// the cell corners. By iterating through all the cells, the function ensures
+// that all the corners of each cell are investigated.
+//
+// However, this approach does not work when the rectangle is perpendicular to
+// the XY plane. To handle this case, the function uses the `CalcLinePos`
+// function to include the cells that lie on the four edges of the rectangle.
+//
+// Note:
+// - The iteration is performed over the top right corner of each cell,
+//   but any other corner could have been chosen without affecting the results.
+// - Not all cells are provided, since, at a given XY position, only the cells
+//   with the minimum and maximum height are important.
+// - When the rectangle follows a cell border, the exact location of the
+//   rectangle becomes ambiguous. It is assumed that the caller resolves
+//   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
     std::vector<float> d, float delta, Grid grid, float tol
