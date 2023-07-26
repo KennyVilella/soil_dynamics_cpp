@@ -142,7 +142,8 @@ void soil_simulator::CalcTrianglePos() {
 // and the sum of c_ab and c_ac to be lower than 1.
 //
 // Note:
-// By convention, the decomposition is done at the top right corner of each cell.
+// By convention, the decomposition is done at the top right corner of
+// each cell.
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>,
     std::vector<std::vector<bool>>, int>
