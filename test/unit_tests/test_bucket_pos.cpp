@@ -638,8 +638,9 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
     d = {0.0 + 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
     delta = 0.01;
-    auto rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
-    sort(rect_pos.begin(), rect_pos.end()); 
+    auto rect_pos = soil_simulator::CalcRectanglePos(
+        a, b, c, d, delta, grid, tol);
+    sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
@@ -1030,7 +1031,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking cells
     EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 15, 15}));
 
-    // -- Testing for the edge case where the rectangle is a point on the edge of a cell --
+    // -- Testing for edge case of a point on the edge of a cell --
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     c = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
