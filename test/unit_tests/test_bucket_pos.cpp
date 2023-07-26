@@ -427,44 +427,44 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     // Checking decomposition in terms of AB component
     for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[2][jj], 0.05, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[3][jj], 0.15, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[4][jj], 0.25, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[5][jj], 0.35, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[6][jj], 0.45, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[7][jj], 0.55, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[8][jj], 0.65, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[9][jj], 0.75, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[10][jj], 0.85, 1e-5);
-    for (auto jj = 0; jj < area_length_y; jj++) 
+    for (auto jj = 0; jj < area_length_y; jj++)
         EXPECT_NEAR(c_ab[11][jj], 0.95, 1e-5);
     // Checking decomposition in terms of AC component
     for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][2], 0.05, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][3], 0.15, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][4], 0.25, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][5], 0.35, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][6], 0.45, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][7], 0.55, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][8], 0.65, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][9], 0.75, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][10], 0.85, 1e-5);
-    for (auto ii = 0; ii < area_length_x; ii++) 
+    for (auto ii = 0; ii < area_length_x; ii++)
         EXPECT_NEAR(c_ac[ii][11], 0.95, 1e-5);
 
     // -- Testing for not rounded indices --
@@ -613,6 +613,6 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     EXPECT_EQ(nn, 0);
     // Checking cells inside the triangle area
     for (auto ii = 0; ii < area_length_x; ii++)
-        for (auto jj = 0; jj < area_length_y; jj++) 
+        for (auto jj = 0; jj < area_length_y; jj++)
             EXPECT_EQ(in_tri[ii][jj], false);
 }
