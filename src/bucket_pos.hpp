@@ -17,15 +17,25 @@ void CalcRectanglePos();
 
 // This function performs a vector decomposition on a portion of the horizontal
 // plane where a rectangle ABCD is located.
-std::tuple<std::vector<std::vector<float>>, std::vector<std::vector<float>>,
-std::vector<std::vector<bool>>, int>  DecomposeVectorRectangle(
+std::tuple<
+    std::vector<std::vector<float>>, std::vector<std::vector<float>>,
+    std::vector<std::vector<bool>>, int>
+DecomposeVectorRectangle(
     std::vector<float> ab_ind, std::vector<float> ad_ind,
     std::vector<float> a_ind, int area_min_x, int area_min_y,
     int area_length_x, int area_length_y, float tol);
 
 void CalcTrianglePos();
 
-void DecomposeVectorTriangle();
+// This function performs a vector decomposition on a portion of the horizontal
+// plane where a tritangle ABC is located.
+std::tuple<
+    std::vector<std::vector<float>>, std::vector<std::vector<float>>,
+    std::vector<std::vector<bool>>, int>
+DecomposeVectorTriangle(
+    std::vector<float> ab_ind, std::vector<float> ac_ind,
+    std::vector<float> a_ind, int area_min_x, int area_min_y,
+    int area_length_x, int area_length_y, float tol);
 
 // This function determines all the cells that lie on a straight line between
 // two Cartesian coordinates.
