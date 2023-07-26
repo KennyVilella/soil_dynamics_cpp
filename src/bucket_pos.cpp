@@ -6,6 +6,7 @@ Copyright, 2023, Vilella Kenny.
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <tuple>
 #include <vector>
 #include "src/bucket_pos.hpp"
 #include "src/types.hpp"
@@ -16,7 +17,90 @@ void soil_simulator::CalcBucketPos() {
 void soil_simulator::CalcRectanglePos() {
 }
 
-void soil_simulator::DecomposeVectorRectangle() {
+// The position of the rectangle is defined by its edges AB and AD, while the
+// specified area extends over [`area_min_x`, `area_min_x + area_length_x`]
+// on the X direction and [`area_min_y`, `area_min_y + area_length_y`] on
+// the Y direction.
+//
+// For each cell in the specified area, the function decomposes it into the
+// basis formed by the vectors AB and AD. Let O be the name of a cell, it can
+// then be decomposed as
+//
+//   AO = c_ab * AB + c_ad * AD.
+//
+// This decomposition leads to a system of 2 equations with
+// 2 unknowns (c_ab and c_ad)
+//
+//   AO[1] = c_ab * AB[1] + c_ad * AD[1] {1},
+//   AO[2] = c_ab * AB[2] + c_ad * AD[2] {2}.
+//
+// One may note that AB[1] * {2} - AB[2] * {1} implies that
+//
+//   AB[1] * AO[2] - AB[2] * AO[1] = c_ad * AD[2] * AB[1] - c_ad * AD[1] * AB[2]
+//
+// that can be further rewritten as
+//
+//   c_ad = (AB[1] * AO[2] - AB[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
+//
+// Similarly, AD[1] * {2} - AD[2] * {1} implies that
+//
+//   c_ab = -(AD[1] * AO[2] - AD[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
+//
+// This decomposition allows us to determine whether the cell O is inside the
+// rectangle area, since this requires c_ab and c_ad to be between 0 and 1.
+//
+// Note:
+// By convention, the decomposition is done at the top right corner of
+// each cell.
+std::tuple<std::vector<std::vector<float>>, std::vector<std::vector<float>>,
+std::vector<std::vector<bool>>, int> soil_simulator::DecomposeVectorRectangle(
+    std::vector<float> ab_ind, std::vector<float> ad_ind,
+    std::vector<float> a_ind, int area_min_x, int area_min_y,
+    int area_length_x, int area_length_y, float tol
+) {
+    // Setiing up the outputs
+    std::vector<std::vector<float>> c_ab;
+    std::vector<std::vector<float>> c_ad;
+    std::vector<std::vector<bool>> in_rectangle;
+    c_ab.resize(area_length_x, std::vector<float>(area_length_y, 0.0));
+    c_ad.resize(area_length_x, std::vector<float>(area_length_y, 0.0));
+    in_rectangle.resize(area_length_x, std::vector<bool>(area_length_y, false));
+
+    // Setting constants for decomposing the cell position into the reference
+    // basis of the rectangle
+    float c_ab_x = ad_ind[1] / (ab_ind[0] * ad_ind[1] - ab_ind[1] * ad_ind[0]);
+    float c_ab_y = ad_ind[0] / (ab_ind[0] * ad_ind[1] - ab_ind[1] * ad_ind[0]);
+    float c_ad_x = ab_ind[1] / (ab_ind[0] * ad_ind[1] - ab_ind[1] * ad_ind[0]);
+    float c_ad_y = ab_ind[0] / (ab_ind[0] * ad_ind[1] - ab_ind[1] * ad_ind[0]);
+
+    // Preparation for the determination of the rectangle position
+    // Iterating over the top right corner of all cells in the specified area
+    int n_cell = 0;
+    for (auto ii_s = 0; ii_s < area_length_x; ii_s++)
+        for (auto jj_s = 0; jj_s < area_length_y; jj_s++) {
+            // Calculating the indices corresponding to the simulation grid
+            float ii = area_min_x + 0.5 + ii_s;
+            float jj = area_min_y + 0.5 + jj_s;
+
+            // Decomposing the cell corner position into the basis formed
+            // by the rectangle
+            c_ab[ii_s][jj_s] = (
+                c_ab_x * (ii - a_ind[0]) - c_ab_y * (jj - a_ind[1]));
+            c_ad[ii_s][jj_s] = (
+                -c_ad_x * (ii - a_ind[0]) + c_ad_y * (jj - a_ind[1]));
+
+            if ((c_ab[ii_s][jj_s] > tol) && (c_ab[ii_s][jj_s] < 1 - tol) &&
+                (c_ad[ii_s][jj_s] > tol) && (c_ad[ii_s][jj_s] < 1 - tol)) {
+                // Cell is inside the rectangle area
+                in_rectangle[ii_s][jj_s] = true;
+                n_cell += 4;
+            } else {
+                // Cell is outside the rectangle area
+                in_rectangle[ii_s][jj_s] = false;
+            }
+        }
+
+    return {c_ab, c_ad, in_rectangle, n_cell};
 }
 
 void soil_simulator::CalcTrianglePos() {
