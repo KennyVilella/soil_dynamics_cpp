@@ -13,7 +13,9 @@ namespace soil_simulator {
 
 void CalcBucketPos();
 
-void CalcRectanglePos();
+std::vector<std::vector<int>> CalcRectanglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    std::vector<float> d, float delta, Grid grid, float tol);
 
 // This function performs a vector decomposition on a portion of the horizontal
 // plane where a rectangle ABCD is located.
