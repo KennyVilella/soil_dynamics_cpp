@@ -139,3 +139,203 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     EXPECT_EQ(line_pos.size(), 1);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 16}));
 }
+
+TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
+    // Note that the function does not account for the case where the rectangle
+    // follows a cell border. It is therefore necessary to solve this potential
+    // ambiguity before calling the function. As a result, a small
+    // increment (1e-12) is sometimes added or removed to the input in order to
+    // make sure that the input coordinates do not correspond to a cell border.
+    std::vector<float> ab_ind;
+    std::vector<float> ad_ind;
+    std::vector<float> a_ind;
+    int area_min_x;
+    int area_min_y;
+    int area_length_x;
+    int area_length_y;
+    float tol = 1.e-5;
+
+    // -- Testing for a simple rectangle in the XY plane --
+    a_ind = {10.0, 10.0, 10.0};
+    ab_ind = {5.0, 0.0, 0.0};
+    ad_ind = {0.0, 5.0, 0.0};
+    area_min_x = 8;
+    area_min_y = 8;
+    area_length_x = 8;
+    area_length_y = 8;
+    auto [c_ab, c_ad, in_rec, nn] = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
+    // Checking the number of cells inside the rectangle area
+    EXPECT_EQ(nn, 25 * 4);
+    // Checking cells inside the rectangle area
+    for (auto ii = 0; ii < area_length_x; ii++)
+        for (auto jj = 0; jj < area_length_y; jj++) {
+            if ((ii > 1.5) && (ii < 6.5) && (jj > 1.5) && (jj < 6.5))
+                EXPECT_EQ(in_rec[ii][jj], true);
+            else
+                EXPECT_EQ(in_rec[ii][jj], false);
+        }
+    // Checking decomposition in terms of AB component
+    for (auto jj = 2; jj < 7; jj++)
+        EXPECT_NEAR(c_ab[2][jj], 0.1, 1e-5);
+    for (auto jj = 2; jj < 7; jj++)
+        EXPECT_NEAR(c_ab[3][jj], 0.3, 1e-5);
+    for (auto jj = 2; jj < 7; jj++)
+        EXPECT_NEAR(c_ab[4][jj], 0.5, 1e-5);
+    for (auto jj = 2; jj < 7; jj++)
+        EXPECT_NEAR(c_ab[5][jj], 0.7, 1e-5);
+    for (auto jj = 2; jj < 7; jj++)
+        EXPECT_NEAR(c_ab[6][jj], 0.9, 1e-5);
+    // Checking decomposition in terms of AD component
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][2], 0.1, 1e-5);
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][3], 0.3, 1e-5);
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][4], 0.5, 1e-5);
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][5], 0.7, 1e-5);
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][6], 0.9, 1e-5);
+
+    // -- Testing for not rounded indices --
+    a_ind = {9.7, 10.3, 4.3};
+    ab_ind = {5.7, 0.0, 0.0};
+    ad_ind = {0.0, 4.7, 0.0};
+    area_min_x = 8;
+    area_min_y = 8;
+    area_length_x = 8;
+    area_length_y = 8;
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
+    // Checking the number of cells inside the rectangle area
+    EXPECT_EQ(nn, 25 * 4);
+    // Checking cells inside the rectangle area
+    for (auto ii = 0; ii < area_length_x; ii++)
+        for (auto jj = 0; jj < area_length_y; jj++) {
+            if ((ii > 1.5) && (ii < 6.5) && (jj > 1.5) && (jj < 6.5))
+                EXPECT_EQ(in_rec[ii][jj], true);
+            else
+                EXPECT_EQ(in_rec[ii][jj], false);
+        }
+
+    // -- Testing for a simple rectangle in the XY plane at cell border --
+    a_ind = {10.0 + 1e-12, 9.5 + 1e-12, 5.0};
+    ab_ind = {5.0 - 1e-12, 0.0, 2.4};
+    ad_ind = {0.0, 3.0 - 1e-12, -0.3};
+    area_min_x = 8;
+    area_min_y = 8;
+    area_length_x = 8;
+    area_length_y = 8;
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
+    // Checking the number of cells inside the rectangle area
+    EXPECT_EQ(nn, 10 * 4);
+    // Checking cells inside the rectangle area
+    for (auto ii = 0; ii < area_length_x; ii++)
+        for (auto jj = 0; jj < area_length_y; jj++) {
+            if ((ii > 1.5) && (ii < 6.5) && (jj > 1.5) && (jj < 3.5))
+                EXPECT_EQ(in_rec[ii][jj], true);
+            else
+                EXPECT_EQ(in_rec[ii][jj], false);
+        }
+    // Checking decomposition in terms of AB component
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[2][jj], 0.1, 1e-5);
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[3][jj], 0.3, 1e-5);
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[4][jj], 0.5, 1e-5);
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[5][jj], 0.7, 1e-5);
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[6][jj], 0.9, 1e-5);
+    // Checking decomposition in terms of AD component
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][2], 1.0 / 3.0, 1e-5);
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][3], 2.0 / 3.0, 1e-5);
+    for (auto ii = 2; ii < 7; ii++)
+        EXPECT_NEAR(c_ad[ii][4], 1.0, 1e-5);
+
+    // -- Testing for a simple rectangle in the XYZ plane --
+    a_ind = {15.0, 10.0, 5.0};
+    ab_ind = {1.0, 0.0, 2.4};
+    ad_ind = {0.0, 5.0, -0.3};
+    area_min_x = 13;
+    area_min_y = 8;
+    area_length_x = 8;
+    area_length_y = 8;
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
+    // Checking the number of cells inside the rectangle area
+    EXPECT_EQ(nn, 5 * 4);
+    // Checking cells inside the rectangle area
+    for (auto ii = 0; ii < area_length_x; ii++)
+        for (auto jj = 0; jj < area_length_y; jj++) {
+            if ((ii == 2) && (jj > 1.5) && (jj < 6.5))
+                EXPECT_EQ(in_rec[ii][jj], true);
+            else
+                EXPECT_EQ(in_rec[ii][jj], false);
+        }
+    // Checking decomposition in terms of AB component
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[2][jj], 0.5, 1e-5);
+    for (auto jj = 2; jj < 8; jj++)
+        EXPECT_NEAR(c_ab[3][jj], 1.5, 1e-5);
+    // Checking decomposition in terms of AD component
+    EXPECT_NEAR(c_ad[2][2], 0.1, 1e-5);
+    EXPECT_NEAR(c_ad[3][2], 0.1, 1e-5);
+    EXPECT_NEAR(c_ad[2][3], 0.3, 1e-5);
+    EXPECT_NEAR(c_ad[3][3], 0.3, 1e-5);
+    EXPECT_NEAR(c_ad[2][4], 0.5, 1e-5);
+    EXPECT_NEAR(c_ad[3][4], 0.5, 1e-5);
+    EXPECT_NEAR(c_ad[2][5], 0.7, 1e-5);
+    EXPECT_NEAR(c_ad[3][5], 0.7, 1e-5);
+    EXPECT_NEAR(c_ad[2][6], 0.9, 1e-5);
+    EXPECT_NEAR(c_ad[3][6], 0.9, 1e-5);
+    EXPECT_NEAR(c_ad[2][7], 1.1, 1e-5);
+    EXPECT_NEAR(c_ad[3][7], 1.1, 1e-5);
+
+    // -- Testing for the edge case where the rectangle is a line --
+    // Note that no decomposition can be mathematically made
+    a_ind = {14.2, 10.3, 5.0};
+    ab_ind = {2.3, 1.2, 2.4};
+    ad_ind = {4.6, 2.4, -0.3};
+    area_min_x = 13;
+    area_min_y = 9;
+    area_length_x = 8;
+    area_length_y = 8;
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
+    // Checking the number of cells inside the rectangle area
+    EXPECT_EQ(nn, 0);
+    // Checking cells inside the rectangle area
+    for (auto ii = 0; ii < area_length_x; ii++)
+        for (auto jj = 0; jj < area_length_y; jj++)
+            EXPECT_EQ(in_rec[ii][jj], false);
+
+    // -- Testing for the edge case where the rectangle is a point --
+    // Note that no decomposition can be mathematically made
+    a_ind = {14.2, 10.3, 5.0};
+    ab_ind = {0.0, 0.0, 0.0};
+    ad_ind = {0.0, 0.0, 0.0};
+    area_min_x = 13;
+    area_min_y = 9;
+    area_length_x = 8;
+    area_length_y = 8;
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
+    // Checking the number of cells inside the rectangle area
+    EXPECT_EQ(nn, 0);
+    // Checking cells inside the rectangle area
+    for (auto ii = 0; ii < area_length_x; ii++)
+        for (auto jj = 0; jj < area_length_y; jj++)
+            EXPECT_EQ(in_rec[ii][jj], false);
+}
