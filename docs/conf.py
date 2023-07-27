@@ -20,6 +20,7 @@ extensions = [
 
 breathe_projects_source = {
     "soil_simulator" : ("../src", ["soil_dynamics.hpp", "soil_dynamics.cpp"])
+}
 
 templates_path = ["_templates"]
 html_theme = "sphinx_rtd_theme"
