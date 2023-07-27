@@ -28,6 +28,7 @@ DecomposeVectorRectangle(
     std::vector<float> a_ind, int area_min_x, int area_min_y,
     int area_length_x, int area_length_y, float tol);
 
+// This function determines the cells where a triangle surface is located.
 std::vector<std::vector<int>> CalcTrianglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
     float delta, Grid grid, float tol);
