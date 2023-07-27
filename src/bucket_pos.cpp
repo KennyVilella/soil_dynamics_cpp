@@ -10,11 +10,254 @@ Copyright, 2023, Vilella Kenny.
 #include <vector>
 #include "src/bucket_pos.hpp"
 #include "src/types.hpp"
+#include "src/utils.hpp"
 
-void soil_simulator::CalcBucketPos() {
+void soil_simulator::CalcBucketPos(
+    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    Bucket bucket, SimParam sim_param, float tol
+) {
+    // Calculating position of the bucker vertices
+    auto j_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket.j_pos_init_);
+    auto b_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket.b_pos_init_);
+    auto t_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket.t_pos_init_);
+
+    // Unit vector normal to the side of the bucket
+    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
+
+    // Declaring vectors for each vertex of the bucket
+    std::vector<float> j_r_pos(3);
+    std::vector<float> j_l_pos(3);
+    std::vector<float> b_r_pos(3);
+    std::vector<float> b_l_pos(3);
+    std::vector<float> t_r_pos(3);
+    std::vector<float> t_l_pos(3);
+
+    for (auto ii = 0; ii < 3; ii++) {
+        // Adding position of the bucket origin
+        j_pos[ii] += pos[ii];
+        b_pos[ii] += pos[ii];
+        t_pos[ii] += pos[ii];
+
+        // Position of each vertex of the bucket
+        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket.width_ * normal_side[ii];
+        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket.width_ * normal_side[ii];
+        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket.width_ * normal_side[ii];
+        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket.width_ * normal_side[ii];
+        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket.width_ * normal_side[ii];
+        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket.width_ * normal_side[ii];
+
+        // Adding a small increment to all vertices
+        // This is to account for the edge case where one of the vertex is at
+        // cell border. In that case, the increment would remove any ambiguity
+        j_r_pos[ii] += tol * (
+            (j_l_pos[ii] - j_r_pos[ii]) + (b_r_pos[ii] - j_r_pos[ii]) +
+            (t_r_pos[ii] - j_r_pos[ii]));
+        j_l_pos[ii] += tol * (
+            (j_r_pos[ii] - j_l_pos[ii]) + (b_l_pos[ii] - j_l_pos[ii]) +
+            (t_l_pos[ii] - j_l_pos[ii]));
+        b_r_pos[ii] += tol * (
+            (b_l_pos[ii] - b_r_pos[ii]) + (j_r_pos[ii] - b_r_pos[ii]) +
+            (t_r_pos[ii] - b_r_pos[ii]));
+        b_l_pos[ii] += tol * (
+            (b_r_pos[ii] - b_l_pos[ii]) + (j_l_pos[ii] - b_l_pos[ii]) +
+            (t_l_pos[ii] - b_l_pos[ii]));
+        t_r_pos[ii] += tol * (
+            (t_l_pos[ii] - t_r_pos[ii]) + (j_r_pos[ii] - t_r_pos[ii]) +
+            (b_r_pos[ii] - t_r_pos[ii]));
+        t_l_pos[ii] += tol * (
+            (t_r_pos[ii] - t_l_pos[ii]) + (j_l_pos[ii] - t_l_pos[ii]) +
+            (b_l_pos[ii] - t_l_pos[ii]));
+    }
+
+    // Calculating the 2D bounding box of the bucket
+    float bucket_x_min = std::min({
+        j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
+    });
+    float bucket_x_max = std::max({
+        j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
+    });
+    float bucket_y_min = std::min({
+        j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
+    });
+    float bucket_y_max = std::max({
+        j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
+    });
+
+    // Updating bucket_area
+    sim_out.bucket_area_[0][0] = static_cast<int>(std::max(
+        round(bucket_x_min / grid.cell_size_xy_ +
+            grid.half_length_x_ - sim_param.cell_buffer_)
+        , 2.0));
+    sim_out.bucket_area_[0][1] = static_cast<int>(std::min(
+        round(bucket_x_max / grid.cell_size_xy_ +
+            grid.half_length_x_ + sim_param.cell_buffer_)
+        , 2.0 * grid.half_length_x_));
+    sim_out.bucket_area_[1][0] = static_cast<int>(std::max(
+        round(bucket_y_min / grid.cell_size_xy_ +
+            grid.half_length_y_ - sim_param.cell_buffer_)
+        , 2.0));
+    sim_out.bucket_area_[1][1] = static_cast<int>(std::min(
+        round(bucket_y_max / grid.cell_size_xy_ +
+            grid.half_length_y_ + sim_param.cell_buffer_)
+        , 2.0 * grid.half_length_y_));
+
+    // Determining where each surface of the bucket is located
+    auto base_pos = soil_simulator::CalcRectanglePos(
+        b_r_pos, b_l_pos, t_l_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+    auto back_pos = soil_simulator::CalcRectanglePos(
+        b_r_pos, b_l_pos, j_l_pos, j_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+    auto right_side_pos = soil_simulator::CalcTrianglePos(
+        j_r_pos, b_r_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+    auto left_side_pos = soil_simulator::CalcTrianglePos(
+        j_l_pos, b_l_pos, t_l_pos, 0.5 * grid.cell_size_z_, grid, tol);
+
+    // Sorting all list of cells indices where the bucket is located
+    sort(base_pos.begin(), base_pos.end());
+    sort(back_pos.begin(), back_pos.end());
+    sort(right_side_pos.begin(), right_side_pos.end());
+    sort(left_side_pos.begin(), left_side_pos.end());
+
+    // Reinitializing bucket position
+
+    // Updating the bucket position
 }
 
-void soil_simulator::CalcRectanglePos() {
+// The rectangle is defined by providing the Cartesian coordinates of its four
+// vertices in the proper order.
+//
+// To optimize performance, the function iterates over a portion of the
+// horizontal grid where the rectangle is located. For each cell, the function
+// calculates the height of the plane formed by the rectangle at the top right
+// corner of the cell. If the cell is within the rectangle area, the calcualted
+// height is added to the results for the four neighboring cells.
+//
+// This method works because when a plane intersects with a rectangular cell,
+// the minimum and maximum height of the plane within the cell occurs at one of
+// the cell corners. By iterating through all the cells, the function ensures
+// that all the corners of each cell are investigated.
+//
+// However, this approach does not work when the rectangle is perpendicular to
+// the XY plane. To handle this case, the function uses the `CalcLinePos`
+// function to include the cells that lie on the four edges of the rectangle.
+//
+// Note:
+// - The iteration is performed over the top right corner of each cell,
+//   but any other corner could have been chosen without affecting the results.
+// - Not all cells are provided, since, at a given XY position, only the cells
+//   with the minimum and maximum height are important.
+// - When the rectangle follows a cell border, the exact location of the
+//   rectangle becomes ambiguous. It is assumed that the caller resolves
+//   this ambiguity.
+std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    std::vector<float> d, float delta, Grid grid, float tol
+) {
+    // Converting the four rectangle vertices from position to indices
+    std::vector<float> a_ind(3, 0);
+    std::vector<float> b_ind(3, 0);
+    std::vector<float> c_ind(3, 0);
+    std::vector<float> d_ind(3, 0);
+    a_ind[0] = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    b_ind[0] = b[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    c_ind[0] = c[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    d_ind[0] = d[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    a_ind[1] = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    d_ind[1] = d[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
+    d_ind[2] = d[2] / grid.cell_size_z_ + grid.half_length_z_;
+
+    // Calculating the bounding box of the rectangle
+    int area_min_x = static_cast<int>(std::floor(
+        std::min({a_ind[0], b_ind[0], c_ind[0], d_ind[0]})));
+    int area_max_x = static_cast<int>(std::ceil(
+        std::max({a_ind[0], b_ind[0], c_ind[0], d_ind[0]})));
+    int area_min_y = static_cast<int>(std::floor(
+        std::min({a_ind[1], b_ind[1], c_ind[1], d_ind[1]})));
+    int area_max_y = static_cast<int>(std::ceil(
+        std::max({a_ind[1], b_ind[1], c_ind[1], d_ind[1]})));
+
+    // Calculating the lateral extent of the bounding box
+    int area_length_x = area_max_x - area_min_x;
+    int area_length_y = area_max_y - area_min_y;
+
+    // Calculating the basis formed by the rectangle
+    std::vector<float> ab(3, 0.0);
+    std::vector<float> ad(3, 0.0);
+    std::vector<float> ab_ind(3, 0);
+    std::vector<float> ad_ind(3, 0);
+    for (auto ii = 0; ii < 3; ii++) {
+       ab[ii] = b[ii] - a[ii];
+       ad[ii] = d[ii] - a[ii];
+    }
+    ab_ind[0] = ab[0] / grid.cell_size_xy_;
+    ad_ind[0] = ad[0] / grid.cell_size_xy_;
+    ab_ind[1] = ab[1] / grid.cell_size_xy_;
+    ad_ind[1] = ad[1] / grid.cell_size_xy_;
+    ab_ind[2] = ab[2] / grid.cell_size_z_;
+    ad_ind[2] = ad[2] / grid.cell_size_z_;
+
+    // Listing the cells inside the rectangle area
+    auto [c_ab, c_ad, in_rectangle, n_cell] =
+        soil_simulator::DecomposeVectorRectangle(
+            ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+            area_length_y, tol);
+
+    // Determining cells where inner portion of the rectangle area is located
+    std::vector<std::vector<int>> rect_pos;
+    rect_pos.resize(n_cell, std::vector<int>(3, 0));
+    int nn_cell = 0;
+    for (auto ii = area_min_x; ii < area_max_x; ii++)
+        for (auto jj = area_min_y; jj < area_max_y; jj++) {
+            // Calculating corresponding indices
+            int ii_s = ii - area_min_x;
+            int jj_s = jj - area_min_y;
+
+            if (in_rectangle[ii_s][jj_s] == true) {
+                // Cell is inside the rectangle area
+                // Calculating the height index of the rectangle at this corner
+                int kk = static_cast<int>(std::ceil(
+                    a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
+                    c_ad[ii_s][jj_s] * ad_ind[2]));
+
+                // Adding the four neighboring cells with the calculated height
+                rect_pos[nn_cell][0] = ii;
+                rect_pos[nn_cell][1] = jj;
+                rect_pos[nn_cell][2] = kk;
+                rect_pos[nn_cell + 1][0] = ii + 1;
+                rect_pos[nn_cell + 1][1] = jj;
+                rect_pos[nn_cell + 1][2] = kk;
+                rect_pos[nn_cell + 2][0] = ii;
+                rect_pos[nn_cell + 2][1] = jj + 1;
+                rect_pos[nn_cell + 2][2] = kk;
+                rect_pos[nn_cell + 3][0] = ii + 1;
+                rect_pos[nn_cell + 3][1] = jj + 1;
+                rect_pos[nn_cell + 3][2] = kk;
+
+                // Incrementing the index
+                nn_cell += 4;
+            }
+        }
+
+    // Determining the cells where the four edges of the rectangle are located
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
+    auto cd_pos = soil_simulator::CalcLinePos(c, d, delta, grid);
+    auto da_pos = soil_simulator::CalcLinePos(d, a, delta, grid);
+
+    // Concatenating all cells in rect_pos
+    rect_pos.insert(rect_pos.end(), ab_pos.begin(), ab_pos.end());
+    rect_pos.insert(rect_pos.end(), bc_pos.begin(), bc_pos.end());
+    rect_pos.insert(rect_pos.end(), cd_pos.begin(), cd_pos.end());
+    rect_pos.insert(rect_pos.end(), da_pos.begin(), da_pos.end());
+
+    return rect_pos;
 }
 
 // The position of the rectangle is defined by its edges AB and AD, while the
@@ -105,7 +348,133 @@ soil_simulator::DecomposeVectorRectangle(
     return {c_ab, c_ad, in_rectangle, n_cell};
 }
 
-void soil_simulator::CalcTrianglePos() {
+// The triangle is defined by providing the Cartesian coordinates of its three
+// vertices in the proper order.
+//
+// To optimize performance, the function iterates over a portion of the
+// horizontal grid where the triangle is located. For each cell, the function
+// calculates the height of the plane formed by the triangle at the top right
+// corner of the cell. If the cell is within the triangle area, the calcualted
+// height is added to the results for the four neighboring cells.
+//
+// This method works because when a plane intersects with a rectangular cell,
+// the minimum and maximum height of the plane within the cell occurs at one of
+// the cell corners. By iterating through all the cells, the function ensures
+// that all the corners of each cell are investigated.
+//
+// However, this approach does not work when the triangle is perpendicular to
+// the XY plane. To handle this case, the function uses the `CalcLinePos`
+// function to include the cells that lie on the three edges of the triangle.
+//
+// Note:
+// - The iteration is performed over the top right corner of each cell,
+//   but any other corner could have been chosen without affecting the results.
+// - Not all cells are provided, since, at a given XY position, only the cells
+//   with the minimum and maximum height are important.
+// - When the triangle follows a cell border, the exact location of the
+//   triangle becomes ambiguous. It is assumed that the caller resolves
+//   this ambiguity.
+std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    float delta, Grid grid, float tol
+) {
+    // Converting the three triangle vertices from position to indices
+    std::vector<float> a_ind(3, 0);
+    std::vector<float> b_ind(3, 0);
+    std::vector<float> c_ind(3, 0);
+    a_ind[0] = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    b_ind[0] = b[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    c_ind[0] = c[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    a_ind[1] = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
+
+    // Calculating the bounding box of the triangle
+    int area_min_x = static_cast<int>(std::floor(
+        std::min({a_ind[0], b_ind[0], c_ind[0]})));
+    int area_max_x = static_cast<int>(std::ceil(
+        std::max({a_ind[0], b_ind[0], c_ind[0]})));
+    int area_min_y = static_cast<int>(std::floor(
+        std::min({a_ind[1], b_ind[1], c_ind[1]})));
+    int area_max_y = static_cast<int>(std::ceil(
+        std::max({a_ind[1], b_ind[1], c_ind[1]})));
+
+    // Calculating the lateral extent of the bounding box
+    int area_length_x = area_max_x - area_min_x;
+    int area_length_y = area_max_y - area_min_y;
+
+    // Calculating the basis formed by the triangle
+    std::vector<float> ab(3, 0.0);
+    std::vector<float> ac(3, 0.0);
+    std::vector<float> ab_ind(3, 0);
+    std::vector<float> ac_ind(3, 0);
+    for (auto ii = 0; ii < 3; ii++) {
+       ab[ii] = b[ii] - a[ii];
+       ac[ii] = c[ii] - a[ii];
+    }
+    ab_ind[0] = ab[0] / grid.cell_size_xy_;
+    ac_ind[0] = ac[0] / grid.cell_size_xy_;
+    ab_ind[1] = ab[1] / grid.cell_size_xy_;
+    ac_ind[1] = ac[1] / grid.cell_size_xy_;
+    ab_ind[2] = ab[2] / grid.cell_size_z_;
+    ac_ind[2] = ac[2] / grid.cell_size_z_;
+
+    // Listing the cells inside the triangle area
+    auto [c_ab, c_ac, in_triangle, n_cell] =
+        soil_simulator::DecomposeVectorTriangle(
+            ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
+            area_length_y, tol);
+
+    // Determining cells where inner portion of the triangle area is located
+    std::vector<std::vector<int>> tri_pos;
+    tri_pos.resize(n_cell, std::vector<int>(3, 0));
+    int nn_cell = 0;
+    for (auto ii = area_min_x; ii < area_max_x; ii++)
+        for (auto jj = area_min_y; jj < area_max_y; jj++) {
+            // Calculating corresponding indices
+            int ii_s = ii - area_min_x;
+            int jj_s = jj - area_min_y;
+
+            if (in_triangle[ii_s][jj_s] == true) {
+                // Cell is inside the triangle area
+                // Calculating the height index of the triangle at this corner
+                int kk = static_cast<int>(std::ceil(
+                    a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
+                    c_ac[ii_s][jj_s] * ac_ind[2]));
+
+                // Adding the four neighboring cells with the calculated height
+                tri_pos[nn_cell][0] = ii;
+                tri_pos[nn_cell][1] = jj;
+                tri_pos[nn_cell][2] = kk;
+                tri_pos[nn_cell + 1][0] = ii + 1;
+                tri_pos[nn_cell + 1][1] = jj;
+                tri_pos[nn_cell + 1][2] = kk;
+                tri_pos[nn_cell + 2][0] = ii;
+                tri_pos[nn_cell + 2][1] = jj + 1;
+                tri_pos[nn_cell + 2][2] = kk;
+                tri_pos[nn_cell + 3][0] = ii + 1;
+                tri_pos[nn_cell + 3][1] = jj + 1;
+                tri_pos[nn_cell + 3][2] = kk;
+
+                // Incrementing the index
+                nn_cell += 4;
+            }
+        }
+
+    // Determining the cells where the three edges of the triangle are located
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
+    auto ca_pos = soil_simulator::CalcLinePos(c, a, delta, grid);
+
+    // Concatenating all cells in tri_pos
+    tri_pos.insert(tri_pos.end(), ab_pos.begin(), ab_pos.end());
+    tri_pos.insert(tri_pos.end(), bc_pos.begin(), bc_pos.end());
+    tri_pos.insert(tri_pos.end(), ca_pos.begin(), ca_pos.end());
+
+    return tri_pos;
 }
 
 // The position of the triangle is defined by its edges AB and AC, while the

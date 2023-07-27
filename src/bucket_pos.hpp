@@ -11,9 +11,14 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
-void CalcBucketPos();
+void CalcBucketPos(
+    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    Bucket bucket, SimParam sim_param, float tol);
 
-void CalcRectanglePos();
+// This function determines the cells where a rectangle surface is located.
+std::vector<std::vector<int>> CalcRectanglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    std::vector<float> d, float delta, Grid grid, float tol);
 
 // This function performs a vector decomposition on a portion of the horizontal
 // plane where a rectangle ABCD is located.
@@ -25,7 +30,10 @@ DecomposeVectorRectangle(
     std::vector<float> a_ind, int area_min_x, int area_min_y,
     int area_length_x, int area_length_y, float tol);
 
-void CalcTrianglePos();
+// This function determines the cells where a triangle surface is located.
+std::vector<std::vector<int>> CalcTrianglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    float delta, Grid grid, float tol);
 
 // This function performs a vector decomposition on a portion of the horizontal
 // plane where a tritangle ABC is located.
