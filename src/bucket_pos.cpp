@@ -10,8 +10,119 @@ Copyright, 2023, Vilella Kenny.
 #include <vector>
 #include "src/bucket_pos.hpp"
 #include "src/types.hpp"
+#include "src/utils.hpp"
 
-void soil_simulator::CalcBucketPos() {
+void soil_simulator::CalcBucketPos(
+    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    Bucket bucket, SimParam sim_param, float tol
+) {
+    // Calculating position of the bucker vertices
+    auto j_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket.j_pos_init_);
+    auto b_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket.b_pos_init_);
+    auto t_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket.t_pos_init_);
+
+    // Unit vector normal to the side of the bucket
+    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
+
+    // Declaring vectors for each vertex of the bucket
+    std::vector<float> j_r_pos(3);
+    std::vector<float> j_l_pos(3);
+    std::vector<float> b_r_pos(3);
+    std::vector<float> b_l_pos(3);
+    std::vector<float> t_r_pos(3);
+    std::vector<float> t_l_pos(3);
+
+    for (auto ii = 0; ii < 3; ii++) {
+        // Adding position of the bucket origin
+        j_pos[ii] += pos[ii];
+        b_pos[ii] += pos[ii];
+        t_pos[ii] += pos[ii];
+
+        // Position of each vertex of the bucket
+        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket.width_ * normal_side[ii];
+        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket.width_ * normal_side[ii];
+        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket.width_ * normal_side[ii];
+        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket.width_ * normal_side[ii];
+        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket.width_ * normal_side[ii];
+        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket.width_ * normal_side[ii];
+
+        // Adding a small increment to all vertices
+        // This is to account for the edge case where one of the vertex is at
+        // cell border. In that case, the increment would remove any ambiguity
+        j_r_pos[ii] += tol * (
+            (j_l_pos[ii] - j_r_pos[ii]) + (b_r_pos[ii] - j_r_pos[ii]) +
+            (t_r_pos[ii] - j_r_pos[ii]));
+        j_l_pos[ii] += tol * (
+            (j_r_pos[ii] - j_l_pos[ii]) + (b_l_pos[ii] - j_l_pos[ii]) +
+            (t_l_pos[ii] - j_l_pos[ii]));
+        b_r_pos[ii] += tol * (
+            (b_l_pos[ii] - b_r_pos[ii]) + (j_r_pos[ii] - b_r_pos[ii]) +
+            (t_r_pos[ii] - b_r_pos[ii]));
+        b_l_pos[ii] += tol * (
+            (b_r_pos[ii] - b_l_pos[ii]) + (j_l_pos[ii] - b_l_pos[ii]) +
+            (t_l_pos[ii] - b_l_pos[ii]));
+        t_r_pos[ii] += tol * (
+            (t_l_pos[ii] - t_r_pos[ii]) + (j_r_pos[ii] - t_r_pos[ii]) +
+            (b_r_pos[ii] - t_r_pos[ii]));
+        t_l_pos[ii] += tol * (
+            (t_r_pos[ii] - t_l_pos[ii]) + (j_l_pos[ii] - t_l_pos[ii]) +
+            (b_l_pos[ii] - t_l_pos[ii]));
+    }
+
+    // Calculating the 2D bounding box of the bucket
+    float bucket_x_min = std::min({
+        j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
+    });
+    float bucket_x_max = std::max({
+        j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
+    });
+    float bucket_y_min = std::min({
+        j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
+    });
+    float bucket_y_max = std::max({
+        j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
+    });
+
+    // Updating bucket_area
+    sim_out.bucket_area_[0][0] = static_cast<int>(std::max(
+        round(bucket_x_min / grid.cell_size_xy_ +
+            grid.half_length_x_ - sim_param.cell_buffer_)
+        , 2.0));
+    sim_out.bucket_area_[0][1] = static_cast<int>(std::min(
+        round(bucket_x_max / grid.cell_size_xy_ +
+            grid.half_length_x_ + sim_param.cell_buffer_)
+        , 2.0 * grid.half_length_x_));
+    sim_out.bucket_area_[1][0] = static_cast<int>(std::max(
+        round(bucket_y_min / grid.cell_size_xy_ +
+            grid.half_length_y_ - sim_param.cell_buffer_)
+        , 2.0));
+    sim_out.bucket_area_[1][1] = static_cast<int>(std::min(
+        round(bucket_y_max / grid.cell_size_xy_ +
+            grid.half_length_y_ + sim_param.cell_buffer_)
+        , 2.0 * grid.half_length_y_));
+
+    // Determining where each surface of the bucket is located
+    auto base_pos = soil_simulator::CalcRectanglePos(
+        b_r_pos, b_l_pos, t_l_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+    auto back_pos = soil_simulator::CalcRectanglePos(
+        b_r_pos, b_l_pos, j_l_pos, j_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+    auto right_side_pos = soil_simulator::CalcTrianglePos(
+        j_r_pos, b_r_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+    auto left_side_pos = soil_simulator::CalcTrianglePos(
+        j_l_pos, b_l_pos, t_l_pos, 0.5 * grid.cell_size_z_, grid, tol);
+
+    // Sorting all list of cells indices where the bucket is located
+    sort(base_pos.begin(), base_pos.end());
+    sort(back_pos.begin(), back_pos.end());
+    sort(right_side_pos.begin(), right_side_pos.end());
+    sort(left_side_pos.begin(), left_side_pos.end());
+
+    // Reinitializing bucket position
+
+    // Updating the bucket position
 }
 
 // The rectangle is defined by providing the Cartesian coordinates of its four

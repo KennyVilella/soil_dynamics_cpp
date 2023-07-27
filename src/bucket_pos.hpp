@@ -11,7 +11,9 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
-void CalcBucketPos();
+void CalcBucketPos(
+    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    Bucket bucket, SimParam sim_param, float tol);
 
 // This function determines the cells where a rectangle surface is located.
 std::vector<std::vector<int>> CalcRectanglePos(
