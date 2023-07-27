@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classsoil__simulator_1_1_soil_dynamics" kind="class" language="C++" prot="public">
+    <compoundname>soil_simulator::SoilDynamics</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::SoilDynamics::init</definition>
+        <argsstring>()</argsstring>
+        <name>init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="12" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::SoilDynamics::step</definition>
+        <argsstring>()</argsstring>
+        <name>step</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="13" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="10" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::SoilDynamics::check</definition>
+        <argsstring>()</argsstring>
+        <name>check</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="14" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="13" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::SoilDynamics::WriteOutputs</definition>
+        <argsstring>()</argsstring>
+        <name>WriteOutputs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="15" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="16" bodyend="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="10" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" bodystart="10" bodyend="16"/>
+    <listofallmembers>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>check</name></member>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>init</name></member>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>step</name></member>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>WriteOutputs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

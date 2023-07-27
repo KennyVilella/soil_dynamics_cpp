@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacesoil__simulator" kind="namespace" language="C++">
+    <compoundname>soil_simulator</compoundname>
+    <innerclass refid="classsoil__simulator_1_1_soil_dynamics" prot="public">soil_simulator::SoilDynamics</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="8" column="1"/>
+  </compounddef>
+</doxygen>
