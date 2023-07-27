@@ -28,7 +28,9 @@ DecomposeVectorRectangle(
     std::vector<float> a_ind, int area_min_x, int area_min_y,
     int area_length_x, int area_length_y, float tol);
 
-void CalcTrianglePos();
+std::vector<std::vector<int>> CalcTrianglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    float delta, Grid grid, float tol);
 
 // This function performs a vector decomposition on a portion of the horizontal
 // plane where a tritangle ABC is located.

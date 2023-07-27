@@ -237,7 +237,107 @@ soil_simulator::DecomposeVectorRectangle(
     return {c_ab, c_ad, in_rectangle, n_cell};
 }
 
-void soil_simulator::CalcTrianglePos() {
+std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c,
+    float delta, Grid grid, float tol
+) {
+    // Converting the three triangle vertices from position to indices
+    std::vector<float> a_ind(3, 0);
+    std::vector<float> b_ind(3, 0);
+    std::vector<float> c_ind(3, 0);
+    a_ind[0] = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    b_ind[0] = b[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    c_ind[0] = c[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    a_ind[1] = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
+
+    // Calculating the bounding box of the triangle
+    int area_min_x = static_cast<int>(std::floor(
+        std::min({a_ind[0], b_ind[0], c_ind[0]})));
+    int area_max_x = static_cast<int>(std::ceil(
+        std::max({a_ind[0], b_ind[0], c_ind[0]})));
+    int area_min_y = static_cast<int>(std::floor(
+        std::min({a_ind[1], b_ind[1], c_ind[1]})));
+    int area_max_y = static_cast<int>(std::ceil(
+        std::max({a_ind[1], b_ind[1], c_ind[1]})));
+
+    // Calculating the lateral extent of the bounding box
+    int area_length_x = area_max_x - area_min_x;
+    int area_length_y = area_max_y - area_min_y;
+
+    // Calculating the basis formed by the triangle
+    std::vector<float> ab(3, 0.0);
+    std::vector<float> ac(3, 0.0);
+    std::vector<float> ab_ind(3, 0);
+    std::vector<float> ac_ind(3, 0);
+    for (auto ii = 0; ii < 3; ii++) {
+       ab[ii] = b[ii] - a[ii];
+       ac[ii] = c[ii] - a[ii];
+    }
+    ab_ind[0] = ab[0] / grid.cell_size_xy_;
+    ac_ind[0] = ac[0] / grid.cell_size_xy_;
+    ab_ind[1] = ab[1] / grid.cell_size_xy_;
+    ac_ind[1] = ac[1] / grid.cell_size_xy_;
+    ab_ind[2] = ab[2] / grid.cell_size_z_;
+    ac_ind[2] = ac[2] / grid.cell_size_z_;
+
+    // Listing the cells inside the triangle area
+    auto [c_ab, c_ac, in_triangle, n_cell] =
+        soil_simulator::DecomposeVectorTriangle(
+            ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
+            area_length_y, tol);
+
+    // Determining cells where inner portion of the triangle area is located
+    std::vector<std::vector<int>> tri_pos;
+    tri_pos.resize(n_cell, std::vector<int>(3, 0));
+    int nn_cell = 0;
+    for (auto ii = area_min_x; ii < area_max_x; ii++)
+        for (auto jj = area_min_y; jj < area_max_y; jj++) {
+            // Calculating corresponding indices
+            int ii_s = ii - area_min_x;
+            int jj_s = jj - area_min_y;
+
+            if (in_triangle[ii_s][jj_s] == true) {
+                // Cell is inside the triangle area
+                // Calculating the height index of the triangle at this corner
+                int kk = static_cast<int>(std::ceil(
+                    a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
+                    c_ac[ii_s][jj_s] * ac_ind[2]));
+
+                // Adding the four neighboring cells with the calculated height
+                tri_pos[nn_cell][0] = ii;
+                tri_pos[nn_cell][1] = jj;
+                tri_pos[nn_cell][2] = kk;
+                tri_pos[nn_cell + 1][0] = ii + 1;
+                tri_pos[nn_cell + 1][1] = jj;
+                tri_pos[nn_cell + 1][2] = kk;
+                tri_pos[nn_cell + 2][0] = ii;
+                tri_pos[nn_cell + 2][1] = jj + 1;
+                tri_pos[nn_cell + 2][2] = kk;
+                tri_pos[nn_cell + 3][0] = ii + 1;
+                tri_pos[nn_cell + 3][1] = jj + 1;
+                tri_pos[nn_cell + 3][2] = kk;
+
+                // Incrementing the index
+                nn_cell += 4;
+            }
+        }
+
+    // Determining the cells where the three edges of the triangle are located
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
+    auto ca_pos = soil_simulator::CalcLinePos(c, a, delta, grid);
+
+    // Concatenating all cells in tri_pos
+    tri_pos.insert(tri_pos.end(), ab_pos.begin(), ab_pos.end());
+    tri_pos.insert(tri_pos.end(), bc_pos.begin(), bc_pos.end());
+    tri_pos.insert(tri_pos.end(), ca_pos.begin(), ca_pos.end());
+
+    return tri_pos;
 }
 
 // The position of the triangle is defined by its edges AB and AC, while the
