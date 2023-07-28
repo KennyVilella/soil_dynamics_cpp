@@ -628,6 +628,10 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     return line_pos;
 }
 
+// For each XY position, the first cell found in `area_pos` corresponds to
+// the minimum height of the bucket, while the last one provides the maximum
+// height. As a result, this function must be called separately for each bucket
+// wall and `area_pos` must be sorted.
 void soil_simulator::UpdateBody(
     std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid, float tol
 ) {
@@ -662,6 +666,11 @@ void soil_simulator::UpdateBody(
     soil_simulator::IncludeNewBodyPos(sim_out, ii, jj, min_h, max_h, tol);
 }
 
+// The minimum and maximum heights of the bucket at that position are given by
+// `min_h` and `max_h`, respectively.
+// If the given position overlaps with an existing position, then the existing
+// position is updated as the union of the two positions. Otherwise, a new
+// position is added to `body_`.
 void soil_simulator::IncludeNewBodyPos(
     SimOut* sim_out, int ii, int jj, float min_h, float max_h, float tol
 ) {

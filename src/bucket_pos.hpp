@@ -50,9 +50,13 @@ DecomposeVectorTriangle(
 std::vector<std::vector<int>> CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta, Grid grid);
 
+// This function updates the bucket position in `body` following the cells
+// composing `area_pos`.
 void UpdateBody(std::vector<std::vector<int>> area_pos, SimOut* sim_out,
     Grid grid, float tol);
 
+// This function updates the bucket position in `body` at the
+// coordinates (`ii`, `jj`).
 void IncludeNewBodyPos(SimOut* sim_out, int ii, int jj, float min_h, float max_h,
     float tol);
 
