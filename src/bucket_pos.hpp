@@ -11,6 +11,7 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
+// This function determines all the cells where the bucket is located.
 void CalcBucketPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket bucket, SimParam sim_param, float tol);

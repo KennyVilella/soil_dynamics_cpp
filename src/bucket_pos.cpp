@@ -13,6 +13,12 @@ Copyright, 2023, Vilella Kenny.
 #include "src/types.hpp"
 #include "src/utils.hpp"
 
+// The bucket position is calculated based on its reference pose stored in
+// the `Bucket` class, as well as the provided position (`pos`) and orientation
+// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
+// rotation to the bucket relative to its reference pose. The center of rotation
+// is assumed to be the bucket origin. The orientation is provided using the
+// quaternion definition.
 void soil_simulator::CalcBucketPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket bucket, SimParam sim_param, float tol
