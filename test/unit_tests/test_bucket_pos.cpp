@@ -1656,4 +1656,103 @@ TEST(UnitTestBucketPos, UpdateBody) {
 }
 
 TEST(UnitTestBucketPos, CalcBucketPos) {
+    // Setting up
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimParam sim_param(0.785, 4, 4);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // -- Testing for a bucket in the XZ plane --
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.5, 0.01, 0.0};
+    std::vector<float> t_pos = {0.5, 0.0, 0.0};
+    soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
+    std::vector<float> ori = {1.0, 0.0, 0.0, 0.0};
+    std::vector<float> pos = {0.0, 0.0, 0.0};
+    soil_simulator::CalcBucketPos(
+        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][11][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][11][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][12][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][12][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][13][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][13][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][14][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][14][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][15][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][15][10], 0.3, 1.e-5);
+    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
+    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
+    EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
+    EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
+    // Checking that other cells have not been modified
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
+                if (not (((ii == 0) || (ii == 1)) &&
+                    (kk == 10) && (jj < 16) && (jj > 9)))
+                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+      
+    // -- Testing for a bucket in the XY plane --
+    b_pos = {0.5, 0.0, -0.01};
+    t_pos = {0.5, 0.0, 0.0};
+    soil_simulator::Bucket bucket_2(o_pos, j_pos, b_pos, t_pos, 0.5);
+    soil_simulator::CalcBucketPos(
+        sim_out, pos, ori, grid, bucket_2, sim_param, 1.e-5);
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
+                if (((ii == 0) || (ii == 1)) &&
+                    (jj < 16) && (jj > 9) && (kk < 13) && (kk > 7))
+                    if (ii == 0)
+                        EXPECT_NEAR(sim_out->body_[ii][jj][kk], -0.1, 1.e-5);
+                    else
+                        EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+                else
+                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
+    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
+    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
+    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+
+    // -- Testing for a bucket in a dummy position --
+    b_pos = {0.0, 0.0, -0.5};
+    t_pos = {0.5, 0.0, -0.5};
+    soil_simulator::Bucket bucket_3(o_pos, j_pos, b_pos, t_pos, 0.5);
+    ori = {0.707107, 0.0, -0.707107, 0.0};  // -pi/2 rotation around the Y axis
+    pos = {0.0, 0.0, -0.1};
+    soil_simulator::CalcBucketPos(
+        sim_out, pos, ori, grid, bucket_3, sim_param, 1.e-5);
+    for (auto jj = 5; jj < 11; jj++)
+        for (auto kk = 8; kk < 13; kk++)
+            EXPECT_NEAR(sim_out->body_[1][jj][kk], -0.1, 1.e-5);
+    for (auto kk = 8; kk < 13; kk++) {
+        EXPECT_NEAR(sim_out->body_[0][5][kk], -0.6, 1.e-5);
+        EXPECT_NEAR(sim_out->body_[0][10][kk], -0.2, 1.e-5);
+    }
+    for (auto jj = 6; jj < 10; jj++)
+        for (auto kk = 9; kk < 12; kk++)
+            EXPECT_NEAR(sim_out->body_[0][jj][kk], -0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][8], -0.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][12], -0.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][8], -0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][12], -0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][8], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][12], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][8], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][12], -0.3, 1.e-5);
+    EXPECT_EQ(sim_out->bucket_area_[0][0], 1);
+    EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
+    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
+    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
+                if (not (((ii == 0) || (ii == 1)) &&
+                    (jj < 11) && (jj > 4) && (kk < 13) && (kk > 7)))
+                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+
+    delete sim_out;
 }
