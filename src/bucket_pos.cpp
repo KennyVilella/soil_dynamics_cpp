@@ -6,6 +6,7 @@ Copyright, 2023, Vilella Kenny.
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <stdexcept>
 #include <tuple>
 #include <vector>
 #include "src/bucket_pos.hpp"
@@ -627,8 +628,105 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     return line_pos;
 }
 
-void soil_simulator::UpdateBody() {
+void soil_simulator::UpdateBody(
+    std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid, float tol
+) {
+
+    // Initializing cell position and height
+    int ii = area_pos[0][0];
+    int jj = area_pos[0][1];
+    float min_h = grid.vect_z_[area_pos[0][2]] - grid.cell_size_z_;
+    float max_h = grid.vect_z_[area_pos[0][2]];
+
+    // Iterating over all cells in area_pos
+    for (auto nn = 0; nn < area_pos.size(); nn++) {
+        if ((ii != area_pos[nn][0]) || (jj != area_pos[nn][1])) {
+            // New XY position ###
+            // Updating bucket position for the previous XY position
+            soil_simulator::IncludeNewBodyPos(
+                sim_out, ii, jj, min_h, max_h, tol);
+
+            // Initializing new cell position and height
+            min_h = grid.vect_z_[area_pos[nn][2]] - grid.cell_size_z_;
+            max_h = grid.vect_z_[area_pos[nn][2]];
+            ii = area_pos[nn][0];
+            jj = area_pos[nn][1];
+        } else {
+            // New height for the XY position
+            // Updating maximum height
+            max_h = grid.vect_z_[area_pos[nn][2]];
+        }
+    }
+
+    // Updating bucket position for the last XY position
+    soil_simulator::IncludeNewBodyPos(sim_out, ii, jj, min_h, max_h, tol);
 }
 
-void soil_simulator::IncludeNewBodyPos() {
+void soil_simulator::IncludeNewBodyPos(
+    SimOut* sim_out, int ii, int jj, float min_h, float max_h, float tol
+) {
+    std::vector<int> status(2);
+    // Iterating over the two bucket layers and storing their status
+    for (auto nn = 0; nn < 2; nn++) {
+        int ind = 2 * nn;
+        if (
+            (sim_out->body_[ind][ii][jj] == 0.0) &&
+            (sim_out->body_[ind+1][ii][jj] == 0.0)) {
+            // No existing position
+            status[nn] = 0;
+        } else if (
+            (min_h - tol < sim_out->body_[ind][ii][jj]) &&
+            (max_h + tol > sim_out->body_[ind][ii][jj])) {
+            // New position is overlapping with an existing position
+            status[nn] = 1;
+        } else if (
+            (min_h - tol < sim_out->body_[ind+1][ii][jj]) &&
+            (max_h + tol > sim_out->body_[ind+1][ii][jj])) {
+            // New position is overlapping with an existing position
+            status[nn] = 1;
+        } else if (
+            (min_h + tol > sim_out->body_[ind][ii][jj]) &&
+            (max_h - tol < sim_out->body_[ind+1][ii][jj])
+        ) {
+            // New position is within an existing position
+            return;
+        } else {
+            // New position is not overlapping with the two existing positions
+            status[nn] = -1;
+        }
+    }
+
+    // Updating the bucket position
+    if ((status[0] == 1) && (status[1] == 1)) {
+        // New position is overlapping with the two existing positions
+        sim_out->body_[0][ii][jj] = std::min(
+            {sim_out->body_[0][ii][jj], sim_out->body_[2][ii][jj], min_h});
+        sim_out->body_[1][ii][jj] = std::max(
+            {sim_out->body_[1][ii][jj], sim_out->body_[3][ii][jj], max_h});
+
+        // Resetting obsolete bucket position
+        sim_out->body_[2][ii][jj] = 0.0;
+        sim_out->body_[3][ii][jj] = 0.0;
+    } else if (status[0] == 1) {
+        // New position is overlapping with an existing position
+        sim_out->body_[0][ii][jj] = std::min(sim_out->body_[0][ii][jj], min_h);
+        sim_out->body_[1][ii][jj] = std::max(sim_out->body_[1][ii][jj], max_h);
+    } else if (status[1] == 1) {
+        // New position is overlapping with an existing position
+        sim_out->body_[2][ii][jj] = std::min(sim_out->body_[2][ii][jj], min_h);
+        sim_out->body_[3][ii][jj] = std::max(sim_out->body_[3][ii][jj], max_h);
+    } else if (status[0] == 0) {
+        // No existing position
+        sim_out->body_[0][ii][jj] = min_h;
+        sim_out->body_[1][ii][jj] = max_h;
+    } else if (status[1] == 0) {
+        // No existing position
+        sim_out->body_[2][ii][jj] = min_h;
+        sim_out->body_[3][ii][jj] = max_h;
+    } else {
+        // New position is not overlapping with the two existing positions
+        // This should not happen and indicates a problem in the workflow
+        throw std::runtime_error("Try to update body, but given position does"
+            "not overlap with two existing ones");
+    }
 }
