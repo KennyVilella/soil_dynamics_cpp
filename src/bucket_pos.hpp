@@ -12,7 +12,7 @@ Copyright, 2023, Vilella Kenny.
 namespace soil_simulator {
 
 void CalcBucketPos(
-    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket bucket, SimParam sim_param, float tol);
 
 // This function determines the cells where a rectangle surface is located.
@@ -57,7 +57,7 @@ void UpdateBody(std::vector<std::vector<int>> area_pos, SimOut* sim_out,
 
 // This function updates the bucket position in `body` at the
 // coordinates (`ii`, `jj`).
-void IncludeNewBodyPos(SimOut* sim_out, int ii, int jj, float min_h, float max_h,
-    float tol);
+void IncludeNewBodyPos(SimOut* sim_out, int ii, int jj, float min_h,
+    float max_h, float tol);
 
 }  // namespace soil_simulator

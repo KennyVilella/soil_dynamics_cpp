@@ -14,7 +14,7 @@ Copyright, 2023, Vilella Kenny.
 #include "src/utils.hpp"
 
 void soil_simulator::CalcBucketPos(
-    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket bucket, SimParam sim_param, float tol
 ) {
     // Calculating position of the bucker vertices
@@ -88,19 +88,19 @@ void soil_simulator::CalcBucketPos(
     });
 
     // Updating bucket_area
-    sim_out.bucket_area_[0][0] = static_cast<int>(std::max(
+    sim_out->bucket_area_[0][0] = static_cast<int>(std::max(
         round(bucket_x_min / grid.cell_size_xy_ +
             grid.half_length_x_ - sim_param.cell_buffer_)
-        , 2.0));
-    sim_out.bucket_area_[0][1] = static_cast<int>(std::min(
+        , 1.0));
+    sim_out->bucket_area_[0][1] = static_cast<int>(std::min(
         round(bucket_x_max / grid.cell_size_xy_ +
             grid.half_length_x_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_x_));
-    sim_out.bucket_area_[1][0] = static_cast<int>(std::max(
+    sim_out->bucket_area_[1][0] = static_cast<int>(std::max(
         round(bucket_y_min / grid.cell_size_xy_ +
             grid.half_length_y_ - sim_param.cell_buffer_)
-        , 2.0));
-    sim_out.bucket_area_[1][1] = static_cast<int>(std::min(
+        , 1.0));
+    sim_out->bucket_area_[1][1] = static_cast<int>(std::min(
         round(bucket_y_max / grid.cell_size_xy_ +
             grid.half_length_y_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_y_));
@@ -122,8 +122,17 @@ void soil_simulator::CalcBucketPos(
     sort(left_side_pos.begin(), left_side_pos.end());
 
     // Reinitializing bucket position
+    for (auto ii = 0 ; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0 ; jj < sim_out->body_[0].size(); jj++)
+            std::fill(
+                sim_out->body_[ii][jj].begin(), sim_out->body_[ii][jj].end(),
+                0.0);
 
     // Updating the bucket position
+    soil_simulator::UpdateBody(base_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(back_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(right_side_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(left_side_pos, sim_out, grid, tol);
 }
 
 // The rectangle is defined by providing the Cartesian coordinates of its four
@@ -633,9 +642,9 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
 // height. As a result, this function must be called separately for each bucket
 // wall and `area_pos` must be sorted.
 void soil_simulator::UpdateBody(
-    std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid, float tol
+    std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid,
+    float tol
 ) {
-
     // Initializing cell position and height
     int ii = area_pos[0][0];
     int jj = area_pos[0][1];
