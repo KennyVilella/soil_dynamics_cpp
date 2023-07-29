@@ -28,3 +28,4 @@ html_theme = "sphinx_rtd_theme"
 # Whitelist pattern for tags and branches used for multi-versioning
 smv_tag_whitelist = r"^v\d+\.\d+\.\d+$"
 smv_branch_whitelist = r"^(main)$"
+smv_remote_whitelist = r'^(origin|upstream)$'
