@@ -1460,3 +1460,301 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking cells
     EXPECT_TRUE((tri_pos[0] == std::vector<int> {15, 15, 15}));
 }
+
+TEST(UnitTestBucketPos, IncludeNewBodyPos) {
+    // Setting a dummy body
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    sim_out->body_[0][6][9] = 1.0;
+    sim_out->body_[1][6][9] = 2.0;
+    sim_out->body_[0][8][11] = 0.5;
+    sim_out->body_[1][8][11] = 0.6;
+    sim_out->body_[2][8][11] = 0.8;
+    sim_out->body_[3][8][11] = 0.9;
+    sim_out->body_[2][9][8] = 1.2;
+    sim_out->body_[3][9][8] = 1.4;
+
+    // -- Testing to add a position when there is no existing position --
+    soil_simulator::IncludeNewBodyPos(sim_out, 5, 5, 0.1, 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][5][5], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][5][5], 0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][5][5], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][5][5], 0.0, 1.e-5);
+
+    // -- Testing to add a position distinct from existing positions (1) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 0.1, 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 1.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.2, 1.e-5);
+
+    // -- Testing to add a position distinct from existing positions (2) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 9, 8, 1.6, 1.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][8], 1.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][8], 1.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][9][8], 1.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][9][8], 1.4, 1.e-5);
+
+    // -- Testing to add a position overlapping with existing position (1) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 0.2, 0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 1.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.4, 1.e-5);
+
+    // -- Testing to add a position overlapping with existing position (2) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, -0.2, 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 1.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.4, 1.e-5);
+
+    // -- Testing to add a position overlapping with existing position (3) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 2.0, 2.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 1.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.4, 1.e-5);
+
+    // -- Testing to add a position overlapping with existing position (4) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 0.7, 1.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 0.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.4, 1.e-5);
+
+    // -- Testing to add a position overlapping with existing position (5) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, -0.4, 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 0.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.6, 1.e-5);
+
+    // -- Testing to add a position overlapping with two existing positions --
+    soil_simulator::IncludeNewBodyPos(sim_out, 8, 11, 0.6, 0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][11], 0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][8][11], 0.9, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][8][11], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][8][11], 0.0, 1.e-5);
+
+    // -- Testing to add a position within an existing position (1) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 0.9, 2.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 0.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.6, 1.e-5);
+
+    // -- Testing to add a position within an existing position (2) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, -0.4, 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 0.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 2.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.6, 1.e-5);
+
+    // -- Testing to add a position within an existing position (3) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 5, 5, 0.1, 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][5][5], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][5][5], 0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][5][5], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][5][5], 0.0, 1.e-5);
+
+    // -- Testing to add a position within an existing position (4) --
+    soil_simulator::IncludeNewBodyPos(sim_out, 5, 5, 0.15, 0.18, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][5][5], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][5][5], 0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][5][5], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][5][5], 0.0, 1.e-5);
+
+    // -- Testing that incorrect request throws an error --
+    EXPECT_THROW(
+        soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 3.0, 3.1, 1e-5),
+        std::runtime_error);
+
+    delete sim_out;
+}
+
+TEST(UnitTestBucketPos, UpdateBody) {
+    // Setting up
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // -- Testing for a first bucket wall --
+    std::vector<std::vector<int>> area_pos(9);
+    area_pos[0] = std::vector<int> {5, 5, 10};
+    area_pos[1] = std::vector<int> {5, 5, 14};
+    area_pos[2] = std::vector<int> {6, 6, 16};
+    area_pos[3] = std::vector<int> {7, 11, 10};
+    area_pos[4] = std::vector<int> {7, 11, 11};
+    area_pos[5] = std::vector<int> {7, 12, 11};
+    area_pos[6] = std::vector<int> {7, 12, 12};
+    area_pos[7] = std::vector<int> {7, 13, 10};
+    area_pos[8] = std::vector<int> {10, 10, 10};
+    soil_simulator::UpdateBody(area_pos, sim_out, grid, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][5][5], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][5][5], 0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][6], 0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][6], 0.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][11], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][7][11], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][12], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][7][12], 0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][13], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][7][13], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.0, 1.e-5);
+
+    // -- Testing for a second bucket wall --
+    std::vector<std::vector<int>> area_pos_2(10);
+    area_pos_2[0] = std::vector<int> {4, 4, 10};
+    area_pos_2[1] = std::vector<int> {5, 5, 14};
+    area_pos_2[2] = std::vector<int> {6, 6, 9};
+    area_pos_2[3] = std::vector<int> {7, 11, 11};
+    area_pos_2[4] = std::vector<int> {7, 11, 14};
+    area_pos_2[5] = std::vector<int> {7, 12, 8};
+    area_pos_2[6] = std::vector<int> {7, 12, 11};
+    area_pos_2[7] = std::vector<int> {7, 13, 8};
+    area_pos_2[8] = std::vector<int> {7, 13, 13};
+    area_pos_2[9] = std::vector<int> {10, 10, 12};
+    soil_simulator::UpdateBody(area_pos_2, sim_out, grid, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][4][4], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][4][4], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][5][5], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][5][5], 0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][6], 0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][6], 0.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][6], -0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][6], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][11], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][7][11], 0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][12], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][7][12], 0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][13], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][7][13], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][10][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][10][10], 0.2, 1.e-5);
+
+    // -- Testing for a third bucket wall --
+    std::vector<std::vector<int>> area_pos_3(2);
+    area_pos_3[0] = std::vector<int> {6, 6, 7};
+    area_pos_3[1] = std::vector<int> {6, 6, 18};
+    soil_simulator::UpdateBody(area_pos_3, sim_out, grid, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][6], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][6], 0.8, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][6], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][6], 0.0, 1.e-5);
+
+    // -- Testing that incorrect request throws an error --
+    std::vector<std::vector<int>> area_pos_4(1);
+    area_pos_4[0] = std::vector<int> {10, 10, 14};
+    EXPECT_THROW(
+        soil_simulator::UpdateBody(area_pos_4, sim_out, grid, 1e-5),
+        std::runtime_error);
+
+    delete sim_out;
+}
+
+TEST(UnitTestBucketPos, CalcBucketPos) {
+    // Setting up
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimParam sim_param(0.785, 4, 4);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // -- Testing for a bucket in the XZ plane --
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.5, 0.01, 0.0};
+    std::vector<float> t_pos = {0.5, 0.0, 0.0};
+    soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
+    std::vector<float> ori = {1.0, 0.0, 0.0, 0.0};
+    std::vector<float> pos = {0.0, 0.0, 0.0};
+    soil_simulator::CalcBucketPos(
+        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][11][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][11][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][12][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][12][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][13][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][13][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][14][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][14][10], 0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][15][10], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][15][10], 0.3, 1.e-5);
+    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
+    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
+    EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
+    EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
+    // Checking that other cells have not been modified
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
+                if (!(((ii == 0) || (ii == 1)) &&
+                    (kk == 10) && (jj < 16) && (jj > 9)))
+                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+            }
+    // -- Testing for a bucket in the XY plane --
+    b_pos = {0.5, 0.0, -0.01};
+    t_pos = {0.5, 0.0, 0.0};
+    soil_simulator::Bucket bucket_2(o_pos, j_pos, b_pos, t_pos, 0.5);
+    soil_simulator::CalcBucketPos(
+        sim_out, pos, ori, grid, bucket_2, sim_param, 1.e-5);
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
+                if (((ii == 0) || (ii == 1)) &&
+                    (jj < 16) && (jj > 9) && (kk < 13) && (kk > 7)) {
+                    if (ii == 0)
+                        EXPECT_NEAR(sim_out->body_[ii][jj][kk], -0.1, 1.e-5);
+                    else
+                        EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+                } else {
+                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+                }
+    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
+    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
+    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
+    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+
+    // -- Testing for a bucket in a dummy position --
+    b_pos = {0.0, 0.0, -0.5};
+    t_pos = {0.5, 0.0, -0.5};
+    soil_simulator::Bucket bucket_3(o_pos, j_pos, b_pos, t_pos, 0.5);
+    ori = {0.707107, 0.0, -0.707107, 0.0};  // -pi/2 rotation around the Y axis
+    pos = {0.0, 0.0, -0.1};
+    soil_simulator::CalcBucketPos(
+        sim_out, pos, ori, grid, bucket_3, sim_param, 1.e-5);
+    for (auto jj = 5; jj < 11; jj++)
+        for (auto kk = 8; kk < 13; kk++)
+            EXPECT_NEAR(sim_out->body_[1][jj][kk], -0.1, 1.e-5);
+    for (auto kk = 8; kk < 13; kk++) {
+        EXPECT_NEAR(sim_out->body_[0][5][kk], -0.6, 1.e-5);
+        EXPECT_NEAR(sim_out->body_[0][10][kk], -0.2, 1.e-5);
+    }
+    for (auto jj = 6; jj < 10; jj++)
+        for (auto kk = 9; kk < 12; kk++)
+            EXPECT_NEAR(sim_out->body_[0][jj][kk], -0.2, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][8], -0.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][12], -0.6, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][8], -0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][7][12], -0.5, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][8], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][12], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][8], -0.3, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][12], -0.3, 1.e-5);
+    EXPECT_EQ(sim_out->bucket_area_[0][0], 1);
+    EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
+    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
+    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
+                if (!(((ii == 0) || (ii == 1)) &&
+                    (jj < 11) && (jj > 4) && (kk < 13) && (kk > 7)))
+                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+            }
+
+    delete sim_out;
+}

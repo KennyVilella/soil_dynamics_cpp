@@ -6,14 +6,21 @@ Copyright, 2023, Vilella Kenny.
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <stdexcept>
 #include <tuple>
 #include <vector>
 #include "src/bucket_pos.hpp"
 #include "src/types.hpp"
 #include "src/utils.hpp"
 
+// The bucket position is calculated based on its reference pose stored in
+// the `Bucket` class, as well as the provided position (`pos`) and orientation
+// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
+// rotation to the bucket relative to its reference pose. The center of rotation
+// is assumed to be the bucket origin. The orientation is provided using the
+// quaternion definition.
 void soil_simulator::CalcBucketPos(
-    SimOut sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket bucket, SimParam sim_param, float tol
 ) {
     // Calculating position of the bucker vertices
@@ -87,19 +94,19 @@ void soil_simulator::CalcBucketPos(
     });
 
     // Updating bucket_area
-    sim_out.bucket_area_[0][0] = static_cast<int>(std::max(
+    sim_out->bucket_area_[0][0] = static_cast<int>(std::max(
         round(bucket_x_min / grid.cell_size_xy_ +
             grid.half_length_x_ - sim_param.cell_buffer_)
-        , 2.0));
-    sim_out.bucket_area_[0][1] = static_cast<int>(std::min(
+        , 1.0));
+    sim_out->bucket_area_[0][1] = static_cast<int>(std::min(
         round(bucket_x_max / grid.cell_size_xy_ +
             grid.half_length_x_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_x_));
-    sim_out.bucket_area_[1][0] = static_cast<int>(std::max(
+    sim_out->bucket_area_[1][0] = static_cast<int>(std::max(
         round(bucket_y_min / grid.cell_size_xy_ +
             grid.half_length_y_ - sim_param.cell_buffer_)
-        , 2.0));
-    sim_out.bucket_area_[1][1] = static_cast<int>(std::min(
+        , 1.0));
+    sim_out->bucket_area_[1][1] = static_cast<int>(std::min(
         round(bucket_y_max / grid.cell_size_xy_ +
             grid.half_length_y_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_y_));
@@ -121,8 +128,17 @@ void soil_simulator::CalcBucketPos(
     sort(left_side_pos.begin(), left_side_pos.end());
 
     // Reinitializing bucket position
+    for (auto ii = 0 ; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0 ; jj < sim_out->body_[0].size(); jj++)
+            std::fill(
+                sim_out->body_[ii][jj].begin(), sim_out->body_[ii][jj].end(),
+                0.0);
 
     // Updating the bucket position
+    soil_simulator::UpdateBody(base_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(back_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(right_side_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(left_side_pos, sim_out, grid, tol);
 }
 
 // The rectangle is defined by providing the Cartesian coordinates of its four
@@ -627,8 +643,114 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     return line_pos;
 }
 
-void soil_simulator::UpdateBody() {
+// For each XY position, the first cell found in `area_pos` corresponds to
+// the minimum height of the bucket, while the last one provides the maximum
+// height. As a result, this function must be called separately for each bucket
+// wall and `area_pos` must be sorted.
+void soil_simulator::UpdateBody(
+    std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid,
+    float tol
+) {
+    // Initializing cell position and height
+    int ii = area_pos[0][0];
+    int jj = area_pos[0][1];
+    float min_h = grid.vect_z_[area_pos[0][2]] - grid.cell_size_z_;
+    float max_h = grid.vect_z_[area_pos[0][2]];
+
+    // Iterating over all cells in area_pos
+    for (auto nn = 0; nn < area_pos.size(); nn++) {
+        if ((ii != area_pos[nn][0]) || (jj != area_pos[nn][1])) {
+            // New XY position ###
+            // Updating bucket position for the previous XY position
+            soil_simulator::IncludeNewBodyPos(
+                sim_out, ii, jj, min_h, max_h, tol);
+
+            // Initializing new cell position and height
+            min_h = grid.vect_z_[area_pos[nn][2]] - grid.cell_size_z_;
+            max_h = grid.vect_z_[area_pos[nn][2]];
+            ii = area_pos[nn][0];
+            jj = area_pos[nn][1];
+        } else {
+            // New height for the XY position
+            // Updating maximum height
+            max_h = grid.vect_z_[area_pos[nn][2]];
+        }
+    }
+
+    // Updating bucket position for the last XY position
+    soil_simulator::IncludeNewBodyPos(sim_out, ii, jj, min_h, max_h, tol);
 }
 
-void soil_simulator::IncludeNewBodyPos() {
+// The minimum and maximum heights of the bucket at that position are given by
+// `min_h` and `max_h`, respectively.
+// If the given position overlaps with an existing position, then the existing
+// position is updated as the union of the two positions. Otherwise, a new
+// position is added to `body_`.
+void soil_simulator::IncludeNewBodyPos(
+    SimOut* sim_out, int ii, int jj, float min_h, float max_h, float tol
+) {
+    std::vector<int> status(2);
+    // Iterating over the two bucket layers and storing their status
+    for (auto nn = 0; nn < 2; nn++) {
+        int ind = 2 * nn;
+        if (
+            (sim_out->body_[ind][ii][jj] == 0.0) &&
+            (sim_out->body_[ind+1][ii][jj] == 0.0)) {
+            // No existing position
+            status[nn] = 0;
+        } else if (
+            (min_h - tol < sim_out->body_[ind][ii][jj]) &&
+            (max_h + tol > sim_out->body_[ind][ii][jj])) {
+            // New position is overlapping with an existing position
+            status[nn] = 1;
+        } else if (
+            (min_h - tol < sim_out->body_[ind+1][ii][jj]) &&
+            (max_h + tol > sim_out->body_[ind+1][ii][jj])) {
+            // New position is overlapping with an existing position
+            status[nn] = 1;
+        } else if (
+            (min_h + tol > sim_out->body_[ind][ii][jj]) &&
+            (max_h - tol < sim_out->body_[ind+1][ii][jj])
+        ) {
+            // New position is within an existing position
+            return;
+        } else {
+            // New position is not overlapping with the two existing positions
+            status[nn] = -1;
+        }
+    }
+
+    // Updating the bucket position
+    if ((status[0] == 1) && (status[1] == 1)) {
+        // New position is overlapping with the two existing positions
+        sim_out->body_[0][ii][jj] = std::min(
+            {sim_out->body_[0][ii][jj], sim_out->body_[2][ii][jj], min_h});
+        sim_out->body_[1][ii][jj] = std::max(
+            {sim_out->body_[1][ii][jj], sim_out->body_[3][ii][jj], max_h});
+
+        // Resetting obsolete bucket position
+        sim_out->body_[2][ii][jj] = 0.0;
+        sim_out->body_[3][ii][jj] = 0.0;
+    } else if (status[0] == 1) {
+        // New position is overlapping with an existing position
+        sim_out->body_[0][ii][jj] = std::min(sim_out->body_[0][ii][jj], min_h);
+        sim_out->body_[1][ii][jj] = std::max(sim_out->body_[1][ii][jj], max_h);
+    } else if (status[1] == 1) {
+        // New position is overlapping with an existing position
+        sim_out->body_[2][ii][jj] = std::min(sim_out->body_[2][ii][jj], min_h);
+        sim_out->body_[3][ii][jj] = std::max(sim_out->body_[3][ii][jj], max_h);
+    } else if (status[0] == 0) {
+        // No existing position
+        sim_out->body_[0][ii][jj] = min_h;
+        sim_out->body_[1][ii][jj] = max_h;
+    } else if (status[1] == 0) {
+        // No existing position
+        sim_out->body_[2][ii][jj] = min_h;
+        sim_out->body_[3][ii][jj] = max_h;
+    } else {
+        // New position is not overlapping with the two existing positions
+        // This should not happen and indicates a problem in the workflow
+        throw std::runtime_error("Try to update body, but given position does"
+            "not overlap with two existing ones");
+    }
 }
