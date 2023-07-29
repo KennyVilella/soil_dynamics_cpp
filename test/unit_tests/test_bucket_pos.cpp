@@ -1690,11 +1690,11 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     // Checking that other cells have not been modified
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
-            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
-                if (not (((ii == 0) || (ii == 1)) &&
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
+                if (!(((ii == 0) || (ii == 1)) &&
                     (kk == 10) && (jj < 16) && (jj > 9)))
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
-      
+            }
     // -- Testing for a bucket in the XY plane --
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
@@ -1705,13 +1705,14 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
             for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
                 if (((ii == 0) || (ii == 1)) &&
-                    (jj < 16) && (jj > 9) && (kk < 13) && (kk > 7))
+                    (jj < 16) && (jj > 9) && (kk < 13) && (kk > 7)) {
                     if (ii == 0)
                         EXPECT_NEAR(sim_out->body_[ii][jj][kk], -0.1, 1.e-5);
                     else
                         EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
-                else
+                } else {
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+                }
     EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
@@ -1749,10 +1750,11 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
-            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
-                if (not (((ii == 0) || (ii == 1)) &&
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
+                if (!(((ii == 0) || (ii == 1)) &&
                     (jj < 11) && (jj > 4) && (kk < 13) && (kk > 7)))
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
+            }
 
     delete sim_out;
 }
