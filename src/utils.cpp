@@ -30,8 +30,8 @@ std::vector <float> soil_simulator::CalcNormal(
     return normal;
 }
 
-// The mathematical reasoning behind this implementation can be easily found
-// in the Wiki page of Quaternion or elsewhere.
+/// The mathematical reasoning behind this implementation can be easily found
+/// in the Wiki page of Quaternion or elsewhere.
 std::vector <float> soil_simulator::CalcRotationQuaternion(
     std::vector <float> ori, std::vector <float> pos
 ) {
@@ -51,8 +51,8 @@ std::vector <float> soil_simulator::CalcRotationQuaternion(
     return {quat[1], quat[2], quat[3]};
 }
 
-// The mathematical reasoning behind this implementation can be easily found
-// in the Wiki page of Quaternion or elsewhere.
+/// The mathematical reasoning behind this implementation can be easily found
+/// in the Wiki page of Quaternion or elsewhere.
 std::vector <float> soil_simulator::MultiplyQuaternion(
     std::vector <float> q1, std::vector <float> q2
 ) {
