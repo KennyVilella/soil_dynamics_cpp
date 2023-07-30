@@ -43,10 +43,10 @@ std::vector <float> soil_simulator::CalcRotationQuaternion(
         -ori[1] / norm_ori,
         -ori[2] / norm_ori,
         -ori[3] / norm_ori};
-    std::vector <float> new_pos = {0.0, pos[0], pos[1], pos[2]};
+    std::vector <float> temp_pos = {0.0, pos[0], pos[1], pos[2]};
 
     // Calculating rotation
-    auto temp_quat = soil_simulator::MultiplyQuaternion(conj_ori, new_pos);
+    auto temp_quat = soil_simulator::MultiplyQuaternion(conj_ori, temp_pos);
     auto quat = soil_simulator::MultiplyQuaternion(temp_quat, ori);
     return {quat[1], quat[2], quat[3]};
 }
