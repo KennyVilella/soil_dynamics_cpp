@@ -5,9 +5,6 @@ API
 
 A doxygen documentation is available for all the files of the simulator.
 
-Contents
---------
-
 .. toctree::
    :maxdepth: 1
    :hidden:
