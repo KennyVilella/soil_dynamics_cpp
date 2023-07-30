@@ -13,12 +13,12 @@ Copyright, 2023, Vilella Kenny.
 #include "src/types.hpp"
 #include "src/utils.hpp"
 
-// The bucket position is calculated based on its reference pose stored in
-// the `Bucket` class, as well as the provided position (`pos`) and orientation
-// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
-// rotation to the bucket relative to its reference pose. The center of rotation
-// is assumed to be the bucket origin. The orientation is provided using the
-// quaternion definition.
+/// The bucket position is calculated based on its reference pose stored in
+/// the `Bucket` class, as well as the provided position (`pos`) and orientation
+/// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
+/// rotation to the bucket relative to its reference pose. The center of
+/// rotation is assumed to be the bucket origin. The orientation is provided
+/// using the quaternion definition.
 void soil_simulator::CalcBucketPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket bucket, SimParam sim_param, float tol
@@ -141,32 +141,32 @@ void soil_simulator::CalcBucketPos(
     soil_simulator::UpdateBody(left_side_pos, sim_out, grid, tol);
 }
 
-// The rectangle is defined by providing the Cartesian coordinates of its four
-// vertices in the proper order.
-//
-// To optimize performance, the function iterates over a portion of the
-// horizontal grid where the rectangle is located. For each cell, the function
-// calculates the height of the plane formed by the rectangle at the top right
-// corner of the cell. If the cell is within the rectangle area, the calcualted
-// height is added to the results for the four neighboring cells.
-//
-// This method works because when a plane intersects with a rectangular cell,
-// the minimum and maximum height of the plane within the cell occurs at one of
-// the cell corners. By iterating through all the cells, the function ensures
-// that all the corners of each cell are investigated.
-//
-// However, this approach does not work when the rectangle is perpendicular to
-// the XY plane. To handle this case, the function uses the `CalcLinePos`
-// function to include the cells that lie on the four edges of the rectangle.
-//
-// Note:
-// - The iteration is performed over the top right corner of each cell,
-//   but any other corner could have been chosen without affecting the results.
-// - Not all cells are provided, since, at a given XY position, only the cells
-//   with the minimum and maximum height are important.
-// - When the rectangle follows a cell border, the exact location of the
-//   rectangle becomes ambiguous. It is assumed that the caller resolves
-//   this ambiguity.
+/// The rectangle is defined by providing the Cartesian coordinates of its four
+/// vertices in the proper order.
+///
+/// To optimize performance, the function iterates over a portion of the
+/// horizontal grid where the rectangle is located. For each cell, the function
+/// calculates the height of the plane formed by the rectangle at the top right
+/// corner of the cell. If the cell is within the rectangle area, the calcualted
+/// height is added to the results for the four neighboring cells.
+///
+/// This method works because when a plane intersects with a rectangular cell,
+/// the minimum and maximum height of the plane within the cell occurs at one of
+/// the cell corners. By iterating through all the cells, the function ensures
+/// that all the corners of each cell are investigated.
+///
+/// However, this approach does not work when the rectangle is perpendicular to
+/// the XY plane. To handle this case, the function uses the `CalcLinePos`
+/// function to include the cells that lie on the four edges of the rectangle.
+///
+/// Note:
+/// - The iteration is performed over the top right corner of each cell,
+///   but any other corner could have been chosen without affecting the results.
+/// - Not all cells are provided, since, at a given XY position, only the cells
+///   with the minimum and maximum height are important.
+/// - When the rectangle follows a cell border, the exact location of the
+///   rectangle becomes ambiguous. It is assumed that the caller resolves
+///   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
     std::vector<float> d, float delta, Grid grid, float tol
@@ -276,41 +276,41 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     return rect_pos;
 }
 
-// The position of the rectangle is defined by its edges AB and AD, while the
-// specified area extends over [`area_min_x`, `area_min_x + area_length_x`]
-// on the X direction and [`area_min_y`, `area_min_y + area_length_y`] on
-// the Y direction.
-//
-// For each cell in the specified area, the function decomposes it into the
-// basis formed by the vectors AB and AD. Let O be the name of a cell, it can
-// then be decomposed as
-//
-//   AO = c_ab * AB + c_ad * AD.
-//
-// This decomposition leads to a system of 2 equations with
-// 2 unknowns (c_ab and c_ad)
-//
-//   AO[1] = c_ab * AB[1] + c_ad * AD[1] {1},
-//   AO[2] = c_ab * AB[2] + c_ad * AD[2] {2}.
-//
-// One may note that AB[1] * {2} - AB[2] * {1} implies that
-//
-//   AB[1] * AO[2] - AB[2] * AO[1] = c_ad * AD[2] * AB[1] - c_ad * AD[1] * AB[2]
-//
-// that can be further rewritten as
-//
-//   c_ad = (AB[1] * AO[2] - AB[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
-//
-// Similarly, AD[1] * {2} - AD[2] * {1} implies that
-//
-//   c_ab = -(AD[1] * AO[2] - AD[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
-//
-// This decomposition allows us to determine whether the cell O is inside the
-// rectangle area, since this requires c_ab and c_ad to be between 0 and 1.
-//
-// Note:
-// By convention, the decomposition is done at the top right corner of
-// each cell.
+/// The position of the rectangle is defined by its edges AB and AD, while the
+/// specified area extends over [`area_min_x`, `area_min_x + area_length_x`]
+/// on the X direction and [`area_min_y`, `area_min_y + area_length_y`] on
+/// the Y direction.
+///
+/// For each cell in the specified area, the function decomposes it into the
+/// basis formed by the vectors AB and AD. Let O be the name of a cell, it can
+/// then be decomposed as
+///
+///   AO = c_ab * AB + c_ad * AD.
+///
+/// This decomposition leads to a system of 2 equations with
+/// 2 unknowns (c_ab and c_ad)
+///
+///   AO[1] = c_ab * AB[1] + c_ad * AD[1] {1},
+///   AO[2] = c_ab * AB[2] + c_ad * AD[2] {2}.
+///
+/// One may note that AB[1] * {2} - AB[2] * {1} implies that
+///
+///  AB[1] * AO[2] - AB[2] * AO[1] = c_ad * AD[2] * AB[1] - c_ad * AD[1] * AB[2]
+///
+/// that can be further rewritten as
+///
+///   c_ad = (AB[1] * AO[2] - AB[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
+///
+/// Similarly, AD[1] * {2} - AD[2] * {1} implies that
+///
+///   c_ab = -(AD[1] * AO[2] - AD[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
+///
+/// This decomposition allows us to determine whether the cell O is inside the
+/// rectangle area, since this requires c_ab and c_ad to be between 0 and 1.
+///
+/// Note:
+/// By convention, the decomposition is done at the top right corner of
+/// each cell.
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>,
     std::vector<std::vector<bool>>, int>
@@ -364,32 +364,32 @@ soil_simulator::DecomposeVectorRectangle(
     return {c_ab, c_ad, in_rectangle, n_cell};
 }
 
-// The triangle is defined by providing the Cartesian coordinates of its three
-// vertices in the proper order.
-//
-// To optimize performance, the function iterates over a portion of the
-// horizontal grid where the triangle is located. For each cell, the function
-// calculates the height of the plane formed by the triangle at the top right
-// corner of the cell. If the cell is within the triangle area, the calcualted
-// height is added to the results for the four neighboring cells.
-//
-// This method works because when a plane intersects with a rectangular cell,
-// the minimum and maximum height of the plane within the cell occurs at one of
-// the cell corners. By iterating through all the cells, the function ensures
-// that all the corners of each cell are investigated.
-//
-// However, this approach does not work when the triangle is perpendicular to
-// the XY plane. To handle this case, the function uses the `CalcLinePos`
-// function to include the cells that lie on the three edges of the triangle.
-//
-// Note:
-// - The iteration is performed over the top right corner of each cell,
-//   but any other corner could have been chosen without affecting the results.
-// - Not all cells are provided, since, at a given XY position, only the cells
-//   with the minimum and maximum height are important.
-// - When the triangle follows a cell border, the exact location of the
-//   triangle becomes ambiguous. It is assumed that the caller resolves
-//   this ambiguity.
+/// The triangle is defined by providing the Cartesian coordinates of its three
+/// vertices in the proper order.
+///
+/// To optimize performance, the function iterates over a portion of the
+/// horizontal grid where the triangle is located. For each cell, the function
+/// calculates the height of the plane formed by the triangle at the top right
+/// corner of the cell. If the cell is within the triangle area, the calcualted
+/// height is added to the results for the four neighboring cells.
+///
+/// This method works because when a plane intersects with a rectangular cell,
+/// the minimum and maximum height of the plane within the cell occurs at one of
+/// the cell corners. By iterating through all the cells, the function ensures
+/// that all the corners of each cell are investigated.
+///
+/// However, this approach does not work when the triangle is perpendicular to
+/// the XY plane. To handle this case, the function uses the `CalcLinePos`
+/// function to include the cells that lie on the three edges of the triangle.
+///
+/// Note:
+/// - The iteration is performed over the top right corner of each cell,
+///   but any other corner could have been chosen without affecting the results.
+/// - Not all cells are provided, since, at a given XY position, only the cells
+///   with the minimum and maximum height are important.
+/// - When the triangle follows a cell border, the exact location of the
+///   triangle becomes ambiguous. It is assumed that the caller resolves
+///   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
     float delta, Grid grid, float tol
@@ -493,42 +493,42 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     return tri_pos;
 }
 
-// The position of the triangle is defined by its edges AB and AC, while the
-// specified area extends over [`area_min_x`, `area_min_x + area_length_x`]
-// on the X direction and [`area_min_y`, `area_min_y + area_length_y`] on the
-// Y direction.
-//
-// For each cell in the specified area, the function decomposes it into the
-// basis formed by the vectors AB and AC. Let O be the name of a cell, it can
-// then be decomposed as
-//
-//   AO = c_ab * AB + c_ac * AC.
-//
-// This decomposition leads to a system of 2 equations with
-// 2 unknowns (c_ab and c_ac)
-//
-//   AO[1] = c_ab * AB[1] + c_ac * AC[1] {1},
-//   AO[2] = c_ab * AB[2] + c_ac * AC[2] {2}.
-//
-// One may note that AB[1] * {2} - AB[2] * {1} implies that
-//
-//   AB[1] * AO[2] - AB[2] * AO[1] = c_ac * AC[2] * AB[1] - c_ac * AC[1] * AB[2]
-//
-// that can be further rewritten as
-//
-//   c_ac = (AB[1] * AO[2] - AB[2] * AO[1]) / (AC[2] * AB[1] - AC[1] * AB[2]).
-//
-// Similarly, AC[1] * {2} - AC[2] * {1} implies that
-//
-//   c_ab = -(AC[1] * AO[2] - AC[2] * AO[1]) / (AC[2] * AB[1] - AC[1] * AB[2]).
-//
-// This decomposition allows us to determine whether the cell O is inside the
-// triangle area, since this requires c_ab and c_ac to be between 0 and 1,
-// and the sum of c_ab and c_ac to be lower than 1.
-//
-// Note:
-// By convention, the decomposition is done at the top right corner of
-// each cell.
+/// The position of the triangle is defined by its edges AB and AC, while the
+/// specified area extends over [`area_min_x`, `area_min_x + area_length_x`]
+/// on the X direction and [`area_min_y`, `area_min_y + area_length_y`] on the
+/// Y direction.
+///
+/// For each cell in the specified area, the function decomposes it into the
+/// basis formed by the vectors AB and AC. Let O be the name of a cell, it can
+/// then be decomposed as
+///
+///   AO = c_ab * AB + c_ac * AC.
+///
+/// This decomposition leads to a system of 2 equations with
+/// 2 unknowns (c_ab and c_ac)
+///
+///   AO[1] = c_ab * AB[1] + c_ac * AC[1] {1},
+///   AO[2] = c_ab * AB[2] + c_ac * AC[2] {2}.
+///
+/// One may note that AB[1] * {2} - AB[2] * {1} implies that
+///
+///  AB[1] * AO[2] - AB[2] * AO[1] = c_ac * AC[2] * AB[1] - c_ac * AC[1] * AB[2]
+///
+/// that can be further rewritten as
+///
+///   c_ac = (AB[1] * AO[2] - AB[2] * AO[1]) / (AC[2] * AB[1] - AC[1] * AB[2]).
+///
+/// Similarly, AC[1] * {2} - AC[2] * {1} implies that
+///
+///   c_ab = -(AC[1] * AO[2] - AC[2] * AO[1]) / (AC[2] * AB[1] - AC[1] * AB[2]).
+///
+/// This decomposition allows us to determine whether the cell O is inside the
+/// triangle area, since this requires c_ab and c_ac to be between 0 and 1,
+/// and the sum of c_ab and c_ac to be lower than 1.
+///
+/// Note:
+/// By convention, the decomposition is done at the top right corner of
+/// each cell.
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>,
     std::vector<std::vector<bool>>, int>
@@ -582,28 +582,28 @@ soil_simulator::DecomposeVectorTriangle(
     return {c_ab, c_ac, in_triangle, n_cell};
 }
 
-// For the sake of accuracy, the line is divided into smaller segments using a
-// spatial increment `delta`.
-//
-// The coordinates of each sub-point (ab_i) along the line can then be
-// calculated as
-//
-//    ab_i = a + ab * i * delta / norm(ab)
-//
-// where i is the increment number and ab = b - a.
-// The Cartesian coordinates can then be converted into indices
-//
-//    ab_i_ind = ab_i / cell_size + grid_half_length + 1
-//
-// Finally, the floating-point values are rounded to obtain the cell indices in
-// the X, Y, Z directions.
-// As the center of each cell is considered to be on the center of the top
-// surface, `round` should be used for getting the cell indices in the X and Y
-// direction, while `ceil` should be used for the Z direction.
-//
-// Note:
-// When the line follows a cell border, the exact location of the line becomes
-// ambiguous. It is assumed that the caller resolves this ambiguity.
+/// For the sake of accuracy, the line is divided into smaller segments using a
+/// spatial increment `delta`.
+///
+/// The coordinates of each sub-point (ab_i) along the line can then be
+/// calculated as
+///
+///    ab_i = a + ab * i * delta / norm(ab)
+///
+/// where i is the increment number and ab = b - a.
+/// The Cartesian coordinates can then be converted into indices
+///
+///    ab_i_ind = ab_i / cell_size + grid_half_length + 1
+///
+/// Finally, the floating-point values are rounded to obtain the cell indices in
+/// the X, Y, Z directions.
+/// As the center of each cell is considered to be on the center of the top
+/// surface, `round` should be used for getting the cell indices in the X and Y
+/// direction, while `ceil` should be used for the Z direction.
+///
+/// Note:
+/// When the line follows a cell border, the exact location of the line becomes
+/// ambiguous. It is assumed that the caller resolves this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     std::vector<float> a, std::vector<float> b, float delta,
     Grid grid
@@ -643,10 +643,10 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     return line_pos;
 }
 
-// For each XY position, the first cell found in `area_pos` corresponds to
-// the minimum height of the bucket, while the last one provides the maximum
-// height. As a result, this function must be called separately for each bucket
-// wall and `area_pos` must be sorted.
+/// For each XY position, the first cell found in `area_pos` corresponds to
+/// the minimum height of the bucket, while the last one provides the maximum
+/// height. As a result, this function must be called separately for each bucket
+/// wall and `area_pos` must be sorted.
 void soil_simulator::UpdateBody(
     std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid,
     float tol
@@ -681,11 +681,11 @@ void soil_simulator::UpdateBody(
     soil_simulator::IncludeNewBodyPos(sim_out, ii, jj, min_h, max_h, tol);
 }
 
-// The minimum and maximum heights of the bucket at that position are given by
-// `min_h` and `max_h`, respectively.
-// If the given position overlaps with an existing position, then the existing
-// position is updated as the union of the two positions. Otherwise, a new
-// position is added to `body_`.
+/// The minimum and maximum heights of the bucket at that position are given by
+/// `min_h` and `max_h`, respectively.
+/// If the given position overlaps with an existing position, then the existing
+/// position is updated as the union of the two positions. Otherwise, a new
+/// position is added to `body_`.
 void soil_simulator::IncludeNewBodyPos(
     SimOut* sim_out, int ii, int jj, float min_h, float max_h, float tol
 ) {
