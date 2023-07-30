@@ -36,8 +36,8 @@ std::vector <float> CalcRotationQuaternion(
 
 /// \brief This function calculates the product of two Quaternions.
 ///
-/// \param First quaternion. [Quaternion]
-/// \param Second quaternion. [Quaternion]
+/// \param q1: First quaternion. [Quaternion]
+/// \param q2: Second quaternion. [Quaternion]
 ///
 /// \return Product of the two inputs quaternions. [Quaternion]
 std::vector <float> MultiplyQuaternion(
