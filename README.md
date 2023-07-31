@@ -18,7 +18,6 @@ The primary objective of the simulator is to provide terrain updates in less tha
 There are several important features that are yet to be implemented.
 These include, in order of priority:
 
-- Update of bucket soil: Implement movement of bucket soil following the bucket movement.
 - Intersecting cells: Implement the movement of soil cells intersecting with a bucket wall.
 - Terrain relaxation: Implement the relaxation of the terrain.
 - Bucket soil relaxation: Implement the relaxation of soil on the bucket.
@@ -27,3 +26,5 @@ These include, in order of priority:
 - Multiple digging buckets: Add support for simulating the behavior of multiple digging buckets simultaneously.
 - Force calculation: Incorporate force calculation methods for better integration with rigid body engines.
 - Heterogeneous soil properties: Extend the simulator to handle soil properties that vary across the terrain.
+
+[docs-main]: https://kennyvilella.github.io/soil_dynamics_cpp/
