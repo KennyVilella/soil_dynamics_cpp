@@ -97,7 +97,8 @@ class Grid {
      ///
      /// Requirements:
      /// - All inputs should be greater than zero.
-     /// - cell_size_xy should be lower than or equal to grid_size_x and grid_size_y.
+     /// - cell_size_xy should be lower than or equal to grid_size_x and
+     ///   grid_size_y.
      /// - cell_size_z should be lower than or equal to grid_size_z.
      ///
      /// \param grid_size_x: Half size of the grid in the X direction. [m]
@@ -205,7 +206,8 @@ class Bucket {
      ///
      /// Requirements:
      /// - All provided Cartesian coordinates should be a vector of size 3.
-     /// - The bucket joint, base and teeth should have strictly different location.
+     /// - The bucket joint, base and teeth should have strictly different
+     ///   location.
      /// - The bucket width should be greater than zero.
      ///
      /// \param o_pos_init: Cartesian coordinates of the bucket origin in its
@@ -289,10 +291,10 @@ class SimParam {
 /// - For each bucket, there can be only two distinct bucket walls located at
 ///   the same XY position. As a result, the number of layers in the `body_`
 ///   vector should be equal to four times the number of bucket.
-/// - Similarly, `body_soil_` stores the location of the soil resting on a bucket
-///   wall. The structure of `body_soil_` is identical to `body_`. An additionnal
-///   restriction is that the minimum height of the soil resting on the bucket
-///   must correspond to the maximum height of a bucket wall.
+/// - Similarly, `body_soil_` stores the location of the soil resting on a
+///   bucket wall. The structure of `body_soil_` is identical to `body_`. An
+///   additionnal restriction is that the minimum height of the soil resting on
+///   the bucket must correspond to the maximum height of a bucket wall.
 /// - The locations where there is soil resting on the bucket are stored in
 ///   `body_soil_pos_` as 3-elements vectors. The first element corresponds to
 ///   the index where the minimum height of the soil is stored, while the second
@@ -352,7 +354,8 @@ class SimOut {
 
      /// \brief Create a new instance of `SimOut`.
      ///
-     /// \param grid: Class that stores information related to the simulation grid.
+     /// \param grid: Class that stores information related to the simulation
+     ///              grid.
      explicit SimOut(Grid grid);
 
      /// \brief Destructor
