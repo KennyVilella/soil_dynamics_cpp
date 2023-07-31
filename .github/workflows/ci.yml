@@ -11,8 +11,8 @@ on:
 
 
 jobs:
-  tests:
-    name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
+  build:
+    name: Build || C++ - ${{ matrix.os }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -37,6 +37,29 @@ jobs:
           cd test/unit_tests/
           cpplint --filter=-'build/include' *
           cd ../..
+
+      - name: Install Google test
+        run: |
+          sudo apt-get install libgtest-dev
+          cd /usr/src/gtest
+          sudo cmake CMakeLists.txt
+          sudo make
+
+      - name: Build the simulator
+        run: |
+          cmake -S . -B build
+          cmake --build build --target soil_dynamics
+  tests:
+    name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
 
       - name: Install Google test
         run: |
