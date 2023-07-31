@@ -11,6 +11,17 @@ Copyright, 2023, Vilella Kenny.
 #include "src/types.hpp"
 #include "src/utils.hpp"
 
+/// In this function, the movement applied to the base of the soil column is
+/// calculated and the soil is moved to this new location. It is however
+/// difficult to track accurately each bucket wall. This is currently done by
+/// looking at the height difference between the previous and new soil
+/// locations, if this height difference is lower than `cell_size_xy_`, it is
+/// assumed to be the same bucket wall. Some errors may however be present and
+/// further testing is required. If no bucket wall is present, the soil is moved
+/// down to the terrain.
+///
+/// The new positions of the soil resting on the bucket are collected into
+/// `sim_out.body_soil_pos_` and duplicates are removed.
 void soil_simulator::UpdateBodySoil(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, float tol
