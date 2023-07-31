@@ -10,7 +10,7 @@ Copyright, 2023, Vilella Kenny.
 namespace soil_simulator {
 
 /// \brief This function calculates the unit normal vector of a plane formed by
-/// three points using the right-hand rule.
+///        three points using the right-hand rule.
 ///
 /// \param a: Cartesian coordinates of the first point of the plane. [m]
 /// \param b: Cartesian coordinates of the second point of the plane. [m]
@@ -21,7 +21,7 @@ std::vector <float> CalcNormal(
     std::vector <float> a, std::vector <float> b, std::vector <float> c);
 
 /// \brief This function applies a rotation `ori` to the Cartesian
-/// coordinates `pos`.
+///        coordinates `pos`.
 ///
 /// The Quaternion convention is used for 3D rotation.
 ///
