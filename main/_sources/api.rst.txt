@@ -2,8 +2,14 @@
 
 API
 ===
-.. autodoxygenfile:: soil_dynamics.hpp
-    :project: soil_simulator
 
-.. autodoxygenfile:: soil_dynamics.cpp
-    :project: soil_simulator
+A doxygen documentation is available for all the files of the simulator.
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   soil_dynamics <_api/soil_dynamics>
+   types <_api/types>
+   bucket_pos <_api/bucket_pos>
+   utils <_api/utils>

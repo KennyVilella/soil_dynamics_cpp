@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>types: Doxygen documentation &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bucket_pos: Doxygen documentation" href="bucket_pos.html" />
+    <link rel="prev" title="soil_dynamics: Doxygen documentation" href="soil_dynamics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="soil_dynamics.html">soil_dynamics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bucket_pos.html">bucket_pos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API</a></li>
+      <li class="breadcrumb-item active">types: Doxygen documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_api/types.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="types-doxygen-documentation">
+<h1>types: Doxygen documentation<a class="headerlink" href="#types-doxygen-documentation" title="Permalink to this heading"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414soil_simulator">
+<span id="_CPPv314soil_simulator"></span><span id="_CPPv214soil_simulator"></span><span id="soil_simulator"></span><span class="target" id="namespacesoil__simulator"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">soil_simulator</span></span></span><br /></dt>
+<dd><dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4GridE">
+<span id="_CPPv3N14soil_simulator4GridE"></span><span id="_CPPv2N14soil_simulator4GridE"></span><span id="soil_simulator::Grid"></span><span class="target" id="classsoil__simulator_1_1_grid"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Grid</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4GridE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;types.hpp&gt;</em></div>
+<p>Store all parameters related to the simulation grid. </p>
+<p>Convention:<ul class="simple">
+<li><p>The simulation grid is centred at 0, that is, if the extent of the grid is 10.0, the grid would then extend from -5.0 to 5.0, this applies to all direction.</p></li>
+<li><p>The grid is composed of regular 3D cells <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>         <span class="n">H</span><span class="o">-----------</span><span class="n">G</span>
+        <span class="o">/</span>           <span class="o">/|</span>
+       <span class="o">/</span>     <span class="n">O</span>     <span class="o">/</span> <span class="o">|</span>
+      <span class="o">/</span>           <span class="o">/</span>  <span class="o">|</span>
+     <span class="n">E</span><span class="o">-----------</span><span class="n">F</span>   <span class="n">C</span>
+     <span class="o">|</span>           <span class="o">|</span>  <span class="o">/</span>
+     <span class="o">|</span>           <span class="o">|</span> <span class="o">/</span>
+     <span class="o">|</span>           <span class="o">|/</span>
+     <span class="n">A</span><span class="o">-----------</span><span class="n">B</span>
+</pre></div>
+</div>
+</p></li>
+<li><p>The cells have the same size in both lateral direction</p></li>
+</ul>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AB</span> <span class="o">=</span> <span class="n">BC</span> <span class="o">=</span> <span class="n">CD</span> <span class="o">=</span> <span class="n">DA</span> <span class="o">=</span> <span class="n">EF</span> <span class="o">=</span> <span class="n">FG</span> <span class="o">=</span> <span class="n">GH</span> <span class="o">=</span> <span class="n">HE</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>while their height can potentially be lower</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AE</span> <span class="o">=</span> <span class="n">BF</span> <span class="o">=</span> <span class="n">CG</span> <span class="o">=</span> <span class="n">DH</span> <span class="o">&lt;=</span> <span class="n">AB</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><ul class="simple">
+<li><p>The center of each cell (O) is considered to be at the center of the top surface.</p></li>
+<li><p>The considered reference frame follows the right-hand rule, with the Z direction pointing upward.</p></li>
+</ul>
+</p>
+<p>Usage: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">soil_simulator</span><span class="p">::</span><span class="n">Grid</span> <span class="n">grid</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>This would create a grid of size <code class="docutils literal notranslate"><span class="pre">[-4,</span> <span class="pre">4]</span></code> in the X direction, <code class="docutils literal notranslate"><span class="pre">[-4,</span> <span class="pre">4]</span></code> in the Y direction, <code class="docutils literal notranslate"><span class="pre">[-3,</span> <span class="pre">3]</span></code> in the Z direction, and with cells of size <code class="docutils literal notranslate"><span class="pre">0.05</span> <span class="pre">x</span> <span class="pre">0.05</span> <span class="pre">x</span> <span class="pre">0.01</span></code> in the XYZ direction. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid4GridEfffff">
+<span id="_CPPv3N14soil_simulator4Grid4GridEfffff"></span><span id="_CPPv2N14soil_simulator4Grid4GridEfffff"></span><span id="soil_simulator::Grid::Grid__float.float.float.float.float"></span><span class="target" id="classsoil__simulator_1_1_grid_1ae3e1b134689b7fad49f44b8c67d1f88c"></span><span class="sig-name descname"><span class="n"><span class="pre">Grid</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grid_size_x</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4.0</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grid_size_y</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4.0</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grid_size_z</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4.0</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cell_size_xy</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.05</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cell_size_z</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.01</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid4GridEfffff" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a new instance of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_grid"><span class="std std-ref"><span class="pre">Grid</span></span></a></code> using the grid size in [m]. </p>
+<p>The actual size of the grid would be:<ul class="simple">
+<li><p>[-grid_size_x, grid_size_x] in the X direction.</p></li>
+<li><p>[-grid_size_y, grid_size_y] in the Y direction.</p></li>
+<li><p>[-grid_size_z, grid_size_z] in the Z direction.</p></li>
+</ul>
+</p>
+<p>Requirements:<ul class="simple">
+<li><p>All inputs should be greater than zero.</p></li>
+<li><p>cell_size_xy should be lower than or equal to grid_size_x and grid_size_y.</p></li>
+<li><p>cell_size_z should be lower than or equal to grid_size_z.</p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_size_x</strong> – Half size of the grid in the X direction. [m] </p></li>
+<li><p><strong>grid_size_y</strong> – Half size of the grid in the Y direction. [m] </p></li>
+<li><p><strong>grid_size_z</strong> – Half size of the grid in the Z direction. [m] </p></li>
+<li><p><strong>cell_size_xy</strong> – Size of the cells in the X and Y direction. [m] </p></li>
+<li><p><strong>cell_size_z</strong> – Height of the cells in the Z direction. [m] </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4GridD0Ev">
+<span id="_CPPv3N14soil_simulator4GridD0Ev"></span><span id="_CPPv2N14soil_simulator4GridD0Ev"></span><span id="soil_simulator::Grid::~Grid"></span><span class="target" id="classsoil__simulator_1_1_grid_1a4b9940a7dde7a8bf1705264346a23274"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Grid</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator4GridD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid14half_length_x_E">
+<span id="_CPPv3N14soil_simulator4Grid14half_length_x_E"></span><span id="_CPPv2N14soil_simulator4Grid14half_length_x_E"></span><span id="soil_simulator::Grid::half_length_x___i"></span><span class="target" id="classsoil__simulator_1_1_grid_1a888c3184351f1fac958c6108fc989dbf"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">half_length_x_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid14half_length_x_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of grid elements in the positive (or negative) X direction. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid14half_length_y_E">
+<span id="_CPPv3N14soil_simulator4Grid14half_length_y_E"></span><span id="_CPPv2N14soil_simulator4Grid14half_length_y_E"></span><span id="soil_simulator::Grid::half_length_y___i"></span><span class="target" id="classsoil__simulator_1_1_grid_1ad98714e5e8133ed9e20a52793c6b0d99"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">half_length_y_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid14half_length_y_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of grid elements in the positive (or negative) Y direction. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid14half_length_z_E">
+<span id="_CPPv3N14soil_simulator4Grid14half_length_z_E"></span><span id="_CPPv2N14soil_simulator4Grid14half_length_z_E"></span><span id="soil_simulator::Grid::half_length_z___i"></span><span class="target" id="classsoil__simulator_1_1_grid_1a2ff925798bf0d22bd313c4a466deb486"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">half_length_z_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid14half_length_z_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of grid elements in the positive (or negative) Z direction. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid13cell_size_xy_E">
+<span id="_CPPv3N14soil_simulator4Grid13cell_size_xy_E"></span><span id="_CPPv2N14soil_simulator4Grid13cell_size_xy_E"></span><span id="soil_simulator::Grid::cell_size_xy___float"></span><span class="target" id="classsoil__simulator_1_1_grid_1a5663932e54b3e41f14adaeebcdb9e139"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cell_size_xy_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid13cell_size_xy_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Size of the cells in the X and Y direction. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid12cell_size_z_E">
+<span id="_CPPv3N14soil_simulator4Grid12cell_size_z_E"></span><span id="_CPPv2N14soil_simulator4Grid12cell_size_z_E"></span><span id="soil_simulator::Grid::cell_size_z___float"></span><span class="target" id="classsoil__simulator_1_1_grid_1a47d9e59d5995afc80fd8f1f1927d2aea"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cell_size_z_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid12cell_size_z_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Height of the cells in the Z direction. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid10cell_area_E">
+<span id="_CPPv3N14soil_simulator4Grid10cell_area_E"></span><span id="_CPPv2N14soil_simulator4Grid10cell_area_E"></span><span id="soil_simulator::Grid::cell_area___float"></span><span class="target" id="classsoil__simulator_1_1_grid_1aeb43259801dfac354c295236bc615d8a"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cell_area_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid10cell_area_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Surface area of one cell in the horizontal plane. [m^2]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid12cell_volume_E">
+<span id="_CPPv3N14soil_simulator4Grid12cell_volume_E"></span><span id="_CPPv2N14soil_simulator4Grid12cell_volume_E"></span><span id="soil_simulator::Grid::cell_volume___float"></span><span class="target" id="classsoil__simulator_1_1_grid_1ace5348e134c0a9ef0da8b4d3b56399ae"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cell_volume_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid12cell_volume_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Volume of one cell. [m^3]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid7vect_x_E">
+<span id="_CPPv3N14soil_simulator4Grid7vect_x_E"></span><span id="_CPPv2N14soil_simulator4Grid7vect_x_E"></span><span id="soil_simulator::Grid::vect_x___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vect_x_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid7vect_x_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Vector providing a conversion between cell’s index and cell’s position in the X direction. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid7vect_y_E">
+<span id="_CPPv3N14soil_simulator4Grid7vect_y_E"></span><span id="_CPPv2N14soil_simulator4Grid7vect_y_E"></span><span id="soil_simulator::Grid::vect_y___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vect_y_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid7vect_y_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Vector providing a conversion between cell’s index and cell’s position in the Y direction. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Grid7vect_z_E">
+<span id="_CPPv3N14soil_simulator4Grid7vect_z_E"></span><span id="_CPPv2N14soil_simulator4Grid7vect_z_E"></span><span id="soil_simulator::Grid::vect_z___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_grid_1ae43b00a1a0f0ebd59818190a0b276a4e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vect_z_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator4Grid7vect_z_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Vector providing a conversion between cell’s index and cell’s position in the Z direction. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6BucketE">
+<span id="_CPPv3N14soil_simulator6BucketE"></span><span id="_CPPv2N14soil_simulator6BucketE"></span><span id="soil_simulator::Bucket"></span><span class="target" id="classsoil__simulator_1_1_bucket"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bucket</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6BucketE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;types.hpp&gt;</em></div>
+<p>Store all parameters related to a bucket object. </p>
+<p>Convention:<ul class="simple">
+<li><p>The bucket is approximated as a triangular prism <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               A ____________________ D
+              /.                     /|
+             / .                    / |
+            /  .                   /  |
+           /   .                  /   |
+          /    .                 /    |
+         /     .                /     |
+        /      .               /      |
+       /       C . . . . . .  / . . . F
+      /      .               /        ̸
+     /     .                /       ̸
+    /    .                 /      ̸
+   /   .                  /     ̸
+  /  .                   /    ̸
+ / .                    /   ̸
+B ____________________ E
+</pre></div>
+</div>
+</p></li>
+<li><p>The middle of the segment AD is referred to as the bucket joint.</p></li>
+<li><p>The middle of the segment CF is referred to as the bucket base.</p></li>
+<li><p>The middle of the segment BE is referred to as the bucket teeth.</p></li>
+<li><p>The surface ABED is open and referred to as the bucket front.</p></li>
+<li><p>The surface BCFE is a bucket wall and referred to as the bucket base.</p></li>
+<li><p>The surface ACFD is a bucket wall and referred to as the bucket back.</p></li>
+<li><p>The surface ABC is a bucket wall and referred to as the bucket right side.</p></li>
+<li><p>The surface DEF is a bucket wall and referred to as the bucket left side.</p></li>
+<li><p>The bucket has a constant width, denoted as</p></li>
+</ul>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AD = BE = CF = `width_`.
+</pre></div>
+</div>
+<p><ul class="simple">
+<li><p>The center of rotation of the bucket is assumed to be at the bucket origin (not shown in the figure) and the bucket vertices are given relative to this origin.</p></li>
+<li><p>The provided coordinates are assumed to be the reference pose of the bucket, from which the bucket pose is calculated throughout the code.</p></li>
+</ul>
+</p>
+<p>Usage: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">o_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">j_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">b_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">};</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">t_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">};</span>
+
+<span class="n">soil_simulator</span><span class="p">::</span><span class="n">Bucket</span> <span class="n">bucket</span><span class="p">(</span><span class="n">o_pos</span><span class="p">,</span> <span class="n">j_pos</span><span class="p">,</span> <span class="n">b_pos</span><span class="p">,</span> <span class="n">t_pos</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>This would create a bucket ABCDEF with its center of rotation at the bucket joint and with:<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">-0.25,</span> <span class="pre">0.0]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">=</span> <span class="pre">[1.0,</span> <span class="pre">-0.25,</span> <span class="pre">-0.5]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">-0.25,</span> <span class="pre">-0.5]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">0.25,</span> <span class="pre">0.0]</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">E</span> <span class="pre">=</span> <span class="pre">[1.0,</span> <span class="pre">0.25,</span> <span class="pre">-0.5]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">0.25,</span> <span class="pre">-0.5]</span></code></p></li>
+</ul>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf">
+<span id="_CPPv3N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="_CPPv2N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="soil_simulator::Bucket::Bucket__std::vector:float:.std::vector:float:.std::vector:float:.std::vector:float:.float"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f"></span><span class="sig-name descname"><span class="n"><span class="pre">Bucket</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.7</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.5</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a new instance of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_bucket"><span class="std std-ref"><span class="pre">Bucket</span></span></a></code> using the reference positions of the bucket origin, joint, base, and teeth as well as the bucket width. </p>
+<p>The position of the bucket joint, base, and teeth are given relative to the position of the bucket origin.</p>
+<p>Requirements:<ul class="simple">
+<li><p>All provided Cartesian coordinates should be a vector of size 3.</p></li>
+<li><p>The bucket joint, base and teeth should have strictly different location.</p></li>
+<li><p>The bucket width should be greater than zero.</p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>o_pos_init</strong> – Cartesian coordinates of the bucket origin in its reference pose. [m] </p></li>
+<li><p><strong>j_pos_init</strong> – Cartesian coordinates of the bucket joint in its reference pose. [m] </p></li>
+<li><p><strong>b_pos_init</strong> – Cartesian coordinates of the bucket base in its reference pose. [m] </p></li>
+<li><p><strong>t_pos_init</strong> – Cartesian coordinates of the bucket teeth in its reference pose. [m] </p></li>
+<li><p><strong>width</strong> – Width of the bucket. [m] </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6BucketD0Ev">
+<span id="_CPPv3N14soil_simulator6BucketD0Ev"></span><span id="_CPPv2N14soil_simulator6BucketD0Ev"></span><span id="soil_simulator::Bucket::~Bucket"></span><span class="target" id="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Bucket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6BucketD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket11j_pos_init_E">
+<span id="_CPPv3N14soil_simulator6Bucket11j_pos_init_E"></span><span id="_CPPv2N14soil_simulator6Bucket11j_pos_init_E"></span><span id="soil_simulator::Bucket::j_pos_init___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a6d2a5e7b19d8ec29b700f2d0b2ded393"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">j_pos_init_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket11j_pos_init_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cartesian coordinates of the bucket joint in its reference pose. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket11b_pos_init_E">
+<span id="_CPPv3N14soil_simulator6Bucket11b_pos_init_E"></span><span id="_CPPv2N14soil_simulator6Bucket11b_pos_init_E"></span><span id="soil_simulator::Bucket::b_pos_init___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a1f09a690072731b1a2ade43fae38e440"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">b_pos_init_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket11b_pos_init_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cartesian coordinates of the bucket base in its reference pose. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket11t_pos_init_E">
+<span id="_CPPv3N14soil_simulator6Bucket11t_pos_init_E"></span><span id="_CPPv2N14soil_simulator6Bucket11t_pos_init_E"></span><span id="soil_simulator::Bucket::t_pos_init___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a4196b7b5cec05e159e3db453a45abb0d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">t_pos_init_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket11t_pos_init_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cartesian coordinates of the bucket teeth in its reference pose. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket6width_E">
+<span id="_CPPv3N14soil_simulator6Bucket6width_E"></span><span id="_CPPv2N14soil_simulator6Bucket6width_E"></span><span id="soil_simulator::Bucket::width___float"></span><span class="target" id="classsoil__simulator_1_1_bucket_1ada6ec30903927b006cab61c07e15a263"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">width_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket6width_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Width of the bucket. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket4pos_E">
+<span id="_CPPv3N14soil_simulator6Bucket4pos_E"></span><span id="_CPPv2N14soil_simulator6Bucket4pos_E"></span><span id="soil_simulator::Bucket::pos___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_bucket_1ad8997213c92e4f0c8aef5326a75f64c8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pos_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket4pos_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cartesian coordinates of the bucket origin. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket4ori_E">
+<span id="_CPPv3N14soil_simulator6Bucket4ori_E"></span><span id="_CPPv2N14soil_simulator6Bucket4ori_E"></span><span id="soil_simulator::Bucket::ori___std::vector:float:"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a4da542d0e026b878da691b6eef390977"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ori_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket4ori_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Orientation of the bucket. [Quaternion]. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator8SimParamE">
+<span id="_CPPv3N14soil_simulator8SimParamE"></span><span id="_CPPv2N14soil_simulator8SimParamE"></span><span id="soil_simulator::SimParam"></span><span class="target" id="classsoil__simulator_1_1_sim_param"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SimParam</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator8SimParamE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;types.hpp&gt;</em></div>
+<p>Store all parameters related to the simulation. </p>
+<p>Note<ul class="simple">
+<li><p>The value of <code class="docutils literal notranslate"><span class="pre">max_iterations_</span></code> should be carefully selected. A higher number will result in a <code class="docutils literal notranslate"><span class="pre">terrain_</span></code> closer to equilibrium at the end of each time step, but it may impact significantly the performance of the simulator. A value of 3 is suggested.</p></li>
+</ul>
+</p>
+<p>Usage: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">soil_simulator</span><span class="p">::</span><span class="n">SimParam</span> <span class="n">sim_param</span><span class="p">(</span><span class="mf">0.85</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator8SimParam8SimParamEfii">
+<span id="_CPPv3N14soil_simulator8SimParam8SimParamEfii"></span><span id="_CPPv2N14soil_simulator8SimParam8SimParamEfii"></span><span id="soil_simulator::SimParam::SimParam__float.i.i"></span><span class="target" id="classsoil__simulator_1_1_sim_param_1a89fc5dd30ae2ca8e9b08102bdcf46222"></span><span class="sig-name descname"><span class="n"><span class="pre">SimParam</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">repose_angle</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.85</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">max_iterations</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">10</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cell_buffer</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator8SimParam8SimParamEfii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a new instance of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_sim_param"><span class="std std-ref"><span class="pre">SimParam</span></span></a></code>. </p>
+<p>Requirements:<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">repose_angle</span></code> should be between 0.0 and pi / 2. The upper limit may be extended in the future.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">max_iterations</span></code> should be greater or equal to zero.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cell_buffer</span></code> should be greater or equal to 2.</p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repose_angle</strong> – The repose angle of the considered soil. [rad] </p></li>
+<li><p><strong>max_iterations</strong> – The maximum number of relaxation iterations per step. </p></li>
+<li><p><strong>cell_buffer</strong> – The number of buffer cells surrounding the bucket and the relaxed terrain where soil equilibrium is checked. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator8SimParamD0Ev">
+<span id="_CPPv3N14soil_simulator8SimParamD0Ev"></span><span id="_CPPv2N14soil_simulator8SimParamD0Ev"></span><span id="soil_simulator::SimParam::~SimParam"></span><span class="target" id="classsoil__simulator_1_1_sim_param_1ab3d425640c0281cf06fd67bcbe42e23c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~SimParam</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator8SimParamD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator8SimParam13repose_angle_E">
+<span id="_CPPv3N14soil_simulator8SimParam13repose_angle_E"></span><span id="_CPPv2N14soil_simulator8SimParam13repose_angle_E"></span><span id="soil_simulator::SimParam::repose_angle___float"></span><span class="target" id="classsoil__simulator_1_1_sim_param_1ac5ebb67488dded6b2def8ef0ab2f7274"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">repose_angle_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator8SimParam13repose_angle_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The repose angle of the considered soil. [rad]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator8SimParam15max_iterations_E">
+<span id="_CPPv3N14soil_simulator8SimParam15max_iterations_E"></span><span id="_CPPv2N14soil_simulator8SimParam15max_iterations_E"></span><span id="soil_simulator::SimParam::max_iterations___i"></span><span class="target" id="classsoil__simulator_1_1_sim_param_1a1436cd09d5dacaed64cf7b0afa2635dd"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_iterations_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator8SimParam15max_iterations_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The maximum number of relaxation iterations per step. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator8SimParam12cell_buffer_E">
+<span id="_CPPv3N14soil_simulator8SimParam12cell_buffer_E"></span><span id="_CPPv2N14soil_simulator8SimParam12cell_buffer_E"></span><span id="soil_simulator::SimParam::cell_buffer___i"></span><span class="target" id="classsoil__simulator_1_1_sim_param_1a59bb63975c510d493d870ec00f1299fd"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cell_buffer_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator8SimParam12cell_buffer_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The number of buffer cells surrounding the bucket and the relaxed terrain where soil equilibrium is checked. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOutE">
+<span id="_CPPv3N14soil_simulator6SimOutE"></span><span id="_CPPv2N14soil_simulator6SimOutE"></span><span id="soil_simulator::SimOut"></span><span class="target" id="classsoil__simulator_1_1_sim_out"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SimOut</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOutE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;types.hpp&gt;</em></div>
+<p>Store all outputs of the simulation. </p>
+<p>Convention<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">terrain_</span></code> Matrix stores the height of the terrain at each XY position, see the <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_grid"><span class="std std-ref"><span class="pre">Grid</span></span></a></code> class for more details on the simulation grid.</p></li>
+<li><p>The cells where a bucket wall is located is stored in <code class="docutils literal notranslate"><span class="pre">body_</span></code>. At each XY position, the first layer indicates the lowest height where a bucket wall is located while the second layer indicates the maximum height of this bucket wall. If a second bucket wall is located at the same XY position, its minimum and maximum height are indicated in the third and fourth layers, respectively.</p></li>
+<li><p>For each bucket, there can be only two distinct bucket walls located at the same XY position. As a result, the number of layers in the <code class="docutils literal notranslate"><span class="pre">body_</span></code> vector should be equal to four times the number of bucket.</p></li>
+<li><p>Similarly, <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> stores the location of the soil resting on a bucket wall. The structure of <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> is identical to <code class="docutils literal notranslate"><span class="pre">body_</span></code>. An additionnal restriction is that the minimum height of the soil resting on the bucket must correspond to the maximum height of a bucket wall.</p></li>
+<li><p>The locations where there is soil resting on the bucket are stored in <code class="docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> as 3-elements vectors. The first element corresponds to the index where the minimum height of the soil is stored, while the second and third element correspond to the index of the X and Y position, respectively.</p></li>
+<li><p>The active areas (<code class="docutils literal notranslate"><span class="pre">bucket_area_</span></code>, <code class="docutils literal notranslate"><span class="pre">relax_area_</span></code> and <code class="docutils literal notranslate"><span class="pre">impact_area_</span></code>) are assumed to be rectangular and to follow the grid geometry. They are thus stored as 2x2 Matrices where: [1, 1] corresponds to the minimum X index. [1, 2] corresponds to the maximum X index. [2, 1] corresponds to the minimum Y index. [2, 2] corresponds to the maximum Y index.</p></li>
+</ul>
+</p>
+<p>Note:<ul class="simple">
+<li><p>Currently, only one bucket at a time is supported, but this restriction may be removed in the future.</p></li>
+</ul>
+</p>
+<p>Usage: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">soil_simulator</span><span class="p">::</span><span class="n">Grid</span> <span class="n">grid</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">);</span>
+
+<span class="n">soil_simulator</span><span class="p">::</span><span class="n">SimOut</span> <span class="n">sim_out</span><span class="p">(</span><span class="n">grid</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>This would create a flat terrain located at 0 height. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut6SimOutE4Grid">
+<span id="_CPPv3N14soil_simulator6SimOut6SimOutE4Grid"></span><span id="_CPPv2N14soil_simulator6SimOut6SimOutE4Grid"></span><span id="soil_simulator::SimOut::SimOut__Grid"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1ad10e812fb8bc81fb27722d901b53e2d7"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SimOut</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut6SimOutE4Grid" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a new instance of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_sim_out"><span class="std std-ref"><span class="pre">SimOut</span></span></a></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOutD0Ev">
+<span id="_CPPv3N14soil_simulator6SimOutD0Ev"></span><span id="_CPPv2N14soil_simulator6SimOutD0Ev"></span><span id="soil_simulator::SimOut::~SimOut"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1a854bd1d28c331603b18f5a9f565b9fa9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~SimOut</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOutD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut12equilibrium_E">
+<span id="_CPPv3N14soil_simulator6SimOut12equilibrium_E"></span><span id="_CPPv2N14soil_simulator6SimOut12equilibrium_E"></span><span id="soil_simulator::SimOut::equilibrium___b"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1a4ab64092cca9fc1e9ecac7e48c29b1e5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">equilibrium_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut12equilibrium_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Indicates whether the terrain is at equilibrium. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut8terrain_E">
+<span id="_CPPv3N14soil_simulator6SimOut8terrain_E"></span><span id="_CPPv2N14soil_simulator6SimOut8terrain_E"></span><span id="soil_simulator::SimOut::terrain___std::vector:std::vector:float::"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1a4b7a38b487950de6994e2a93b44f700e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">terrain_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut8terrain_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Height of the terrain. [m]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut5body_E">
+<span id="_CPPv3N14soil_simulator6SimOut5body_E"></span><span id="_CPPv2N14soil_simulator6SimOut5body_E"></span><span id="soil_simulator::SimOut::body___std::vector:std::vector:std::vector:float:::"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1a516a4d6d9be2ba178f68f323e43cb578"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">body_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut5body_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Store the vertical extension of all bucket walls for each XY position. [m] </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut10body_soil_E">
+<span id="_CPPv3N14soil_simulator6SimOut10body_soil_E"></span><span id="_CPPv2N14soil_simulator6SimOut10body_soil_E"></span><span id="soil_simulator::SimOut::body_soil___std::vector:std::vector:std::vector:float:::"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1aed6d0cf14eb073bfb65e2c5d1c8d816c"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">body_soil_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut10body_soil_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Store the vertical extension of all soil resting on a bucket wall for each XY position. [m] </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut14body_soil_pos_E">
+<span id="_CPPv3N14soil_simulator6SimOut14body_soil_pos_E"></span><span id="_CPPv2N14soil_simulator6SimOut14body_soil_pos_E"></span><span id="soil_simulator::SimOut::body_soil_pos___std::vector:std::vector:i::"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1afa0e2faef2226de5c0e003cf551ead7a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">body_soil_pos_</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut14body_soil_pos_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Store the indices of locations where there is soil resting on the bucket. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut12bucket_area_E">
+<span id="_CPPv3N14soil_simulator6SimOut12bucket_area_E"></span><span id="_CPPv2N14soil_simulator6SimOut12bucket_area_E"></span><span id="soil_simulator::SimOut::bucket_area___iAA"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1a42dae9412a224155f4ae41218b501dee"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bucket_area_</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut12bucket_area_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Store the 2D bounding box of the bucket with a buffer determined by the parameter <code class="docutils literal notranslate"><span class="pre">cell_buffer_</span></code> of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_sim_param"><span class="std std-ref"><span class="pre">SimParam</span></span></a></code>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut11relax_area_E">
+<span id="_CPPv3N14soil_simulator6SimOut11relax_area_E"></span><span id="_CPPv2N14soil_simulator6SimOut11relax_area_E"></span><span id="soil_simulator::SimOut::relax_area___iAA"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1a1b82b86c0e79f9ef6159ce9967fcc80a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">relax_area_</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut11relax_area_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Store the 2D bounding box of the area where soil has been relaxed with a buffer determined by the parameter <code class="docutils literal notranslate"><span class="pre">cell_buffer_</span></code> of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_sim_param"><span class="std std-ref"><span class="pre">SimParam</span></span></a></code>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6SimOut12impact_area_E">
+<span id="_CPPv3N14soil_simulator6SimOut12impact_area_E"></span><span id="_CPPv2N14soil_simulator6SimOut12impact_area_E"></span><span id="soil_simulator::SimOut::impact_area___iAA"></span><span class="target" id="classsoil__simulator_1_1_sim_out_1ae23295a53a5d42a25e461558721561a5"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">impact_area_</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N14soil_simulator6SimOut12impact_area_E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Store the union of <code class="docutils literal notranslate"><span class="pre">bucket_area_</span></code> and <code class="docutils literal notranslate"><span class="pre">relax_area_</span></code>. It corresponds to the area where the soil equilibrium is checked. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="soil_dynamics.html" class="btn btn-neutral float-left" title="soil_dynamics: Doxygen documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bucket_pos.html" class="btn btn-neutral float-right" title="bucket_pos: Doxygen documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: main
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="types.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
