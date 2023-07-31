@@ -237,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="108" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.cpp" bodystart="15" bodyend="75"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="109" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.cpp" bodystart="15" bodyend="75"/>
       </memberdef>
       <memberdef kind="function" id="classsoil__simulator_1_1_grid_1a4b9940a7dde7a8bf1705264346a23274" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -251,7 +251,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="114" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" bodystart="114" bodyend="114"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="115" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" bodystart="115" bodyend="115"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -287,7 +287,7 @@
 </programlisting></para>
 <para>This would create a grid of size <computeroutput>[-4, 4]</computeroutput> in the X direction, <computeroutput>[-4, 4]</computeroutput> in the Y direction, <computeroutput>[-3, 3]</computeroutput> in the Z direction, and with cells of size <computeroutput>0.05 x 0.05 x 0.01</computeroutput> in the XYZ direction. </para>
     </detaileddescription>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="56" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" bodystart="56" bodyend="115"/>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="56" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" bodystart="56" bodyend="116"/>
     <listofallmembers>
       <member refid="classsoil__simulator_1_1_grid_1aeb43259801dfac354c295236bc615d8a" prot="public" virt="non-virtual"><scope>soil_simulator::Grid</scope><name>cell_area_</name></member>
       <member refid="classsoil__simulator_1_1_grid_1a5663932e54b3e41f14adaeebcdb9e139" prot="public" virt="non-virtual"><scope>soil_simulator::Grid</scope><name>cell_size_xy_</name></member>
