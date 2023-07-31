@@ -19,7 +19,15 @@ extensions = [
 ]
 
 breathe_projects_source = {
-    "soil_simulator" : ("../src", ["soil_dynamics.hpp", "soil_dynamics.cpp"])
+    "soil_simulator" : ("../src", 
+        ["soil_dynamics.hpp",
+        "soil_dynamics.cpp",
+        "types.hpp",
+        "types.cpp",
+        "bucket_pos.hpp",
+        "bucket_pos.cpp",
+        "utils.hpp",
+        "utils.cpp"])
 }
 
 templates_path = ["_templates"]

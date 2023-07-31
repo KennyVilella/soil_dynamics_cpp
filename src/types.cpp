@@ -12,23 +12,6 @@ Copyright, 2023, Vilella Kenny.
 #include "src/soil_dynamics.hpp"
 #include "src/types.hpp"
 
-// Create a new instance of `Grid` using the grid size in [m].
-// The actual size of the grid would be:
-// - [-grid_size_x, grid_size_x] in the X direction.
-// - [-grid_size_y, grid_size_y] in the Y direction.
-// - [-grid_size_z, grid_size_z] in the Z direction.
-//
-// Requirements:
-// - All inputs should be greater than zero.
-// - cell_size_xy should be lower than or equal to grid_size_x and grid_size_y.
-// - cell_size_z should be lower than or equal to grid_size_z.
-//
-// Example:
-//     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
-//
-// This would create a grid of size [-4, 4] in the X direction, [-4, 4] in
-// the Y direction, [-3, 3] in the Z direction, and with cells of size
-// 0.05 x 0.05 x 0.01 in the XYZ direction.
 soil_simulator::Grid::Grid(
     float grid_size_x, float grid_size_y, float grid_size_z, float cell_size_xy,
     float cell_size_z
@@ -91,28 +74,6 @@ soil_simulator::Grid::Grid(
         vect_z_[ii] = vect_z_[ii-1] + cell_size_z;
 }
 
-// Create a new instance of `Bucket` using the reference positions of the
-// bucket origin, joint, base, and teeth as well as the bucket width.
-// The position of the bucket joint, base, and teeth are given relative to the
-// position of the bucket origin.
-//
-// Requirements:
-// - All provided Cartesian coordinates should be a vector of size 3.
-// - The bucket joint, base and teeth should have strictly different location.
-// - The bucket width should be greater than zero.
-//
-// Example:
-//    std::vector<float> o_pos = {0.0, 0.0, 0.0};
-//    std::vector<float> j_pos = {0.0, 0.0, 0.0};
-//    std::vector<float> b_pos = {0.0, 0.0, -0.5};
-//    std::vector<float> t_pos = {1.0, 0.0, -0.5};
-//
-//    soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
-//
-// This would create a bucket ABCDEF with its center of rotation at the
-// bucket joint and with
-// A = [0.0, -0.25, 0.0], B = [1.0, -0.25, -0.5], C = [0.0, -0.25, -0.5]
-// D = [0.0, 0.25, 0.0], E = [1.0, 0.25, -0.5], F = [0.0, 0.25, -0.5].
 soil_simulator::Bucket::Bucket(
     std::vector<float> o_pos_init, std::vector<float> j_pos_init,
     std::vector<float> b_pos_init, std::vector<float> t_pos_init,
@@ -166,16 +127,6 @@ soil_simulator::Bucket::Bucket(
     }
 }
 
-// Create a new instance of `SimParam`.
-//
-// Requirements:
-// - The `repose_angle` should be between 0.0 and pi / 2. The upper limit may
-//   be extended in the future.
-// - The `max_iterations` should be greater or equal to zero.
-// - The `cell_buffer` should be greater or equal to 2.
-//
-// Example:
-//    soil_simulator::SimParam sim_param(0.85, 5, 4);
 soil_simulator::SimParam::SimParam(
     float repose_angle, int max_iterations, int cell_buffer
 ) {
@@ -196,14 +147,6 @@ soil_simulator::SimParam::SimParam(
     cell_buffer_ = cell_buffer;
 }
 
-// Create a new instance of `SimOut`.
-//
-// Example:
-//    soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
-//
-//    soil_simulator::SimOut sim_out(grid);
-//
-// This would create a flat terrain located at 0 height.
 soil_simulator::SimOut::SimOut(
     Grid grid
 ) {
