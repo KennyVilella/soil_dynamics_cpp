@@ -5,9 +5,11 @@ following its movement.
 Copyright, 2023, Vilella Kenny.
 */
 #include <algorithm>
+#include <cmath>
 #include <vector>
 #include "src/body_soil.hpp"
 #include "src/types.hpp"
+#include "src/utils.hpp"
 
 void soil_simulator::UpdateBodySoil(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
@@ -35,10 +37,10 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    for (auto ii = 0; ii < old_body_soil_pos.size(); ii++) {
-        int ind = old_body_soil_pos[ii][0];
-        int ii = old_body_soil_pos[ii][1];
-        int jj = old_body_soil_pos[ii][2];
+    for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
+        int ind = old_body_soil_pos[nn][0];
+        int ii = old_body_soil_pos[nn][1];
+        int jj = old_body_soil_pos[nn][2];
 
         if (
             (old_body_soil[ind][ii][jj] == 0.0) &&
@@ -54,7 +56,7 @@ void soil_simulator::UpdateBodySoil(
             old_body_soil[ind][ii][jj] - bucket->pos_[2]};
 
         // Inversing rotation
-        std::vector<int> inv_ori = {
+        std::vector<float> inv_ori = {
             bucket->ori_[0], -bucket->ori_[1], -bucket->ori_[2],
             -bucket->ori_[3]};
 
@@ -63,8 +65,11 @@ void soil_simulator::UpdateBodySoil(
             inv_ori, cell_pos);
 
         // Calculating new cell position
-        auto new_cell_pos = pos + soil_simulator::CalcRotationQuaternion(
+        auto new_cell_pos = soil_simulator::CalcRotationQuaternion(
             ori, cell_local_pos);
+        new_cell_pos[0] += pos[0];
+        new_cell_pos[1] += pos[1];
+        new_cell_pos[2] += pos[2];
 
         // Calculating new cell indices
         int ii_n = static_cast<int>(round(
@@ -82,7 +87,7 @@ void soil_simulator::UpdateBodySoil(
             // Moving body_soil to new location
             sim_out->body_soil_[1][ii_n][jj_n] += (
                 (sim_out->body_[1][ii_n][jj_n] -
-                sim_out.body_soil_[0][ii_n][jj_n]) +
+                sim_out->body_soil_[0][ii_n][jj_n]) +
                 (old_body_soil[ind+1][ii][jj] - old_body_soil[ind][ii][jj]));
             sim_out->body_soil_[0][ii_n][jj_n] = sim_out->body_[1][ii_n][jj_n];
 
@@ -101,7 +106,7 @@ void soil_simulator::UpdateBodySoil(
                 (sim_out->body_[3][ii_n][jj_n] -
                 sim_out->body_soil_[2][ii_n][jj_n]) +
                 (old_body_soil[ind+1][ii][jj] - old_body_soil[ind][ii][jj]));
-            sim_out->body_soil_[2][ii_n][jj_n] = sim_out->body_[3][ii_n][jj_n]
+            sim_out->body_soil_[2][ii_n][jj_n] = sim_out->body_[3][ii_n][jj_n];
 
             // Adding position to body_soil_pos
             sim_out->body_soil_pos_.insert(sim_out->body_soil_pos_.end(),
