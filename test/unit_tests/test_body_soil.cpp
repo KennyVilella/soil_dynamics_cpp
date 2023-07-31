@@ -340,7 +340,6 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     sim_out->body_soil_[1][11][10] = 0.2;
     sim_out->body_soil_[2][12][10] = 0.1;
     sim_out->body_soil_[3][12][10] = 0.3;
-    //sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 11, 10};
     sim_out->body_soil_pos_.push_back(std::vector<int> {2, 12, 10});
