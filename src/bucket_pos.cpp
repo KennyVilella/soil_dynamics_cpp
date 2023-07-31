@@ -285,25 +285,35 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
 /// basis formed by the vectors AB and AD. Let O be the name of a cell, it can
 /// then be decomposed as
 ///
+/// \code
 ///   AO = c_ab * AB + c_ad * AD.
+/// \endcode
 ///
 /// This decomposition leads to a system of 2 equations with
 /// 2 unknowns (c_ab and c_ad)
 ///
+/// \code
 ///   AO[1] = c_ab * AB[1] + c_ad * AD[1] {1},
 ///   AO[2] = c_ab * AB[2] + c_ad * AD[2] {2}.
+/// \endcode
 ///
 /// One may note that AB[1] * {2} - AB[2] * {1} implies that
 ///
+/// \code
 ///  AB[1] * AO[2] - AB[2] * AO[1] = c_ad * AD[2] * AB[1] - c_ad * AD[1] * AB[2]
+/// \endcode
 ///
 /// that can be further rewritten as
 ///
+/// \code
 ///   c_ad = (AB[1] * AO[2] - AB[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
+/// \endcode
 ///
 /// Similarly, AD[1] * {2} - AD[2] * {1} implies that
 ///
+/// \code
 ///   c_ab = -(AD[1] * AO[2] - AD[2] * AO[1]) / (AD[2] * AB[1] - AD[1] * AB[2]).
+/// \endcode
 ///
 /// This decomposition allows us to determine whether the cell O is inside the
 /// rectangle area, since this requires c_ab and c_ad to be between 0 and 1.
@@ -502,25 +512,35 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
 /// basis formed by the vectors AB and AC. Let O be the name of a cell, it can
 /// then be decomposed as
 ///
+/// \code
 ///   AO = c_ab * AB + c_ac * AC.
+/// \endcode
 ///
 /// This decomposition leads to a system of 2 equations with
 /// 2 unknowns (c_ab and c_ac)
 ///
+/// \code
 ///   AO[1] = c_ab * AB[1] + c_ac * AC[1] {1},
 ///   AO[2] = c_ab * AB[2] + c_ac * AC[2] {2}.
+/// \endcode
 ///
 /// One may note that AB[1] * {2} - AB[2] * {1} implies that
 ///
+/// \code
 ///  AB[1] * AO[2] - AB[2] * AO[1] = c_ac * AC[2] * AB[1] - c_ac * AC[1] * AB[2]
+/// \endcode
 ///
 /// that can be further rewritten as
 ///
+/// \code
 ///   c_ac = (AB[1] * AO[2] - AB[2] * AO[1]) / (AC[2] * AB[1] - AC[1] * AB[2]).
+/// \endcode
 ///
 /// Similarly, AC[1] * {2} - AC[2] * {1} implies that
 ///
+/// \code
 ///   c_ab = -(AC[1] * AO[2] - AC[2] * AO[1]) / (AC[2] * AB[1] - AC[1] * AB[2]).
+/// \endcode
 ///
 /// This decomposition allows us to determine whether the cell O is inside the
 /// triangle area, since this requires c_ab and c_ac to be between 0 and 1,
@@ -588,12 +608,16 @@ soil_simulator::DecomposeVectorTriangle(
 /// The coordinates of each sub-point (ab_i) along the line can then be
 /// calculated as
 ///
+/// \code
 ///    ab_i = a + ab * i * delta / norm(ab)
+/// \endcode
 ///
 /// where i is the increment number and ab = b - a.
 /// The Cartesian coordinates can then be converted into indices
 ///
+/// \code
 ///    ab_i_ind = ab_i / cell_size + grid_half_length + 1
+/// \endcode
 ///
 /// Finally, the floating-point values are rounded to obtain the cell indices in
 /// the X, Y, Z directions.
