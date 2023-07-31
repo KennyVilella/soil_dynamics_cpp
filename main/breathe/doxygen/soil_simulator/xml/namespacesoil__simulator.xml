@@ -3,6 +3,951 @@
   <compounddef id="namespacesoil__simulator" kind="namespace" language="C++">
     <compoundname>soil_simulator</compoundname>
     <innerclass refid="classsoil__simulator_1_1_soil_dynamics" prot="public">soil_simulator::SoilDynamics</innerclass>
+    <innerclass refid="classsoil__simulator_1_1_grid" prot="public">soil_simulator::Grid</innerclass>
+    <innerclass refid="classsoil__simulator_1_1_bucket" prot="public">soil_simulator::Bucket</innerclass>
+    <innerclass refid="classsoil__simulator_1_1_sim_param" prot="public">soil_simulator::SimParam</innerclass>
+    <innerclass refid="classsoil__simulator_1_1_sim_out" prot="public">soil_simulator::SimOut</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="bucket__pos_8hpp_1a6a6f9d5de436e7416dce324bdbab7456" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::CalcBucketPos</definition>
+        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Bucket bucket, SimParam sim_param, float tol)</argsstring>
+        <name>CalcBucketPos</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ori</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></type>
+          <declname>bucket</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref></type>
+          <declname>sim_param</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function determines all the cells where the bucket is located. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the bucket origin. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ori</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation of the bucket. [Quaternion] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bucket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the bucket object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sim_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The bucket position is calculated based on its reference pose stored in the <computeroutput><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></computeroutput> class, as well as the provided position (<computeroutput>pos</computeroutput>) and orientation (<computeroutput>ori</computeroutput>). <computeroutput>pos</computeroutput> and <computeroutput>ori</computeroutput> are used to apply the appropriate translation and rotation to the bucket relative to its reference pose. The center of rotation is assumed to be the bucket origin. The orientation is provided using the quaternion definition. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="22" bodyend="142" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="23" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1ae5c6e2a9518feb3017b99269d2f1bc34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int &gt; &gt; soil_simulator::CalcRectanglePos</definition>
+        <argsstring>(std::vector&lt; float &gt; a, std::vector&lt; float &gt; b, std::vector&lt; float &gt; c, std::vector&lt; float &gt; d, float delta, Grid grid, float tol)</argsstring>
+        <name>CalcRectanglePos</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>delta</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function determines the cells where a rectangle surface is located. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the rectangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the rectangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the rectangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the rectangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial increment used to decompose the edges of the rectangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Collection of cells indices where the rectangle is located. Result is not sorted and duplicates may be present.</para>
+</simplesect>
+The rectangle is defined by providing the Cartesian coordinates of its four vertices in the proper order.</para>
+<para>To optimize performance, the function iterates over a portion of the horizontal grid where the rectangle is located. For each cell, the function calculates the height of the plane formed by the rectangle at the top right corner of the cell. If the cell is within the rectangle area, the calcualted height is added to the results for the four neighboring cells.</para>
+<para>This method works because when a plane intersects with a rectangular cell, the minimum and maximum height of the plane within the cell occurs at one of the cell corners. By iterating through all the cells, the function ensures that all the corners of each cell are investigated.</para>
+<para>However, this approach does not work when the rectangle is perpendicular to the XY plane. To handle this case, the function uses the <computeroutput>CalcLinePos</computeroutput> function to include the cells that lie on the four edges of the rectangle.</para>
+<para>Note:<itemizedlist>
+<listitem><para>The iteration is performed over the top right corner of each cell, but any other corner could have been chosen without affecting the results.</para>
+</listitem><listitem><para>Not all cells are provided, since, at a given XY position, only the cells with the minimum and maximum height are important.</para>
+</listitem><listitem><para>When the rectangle follows a cell border, the exact location of the rectangle becomes ambiguous. It is assumed that the caller resolves this ambiguity. </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="41" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="170" bodyend="277" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="41" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1a548c40b2efad17e1de1cefd5213b180d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt;</type>
+        <definition>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt; soil_simulator::DecomposeVectorRectangle</definition>
+        <argsstring>(std::vector&lt; float &gt; ab_ind, std::vector&lt; float &gt; ad_ind, std::vector&lt; float &gt; a_ind, int area_min_x, int area_min_y, int area_length_x, int area_length_y, float tol)</argsstring>
+        <name>DecomposeVectorRectangle</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ab_ind</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ad_ind</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>a_ind</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_min_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_min_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_length_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_length_y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function performs a vector decomposition on a portion of the horizontal plane where a rectangle ABCD is located. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ab_ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indices representing the edge AB of the rectangle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ad_ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indices representing the edge AD of the rectangle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a_ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indices of the vertex A from which the edges AB and AD start. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_min_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum index in the X direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_min_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum index in the Y direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_length_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of grid elements in the X direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_length_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of grid elements in the Y direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A tuple composed of a vector of vector giving the vector decomposition in terms of the AB component, a vector of vector giving the vector decomposition in terms of the AD component, a vector of vector indicating whether the cell is inside the rectangle area, and the number of cells inside the rectangle area.</para>
+</simplesect>
+The position of the rectangle is defined by its edges AB and AD, while the specified area extends over [<computeroutput>area_min_x</computeroutput>, <computeroutput>area_min_x + area_length_x</computeroutput>] on the X direction and [<computeroutput>area_min_y</computeroutput>, <computeroutput>area_min_y + area_length_y</computeroutput>] on the Y direction.</para>
+<para>For each cell in the specified area, the function decomposes it into the basis formed by the vectors AB and AD. Let O be the name of a cell, it can then be decomposed as</para>
+<para><programlisting><codeline><highlight class="normal">AO<sp/>=<sp/>c_ab<sp/>*<sp/>AB<sp/>+<sp/>c_ad<sp/>*<sp/>AD.</highlight></codeline>
+</programlisting></para>
+<para>This decomposition leads to a system of 2 equations with 2 unknowns (c_ab and c_ad)</para>
+<para><programlisting><codeline><highlight class="normal">AO[1]<sp/>=<sp/>c_ab<sp/>*<sp/>AB[1]<sp/>+<sp/>c_ad<sp/>*<sp/>AD[1]<sp/>{1},</highlight></codeline>
+<codeline><highlight class="normal">AO[2]<sp/>=<sp/>c_ab<sp/>*<sp/>AB[2]<sp/>+<sp/>c_ad<sp/>*<sp/>AD[2]<sp/>{2}.</highlight></codeline>
+</programlisting></para>
+<para>One may note that AB[1] * {2} - AB[2] * {1} implies that</para>
+<para><programlisting><codeline><highlight class="normal">AB[1]<sp/>*<sp/>AO[2]<sp/>-<sp/>AB[2]<sp/>*<sp/>AO[1]<sp/>=<sp/>c_ad<sp/>*<sp/>AD[2]<sp/>*<sp/>AB[1]<sp/>-<sp/>c_ad<sp/>*<sp/>AD[1]<sp/>*<sp/>AB[2]</highlight></codeline>
+</programlisting></para>
+<para>that can be further rewritten as</para>
+<para><programlisting><codeline><highlight class="normal">c_ad<sp/>=<sp/>(AB[1]<sp/>*<sp/>AO[2]<sp/>-<sp/>AB[2]<sp/>*<sp/>AO[1])<sp/>/<sp/>(AD[2]<sp/>*<sp/>AB[1]<sp/>-<sp/>AD[1]<sp/>*<sp/>AB[2]).</highlight></codeline>
+</programlisting></para>
+<para>Similarly, AD[1] * {2} - AD[2] * {1} implies that</para>
+<para><programlisting><codeline><highlight class="normal">c_ab<sp/>=<sp/>-(AD[1]<sp/>*<sp/>AO[2]<sp/>-<sp/>AD[2]<sp/>*<sp/>AO[1])<sp/>/<sp/>(AD[2]<sp/>*<sp/>AB[1]<sp/>-<sp/>AD[1]<sp/>*<sp/>AB[2]).</highlight></codeline>
+</programlisting></para>
+<para>This decomposition allows us to determine whether the cell O is inside the rectangle area, since this requires c_ab and c_ad to be between 0 and 1.</para>
+<para>Note: By convention, the decomposition is done at the top right corner of each cell. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="67" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="327" bodyend="375" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="67" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1ac834b269e50e9b93faf48729d3322247" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int &gt; &gt; soil_simulator::CalcTrianglePos</definition>
+        <argsstring>(std::vector&lt; float &gt; a, std::vector&lt; float &gt; b, std::vector&lt; float &gt; c, float delta, Grid grid, float tol)</argsstring>
+        <name>CalcTrianglePos</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>delta</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function determines the cells where a triangle surface is located. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the triangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the triangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one vertex of the triangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial increment used to decompose the edges of the triangle. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Collection of cells indices where the triangle is located. Result is not sorted and duplicates may be present.</para>
+</simplesect>
+The triangle is defined by providing the Cartesian coordinates of its three vertices in the proper order.</para>
+<para>To optimize performance, the function iterates over a portion of the horizontal grid where the triangle is located. For each cell, the function calculates the height of the plane formed by the triangle at the top right corner of the cell. If the cell is within the triangle area, the calcualted height is added to the results for the four neighboring cells.</para>
+<para>This method works because when a plane intersects with a rectangular cell, the minimum and maximum height of the plane within the cell occurs at one of the cell corners. By iterating through all the cells, the function ensures that all the corners of each cell are investigated.</para>
+<para>However, this approach does not work when the triangle is perpendicular to the XY plane. To handle this case, the function uses the <computeroutput>CalcLinePos</computeroutput> function to include the cells that lie on the three edges of the triangle.</para>
+<para>Note:<itemizedlist>
+<listitem><para>The iteration is performed over the top right corner of each cell, but any other corner could have been chosen without affecting the results.</para>
+</listitem><listitem><para>Not all cells are provided, since, at a given XY position, only the cells with the minimum and maximum height are important.</para>
+</listitem><listitem><para>When the triangle follows a cell border, the exact location of the triangle becomes ambiguous. It is assumed that the caller resolves this ambiguity. </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="85" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="403" bodyend="504" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="85" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1a324a3b394c8ea1a119572a05fddf37b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt;</type>
+        <definition>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt; soil_simulator::DecomposeVectorTriangle</definition>
+        <argsstring>(std::vector&lt; float &gt; ab_ind, std::vector&lt; float &gt; ac_ind, std::vector&lt; float &gt; a_ind, int area_min_x, int area_min_y, int area_length_x, int area_length_y, float tol)</argsstring>
+        <name>DecomposeVectorTriangle</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ab_ind</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ac_ind</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>a_ind</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_min_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_min_y</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_length_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>area_length_y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function performs a vector decomposition on a portion of the horizontal plane where a tritangle ABC is located. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ab_ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indices representing the edge AB of the triangle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ac_ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indices representing the edge AC of the triangle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a_ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indices of the vertex A from which the edges AB and AC start. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_min_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum index in the X direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_min_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum index in the Y direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_length_x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of grid elements in the X direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area_length_y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of grid elements in the Y direction of the specified area. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A tuple composed of a vector of vector giving the vector decomposition in terms of the AB component, a vector of vector giving the vector decomposition in terms of the AC component, a vector of vector indicating whether the cell is inside the triangle area, and the number of cells inside the triangle area.</para>
+</simplesect>
+The position of the triangle is defined by its edges AB and AC, while the specified area extends over [<computeroutput>area_min_x</computeroutput>, <computeroutput>area_min_x + area_length_x</computeroutput>] on the X direction and [<computeroutput>area_min_y</computeroutput>, <computeroutput>area_min_y + area_length_y</computeroutput>] on the Y direction.</para>
+<para>For each cell in the specified area, the function decomposes it into the basis formed by the vectors AB and AC. Let O be the name of a cell, it can then be decomposed as</para>
+<para><programlisting><codeline><highlight class="normal">AO<sp/>=<sp/>c_ab<sp/>*<sp/>AB<sp/>+<sp/>c_ac<sp/>*<sp/>AC.</highlight></codeline>
+</programlisting></para>
+<para>This decomposition leads to a system of 2 equations with 2 unknowns (c_ab and c_ac)</para>
+<para><programlisting><codeline><highlight class="normal">AO[1]<sp/>=<sp/>c_ab<sp/>*<sp/>AB[1]<sp/>+<sp/>c_ac<sp/>*<sp/>AC[1]<sp/>{1},</highlight></codeline>
+<codeline><highlight class="normal">AO[2]<sp/>=<sp/>c_ab<sp/>*<sp/>AB[2]<sp/>+<sp/>c_ac<sp/>*<sp/>AC[2]<sp/>{2}.</highlight></codeline>
+</programlisting></para>
+<para>One may note that AB[1] * {2} - AB[2] * {1} implies that</para>
+<para><programlisting><codeline><highlight class="normal">AB[1]<sp/>*<sp/>AO[2]<sp/>-<sp/>AB[2]<sp/>*<sp/>AO[1]<sp/>=<sp/>c_ac<sp/>*<sp/>AC[2]<sp/>*<sp/>AB[1]<sp/>-<sp/>c_ac<sp/>*<sp/>AC[1]<sp/>*<sp/>AB[2]</highlight></codeline>
+</programlisting></para>
+<para>that can be further rewritten as</para>
+<para><programlisting><codeline><highlight class="normal">c_ac<sp/>=<sp/>(AB[1]<sp/>*<sp/>AO[2]<sp/>-<sp/>AB[2]<sp/>*<sp/>AO[1])<sp/>/<sp/>(AC[2]<sp/>*<sp/>AB[1]<sp/>-<sp/>AC[1]<sp/>*<sp/>AB[2]).</highlight></codeline>
+</programlisting></para>
+<para>Similarly, AC[1] * {2} - AC[2] * {1} implies that</para>
+<para><programlisting><codeline><highlight class="normal">c_ab<sp/>=<sp/>-(AC[1]<sp/>*<sp/>AO[2]<sp/>-<sp/>AC[2]<sp/>*<sp/>AO[1])<sp/>/<sp/>(AC[2]<sp/>*<sp/>AB[1]<sp/>-<sp/>AC[1]<sp/>*<sp/>AB[2]).</highlight></codeline>
+</programlisting></para>
+<para>This decomposition allows us to determine whether the cell O is inside the triangle area, since this requires c_ab and c_ac to be between 0 and 1, and the sum of c_ab and c_ac to be lower than 1.</para>
+<para>Note: By convention, the decomposition is done at the top right corner of each cell. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="111" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="555" bodyend="603" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="111" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1a7645d69569b958a1323bec5204d24e64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int &gt; &gt; soil_simulator::CalcLinePos</definition>
+        <argsstring>(std::vector&lt; float &gt; a, std::vector&lt; float &gt; b, float delta, Grid grid)</argsstring>
+        <name>CalcLinePos</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>delta</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+<para>This function determines all the cells that lie on a straight line between two Cartesian coordinates. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the first extremity of the line. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the second extremity of the line. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Spatial increment used to decompose the line. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Collection of cells indices where the line is located. Result is not sorted and duplicates should be expected.</para>
+</simplesect>
+For the sake of accuracy, the line is divided into smaller segments using a spatial increment <computeroutput>delta</computeroutput>.</para>
+<para>The coordinates of each sub-point (ab_i) along the line can then be calculated as</para>
+<para><programlisting><codeline><highlight class="normal">ab_i<sp/>=<sp/>a<sp/>+<sp/>ab<sp/>*<sp/>i<sp/>*<sp/>delta<sp/>/<sp/>norm(ab)</highlight></codeline>
+</programlisting></para>
+<para>where i is the increment number and ab = b - a. The Cartesian coordinates can then be converted into indices</para>
+<para><programlisting><codeline><highlight class="normal">ab_i_ind<sp/>=<sp/>ab_i<sp/>/<sp/>cell_size<sp/>+<sp/>grid_half_length<sp/>+<sp/>1</highlight></codeline>
+</programlisting></para>
+<para>Finally, the floating-point values are rounded to obtain the cell indices in the X, Y, Z directions. As the center of each cell is considered to be on the center of the top surface, <computeroutput>round</computeroutput> should be used for getting the cell indices in the X and Y direction, while <computeroutput>ceil</computeroutput> should be used for the Z direction.</para>
+<para>Note: When the line follows a cell border, the exact location of the line becomes ambiguous. It is assumed that the caller resolves this ambiguity. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="126" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="631" bodyend="668" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="126" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1a04a0807350c0592bf1b49aa84dc672ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::UpdateBody</definition>
+        <argsstring>(std::vector&lt; std::vector&lt; int &gt;&gt; area_pos, SimOut *sim_out, Grid grid, float tol)</argsstring>
+        <name>UpdateBody</name>
+        <param>
+          <type>std::vector&lt; std::vector&lt; int &gt;&gt;</type>
+          <declname>area_pos</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the bucket position in <computeroutput>body</computeroutput> following the cells composing <computeroutput>area_pos</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>area_pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A collection of cell indices specifying where a bucket wall is located. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+For each XY position, the first cell found in <computeroutput>area_pos</computeroutput> corresponds to the minimum height of the bucket, while the last one provides the maximum height. As a result, this function must be called separately for each bucket wall and <computeroutput>area_pos</computeroutput> must be sorted. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="137" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="674" bodyend="706" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="137" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="bucket__pos_8hpp_1a3ea4ec8bd8dc0b85dbdec40a39442bcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::IncludeNewBodyPos</definition>
+        <argsstring>(SimOut *sim_out, int ii, int jj, float min_h, float max_h, float tol)</argsstring>
+        <name>IncludeNewBodyPos</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>min_h</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_h</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the bucket position in <computeroutput>body</computeroutput> at the coordinates (<computeroutput>ii</computeroutput>, <computeroutput>jj</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ii</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the considered position in the X direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the considered position in the Y direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum height of the bucket. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum height of the bucket. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The minimum and maximum heights of the bucket at that position are given by <computeroutput>min_h</computeroutput> and <computeroutput>max_h</computeroutput>, respectively. If the given position overlaps with an existing position, then the existing position is updated as the union of the two positions. Otherwise, a new position is added to <computeroutput>body_</computeroutput>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="149" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="713" bodyend="780" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="149" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt; float &gt; soil_simulator::CalcNormal</definition>
+        <argsstring>(std::vector&lt; float &gt; a, std::vector&lt; float &gt; b, std::vector&lt; float &gt; c)</argsstring>
+        <name>CalcNormal</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the unit normal vector of a plane formed by three points using the right-hand rule. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the first point of the plane. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the second point of the plane. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the third point of the plane. [m]</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Unit normal vector of the provided plane. [m] </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="20" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="11" bodyend="31" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="20" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt; float &gt; soil_simulator::CalcRotationQuaternion</definition>
+        <argsstring>(std::vector&lt; float &gt; ori, std::vector&lt; float &gt; pos)</argsstring>
+        <name>CalcRotationQuaternion</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ori</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+<para>This function applies a rotation <computeroutput>ori</computeroutput> to the Cartesian coordinates <computeroutput>pos</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The Quaternion convention is used for 3D rotation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ori</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation of the bucket. [Quaternion] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of one point of the bucket in its reference pose relative to the bucket origin. [m]</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Rotated Cartesian coordinates of the input <computeroutput>pos</computeroutput> relative to the bucket origin. [m]</para>
+</simplesect>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="34" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="35" bodyend="52" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="34" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt; float &gt; soil_simulator::MultiplyQuaternion</definition>
+        <argsstring>(std::vector&lt; float &gt; q1, std::vector&lt; float &gt; q2)</argsstring>
+        <name>MultiplyQuaternion</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>q1</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>q2</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the product of two Quaternions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First quaternion. [Quaternion] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>q2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second quaternion. [Quaternion]</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Product of the two inputs quaternions. [Quaternion]</para>
+</simplesect>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="43" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="56" bodyend="69" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="43" declcolumn="14"/>
+      </memberdef>
+      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

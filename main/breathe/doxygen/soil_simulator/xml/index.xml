@@ -1,5 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="classsoil__simulator_1_1_bucket" kind="class"><name>soil_simulator::Bucket</name>
+    <member refid="classsoil__simulator_1_1_bucket_1a6d2a5e7b19d8ec29b700f2d0b2ded393" kind="variable"><name>j_pos_init_</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1a1f09a690072731b1a2ade43fae38e440" kind="variable"><name>b_pos_init_</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1a4196b7b5cec05e159e3db453a45abb0d" kind="variable"><name>t_pos_init_</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1ada6ec30903927b006cab61c07e15a263" kind="variable"><name>width_</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1ad8997213c92e4f0c8aef5326a75f64c8" kind="variable"><name>pos_</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1a4da542d0e026b878da691b6eef390977" kind="variable"><name>ori_</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f" kind="function"><name>Bucket</name></member>
+    <member refid="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53" kind="function"><name>~Bucket</name></member>
+  </compound>
+  <compound refid="classsoil__simulator_1_1_grid" kind="class"><name>soil_simulator::Grid</name>
+    <member refid="classsoil__simulator_1_1_grid_1a888c3184351f1fac958c6108fc989dbf" kind="variable"><name>half_length_x_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1ad98714e5e8133ed9e20a52793c6b0d99" kind="variable"><name>half_length_y_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1a2ff925798bf0d22bd313c4a466deb486" kind="variable"><name>half_length_z_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1a5663932e54b3e41f14adaeebcdb9e139" kind="variable"><name>cell_size_xy_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1a47d9e59d5995afc80fd8f1f1927d2aea" kind="variable"><name>cell_size_z_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1aeb43259801dfac354c295236bc615d8a" kind="variable"><name>cell_area_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1ace5348e134c0a9ef0da8b4d3b56399ae" kind="variable"><name>cell_volume_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01" kind="variable"><name>vect_x_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb" kind="variable"><name>vect_y_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1ae43b00a1a0f0ebd59818190a0b276a4e" kind="variable"><name>vect_z_</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1ae3e1b134689b7fad49f44b8c67d1f88c" kind="function"><name>Grid</name></member>
+    <member refid="classsoil__simulator_1_1_grid_1a4b9940a7dde7a8bf1705264346a23274" kind="function"><name>~Grid</name></member>
+  </compound>
+  <compound refid="classsoil__simulator_1_1_sim_out" kind="class"><name>soil_simulator::SimOut</name>
+    <member refid="classsoil__simulator_1_1_sim_out_1a4ab64092cca9fc1e9ecac7e48c29b1e5" kind="variable"><name>equilibrium_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1a4b7a38b487950de6994e2a93b44f700e" kind="variable"><name>terrain_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1a516a4d6d9be2ba178f68f323e43cb578" kind="variable"><name>body_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1aed6d0cf14eb073bfb65e2c5d1c8d816c" kind="variable"><name>body_soil_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1afa0e2faef2226de5c0e003cf551ead7a" kind="variable"><name>body_soil_pos_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1a42dae9412a224155f4ae41218b501dee" kind="variable"><name>bucket_area_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1a1b82b86c0e79f9ef6159ce9967fcc80a" kind="variable"><name>relax_area_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1ae23295a53a5d42a25e461558721561a5" kind="variable"><name>impact_area_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1ad10e812fb8bc81fb27722d901b53e2d7" kind="function"><name>SimOut</name></member>
+    <member refid="classsoil__simulator_1_1_sim_out_1a854bd1d28c331603b18f5a9f565b9fa9" kind="function"><name>~SimOut</name></member>
+  </compound>
+  <compound refid="classsoil__simulator_1_1_sim_param" kind="class"><name>soil_simulator::SimParam</name>
+    <member refid="classsoil__simulator_1_1_sim_param_1ac5ebb67488dded6b2def8ef0ab2f7274" kind="variable"><name>repose_angle_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_param_1a1436cd09d5dacaed64cf7b0afa2635dd" kind="variable"><name>max_iterations_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_param_1a59bb63975c510d493d870ec00f1299fd" kind="variable"><name>cell_buffer_</name></member>
+    <member refid="classsoil__simulator_1_1_sim_param_1a89fc5dd30ae2ca8e9b08102bdcf46222" kind="function"><name>SimParam</name></member>
+    <member refid="classsoil__simulator_1_1_sim_param_1ab3d425640c0281cf06fd67bcbe42e23c" kind="function"><name>~SimParam</name></member>
+  </compound>
   <compound refid="classsoil__simulator_1_1_soil_dynamics" kind="class"><name>soil_simulator::SoilDynamics</name>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" kind="function"><name>init</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" kind="function"><name>step</name></member>
@@ -7,11 +50,34 @@
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kind="function"><name>WriteOutputs</name></member>
   </compound>
   <compound refid="namespacesoil__simulator" kind="namespace"><name>soil_simulator</name>
+    <member refid="bucket__pos_8hpp_1a6a6f9d5de436e7416dce324bdbab7456" kind="function"><name>CalcBucketPos</name></member>
+    <member refid="bucket__pos_8hpp_1ae5c6e2a9518feb3017b99269d2f1bc34" kind="function"><name>CalcRectanglePos</name></member>
+    <member refid="bucket__pos_8hpp_1a548c40b2efad17e1de1cefd5213b180d" kind="function"><name>DecomposeVectorRectangle</name></member>
+    <member refid="bucket__pos_8hpp_1ac834b269e50e9b93faf48729d3322247" kind="function"><name>CalcTrianglePos</name></member>
+    <member refid="bucket__pos_8hpp_1a324a3b394c8ea1a119572a05fddf37b8" kind="function"><name>DecomposeVectorTriangle</name></member>
+    <member refid="bucket__pos_8hpp_1a7645d69569b958a1323bec5204d24e64" kind="function"><name>CalcLinePos</name></member>
+    <member refid="bucket__pos_8hpp_1a04a0807350c0592bf1b49aa84dc672ef" kind="function"><name>UpdateBody</name></member>
+    <member refid="bucket__pos_8hpp_1a3ea4ec8bd8dc0b85dbdec40a39442bcc" kind="function"><name>IncludeNewBodyPos</name></member>
+    <member refid="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" kind="function"><name>CalcNormal</name></member>
+    <member refid="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" kind="function"><name>CalcRotationQuaternion</name></member>
+    <member refid="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" kind="function"><name>MultiplyQuaternion</name></member>
+  </compound>
+  <compound refid="bucket__pos_8cpp" kind="file"><name>bucket_pos.cpp</name>
+  </compound>
+  <compound refid="bucket__pos_8hpp" kind="file"><name>bucket_pos.hpp</name>
   </compound>
   <compound refid="soil__dynamics_8cpp" kind="file"><name>soil_dynamics.cpp</name>
     <member refid="soil__dynamics_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
   <compound refid="soil__dynamics_8hpp" kind="file"><name>soil_dynamics.hpp</name>
+  </compound>
+  <compound refid="types_8cpp" kind="file"><name>types.cpp</name>
+  </compound>
+  <compound refid="types_8hpp" kind="file"><name>types.hpp</name>
+  </compound>
+  <compound refid="utils_8cpp" kind="file"><name>utils.cpp</name>
+  </compound>
+  <compound refid="utils_8hpp" kind="file"><name>utils.hpp</name>
   </compound>
   <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src</name>
   </compound>

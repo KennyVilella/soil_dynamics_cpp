@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="utils_8cpp" kind="file" language="C++">
+    <compoundname>utils.cpp</compoundname>
+    <includes local="no">cmath</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">vector</includes>
+    <includes refid="utils_8hpp" local="yes">src/utils.hpp</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>cmath</label>
+      </node>
+      <node id="1">
+        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp</label>
+        <link refid="utils_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="5">
+        <label>src/utils.hpp</label>
+        <link refid="utils_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>implements<sp/>the<sp/>utility<sp/>functions<sp/>used<sp/>in<sp/>this<sp/>simulator.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"></highlight></codeline>
+<codeline lineno="4"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/utils.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">std::vector<sp/>&lt;float&gt;<sp/>soil_simulator::CalcNormal(</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>a,<sp/>std::vector<sp/>&lt;float&gt;<sp/>b,<sp/>std::vector<sp/>&lt;float&gt;<sp/>c</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>normal(3);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>cross(3);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>cross<sp/>product</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>cross[0]<sp/>=<sp/>(b[1]<sp/>-<sp/>a[1])<sp/>*<sp/>(c[2]<sp/>-<sp/>a[2])<sp/>-<sp/>(b[2]<sp/>-<sp/>a[2])<sp/>*<sp/>(c[1]<sp/>-<sp/>a[1]);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>cross[1]<sp/>=<sp/>(b[2]<sp/>-<sp/>a[2])<sp/>*<sp/>(c[0]<sp/>-<sp/>a[0])<sp/>-<sp/>(b[0]<sp/>-<sp/>a[0])<sp/>*<sp/>(c[2]<sp/>-<sp/>a[2]);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>cross[2]<sp/>=<sp/>(b[0]<sp/>-<sp/>a[0])<sp/>*<sp/>(c[1]<sp/>-<sp/>a[1])<sp/>-<sp/>(b[1]<sp/>-<sp/>a[1])<sp/>*<sp/>(c[0]<sp/>-<sp/>a[0]);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>normal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>norm_cross<sp/>=<sp/>std::sqrt(</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cross[0]<sp/>*<sp/>cross[0]<sp/>+<sp/>cross[1]<sp/>*<sp/>cross[1]<sp/>+<sp/>cross[2]<sp/>*<sp/>cross[2]);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>normal[0]<sp/>=<sp/>cross[0]<sp/>/<sp/>norm_cross;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>normal[1]<sp/>=<sp/>cross[1]<sp/>/<sp/>norm_cross;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>normal[2]<sp/>=<sp/>cross[2]<sp/>/<sp/>norm_cross;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normal;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">std::vector<sp/>&lt;float&gt;<sp/>soil_simulator::CalcRotationQuaternion(</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>ori,<sp/>std::vector<sp/>&lt;float&gt;<sp/>pos</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>norm_ori<sp/>=<sp/>(</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori[0]<sp/>*<sp/>ori[0]<sp/>+<sp/>ori[1]<sp/>*<sp/>ori[1]<sp/>+<sp/>ori[2]<sp/>*<sp/>ori[2]<sp/>+<sp/>ori[3]<sp/>*<sp/>ori[3]);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>conj_ori<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori[0]<sp/>/<sp/>norm_ori,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-ori[1]<sp/>/<sp/>norm_ori,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-ori[2]<sp/>/<sp/>norm_ori,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-ori[3]<sp/>/<sp/>norm_ori};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>temp_pos<sp/>=<sp/>{0.0,<sp/>pos[0],<sp/>pos[1],<sp/>pos[2]};</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>rotation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>temp_quat<sp/>=<sp/>soil_simulator::MultiplyQuaternion(conj_ori,<sp/>temp_pos);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>quat<sp/>=<sp/>soil_simulator::MultiplyQuaternion(temp_quat,<sp/>ori);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{quat[1],<sp/>quat[2],<sp/>quat[3]};</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">std::vector<sp/>&lt;float&gt;<sp/>soil_simulator::MultiplyQuaternion(</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>q1,<sp/>std::vector<sp/>&lt;float&gt;<sp/>q2</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>quat(4);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>quaternion<sp/>multiplication</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[0]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[0]<sp/>-<sp/>q1[1]<sp/>*<sp/>q2[1]<sp/>-<sp/>q1[2]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[3]<sp/>*<sp/>q2[3];</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[1]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[1]<sp/>+<sp/>q1[1]<sp/>*<sp/>q2[0]<sp/>+<sp/>q1[2]<sp/>*<sp/>q2[3]<sp/>-<sp/>q1[3]<sp/>*<sp/>q2[2];</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[2]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[1]<sp/>*<sp/>q2[3]<sp/>+<sp/>q1[2]<sp/>*<sp/>q2[0]<sp/>+<sp/>q1[3]<sp/>*<sp/>q2[1];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[3]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[3]<sp/>+<sp/>q1[1]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[2]<sp/>*<sp/>q2[1]<sp/>+<sp/>q1[3]<sp/>*<sp/>q2[0];</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>quat;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp"/>
+  </compounddef>
+</doxygen>
