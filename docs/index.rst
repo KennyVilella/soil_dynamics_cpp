@@ -16,6 +16,6 @@ An `API <api.html>`_ documentation is available with information on all classes 
    :hidden:
 
    Home <self>
-   General documentation <api>
+   API documentation <api>
 
 .. _here: https://github.com/KennyVilella/soil_dynamics_julia
