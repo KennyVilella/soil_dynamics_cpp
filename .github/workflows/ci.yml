@@ -38,6 +38,13 @@ jobs:
           cpplint --filter=-'build/include' *
           cd ../..
 
+      - name: Install Google test
+        run: |
+          sudo apt-get install libgtest-dev
+          cd /usr/src/gtest
+          sudo cmake CMakeLists.txt
+          sudo make
+
       - name: Build the simulator
         run: |
           cmake -S . -B build
