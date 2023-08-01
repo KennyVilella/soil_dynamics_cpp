@@ -13,4 +13,5 @@ A doxygen documentation is available for all the files of the simulator.
    types <_api/types>
    bucket_pos <_api/bucket_pos>
    body_soil <_api/body_soil>
+   intersecting_cells <_api/intersecting_cells>
    utils <_api/utils>
