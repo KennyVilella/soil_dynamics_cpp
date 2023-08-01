@@ -11,6 +11,7 @@ target_sources(unit_tests
         ${CMAKE_CURRENT_SOURCE_DIR}/test_types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_bucket_pos.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_body_soil.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/test_intersecting_cells.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src
 )
