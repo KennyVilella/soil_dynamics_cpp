@@ -85,10 +85,35 @@
              
   <section id="body-soil-doxygen-documentation">
 <h1>body_soil: Doxygen documentation<a class="headerlink" href="#body-soil-doxygen-documentation" title="Permalink to this heading"></a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>autodoxygenfile: Cannot find file “body_soil.hpp </p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414soil_simulator">
+<span id="_CPPv314soil_simulator"></span><span id="_CPPv214soil_simulator"></span><span id="soil_simulator"></span><span class="target" id="namespacesoil__simulator"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">soil_simulator</span></span></span><a class="headerlink" href="#_CPPv414soil_simulator" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucketf">
+<span id="_CPPv3N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucketf"></span><span id="_CPPv2N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucketf"></span><span id="soil_simulator::UpdateBodySoil__SimOutP.std::vector:float:.std::vector:float:.Grid.BucketP.float"></span><span class="target" id="body__soil_8hpp_1ab50aafffc9911dee1104a68341d7d4a4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UpdateBodySoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucketf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function moves the soil resting on the bucket following its movement. </p>
+<p>
+In this function, the movement applied to the base of the soil column is calculated and the soil is moved to this new location. It is however difficult to track accurately each bucket wall. This is currently done by looking at the height difference between the previous and new soil locations, if this height difference is lower than <code class="docutils literal notranslate"><span class="pre">cell_size_xy_</span></code>, it is assumed to be the same bucket wall. Some errors may however be present and further testing is required. If no bucket wall is present, the soil is moved down to the terrain.</p>
+<p>The new positions of the soil resting on the bucket are collected into <code class="docutils literal notranslate"><span class="pre">sim_out.body_soil_pos_</span></code> and duplicates are removed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>pos</strong> – Cartesian coordinates of the bucket origin. [m] </p></li>
+<li><p><strong>ori</strong> – Orientation of the bucket. [Quaternion] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>bucket</strong> – Class that stores information related to the bucket object. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 </section>
 
 

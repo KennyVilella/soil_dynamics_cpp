@@ -58,13 +58,27 @@
     <member refid="bucket__pos_8hpp_1a7645d69569b958a1323bec5204d24e64" kind="function"><name>CalcLinePos</name></member>
     <member refid="bucket__pos_8hpp_1a04a0807350c0592bf1b49aa84dc672ef" kind="function"><name>UpdateBody</name></member>
     <member refid="bucket__pos_8hpp_1a3ea4ec8bd8dc0b85dbdec40a39442bcc" kind="function"><name>IncludeNewBodyPos</name></member>
+    <member refid="body__soil_8hpp_1ab50aafffc9911dee1104a68341d7d4a4" kind="function"><name>UpdateBodySoil</name></member>
+    <member refid="intersecting__cells_8hpp_1a9d38a4b3998507e89943b2aa74d54476" kind="function"><name>MoveIntersectingCells</name></member>
+    <member refid="intersecting__cells_8hpp_1a81b23c9cf33af5de4da526de32fc3e4b" kind="function"><name>MoveIntersectingBodySoil</name></member>
+    <member refid="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" kind="function"><name>MoveIntersectingBody</name></member>
+    <member refid="intersecting__cells_8hpp_1a8782f9bf7be372b263e6d4c045a2c802" kind="function"><name>MoveBodySoil</name></member>
+    <member refid="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" kind="function"><name>LocateIntersectingCells</name></member>
     <member refid="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" kind="function"><name>CalcNormal</name></member>
     <member refid="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" kind="function"><name>CalcRotationQuaternion</name></member>
     <member refid="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" kind="function"><name>MultiplyQuaternion</name></member>
   </compound>
+  <compound refid="body__soil_8cpp" kind="file"><name>body_soil.cpp</name>
+  </compound>
+  <compound refid="body__soil_8hpp" kind="file"><name>body_soil.hpp</name>
+  </compound>
   <compound refid="bucket__pos_8cpp" kind="file"><name>bucket_pos.cpp</name>
   </compound>
   <compound refid="bucket__pos_8hpp" kind="file"><name>bucket_pos.hpp</name>
+  </compound>
+  <compound refid="intersecting__cells_8cpp" kind="file"><name>intersecting_cells.cpp</name>
+  </compound>
+  <compound refid="intersecting__cells_8hpp" kind="file"><name>intersecting_cells.hpp</name>
   </compound>
   <compound refid="soil__dynamics_8cpp" kind="file"><name>soil_dynamics.cpp</name>
     <member refid="soil__dynamics_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>

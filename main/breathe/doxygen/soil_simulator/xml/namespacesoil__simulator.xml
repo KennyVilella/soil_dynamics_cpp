@@ -808,6 +808,275 @@ The minimum and maximum heights of the bucket at that position are given by <com
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" line="149" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.cpp" bodystart="713" bodyend="780" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/bucket_pos.hpp" declline="149" declcolumn="6"/>
       </memberdef>
+      <memberdef kind="function" id="body__soil_8hpp_1ab50aafffc9911dee1104a68341d7d4a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::UpdateBodySoil</definition>
+        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Bucket *bucket, float tol)</argsstring>
+        <name>UpdateBodySoil</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ori</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
+          <declname>bucket</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function moves the soil resting on the bucket following its movement. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the bucket origin. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ori</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation of the bucket. [Quaternion] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bucket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the bucket object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+In this function, the movement applied to the base of the soil column is calculated and the soil is moved to this new location. It is however difficult to track accurately each bucket wall. This is currently done by looking at the height difference between the previous and new soil locations, if this height difference is lower than <computeroutput>cell_size_xy_</computeroutput>, it is assumed to be the same bucket wall. Some errors may however be present and further testing is required. If no bucket wall is present, the soil is moved down to the terrain.</para>
+<para>The new positions of the soil resting on the bucket are collected into <computeroutput>sim_out.body_soil_pos_</computeroutput> and duplicates are removed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.cpp" bodystart="25" bodyend="144" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp" declline="23" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="intersecting__cells_8hpp_1a9d38a4b3998507e89943b2aa74d54476" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::MoveIntersectingCells</definition>
+        <argsstring>(SimOut *sim_out, float tol)</argsstring>
+        <name>MoveIntersectingCells</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="14" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="14" bodyend="21" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="14" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="intersecting__cells_8hpp_1a81b23c9cf33af5de4da526de32fc3e4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::MoveIntersectingBodySoil</definition>
+        <argsstring>(SimOut *sim_out, float tol)</argsstring>
+        <name>MoveIntersectingBodySoil</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="16" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="23" bodyend="25" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="16" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::MoveIntersectingBody</definition>
+        <argsstring>(SimOut *sim_out, float tol)</argsstring>
+        <name>MoveIntersectingBody</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function moves the soil cells in the <computeroutput>terrain_</computeroutput> that intersect with a bucket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+This function checks the eight lateral directions surrounding the intersecting soil column and moves the soil to available spaces. If there is insufficient space for all the soil, it incrementally checks the eight directions farther from the intersecting soil column until all the soil has been moved. The process can be illustrated as follows <verbatim>            ↖   ↑   ↗
+              ↖ ↑ ↗
+            ← ← O → →
+              ↙ ↓ ↘
+            ↙   ↓   ↘
+</verbatim> Note that the order in which the directions are checked is randomized in order to avoid asymmetrical results. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="41" bodyend="134" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="23" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="intersecting__cells_8hpp_1a8782f9bf7be372b263e6d4c045a2c802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::tuple&lt; int, int, int, float, bool &gt;</type>
+        <definition>std::tuple&lt; int, int, int, float, bool &gt; soil_simulator::MoveBodySoil</definition>
+        <argsstring>(SimOut *sim_out, int ind_p, int ii_p, int jj_p, float max_h, int ii_n, int jj_n, float h_soil, bool wall_presence, float tol)</argsstring>
+        <name>MoveBodySoil</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ind_p</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii_p</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj_p</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_h</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii_n</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj_n</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>h_soil</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>wall_presence</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="25" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="136" bodyend="141" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="25" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int &gt; &gt; soil_simulator::LocateIntersectingCells</definition>
+        <argsstring>(SimOut *sim_out, float tol)</argsstring>
+        <name>LocateIntersectingCells</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function identifies all the soil cells in the <computeroutput>terrain_</computeroutput> that intersect with the bucket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="34" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="143" bodyend="173" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="34" declcolumn="13"/>
+      </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
         <definition>std::vector&lt; float &gt; soil_simulator::CalcNormal</definition>
