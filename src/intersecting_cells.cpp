@@ -24,6 +24,20 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
 ) {
 }
 
+/// This function checks the eight lateral directions surrounding the
+/// intersecting soil column and moves the soil to available spaces. If there is
+/// insufficient space for all the soil, it incrementally checks the eight
+/// directions farther from the intersecting soil column until all the soil has
+/// been moved. The process can be illustrated as follows
+///
+///                 ↖   ↑   ↗
+///                   ↖ ↑ ↗
+///                 ← ← O → →
+///                   ↙ ↓ ↘
+///                 ↙   ↓   ↘
+///
+/// Note that the order in which the directions are checked is randomized in
+/// order to avoid asymmetrical results.
 void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
 ) {
     // Locating soil cells intersecting with the bucket
