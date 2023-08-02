@@ -7,6 +7,7 @@ Copyright, 2023, Vilella Kenny.
 #include <iostream>
 #include <random>
 #include <tuple>
+#include <utility>
 #include <vector>
 #include "src/types.hpp"
 #include "src/intersecting_cells.hpp"
