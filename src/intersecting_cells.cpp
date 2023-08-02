@@ -140,6 +140,24 @@ void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
     }
 }
 
+/// This function can be separated into three main scenarios:
+/// - If all the soil can be moved to the new location (either on the terrain
+///   or on the bucket), the soil is moved and the value of `h_soil` is
+///   set to zero.
+/// - If a bucket wall is blocking the movement, the `wall_presence` parameter
+///   is set to `true`.
+/// - If there is insufficient space to move all the soil but no bucket wall is
+///   blocking the movement, the function updates the values for the new
+///   location and adjusts `h_soil` accordingly.
+///
+/// This function is designed to be used iteratively by the function
+/// `MoveIntersectingBodySoil` until all intersecting soil cells are moved.
+///
+/// Note that, by convention, the soil can be moved from the bucket to the
+/// terrain even if the bucket is underground.
+/// Moreover, in cases where the soil should be moved to the terrain, all soil
+/// is moved regardless of the available space. If this movement induces
+/// intersecting soil cells, it will be resolved by `MoveIntersectingBody`.
 std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
     SimOut* sim_out, int ind_p, int ii_p, int jj_p, float max_h, int ii_n,
     int jj_n, float h_soil, bool wall_presence, float tol
