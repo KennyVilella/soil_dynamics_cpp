@@ -5,9 +5,13 @@ Copyright, 2023, Vilella Kenny.
 */
 #pragma once
 
+#include <random>
 #include <tuple>
 #include <vector>
 #include "src/types.hpp"
+
+// Setting RNG
+std::mt19937 rng;
 
 namespace soil_simulator {
 

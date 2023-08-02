@@ -66,7 +66,13 @@ void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
         }
 
         // Randomizing direction to avoid asymmetry
-        std::random_shuffle(directions.begin(), directions.end());
+        // random_suffle is not used because it is machine dependent,
+        // which makes unit testing difficult
+        for (int ii = directions.size() - 1; ii > 0; ii--) {
+            std::uniform_int_distribution<int> dist(0, ii);
+            int jj = dist(rng);
+            std::swap(directions[ii], directions[jj]);
+        }
 
         // Calculating vertical extension of intersecting soil column
         float h_soil = sim_out->terrain_[ii][jj] - sim_out->body_[ind][ii][jj];

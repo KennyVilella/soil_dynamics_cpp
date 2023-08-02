@@ -394,6 +394,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
 
     // -- Testing when soil is moved by small amount (1) --
     // Soil is fitting under the bucket
+    rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -421,11 +422,11 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     soil_simulator::MoveIntersectingBody(sim_out, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[11][17], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][17], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[8][17], 0.25, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[8][17], 0.15, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[12][17], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[13][17], 0.05, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[13][19], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[14][20], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[14][20], 0.2, 1e-5);
     sim_out->terrain_[11][17] = 0.0;
     sim_out->terrain_[10][17] = 0.0;
     sim_out->terrain_[8][17] = 0.0;
@@ -448,6 +449,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
 
     // -- Testing when soil is moved by small amount (2) --
     // Soil is going out of the bucket
+    rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -480,7 +482,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     EXPECT_NEAR(sim_out->terrain_[13][17], 0.05, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[13][19], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[14][20], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[7][21], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[15][17], 0.2, 1e-5);
     sim_out->terrain_[11][17] = 0.0;
     sim_out->terrain_[10][17] = 0.0;
     sim_out->terrain_[8][17] = 0.0;
@@ -488,7 +490,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     sim_out->terrain_[13][17] = 0.0;
     sim_out->terrain_[13][19] = 0.0;
     sim_out->terrain_[14][20] = 0.0;
-    sim_out->terrain_[7][21] = 0.0;
+    sim_out->terrain_[15][17] = 0.0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
@@ -504,6 +506,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
 
     // -- Testing when soil is moved by small amount (3) --
     // Soil is just fitting under the bucket
+    rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
