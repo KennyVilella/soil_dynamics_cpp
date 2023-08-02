@@ -6,9 +6,6 @@ Copyright, 2023, Vilella Kenny.
 #include "gtest/gtest.h"
 #include "src/intersecting_cells.cpp"
 
-// Setting RNG
-std::mt19937 rng;
-
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
 }
 
@@ -397,7 +394,6 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
 
     // -- Testing when soil is moved by small amount (1) --
     // Soil is fitting under the bucket
-    rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -452,7 +448,6 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
 
     // -- Testing when soil is moved by small amount (2) --
     // Soil is going out of the bucket
-    rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -509,7 +504,6 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
 
     // -- Testing when soil is moved by small amount (3) --
     // Soil is just fitting under the bucket
-    rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
