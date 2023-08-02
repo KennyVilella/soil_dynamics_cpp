@@ -144,7 +144,192 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
     SimOut* sim_out, int ind_p, int ii_p, int jj_p, float max_h, int ii_n,
     int jj_n, float h_soil, bool wall_presence, float tol
 ) {
-    return {1, 1, 1, 0.0, true};
+    // Determining presence of bucket
+    bool bucket_absence_1 = (
+        (sim_out->body_[0][ii_n][jj_n] == 0.0) &&
+        (sim_out->body_[1][ii_n][jj_n] == 0.0));
+    bool bucket_absence_3 = (
+        (sim_out->body_[2][ii_n][jj_n] == 0.0) &&
+        (sim_out->body_[3][ii_n][jj_n] == 0.0));
+
+    if (bucket_absence_1 && bucket_absence_3) {
+        // No bucket
+        sim_out->terrain_[ii_n][jj_n] += h_soil;
+        return {ind_p, ii_p, jj_p, 0.0, wall_presence};
+    } else if (bucket_absence_1) {
+        // Only the second bucket layer
+        if (
+            sim_out->body_[2][ii_n][jj_n] - tol >
+            sim_out->body_[ind_p+1][ii_p][jj_p]) {
+            // Soil avalanche below the second bucket layer to the terrain
+            // Note that all soil is going to the terrain without considering
+            // the space  available. If there is not enough space available, the
+            // soil would intersect with the bucket and later be moved by
+            // the MoveIntersectingBody function
+            sim_out->terrain_[ii_n][jj_n] += h_soil;
+            h_soil = 0.0;
+            return {ind_p, ii_p, jj_p, h_soil, wall_presence};
+        } else if (sim_out->body_[3][ii_n][jj_n] + tol > max_h) {
+            // Bucket is blocking the movement
+            return {ind_p, ii_p, jj_p, h_soil, true};
+        }
+
+        bool bucket_soil_presence_3 = (
+            (sim_out->body_soil_[2][ii_n][jj_n] != 0.0) ||
+            (sim_out->body_soil_[3][ii_n][jj_n] != 0.0));
+
+        // The only option left is that there is space for the intersecting soil
+        // Note that there is necessarily enough space for all the soil,
+        // otherwise the soil column would block the movement
+        if (bucket_soil_presence_3) {
+            // Soil should go into the existing bucket soil layer
+            sim_out->body_soil_[3][ii_n][jj_n] += h_soil;
+        } else {
+            // Soil should create a new bucket soil layer
+            sim_out->body_soil_[2][ii_n][jj_n] = sim_out->body_[3][ii_n][jj_n];
+            sim_out->body_soil_[3][ii_n][jj_n] = (
+                sim_out->body_[3][ii_n][jj_n] + h_soil);
+
+            // Adding new bucket soil position to body_soil_pos
+            sim_out->body_soil_pos_.push_back(std::vector<int> {2, ii_n, jj_n});
+        }
+
+        h_soil = 0.0;
+    } else if (bucket_absence_3) {
+        // Only the first bucket layer
+        if (
+            sim_out->body_[0][ii_n][jj_n] - tol >
+            sim_out->body_[ind_p+1][ii_p][jj_p]) {
+            // Soil avalanche below the first bucket layer to the terrain
+            // Note that all soil is going to the terrain without considering
+            // the space  available. If there is not enough space available, the
+            // soil would intersect with the bucket and later be moved by the
+            // MoveIntersectingBody function
+            sim_out->terrain_[ii_n][jj_n] += h_soil;
+            return {ind_p, ii_p, jj_p, 0.0, wall_presence};
+        } else if (sim_out->body_[1][ii_n][jj_n] + tol > max_h) {
+            // Bucket is blocking the movement
+            return {ind_p, ii_p, jj_p, h_soil, true};
+        }
+
+        bool bucket_soil_presence_1 = (
+            (sim_out->body_soil_[0][ii_n][jj_n] != 0.0) ||
+            (sim_out->body_soil_[1][ii_n][jj_n] != 0.0));
+
+        // The only option left is that there is space for the intersecting soil
+        // Note that there is necessarily enough space for all the soil,
+        // otherwise the soil column would block the movement
+        if (bucket_soil_presence_1) {
+            // Soil should go into the existing bucket soil layer
+            sim_out->body_soil_[1][ii_n][jj_n] += h_soil;
+        } else {
+            // Soil should create a new bucket soil layer
+            sim_out->body_soil_[0][ii_n][jj_n] = sim_out->body_[1][ii_n][jj_n];
+            sim_out->body_soil_[1][ii_n][jj_n] = (
+                sim_out->body_[1][ii_n][jj_n] + h_soil);
+
+            // Adding new bucket soil position to body_soil_pos
+            sim_out->body_soil_pos_.push_back(std::vector<int> {0, ii_n, jj_n});
+        }
+
+        h_soil = 0.0;
+    } else {
+        // Both bucket layers are present
+        int ind_b_n;
+        int ind_t_n;
+        if (sim_out->body_[0][ii_n][jj_n] < sim_out->body_[2][ii_n][jj_n]) {
+            // First layer at bottom
+            ind_b_n = 0;
+            ind_t_n = 2;
+        } else {
+            // Second layer at bottom
+            ind_b_n = 2;
+            ind_t_n = 0;
+        }
+
+        bool bucket_soil_presence = (
+            (sim_out->body_soil_[ind_b_n][ii_n][jj_n] != 0.0) ||
+            (sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] != 0.0));
+
+        if (bucket_soil_presence) {
+            // Bucket soil is present between the two bucket layers
+            if (
+                sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] + tol >
+                sim_out->body_[ind_t_n][ii_n][jj_n]) {
+                // Bucket and soil blocking the movement
+                return {ind_b_n, ii_n, jj_n, h_soil, wall_presence};
+            }
+        }
+
+        // Only option left is that there is space for the intersecting soil
+        if (bucket_soil_presence) {
+            // Soil should go into the existing bucket soil layer
+            // Calculating available space
+            float delta_h = (
+                sim_out->body_[ind_t_n][ii_n][jj_n] -
+                sim_out->body_soil_[ind_b_n+1][ii_n][jj_n]);
+
+            if (delta_h < h_soil) {
+                // Not enough space
+                h_soil -= delta_h;
+
+                // Adding soil to the bucket soil layer
+                sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] += delta_h;
+
+                // Updating previous position
+                ii_p = ii_n;
+                jj_p = jj_n;
+                ind_p = ind_b_n;
+            } else {
+                // More space than soil
+                // Adding soil to the bucket soil layer
+                sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] += h_soil;
+
+                h_soil = 0.0;
+            }
+        } else {
+            // Soil should create a new bucket soil layer
+            // Calculating available space
+            float delta_h = (
+                sim_out->body_[ind_t_n][ii_n][jj_n] -
+                sim_out->body_[ind_b_n+1][ii_n][jj_n]);
+
+            if (delta_h < h_soil) {
+                // Not enough space
+                h_soil -= delta_h;
+
+                // Creating a new bucket soil layer
+                sim_out->body_soil_[ind_b_n][ii_n][jj_n] = (
+                    sim_out->body_[ind_b_n+1][ii_n][jj_n]);
+                sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] = (
+                    sim_out->body_[ind_b_n+1][ii_n][jj_n] + delta_h);
+
+                // Adding new bucket soil position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(
+                    std::vector<int> {ind_b_n, ii_n, jj_n});
+
+                // Updating previous position
+                ii_p = ii_n;
+                jj_p = jj_n;
+                ind_p = ind_b_n;
+            } else {
+                // More space than soil
+                // Creating a new bucket soil layer
+                sim_out->body_soil_[ind_b_n][ii_n][jj_n] = (
+                    sim_out->body_[ind_b_n+1][ii_n][jj_n]);
+                sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] = (
+                    sim_out->body_[ind_b_n+1][ii_n][jj_n] + h_soil);
+
+                // Adding new bucket soil position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(
+                    std::vector<int> {ind_b_n, ii_n, jj_n});
+
+                h_soil = 0.0;
+            }
+        }
+    }
+
+    return {ind_p, ii_p, jj_p, h_soil, wall_presence};
 }
 
 std::vector<std::vector<int>> soil_simulator::LocateIntersectingCells(
