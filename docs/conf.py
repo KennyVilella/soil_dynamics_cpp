@@ -26,6 +26,10 @@ breathe_projects_source = {
         "types.cpp",
         "bucket_pos.hpp",
         "bucket_pos.cpp",
+        "body_soil.hpp",
+        "body_soil.cpp",
+        "intersecting_cells.hpp",
+        "intersecting_cells.cpp",
         "utils.hpp",
         "utils.cpp"])
 }
