@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="intersecting__cells_8hpp" kind="file" language="C++">
     <compoundname>intersecting_cells.hpp</compoundname>
+    <includes local="no">random</includes>
     <includes local="no">tuple</includes>
     <includes local="no">vector</includes>
     <includes refid="types_8hpp" local="yes">src/types.hpp</includes>
@@ -16,27 +17,47 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-      </node>
-      <node id="4">
-        <label>src/types.hpp</label>
-        <link refid="types_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
+      <node id="5">
+        <label>src/types.hpp</label>
+        <link refid="types_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
       <node id="2">
-        <label>tuple</label>
+        <label>random</label>
       </node>
       <node id="3">
+        <label>tuple</label>
+      </node>
+      <node id="4">
         <label>vector</label>
       </node>
-      <node id="5">
+      <node id="6">
         <label>src/soil_dynamics.hpp</label>
         <link refid="soil__dynamics_8hpp_source"/>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacesoil__simulator">soil_simulator</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="intersecting__cells_8hpp_1adbe79e918414b2480135e3a7871b44ac" prot="public" static="no" mutable="no">
+        <type>std::mt19937</type>
+        <definition>std::mt19937 rng</definition>
+        <argsstring></argsstring>
+        <name>rng</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="14" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -49,26 +70,30 @@
 <codeline lineno="5"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">soil_simulator<sp/>{</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MoveIntersectingCells(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;random&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Setting<sp/>RNG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">std::mt19937<sp/>rng;</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MoveIntersectingBodySoil(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">soil_simulator<sp/>{</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MoveIntersectingBody(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal">std::tuple&lt;int,<sp/>int,<sp/>int,<sp/>float,<sp/>bool&gt;<sp/>MoveBodySoil(</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ind_p,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii_p,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj_p,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_h,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii_n,</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj_n,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>h_soil,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wall_presence,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MoveIntersectingCells(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MoveIntersectingBodySoil(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MoveIntersectingBody(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>LocateIntersectingCells(</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">std::tuple&lt;int,<sp/>int,<sp/>int,<sp/>float,<sp/>bool&gt;<sp/>MoveBodySoil(</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ind_p,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii_p,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj_p,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_h,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii_n,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj_n,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>h_soil,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>wall_presence,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>LocateIntersectingCells(</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp"/>
   </compounddef>
