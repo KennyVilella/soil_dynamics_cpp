@@ -722,6 +722,345 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
 }
 
 TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // -- Testing when soil is avalanching on the terrain (1) --
+    // -- First bucket layer at bottom                        --
+    rng.seed(1234);
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.3;
+    sim_out->body_[2][10][15] = 0.5;
+    sim_out->body_[3][10][15] = 0.6;
+    sim_out->body_soil_[0][10][15] = 0.3;
+    sim_out->body_soil_[1][10][15] = 0.8;
+    sim_out->body_soil_[2][10][15] = 0.6;
+    sim_out->body_soil_[3][10][15] = 0.7;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    soil_simulator::MoveIntersectingBodySoil(sim_out, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    sim_out->terrain_[11][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is avalanching on the terrain (2) --
+    // -- Second bucket layer at bottom                       --
+
+    // -- Testing when soil is avalanching on the terrain (3) --
+    // -- Bucket undergroumd                                  --
+
+    // -- Testing when soil is avalanching below the first bucket layer (1) --
+
+    // -- Testing when soil is avalanching below the first bucket layer (2) --
+
+    // -- Testing when soil is avalanching below the first bucket layer (3) --
+
+    // -- Testing when soil is avalanching below the first bucket layer --
+    // -- despite the lack of available space                           --
+
+    // -- Testing when soil is avalanching below the second bucket layer (1) --
+
+    // -- Testing when soil is avalanching below the second bucket layer (2) --
+
+    // -- Testing when soil is avalanching below the second bucket layer (3) --
+
+
+
+    // -- Testing when soil is avalanching below the second bucket layer --
+    // -- despite the lack of available space                            --
+
+    // -- Testing when soil is fully avalanching on first bucket layer (1) --
+
+    // -- Testing when soil is fully avalanching on first bucket layer (2) --
+
+    // -- Testing when soil is fully avalanching on second bucket layer (1) --
+
+    // -- Testing when soil is fully avalanching on second bucket layer (2) --
+
+    // -- Testing when soil is fully avalanching on first bucket soil --
+    // -- layer (1)                                                   --
+
+    // -- Testing when soil is fully avalanching on first bucket soil --
+    // -- layer (2)                                                   --
+
+    // -- Testing when soil is fully avalanching on second bucket soil --
+    // -- layer (1)                                                    --
+
+    // -- Testing when soil is fully avalanching on the second bucket soil --
+    // -- layer (2)                                                        --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the first bucket layer (1)                  --
+
+
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the first bucket layer (2)                  --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the second bucket layer (1)                 --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the second bucket layer (2)                 --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the first bucket soil layer (1)             --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the first bucket soil layer (2)             --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the second bucket soil layer (1)            --
+
+    // -- Testing when there are two bucket layers and soil is fully --
+    // -- avalanching on the second bucket soil layer (2)            --
+
+    // -- Testing when there are two bucket layers and soil is partially    --
+    // -- avalanching on the first bucket layer and then on the terrain (1) --
+
+    // -- Testing when there are two bucket layers and soil is partially    --
+    // -- avalanching on the first bucket layer and then on the terrain (2) --
+
+    // -- Testing when there are two bucket layers and soil is partially     --
+    // -- avalanching on the second bucket layer and then on the terrain (1) --
+
+
+
+
+    // -- Testing when there are two bucket layers and soil is partially     --
+    // -- avalanching on the second bucket layer and then on the terrain (2) --
+
+    // -- Testing when there are two bucket layers and soil is partially --
+    // -- avalanching on first bucket soil layer and then on terrain (1) --
+
+    // -- Testing when there are two bucket layers and soil is partially --
+    // -- avalanching on first bucket soil layer and then on terrain (2) --
+
+    // -- Testing when there are two bucket layers and soil is partially  --
+    // -- avalanching on second bucket soil layer and then on terrain (1) --
+
+    // -- Testing when there are two bucket layers and soil is partially  --
+    // -- avalanching on second bucket soil layer and then on terrain (2) --
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the first bucket soil layer, then the soil is       --
+    // -- avalanching on the terrain below the first bucket layer            --
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the  second bucket soil layer, then the soil is     --
+    // -- avalanching on the terrain below the first bucket layer            --
+
+    // -- Testing when there are two bucket layers and the soil on the first  --
+    // -- bucket layer is blocking the movement, then the soil is avalanching --
+    // -- on the terrain below the second bucket layer                        --
+
+    // -- Testing when there are two bucket layers and the soil on the second --
+    // -- bucket layer is blocking the movement, then the soil is avalanching --
+    // -- on the terrain below the second bucket layer                        --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then the soil is avalanching --
+    // -- on the terrain below the first bucket layer                         --
+
+
+
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the second bucket layer, then the soil is           --
+    // -- avalanching on the terrain below the first bucket layer            --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then the soil is avalanching --
+    // -- on the terrain below the second bucket layer                        --
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the second bucket layer, then the soil is           --
+    // -- avalanching on the terrain below the second bucket layer           --
+
+    // -- Testing when there is a lot of soil on the first bucket layer but --
+    // -- soil is still avalanching on it                                   --
+
+    // -- Testing when there is a lot of soil on the second bucket layer but --
+    // -- soil is still avalanching on it                                    --
+
+    // -- Testing when there are two bucket layers and the soil on the first  --
+    // -- bucket layer is blocking the movement, then the soil is avalanching --
+    // -- on the first bucket layer                                           --
+
+    // -- Testing when there are two bucket layers and the soil on the second --
+    // -- bucket layer is blocking the movement, then the soil is avalanching --
+    // -- on the first bucket layer                                           --
+
+    // -- Testing when there are two bucket layers and the soil on the first  --
+    // -- bucket layer is blocking the movement, then the soil is avalanching --
+    // -- on the second bucket layer                                          --
+
+    // -- Testing when there are two bucket layers and the soil on the second --
+    // -- bucket layer is blocking the movement, then the soil is avalanching --
+    // -- on the second bucket layer                                          --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then the soil is avalanching --
+    // -- on the first bucket layer                                           --
+
+
+
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the second bucket layer, then the soil is           --
+    // -- avalanching on the first bucket layer                              --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then the soil is avalanching --
+    // -- on the second bucket layer                                          --
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the second bucket layer, then the soil is           --
+    // -- avalanching on the second bucket layer                             --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then the first bucket layer  --
+    // -- is blocking the movement. New direction, two bucket layers and the  --
+    // -- soil is partially avalanching on the second bucket layer, then the  --
+    // -- first bucket layer is blocking the movement. New direction, two     --
+    // -- bucket layers and the soil is partially avalanching on the first    --
+    // -- bucket layer, then the second bucket layer is blocking the          --
+    // -- movement. New direction two bucket layers and the soil is partially --
+    // -- avalanching on the second bucket layer, then the second bucket      --
+    // -- layer is blocking the movement. New direction, two bucket layers    --
+    // -- and  the soil on the first bucket layer is blocking the movement,   --
+    // -- then two bucket layers and the soil is fully avalanching on the     --
+    // -- second bucket layer                                                 --
+
+    // -- Testing when there are two bucket layers and the soil on the first  --
+    // -- bucket layer is blocking the movement, then the soil is fully       --
+    // -- avalanching on the second bucket soil layer                         --
+
+    // -- Testing when there are two bucket layers and the soil on the second --
+    // -- bucket layer is blocking the movement, then the soil is fully       --
+    // -- avalanching on the second bucket soil layer                         --
+
+    // -- Testing when there are two bucket layers and the soil on the first  --
+    // -- bucket layer is blocking the movement, then the first bucket layer  --
+    // -- is blocking the movement. New direction, two bucket layers and the  --
+    // -- soil on the second bucket layer is blocking the movement, then the  --
+    // -- first bucket layer is blocking the movement. New direction, two     --
+    // -- bucket layers and the soil on the first bucket layer is blocking    --
+    // -- the movement, then the second bucket layer is blocking the movement --
+    // --  New direction, two bucket layers and the soil on the second bucket --
+    // -- layer is blocking the movement, then the second bucket layer is     --
+    // -- blocking the movement. New direction, two bucket layers and the     --
+    // -- soil on the first bucket layer is blocking the movement, then two   --
+    // -- bucket layers and the soil is fully avalanching on the first bucket --
+    // -- layer                                                               --
+
+    // -- Testing when there are two bucket layers and the soil on the second --
+    // -- bucket layer is blocking the movement, then two bucket layers and   --
+    // -- the soil is fully avalanching on the second bucket layer            --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then two bucket layers and   --
+    // -- soil is partially avalanching on the first bucket layer that is     --
+    // -- higher, then two bucket layers and soil is partially avalanching    --
+    // -- on the first bucket layer that is higher, then two bucket layers    --
+    // -- and soil is partially avalanching on the first bucket layer, then   --
+    // -- two bucket layers and soil is partially avalanching on the first    --
+    // -- bucket layer, then two bucket layers and soil is partially          --
+    // -- avalanching on the second bucket layer that is higher, then two     --
+    // -- bucket layers and soil is partially avalanching on the second       --
+    // -- bucket layer that is higher, then two bucket layers and soil is     --
+    // -- partially avalanching on the first bucket layer that is higher,     --
+    // -- then two bucket layers and soil is partially avalanching on the     --
+    // -- second bucket layer, then two bucket layers and the soil is fully   --
+    // -- avalanching on the first bucket layer                               --
+
+    // -- Testing when there are two bucket layers and soil is partially      --
+    // -- avalanching on the second bucket layer, then two bucket layers and  --
+    // -- soil is partially avalanching on the first bucket layer, then two   --
+    // -- bucket layers and soil is partially avalanching on the second       --
+    // -- bucket layer, then two bucket layers and soil is partially          --
+    // -- avalanching on the second bucket layer, then two bucket layers and  --
+    // -- soil is partially avalanching on the second bucket layer that is    --
+    // -- higher, then two bucket layers and soil is partially avalanching    --
+    // -- on the first bucket layer, then two bucket layers and soil is       --
+    // -- partially avalanching on the first bucket layer that is higher,     --
+    // -- then two bucket layers and soil is partially avalanching on the     --
+    // -- second bucket layer, then two bucket layers and soil is partially   --
+    // -- avalanching on the first bucket layer that is higher, then two      --
+    // -- bucket layers and soil is partially avalanching on the second       --
+    // -- bucket layer that is higher, then two bucket layers and the soil is --
+    // -- fully avalanching on the first bucket layer                         --
+
+
+
+
+
+    // -- Testing when there are two bucket layers and the soil on the first --
+    // -- bucket layer is blocking the movement, then two bucket layers and  --
+    // -- the soil on the first bucket layer is blocking the movement, then  --
+    // -- two bucket layers and the soil on the second bucket layer is       --
+    // -- blocking the movement, then two bucket layers and the soil on the  --
+    // -- second bucket layer is blocking the movement, then two bucket      --
+    // -- layers and the soil on the first bucket layer is blocking the      --
+    // -- movement, then two bucket layers and the soil is fully avalanching --
+    // -- on the first bucket layer                                          --
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the first bucket layer, then two bucket layers and  --
+    // -- the soil is partially avalanching on the first bucket layer, then  --
+    // -- two bucket layers and the soil is partially avalanching on the     --
+    // -- second bucket layer, then two bucket layers and the soil is        --
+    // -- partially avalanching on the second bucket layer, then two bucket  --
+    // -- layers and the soil is partially avalanching on the first bucket   --
+    // -- layer, then two bucket layers and the soil is fully avalanching on --
+    // -- the second bucket layer                                            --
+
+    // -- Testing when there are two bucket layers and the soil is partially  --
+    // -- avalanching on the first bucket layer, then two bucket layers and   --
+    // -- the soil on the first bucket layer is blocking the movement, then   --
+    // -- two bucket layers and the soil is partially avalanching on the      --
+    // -- first bucket layer, then two bucket layers and the soil on the      --
+    // -- second bucket layer is blocking the movement, then two bucket       --
+    // -- layers and the soil is partially avalanching on the second bucket   --
+    // -- layer, then two bucket layers and the soil on the first bucket      --
+    // --layer is blocking the movement, then two bucket layers and the soil  --
+    // -- is partially avalanching on the second bucket layer, then two       --
+    // -- bucket layers and the soil on the second bucket layer is blocking   --
+    // -- the movement, then two bucket layers and the soil is partially      --
+    // -- avalanching on the first bucket layer, then two bucket layers and   --
+    // -- the soil is fully avalanching on the first bucket layer             --
+
+    // -- Testing when there are two bucket layers and the soil is partially --
+    // -- avalanching on the second bucket layer, then two bucket layers and --
+    // -- the soil is fully avalanching on the second bucket layer           --
+
+    // -- Testing when there is nothing to move --
+
+    // -- Testing randomness of movement --
+
+    // -- Testing that warning is properly sent when soil cannot be moved --
+
+
+
+
 }
 
 TEST(UnitTestIntersectingCells, LocateIntersectingCells) {
