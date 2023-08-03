@@ -135,7 +135,36 @@ This function checks the eight lateral directions surrounding the intersecting s
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12MoveBodySoilEP6SimOutiiifiifbf">
 <span id="_CPPv3N14soil_simulator12MoveBodySoilEP6SimOutiiifiifbf"></span><span id="_CPPv2N14soil_simulator12MoveBodySoilEP6SimOutiiifiifbf"></span><span id="soil_simulator::MoveBodySoil__SimOutP.i.i.i.float.i.i.float.b.float"></span><span class="target" id="intersecting__cells_8hpp_1a8782f9bf7be372b263e6d4c045a2c802"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveBodySoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ind_p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ii_p</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">jj_p</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">max_h</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ii_n</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">jj_n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h_soil</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">wall_presence</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12MoveBodySoilEP6SimOutiiifiifbf" title="Permalink to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dd><p>This function tries to move the soil cells resting on the bucket layer <code class="docutils literal notranslate"><span class="pre">ind_p</span></code> at the location (<code class="docutils literal notranslate"><span class="pre">ii_p</span></code>, <code class="docutils literal notranslate"><span class="pre">jj_p</span></code>) to a new location at (<code class="docutils literal notranslate"><span class="pre">ii_n</span></code>, <code class="docutils literal notranslate"><span class="pre">jj_n</span></code>). </p>
+<p>
+This function can be separated into three main scenarios:<ul class="simple">
+<li><p>If all the soil can be moved to the new location (either on the terrain or on the bucket), the soil is moved and the value of <code class="docutils literal notranslate"><span class="pre">h_soil</span></code> is set to zero.</p></li>
+<li><p>If a bucket wall is blocking the movement, the <code class="docutils literal notranslate"><span class="pre">wall_presence</span></code> parameter is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p>If there is insufficient space to move all the soil but no bucket wall is blocking the movement, the function updates the values for the new location and adjusts <code class="docutils literal notranslate"><span class="pre">h_soil</span></code> accordingly.</p></li>
+</ul>
+</p>
+<p>This function is designed to be used iteratively by the function <code class="docutils literal notranslate"><span class="pre">MoveIntersectingBodySoil</span></code> until all intersecting soil cells are moved.</p>
+<p>Note that, by convention, the soil can be moved from the bucket to the terrain even if the bucket is underground. Moreover, in cases where the soil should be moved to the terrain, all soil is moved regardless of the available space. If this movement induces intersecting soil cells, it will be resolved by <code class="docutils literal notranslate"><span class="pre">MoveIntersectingBody</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>ind_p</strong> – Index of the previous considered bucket layer. </p></li>
+<li><p><strong>ii_p</strong> – Index of the previous considered position in the X direction. </p></li>
+<li><p><strong>jj_p</strong> – Index of the previous considered position in the Y direction. </p></li>
+<li><p><strong>max_h</strong> – Maximum height authorized for the movement. [m] </p></li>
+<li><p><strong>ii_n</strong> – Index of the new considered position in the X direction. </p></li>
+<li><p><strong>jj_n</strong> – Index of the new considered position in the Y direction. </p></li>
+<li><p><strong>h_soil</strong> – Height of the soil column left to be moved. [m] </p></li>
+<li><p><strong>wall_presence</strong> – Indicates whether a wall is blocking the movement. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple composed of the index of the new considered bucket layer, the index of the new considered position in the X direction, the index of the new considered position in the Y direction, the height of the soil column left to be moved, and a boolean indicating whether a bucket wall is blocking the movement.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator23LocateIntersectingCellsEP6SimOutf">

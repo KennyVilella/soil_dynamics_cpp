@@ -1030,12 +1030,104 @@ This function checks the eight lateral directions surrounding the intersecting s
           <declname>tol</declname>
         </param>
         <briefdescription>
+<para>This function tries to move the soil cells resting on the bucket layer <computeroutput>ind_p</computeroutput> at the location (<computeroutput>ii_p</computeroutput>, <computeroutput>jj_p</computeroutput>) to a new location at (<computeroutput>ii_n</computeroutput>, <computeroutput>jj_n</computeroutput>). </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ind_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the previous considered bucket layer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ii_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the previous considered position in the X direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jj_p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the previous considered position in the Y direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum height authorized for the movement. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ii_n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the new considered position in the X direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jj_n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the new considered position in the Y direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>h_soil</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of the soil column left to be moved. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>wall_presence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether a wall is blocking the movement. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A tuple composed of the index of the new considered bucket layer, the index of the new considered position in the X direction, the index of the new considered position in the Y direction, the height of the soil column left to be moved, and a boolean indicating whether a bucket wall is blocking the movement.</para>
+</simplesect>
+This function can be separated into three main scenarios:<itemizedlist>
+<listitem><para>If all the soil can be moved to the new location (either on the terrain or on the bucket), the soil is moved and the value of <computeroutput>h_soil</computeroutput> is set to zero.</para>
+</listitem><listitem><para>If a bucket wall is blocking the movement, the <computeroutput>wall_presence</computeroutput> parameter is set to <computeroutput>true</computeroutput>.</para>
+</listitem><listitem><para>If there is insufficient space to move all the soil but no bucket wall is blocking the movement, the function updates the values for the new location and adjusts <computeroutput>h_soil</computeroutput> accordingly.</para>
+</listitem></itemizedlist>
+</para>
+<para>This function is designed to be used iteratively by the function <computeroutput>MoveIntersectingBodySoil</computeroutput> until all intersecting soil cells are moved.</para>
+<para>Note that, by convention, the soil can be moved from the bucket to the terrain even if the bucket is underground. Moreover, in cases where the soil should be moved to the terrain, all soil is moved regardless of the available space. If this movement induces intersecting soil cells, it will be resolved by <computeroutput>MoveIntersectingBody</computeroutput>. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="29" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="143" bodyend="148" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="29" declcolumn="12"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="49" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="161" bodyend="351" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="49" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -1075,7 +1167,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="38" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="150" bodyend="180" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="38" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="58" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="353" bodyend="383" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="58" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
