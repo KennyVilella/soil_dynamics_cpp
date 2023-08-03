@@ -26,6 +26,26 @@ void MoveIntersectingBodySoil(SimOut* sim_out, float tol);
 /// \param tol: Small number used to handle numerical approximation errors.
 void MoveIntersectingBody(SimOut* sim_out, float tol);
 
+/// \brief This function tries to move the soil cells resting on the bucket
+///        layer `ind_p` at the location (`ii_p`, `jj_p`) to a new location
+///        at (`ii_n`, `jj_n`).
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param ind_p: Index of the previous considered bucket layer.
+/// \param ii_p: Index of the previous considered position in the X direction.
+/// \param jj_p: Index of the previous considered position in the Y direction.
+/// \param max_h: Maximum height authorized for the movement. [m]
+/// \param ii_n: Index of the new considered position in the X direction.
+/// \param jj_n: Index of the new considered position in the Y direction.
+/// \param h_soil: Height of the soil column left to be moved. [m]
+/// \param wall_presence: Indicates whether a wall is blocking the movement.
+/// \param tol: Small number used to handle numerical approximation errors.
+///
+/// \return A tuple composed of the index of the new considered bucket layer,
+///         the index of the new considered position in the X direction, the
+///         index of the new considered position in the Y direction, the height
+///         of the soil column left to be moved, and a boolean indicating
+///         whether a bucket wall is blocking the movement.
 std::tuple<int, int, int, float, bool> MoveBodySoil(
     SimOut* sim_out, int ind_p, int ii_p, int jj_p, float max_h, int ii_n,
     int jj_n, float h_soil, bool wall_presence, float tol);

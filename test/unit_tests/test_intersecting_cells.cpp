@@ -7,6 +7,718 @@ Copyright, 2023, Vilella Kenny.
 #include "src/intersecting_cells.cpp"
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    sim_out->body_[0][10][15] = 0.3;
+    sim_out->body_[1][10][15] = 0.7;
+    sim_out->body_[2][10][15] = -0.2;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.7;
+    sim_out->body_soil_[1][10][15] = 0.9;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.9;
+
+    // -- Testing when soil is avalanching on the terrain --
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    auto [ind, ii, jj, h_soil, wall_presence] = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->terrain_[5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is avalanching below the first bucket layer --
+    sim_out->body_[0][5][7] = 0.1;
+    sim_out->body_[1][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->terrain_[5][7] = 0.0;
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when the first bucket layer is blocking the movement --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.3;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, true);
+    EXPECT_NEAR(h_soil, 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.0, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when there is a lot of soil on first bucket layer --
+    // -- Soil is avalanching on first bucket layer                 --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.1;
+    sim_out->body_soil_[0][5][7] = 0.1;
+    sim_out->body_soil_[1][5][7] = 0.4;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 1.0, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is fully avalanching on first bucket layer --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is fully avalanching on first bucket soil layer --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.1;
+    sim_out->body_soil_[0][5][7] = 0.1;
+    sim_out->body_soil_[1][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is avalanching below the second bucket layer --
+    sim_out->body_[2][5][7] = 0.3;
+    sim_out->body_[3][5][7] = 0.6;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->terrain_[5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when the second bucket layer is blocking the movement --
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.6;
+    sim_out->body_soil_[2][5][7] = 0.6;
+    sim_out->body_soil_[3][5][7] = 0.7;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, true);
+    EXPECT_NEAR(h_soil, 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.7, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when there is a lot of soil on second bucket layer --
+    // -- but soil is still avalanching on it                        --
+    sim_out->body_[2][5][7] = -0.2;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.3;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.9, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is fully avalanching on second bucket layer --
+    sim_out->body_[2][5][7] = -0.2;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when soil is fully avalanching on second bucket soil layer --
+    sim_out->body_[2][5][7] = -0.2;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.8, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil fully filling the space (1) --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.1;
+    sim_out->body_soil_[0][5][7] = 0.1;
+    sim_out->body_soil_[1][5][7] = 0.2;
+    sim_out->body_[2][5][7] = 0.2;
+    sim_out->body_[3][5][7] = 0.4;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.6, 1e-5);
+    EXPECT_EQ(ind, 0);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.2, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil fully filling the space (2) --
+    sim_out->body_[0][5][7] = 0.6;
+    sim_out->body_[1][5][7] = 0.7;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.1;
+    sim_out->body_soil_[2][5][7] = 0.1;
+    sim_out->body_soil_[3][5][7] = 0.6;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.6, 1e-5);
+    EXPECT_EQ(ind, 2);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is fully avalanching --
+    // -- on bucket (1)                                                --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.2;
+    sim_out->body_[2][5][7] = 0.8;
+    sim_out->body_[3][5][7] = 0.9;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is fully avalanching --
+    // -- on bucket (2)                                                --
+    sim_out->body_[0][5][7] = 0.8;
+    sim_out->body_[1][5][7] = 0.9;
+    sim_out->body_[2][5][7] = -0.1;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is fully avalanching --
+    // -- on bucket soil (1)                                           --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.1;
+    sim_out->body_soil_[0][5][7] = 0.1;
+    sim_out->body_soil_[1][5][7] = 0.2;
+    sim_out->body_[2][5][7] = 0.9;
+    sim_out->body_[3][5][7] = 1.0;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is fully avalanching --
+    // -- on bucket soil (2)                                           --
+    sim_out->body_[0][5][7] = 0.8;
+    sim_out->body_[1][5][7] = 0.9;
+    sim_out->body_[2][5][7] = -0.1;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.8, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is fully avalanching --
+    // -- on bucket soil (3)                                           --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.2;
+    sim_out->body_soil_[0][5][7] = 0.2;
+    sim_out->body_soil_[1][5][7] = 0.3;
+    sim_out->body_[2][5][7] = 0.9;
+    sim_out->body_[3][5][7] = 1.;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.9, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is fully avalanching --
+    // -- on bucket soil (4)                                           --
+    sim_out->body_[0][5][7] = 0.9;
+    sim_out->body_[1][5][7] = 1.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.1;
+    sim_out->body_soil_[2][5][7] = 0.1;
+    sim_out->body_soil_[3][5][7] = 0.6;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.1, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.7, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is partially avalanching --
+    // -- on bucket (1)                                                    --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.1;
+    sim_out->body_[2][5][7] = 0.4;
+    sim_out->body_[3][5][7] = 0.9;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.3, 1e-5);
+    EXPECT_EQ(ind, 0);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is partially avalanching --
+    // -- on bucket (2)                                                    --
+    sim_out->body_[0][5][7] = 0.3;
+    sim_out->body_[1][5][7] = 0.9;
+    sim_out->body_[2][5][7] = -0.1;
+    sim_out->body_[3][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.5, 1e-5);
+    EXPECT_EQ(ind, 2);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.3, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is partially avalanching --
+    // -- on bucket soil (1)                                               --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.1;
+    sim_out->body_soil_[0][5][7] = 0.1;
+    sim_out->body_soil_[1][5][7] = 0.2;
+    sim_out->body_[2][5][7] = 0.4;
+    sim_out->body_[3][5][7] = 0.5;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.4, 1e-5);
+    EXPECT_EQ(ind, 0);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is partially avalanching --
+    // -- on bucket soil (2)                                               --
+    sim_out->body_[0][5][7] = 0.6;
+    sim_out->body_[1][5][7] = 0.9;
+    sim_out->body_[2][5][7] = -0.1;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.2;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.2, 1e-5);
+    EXPECT_EQ(ind, 2);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is partially avalanching --
+    // -- on bucket soil (3)                                               --
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.2;
+    sim_out->body_soil_[0][5][7] = 0.2;
+    sim_out->body_soil_[1][5][7] = 0.3;
+    sim_out->body_[2][5][7] = 0.4;
+    sim_out->body_[3][5][7] = 0.5;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {0, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.3, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.2, 1e-5);
+    EXPECT_EQ(ind, 0);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[0][5][7] = 0.0;
+    sim_out->body_soil_[1][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing when two bucket layers and soil is partially avalanching --
+    // -- on bucket soil (4)                                               --
+    sim_out->body_[0][5][7] = 0.7;
+    sim_out->body_[1][5][7] = 0.8;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.1;
+    sim_out->body_soil_[2][5][7] = 0.1;
+    sim_out->body_soil_[3][5][7] = 0.6;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 10, 15});
+    sim_out->body_soil_pos_.push_back(std::vector<int> {2, 5, 7});
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.3, false, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.2, 1e-5);
+    EXPECT_EQ(ind, 2);
+    EXPECT_EQ(ii, 5);
+    EXPECT_EQ(jj, 7);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.7, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 5, 7}));
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.0;
+    sim_out->body_[2][5][7] = 0.0;
+    sim_out->body_[3][5][7] = 0.0;
+    sim_out->body_soil_[2][5][7] = 0.0;
+    sim_out->body_soil_[3][5][7] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 }
 
 TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
