@@ -50,14 +50,14 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
             continue;
         }
 
-        unique_ptr<float> h_soil(new float(0.0));
+        float h_soil = 0.0;
         if (
             (sim_out->body_soil_[ind+1][ii][jj] - tol >
                 sim_out->body_[ind_t][ii][jj]) &&
             (sim_out->body_[ind_t+1][ii][jj] - tol >
                 sim_out->body_soil_[ind][ii][jj])) {
             // Bucket soil intersects with bucket
-            this->h_soil = (
+            h_soil = (
                 sim_out->body_soil_[ind+1][ii][jj] -
                 sim_out->body_[ind_t][ii][jj]);
         } else {
@@ -78,21 +78,21 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
         for (auto xy = 0; xy < directions.size(); xy++) {
             // Initializing loop properties
             int pp = 0;
-            unique_ptr<bool> wall_presence(new bool(false));
-            unique_ptr<int> ii_p(new int(ii));
-            unique_ptr<int> jj_p(new int(jj));
-            unique_ptr<int> ind_p(new int(ind_p));
-            unique_ptr<float> max_h(new float(sim_out->body_[ind_t][ii][jj]));
+            bool wall_presence = false;
+            int ii_p = ii;
+            int jj_p = jj;
+            int ind_p = ind_p;
+            float max_h = sim_out->body_[ind_t][ii][jj];
 
             // Exploring the direction until reaching a wall or
             // all soil has been moved
             while ((wall_presence == false) && (h_soil > tol)) {
                 // Calculating considered position
-                nn += 1;
+                pp += 1;
                 int ii_n = ii + pp * directions[xy][0];
                 int jj_n = jj + pp * directions[xy][1];
 
-                soil_simulator::MoveBodySoil(
+                std::tie(ind_p, ii_p, jj_p, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
                     sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
                     wall_presence, tol);
 
