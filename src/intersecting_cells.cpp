@@ -68,10 +68,10 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
-        for (int ii = directions.size() - 1; ii > 0; ii--) {
-            std::uniform_int_distribution<int> dist(0, ii);
-            int jj = dist(rng);
-            std::swap(directions[ii], directions[jj]);
+        for (int aa = directions.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(directions[aa], directions[bb]);
         }
 
         // Iterating over the eight lateral directions
@@ -81,7 +81,7 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
             bool wall_presence = false;
             int ii_p = ii;
             int jj_p = jj;
-            int ind_p = ind_p;
+            int ind_p = ind;
             float max_h = sim_out->body_[ind_t][ii][jj];
 
             // Exploring the direction until reaching a wall or
@@ -95,9 +95,6 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
                 std::tie(ind_p, ii_p, jj_p, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
                     sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
                     wall_presence, tol);
-
-                std::cout << h_soil << " " << wall_presence << "\n";
-                break;
             }
             if (h_soil < tol) {
                 // No more soil to move
@@ -160,10 +157,10 @@ void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
-        for (int ii = directions.size() - 1; ii > 0; ii--) {
-            std::uniform_int_distribution<int> dist(0, ii);
-            int jj = dist(rng);
-            std::swap(directions[ii], directions[jj]);
+        for (int aa = directions.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(directions[aa], directions[bb]);
         }
 
         // Calculating vertical extension of intersecting soil column
