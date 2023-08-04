@@ -12,6 +12,8 @@ Copyright, 2023, Vilella Kenny.
 #include "src/types.hpp"
 #include "src/intersecting_cells.hpp"
 
+/// Note that `MoveIntersectingBodySoil` must be called before
+/// `MoveIntersectingBody`, otherwise some intersecting soil cells may remain.
 void soil_simulator::MoveIntersectingCells(SimOut* sim_out, float tol
 ) {
     // Moving bucket soil intersecting with the bucket
@@ -21,8 +23,116 @@ void soil_simulator::MoveIntersectingCells(SimOut* sim_out, float tol
     soil_simulator::MoveIntersectingBody(sim_out, tol);
 }
 
+/// This function checks the eight lateral directions surrounding the
+/// intersecting soil column and moves the soil to available spaces.
+///
+/// The algorithm follows an incremental approach, checking directions farther
+/// from the intersecting soil column until it reaches a bucket wall blocking
+/// the movement or until all the soil has been moved. If the movement is
+/// blocked by a bucket wall, the algorithm explores another direction.
+///
+/// In cases where the soil should be moved to the terrain, all soil is moved
+/// regardless of the available space. If this movement induces intersecting
+/// soil cells, it will be resolved by the `MoveIntersectingBody!` function.
+///
+/// In rare situations where there is insufficient space to accommodate all the
+/// intersecting soil, the algorithm currently handles it by allowing the excess
+/// soil to simply disappear. This compromise seems to be reasonable as long as
+/// the amount of soil disappearing remains negligible.
+///
+/// Note that the order in which the directions are checked is randomized in
+/// order to avoid asymmetrical results.
 void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
 ) {
+    // Storing all possible directions
+    std::vector<std::vector<int>> directions = {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1},
+        {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+    // Iterating over bucket soil cells
+    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+        int ind = sim_out->body_soil_pos_[nn][0];
+        int ii = sim_out->body_soil_pos_[nn][1];
+        int jj = sim_out->body_soil_pos_[nn][2];
+
+        int ind_t;
+        if (ind == 0) {
+            // First bucket soil layer
+            ind_t = 2;
+        } else {
+            // Second bucket soil layer
+            ind_t = 0;
+        }
+
+        if (
+            (sim_out->body_[ind_t][ii][jj] == 0.0) &&
+            (sim_out->body_[ind_t+1][ii][jj] == 0.0)) {
+            // No additionnal bucket layer
+            continue;
+        }
+
+        float h_soil = 0.0;
+        if (
+            (sim_out->body_soil_[ind+1][ii][jj] - tol >
+                sim_out->body_[ind_t][ii][jj]) &&
+            (sim_out->body_[ind_t+1][ii][jj] - tol >
+                sim_out->body_soil_[ind][ii][jj])) {
+            // Bucket soil intersects with bucket
+            h_soil = (
+                sim_out->body_soil_[ind+1][ii][jj] -
+                sim_out->body_[ind_t][ii][jj]);
+        } else {
+            // No intersection between bucket soil and bucket
+            continue;
+        }
+
+        // Randomizing direction to avoid asymmetry
+        // random_suffle is not used because it is machine dependent,
+        // which makes unit testing difficult
+        for (int aa = directions.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(directions[aa], directions[bb]);
+        }
+
+        // Iterating over the eight lateral directions
+        for (auto xy = 0; xy < directions.size(); xy++) {
+            // Initializing loop properties
+            int pp = 0;
+            bool wall_presence = false;
+            int ii_p = ii;
+            int jj_p = jj;
+            int ind_p = ind;
+            float max_h = sim_out->body_[ind_t][ii][jj];
+
+            // Exploring the direction until reaching a wall or
+            // all soil has been moved
+            while ((wall_presence == false) && (h_soil > tol)) {
+                // Calculating considered position
+                pp += 1;
+                int ii_n = ii + pp * directions[xy][0];
+                int jj_n = jj + pp * directions[xy][1];
+
+                std::tie(ind_p, ii_p, jj_p, h_soil, wall_presence) = (
+                    soil_simulator::MoveBodySoil(
+                        sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
+                        wall_presence, tol));
+            }
+            if (h_soil < tol) {
+                // No more soil to move
+                break;
+            }
+        }
+
+        if (h_soil > tol) {
+            std::cout << "WARNING: Not all soil intersecting with a bucket" <<
+                " layer could be moved\n The extra soil has been arbitrarily" <<
+                "removed";
+        }
+
+        // Updating bucket soil
+        sim_out->body_soil_[ind+1][ii][jj] = sim_out->body_[ind_t][ii][jj];
+    }
 }
 
 /// This function checks the eight lateral directions surrounding the
@@ -69,10 +179,10 @@ void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
-        for (int ii = directions.size() - 1; ii > 0; ii--) {
-            std::uniform_int_distribution<int> dist(0, ii);
-            int jj = dist(rng);
-            std::swap(directions[ii], directions[jj]);
+        for (int aa = directions.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(directions[aa], directions[bb]);
         }
 
         // Calculating vertical extension of intersecting soil column
