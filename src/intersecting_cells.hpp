@@ -14,9 +14,18 @@ Copyright, 2023, Vilella Kenny.
 std::mt19937 rng;
 
 namespace soil_simulator {
-
+/// \brief This function moves all soil cells in `terrain_` and in `body_soil_`
+///        that intersect with the bucket or with another soil cell.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param tol: Small number used to handle numerical approximation errors.
 void MoveIntersectingCells(SimOut* sim_out, float tol);
 
+/// \brief This function moves the soil cells resting on the bucket that
+///        intersect with another bucket layer.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param tol: Small number used to handle numerical approximation errors.
 void MoveIntersectingBodySoil(SimOut* sim_out, float tol);
 
 /// \brief This function moves the soil cells in the `terrain_` that intersect

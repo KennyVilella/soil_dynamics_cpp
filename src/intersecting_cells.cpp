@@ -12,6 +12,8 @@ Copyright, 2023, Vilella Kenny.
 #include "src/types.hpp"
 #include "src/intersecting_cells.hpp"
 
+/// Note that `MoveIntersectingBodySoil` must be called before
+/// `MoveIntersectingBody`, otherwise some intersecting soil cells may remain.
 void soil_simulator::MoveIntersectingCells(SimOut* sim_out, float tol
 ) {
     // Moving bucket soil intersecting with the bucket
@@ -21,6 +23,25 @@ void soil_simulator::MoveIntersectingCells(SimOut* sim_out, float tol
     soil_simulator::MoveIntersectingBody(sim_out, tol);
 }
 
+/// This function checks the eight lateral directions surrounding the
+/// intersecting soil column and moves the soil to available spaces.
+///
+/// The algorithm follows an incremental approach, checking directions farther
+/// from the intersecting soil column until it reaches a bucket wall blocking
+/// the movement or until all the soil has been moved. If the movement is
+/// blocked by a bucket wall, the algorithm explores another direction.
+///
+/// In cases where the soil should be moved to the terrain, all soil is moved
+/// regardless of the available space. If this movement induces intersecting
+/// soil cells, it will be resolved by the `MoveIntersectingBody!` function.
+///
+/// In rare situations where there is insufficient space to accommodate all the
+/// intersecting soil, the algorithm currently handles it by allowing the excess
+/// soil to simply disappear. This compromise seems to be reasonable as long as
+/// the amount of soil disappearing remains negligible.
+///
+/// Note that the order in which the directions are checked is randomized in
+/// order to avoid asymmetrical results.
 void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
 ) {
     // Storing all possible directions
