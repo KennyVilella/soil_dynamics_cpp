@@ -49,6 +49,20 @@ jobs:
         run: |
           cmake -S . -B build
           cmake --build build --target soil_dynamics
+
+      - name: Build the unit tests
+        run: |
+          cmake -S . -B build
+          cmake --build build --target unit_tests
+
+      - name: Install Valgrind
+        run: sudo apt-get install valgrind
+
+      - name: Run valgrind on the simulator
+        run: valgrind --leak-check=yes ./build/src/soil_dynamics
+
+      - name: Run valgrind on the unit tests
+        run: valgrind --leak-check=yes ./build/test/unit_tests/unit_tests
   tests:
     name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
