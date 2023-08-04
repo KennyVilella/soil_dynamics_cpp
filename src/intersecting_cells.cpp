@@ -92,9 +92,10 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
                 int ii_n = ii + pp * directions[xy][0];
                 int jj_n = jj + pp * directions[xy][1];
 
-                std::tie(ind_p, ii_p, jj_p, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-                    sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
-                    wall_presence, tol);
+                std::tie(ind_p, ii_p, jj_p, h_soil, wall_presence) = (
+                    soil_simulator::MoveBodySoil(
+                        sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
+                        wall_presence, tol));
             }
             if (h_soil < tol) {
                 // No more soil to move
