@@ -4712,70 +4712,60 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_[1][10][15] = 1.8;
     sim_out->body_soil_[2][10][15] = 0.6;
     sim_out->body_soil_[3][10][15] = 0.7;
-
     sim_out->body_[0][11][15] = 0.2;
     sim_out->body_[1][11][15] = 0.3;
     sim_out->body_[2][11][15] = 0.7;
     sim_out->body_[3][11][15] = 0.8;
     sim_out->body_soil_[0][11][15] = 0.3;
     sim_out->body_soil_[1][11][15] = 0.4;
-
     sim_out->body_[0][12][15] = 0.0;
     sim_out->body_[1][12][15] = 0.1;
     sim_out->body_[2][12][15] = 0.4;
     sim_out->body_[3][12][15] = 0.5;
     sim_out->body_soil_[0][12][15] = 0.1;
     sim_out->body_soil_[1][12][15] = 0.4;
-
     sim_out->body_[0][13][15] = 0.0;
     sim_out->body_[1][13][15] = 0.3;
     sim_out->body_[2][13][15] = 0.5;
     sim_out->body_[3][13][15] = 0.9;
     sim_out->body_soil_[0][13][15] = 0.3;
     sim_out->body_soil_[1][13][15] = 0.4;
-
     sim_out->body_[0][14][15] = 0.7;
     sim_out->body_[1][14][15] = 0.8;
     sim_out->body_[2][14][15] = 0.3;
     sim_out->body_[3][14][15] = 0.4;
     sim_out->body_soil_[2][14][15] = 0.4;
     sim_out->body_soil_[3][14][15] = 0.7;
-
     sim_out->body_[0][15][15] = 0.5;
     sim_out->body_[1][15][15] = 0.9;
     sim_out->body_[2][15][15] = 0.0;
     sim_out->body_[3][15][15] = 0.1;
     sim_out->body_soil_[2][15][15] = 0.1;
     sim_out->body_soil_[3][15][15] = 0.2;
-
     sim_out->body_[0][16][15] = 0.1;
     sim_out->body_[1][16][15] = 0.2;
     sim_out->body_[2][16][15] = 0.3;
     sim_out->body_[3][16][15] = 0.4;
     sim_out->body_soil_[0][16][15] = 0.2;
     sim_out->body_soil_[1][16][15] = 0.3;
-
     sim_out->body_[0][17][15] = 0.6;
     sim_out->body_[1][17][15] = 1.2;
     sim_out->body_[2][17][15] = 0.0;
     sim_out->body_[3][17][15] = 0.1;
     sim_out->body_soil_[2][17][15] = 0.1;
     sim_out->body_soil_[3][17][15] = 0.4;
-
     sim_out->body_[0][18][15] = 0.8;
     sim_out->body_[1][18][15] = 0.9;
     sim_out->body_[2][18][15] = 0.0;
     sim_out->body_[3][18][15] = 0.4;
     sim_out->body_soil_[2][18][15] = 0.4;
     sim_out->body_soil_[3][18][15] = 0.8;
-
     sim_out->body_[0][19][15] = 0.1;
     sim_out->body_[1][19][15] = 0.2;
     sim_out->body_[2][19][15] = 0.6;
     sim_out->body_[3][19][15] = 0.9;
     sim_out->body_soil_[0][19][15] = 0.2;
     sim_out->body_soil_[1][19][15] = 0.4;
-
     sim_out->body_[0][20][15] = -0.1;
     sim_out->body_[1][20][15] = 0.0;
     sim_out->body_[2][20][15] = 0.9;
@@ -5633,6 +5623,37 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
             sim_out->body_[0][ii][jj] = 0.0;
             sim_out->body_[1][ii][jj] = 0.0;
         }
+
+    // -- Testing randomness of movement --
+    rng.seed(1234);
+    sim_out->body_[0][11][17] = -0.4;
+    sim_out->body_[1][11][17] = 0.6;
+    sim_out->terrain_[11][17] = 0.5;
+    soil_simulator::MoveIntersectingBody(sim_out, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[11][17], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[12][17], 0.9, 1e-5);
+    sim_out->terrain_[12][17] = 0.0;
+    // Repeating the same movement with a different seed
+    rng.seed(2000);
+    sim_out->terrain_[11][17] = 0.5;
+    soil_simulator::MoveIntersectingBody(sim_out, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[11][17], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][18], 0.9, 1e-5);
+    sim_out->terrain_[11][17] = 0.0;
+    sim_out->terrain_[10][18] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+    sim_out->body_[0][11][17] = 0.0;
+    sim_out->body_[1][11][17] = 0.0;
+
+    // -- Testing that everything has been reset properly --
+    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
+            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
+                EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1e-5);
+                EXPECT_NEAR(sim_out->body_soil_[ii][jj][kk], 0.0, 1e-5);
+            }
 
     delete sim_out;
 }
