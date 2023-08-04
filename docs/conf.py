@@ -30,6 +30,8 @@ breathe_projects_source = {
         "body_soil.cpp",
         "intersecting_cells.hpp",
         "intersecting_cells.cpp",
+        "relax.hpp",
+        "relax.cpp",
         "utils.hpp",
         "utils.cpp"])
 }
