@@ -102,12 +102,38 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator21MoveIntersectingCellsEP6SimOutf">
 <span id="_CPPv3N14soil_simulator21MoveIntersectingCellsEP6SimOutf"></span><span id="_CPPv2N14soil_simulator21MoveIntersectingCellsEP6SimOutf"></span><span id="soil_simulator::MoveIntersectingCells__SimOutP.float"></span><span class="target" id="intersecting__cells_8hpp_1a9d38a4b3998507e89943b2aa74d54476"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveIntersectingCells</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator21MoveIntersectingCellsEP6SimOutf" title="Permalink to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dd><p>This function moves all soil cells in <code class="docutils literal notranslate"><span class="pre">terrain_</span></code> and in <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> that intersect with the bucket or with another soil cell. </p>
+<p>
+Note that <code class="docutils literal notranslate"><span class="pre">MoveIntersectingBodySoil</span></code> must be called before <code class="docutils literal notranslate"><span class="pre">MoveIntersectingBody</span></code>, otherwise some intersecting soil cells may remain. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator24MoveIntersectingBodySoilEP6SimOutf">
 <span id="_CPPv3N14soil_simulator24MoveIntersectingBodySoilEP6SimOutf"></span><span id="_CPPv2N14soil_simulator24MoveIntersectingBodySoilEP6SimOutf"></span><span id="soil_simulator::MoveIntersectingBodySoil__SimOutP.float"></span><span class="target" id="intersecting__cells_8hpp_1a81b23c9cf33af5de4da526de32fc3e4b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveIntersectingBodySoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator24MoveIntersectingBodySoilEP6SimOutf" title="Permalink to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dd><p>This function moves the soil cells resting on the bucket that intersect with another bucket layer. </p>
+<p>
+This function checks the eight lateral directions surrounding the intersecting soil column and moves the soil to available spaces.</p>
+<p>The algorithm follows an incremental approach, checking directions farther from the intersecting soil column until it reaches a bucket wall blocking the movement or until all the soil has been moved. If the movement is blocked by a bucket wall, the algorithm explores another direction.</p>
+<p>In cases where the soil should be moved to the terrain, all soil is moved regardless of the available space. If this movement induces intersecting soil cells, it will be resolved by the <code class="docutils literal notranslate"><span class="pre">MoveIntersectingBody!</span></code> function.</p>
+<p>In rare situations where there is insufficient space to accommodate all the intersecting soil, the algorithm currently handles it by allowing the excess soil to simply disappear. This compromise seems to be reasonable as long as the amount of soil disappearing remains negligible.</p>
+<p>Note that the order in which the directions are checked is randomized in order to avoid asymmetrical results. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator20MoveIntersectingBodyEP6SimOutf">

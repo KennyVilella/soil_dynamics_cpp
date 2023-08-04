@@ -911,12 +911,31 @@ In this function, the movement applied to the base of the soil column is calcula
           <declname>tol</declname>
         </param>
         <briefdescription>
+<para>This function moves all soil cells in <computeroutput>terrain_</computeroutput> and in <computeroutput>body_soil_</computeroutput> that intersect with the bucket or with another soil cell. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Note that <computeroutput>MoveIntersectingBodySoil</computeroutput> must be called before <computeroutput>MoveIntersectingBody</computeroutput>, otherwise some intersecting soil cells may remain. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="18" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="15" bodyend="22" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="18" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="22" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="17" bodyend="24" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="22" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a81b23c9cf33af5de4da526de32fc3e4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -932,12 +951,35 @@ In this function, the movement applied to the base of the soil column is calcula
           <declname>tol</declname>
         </param>
         <briefdescription>
+<para>This function moves the soil cells resting on the bucket that intersect with another bucket layer. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+This function checks the eight lateral directions surrounding the intersecting soil column and moves the soil to available spaces.</para>
+<para>The algorithm follows an incremental approach, checking directions farther from the intersecting soil column until it reaches a bucket wall blocking the movement or until all the soil has been moved. If the movement is blocked by a bucket wall, the algorithm explores another direction.</para>
+<para>In cases where the soil should be moved to the terrain, all soil is moved regardless of the available space. If this movement induces intersecting soil cells, it will be resolved by the <computeroutput>MoveIntersectingBody!</computeroutput> function.</para>
+<para>In rare situations where there is insufficient space to accommodate all the intersecting soil, the algorithm currently handles it by allowing the excess soil to simply disappear. This compromise seems to be reasonable as long as the amount of soil disappearing remains negligible.</para>
+<para>Note that the order in which the directions are checked is randomized in order to avoid asymmetrical results. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="20" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="24" bodyend="26" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="20" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="29" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="45" bodyend="136" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="29" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -982,7 +1024,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="27" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="42" bodyend="141" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="27" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="36" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="152" bodyend="251" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="36" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a8782f9bf7be372b263e6d4c045a2c802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; int, int, int, float, bool &gt;</type>
@@ -1127,7 +1169,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="49" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="161" bodyend="351" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="49" declcolumn="12"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="58" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="271" bodyend="461" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="58" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -1167,7 +1209,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="58" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="353" bodyend="383" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="58" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="67" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="463" bodyend="493" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="67" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
