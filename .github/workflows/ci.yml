@@ -66,10 +66,11 @@ jobs:
         shell: bash
 
       - name: Run valgrind on the unit tests
-        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests || exit 0;
+        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests || exit 1;
+        shell: bash
 
       - name: Run valgrind on the unit tests
-        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests || exit ;
+        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests || exit 1;
   tests:
     name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
