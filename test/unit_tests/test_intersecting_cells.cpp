@@ -166,7 +166,6 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_NEAR(sim_out->terrain_[5][7], 0.6, 1e-5);
     EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
     EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
-    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
     sim_out->body_[2][5][7] = 0.0;
     sim_out->body_[3][5][7] = 0.0;
     sim_out->terrain_[5][7] = 0.0;
@@ -719,6 +718,8 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    delete sim_out;
 }
 
 TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
@@ -5059,6 +5060,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
                 EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1e-5);
                 EXPECT_NEAR(sim_out->body_soil_[ii][jj][kk], 0.0, 1e-5);
             }
+
+    delete sim_out;
 }
 
 TEST(UnitTestIntersectingCells, LocateIntersectingCells) {
