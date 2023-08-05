@@ -59,10 +59,10 @@ jobs:
         run: sudo apt-get install valgrind
 
       - name: Run valgrind on the simulator
-        run: valgrind --leak-check=yes ./build/src/soil_dynamics
+        run: valgrind --leak-check=yes ./build/src/soil_dynamics || exit 1
 
       - name: Run valgrind on the unit tests
-        run: valgrind --leak-check=yes ./build/test/unit_tests/unit_tests
+        run: valgrind --leak-check=yes ./build/test/unit_tests/unit_tests || exit 1
   tests:
     name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
