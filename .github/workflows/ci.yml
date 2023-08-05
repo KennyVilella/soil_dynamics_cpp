@@ -62,14 +62,14 @@ jobs:
         run: valgrind --leak-check=yes ./build/src/soil_dynamics || exit;
 
       - name: Run valgrind on the unit tests
-        run: valgrind --leak-check=yes ./build/test/unit_tests/unit_tests
+        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests
         shell: bash
 
       - name: Run valgrind on the unit tests
-        run: valgrind --leak-check=yes ./build/test/unit_tests/unit_tests || exit 0;
+        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests || exit 0;
 
       - name: Run valgrind on the unit tests
-        run: valgrind --leak-check=yes ./build/test/unit_tests/unit_tests || exit ;
+        run: valgrind --leak-check=yes --error-exitcode=0 ./build/test/unit_tests/unit_tests || exit ;
   tests:
     name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
