@@ -719,6 +719,8 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    delete sim_out;
 }
 
 TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
@@ -5059,6 +5061,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
                 EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1e-5);
                 EXPECT_NEAR(sim_out->body_soil_[ii][jj][kk], 0.0, 1e-5);
             }
+
+    delete sim_out;
 }
 
 TEST(UnitTestIntersectingCells, LocateIntersectingCells) {
