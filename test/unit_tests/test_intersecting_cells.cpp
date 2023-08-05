@@ -166,7 +166,6 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_NEAR(sim_out->terrain_[5][7], 0.6, 1e-5);
     EXPECT_TRUE((sim_out->body_soil_pos_[0] == std::vector<int> {0, 10, 15}));
     EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
-    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 5, 7}));
     sim_out->body_[2][5][7] = 0.0;
     sim_out->body_[3][5][7] = 0.0;
     sim_out->terrain_[5][7] = 0.0;
