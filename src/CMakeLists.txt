@@ -12,6 +12,8 @@ target_sources(soil_dynamics
         ${CMAKE_CURRENT_SOURCE_DIR}/body_soil.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/intersecting_cells.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/intersecting_cells.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/relax.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/relax.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils.hpp
 )
