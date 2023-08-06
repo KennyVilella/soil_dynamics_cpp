@@ -20,8 +20,27 @@ void soil_simulator::RelaxBodySoil(
 std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
     SimOut* sim_out, float dh_max, float tol
 ) {
-    std::vector<std::vector<int>> a;
-    return a;
+    // Initializing
+    std::vector<std::vector<int>> unstable_cells;
+
+    // Iterating over the terrain
+    for (ii = sim_out->impact_area_[0, 0]; ii < sim_out->impact_area_[0, 1]; ii++)
+        for (jj = sim_out->impact_area_[1, 0]; jj < sim_out->impact_area_[1, 1]; jj++) {
+            // Calculating the minimum height allowed surrounding the considered soil cell
+            float h_min = sim_out->terrain_[ii][jj] - dh_max - tol;
+
+            if (
+                (sim_out->terrain_[ii-1][jj] < h_min) ||
+                (sim_out->terrain_[ii+1][jj] < h_min) ||
+                (sim_out->terrain_[ii][jj-1] < h_min) ||
+                (sim_out->terrain_[ii][jj+1] < h_min)
+            ) {
+                // Soil cell is requiring relaxation
+                unstable_cells.push_back(std::vector<int> {ii, jj});
+            }
+        }
+
+    return unstable_cells;
 }
 
 int soil_simulator::CheckUnstableTerrainCell(
