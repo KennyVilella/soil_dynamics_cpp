@@ -12,6 +12,8 @@
     <includedby refid="body__soil_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.cpp</includedby>
     <includedby refid="intersecting__cells_8hpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp</includedby>
     <includedby refid="intersecting__cells_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp</includedby>
+    <includedby refid="relax_8hpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp</includedby>
+    <includedby refid="relax_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp</includedby>
     <incdepgraph>
       <node id="1">
         <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp</label>
@@ -30,6 +32,10 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="5">
+        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp</label>
+        <link refid="relax_8hpp_source"/>
+      </node>
       <node id="4">
         <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp</label>
         <link refid="intersecting__cells_8hpp_source"/>
@@ -42,6 +48,8 @@
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="3">

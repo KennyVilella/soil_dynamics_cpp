@@ -1211,6 +1211,273 @@ This function can be separated into three main scenarios:<itemizedlist>
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="67" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="463" bodyend="493" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="67" declcolumn="13"/>
       </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1adba6d77a9de31f9f32f1f94be197b745" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::RelaxTerrain</definition>
+        <argsstring>(SimOut *sim_out, Grid grid, SimParam sim_param, float tol)</argsstring>
+        <name>RelaxTerrain</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref></type>
+          <declname>sim_param</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="13" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="10" bodyend="13" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="13" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1a664e090b8814033e581d22394278c461" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::RelaxBodySoil</definition>
+        <argsstring>(SimOut *sim_out, Grid grid, SimParam sim_param, float tol)</argsstring>
+        <name>RelaxBodySoil</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref></type>
+          <declname>sim_param</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="15" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="15" bodyend="18" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="15" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1a0a8c6ad78abd12190ab2b54483ce7bf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; int &gt; &gt; soil_simulator::LocateUnstableTerrainCell</definition>
+        <argsstring>(SimOut *sim_out, float dh_max, float tol)</argsstring>
+        <name>LocateUnstableTerrainCell</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dh_max</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="17" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="20" bodyend="25" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="17" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1ab7ab093b938d3cd2678a004f26fdb7e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int soil_simulator::CheckUnstableTerrainCell</definition>
+        <argsstring>(SimOut *sim_out, int ii_c, int jj_c, float h_min, float tol)</argsstring>
+        <name>CheckUnstableTerrainCell</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii_c</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj_c</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>h_min</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="20" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="27" bodyend="31" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="20" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1a846b24cfecc8f7c152a08debe27953c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int soil_simulator::CheckUnstableBodyCell</definition>
+        <argsstring>(SimOut *sim_out, int ii, int jj, int ind, int ii_c, int jj_c, float h_min, float tol)</argsstring>
+        <name>CheckUnstableBodyCell</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ind</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii_c</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj_c</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>h_min</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="23" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="33" bodyend="38" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="23" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1abff80b8641b27531ca4fe202ba0fa162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::RelaxUnstableTerrainCell</definition>
+        <argsstring>(SimOut *sim_out, int status, float dh_max, int ii, int jj, int ii_c, int jj_c, Grid grid, float tol)</argsstring>
+        <name>RelaxUnstableTerrainCell</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>status</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dh_max</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii_c</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj_c</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="27" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="40" bodyend="44" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="27" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="relax_8hpp_1a4f620d10accb31442cdbc93796c24ad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::RelaxUnstableBodyCell</definition>
+        <argsstring>(SimOut *sim_out, int status, std::vector&lt; std::vector&lt; int &gt;&gt; body_soil_pos, float dh_max, int ii, int jj, int ind, int ii_c, int jj_c, Grid grid, float tol)</argsstring>
+        <name>RelaxUnstableBodyCell</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>status</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; int &gt;&gt;</type>
+          <declname>body_soil_pos</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>dh_max</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ind</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ii_c</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>jj_c</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="31" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="46" bodyend="51" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="31" declcolumn="6"/>
+      </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
         <definition>std::vector&lt; float &gt; soil_simulator::CalcNormal</definition>

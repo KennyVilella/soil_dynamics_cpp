@@ -8,6 +8,8 @@
     <innerfile refid="bucket__pos_8hpp">bucket_pos.hpp</innerfile>
     <innerfile refid="intersecting__cells_8cpp">intersecting_cells.cpp</innerfile>
     <innerfile refid="intersecting__cells_8hpp">intersecting_cells.hpp</innerfile>
+    <innerfile refid="relax_8cpp">relax.cpp</innerfile>
+    <innerfile refid="relax_8hpp">relax.hpp</innerfile>
     <innerfile refid="soil__dynamics_8cpp">soil_dynamics.cpp</innerfile>
     <innerfile refid="soil__dynamics_8hpp">soil_dynamics.hpp</innerfile>
     <innerfile refid="types_8cpp">types.cpp</innerfile>

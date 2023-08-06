@@ -64,6 +64,13 @@
     <member refid="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" kind="function"><name>MoveIntersectingBody</name></member>
     <member refid="intersecting__cells_8hpp_1a8782f9bf7be372b263e6d4c045a2c802" kind="function"><name>MoveBodySoil</name></member>
     <member refid="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" kind="function"><name>LocateIntersectingCells</name></member>
+    <member refid="relax_8hpp_1adba6d77a9de31f9f32f1f94be197b745" kind="function"><name>RelaxTerrain</name></member>
+    <member refid="relax_8hpp_1a664e090b8814033e581d22394278c461" kind="function"><name>RelaxBodySoil</name></member>
+    <member refid="relax_8hpp_1a0a8c6ad78abd12190ab2b54483ce7bf6" kind="function"><name>LocateUnstableTerrainCell</name></member>
+    <member refid="relax_8hpp_1ab7ab093b938d3cd2678a004f26fdb7e4" kind="function"><name>CheckUnstableTerrainCell</name></member>
+    <member refid="relax_8hpp_1a846b24cfecc8f7c152a08debe27953c7" kind="function"><name>CheckUnstableBodyCell</name></member>
+    <member refid="relax_8hpp_1abff80b8641b27531ca4fe202ba0fa162" kind="function"><name>RelaxUnstableTerrainCell</name></member>
+    <member refid="relax_8hpp_1a4f620d10accb31442cdbc93796c24ad8" kind="function"><name>RelaxUnstableBodyCell</name></member>
     <member refid="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" kind="function"><name>CalcNormal</name></member>
     <member refid="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" kind="function"><name>CalcRotationQuaternion</name></member>
     <member refid="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" kind="function"><name>MultiplyQuaternion</name></member>
@@ -80,6 +87,10 @@
   </compound>
   <compound refid="intersecting__cells_8hpp" kind="file"><name>intersecting_cells.hpp</name>
     <member refid="intersecting__cells_8hpp_1adbe79e918414b2480135e3a7871b44ac" kind="variable"><name>rng</name></member>
+  </compound>
+  <compound refid="relax_8cpp" kind="file"><name>relax.cpp</name>
+  </compound>
+  <compound refid="relax_8hpp" kind="file"><name>relax.hpp</name>
   </compound>
   <compound refid="soil__dynamics_8cpp" kind="file"><name>soil_dynamics.cpp</name>
     <member refid="soil__dynamics_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
