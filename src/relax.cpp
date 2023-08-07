@@ -17,6 +17,10 @@ void soil_simulator::RelaxBodySoil(
 ) {
 }
 
+/// It is important to note that the cells selected by this function are not
+/// necessarily unstable, as a bucket or the soil resting on it could be
+/// supporting the soil column. This is only a first-order selection of
+/// cells potentially unstable.
 std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
     SimOut* sim_out, float dh_max, float tol
 ) {
