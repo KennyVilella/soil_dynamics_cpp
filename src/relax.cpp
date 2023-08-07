@@ -74,7 +74,8 @@ int soil_simulator::CheckUnstableBodyCell(
 ///
 /// The soil is moved such that the slope formed by the two neighboring soil
 /// columns is equal to the `repose_angle_`. When the bucket is preventing this
-/// configuration, the soil avalanche below the bucket to fill the space under it.
+/// configuration, the soil avalanche below the bucket to fill the space under
+/// it.
 ///
 /// Note that it is assumed that the given `status` is accurate, so no extra
 /// checks are present.
