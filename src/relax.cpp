@@ -52,11 +52,40 @@ std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
     return unstable_cells;
 }
 
+/// In case of instability, this function returns a three-digit number
+/// (`status`) that provides information on how the soil should avalanche.
+/// The interpretation of the three-digit number is described below.
+///
+/// The first digit indicates the potential presence of the bucket:
+/// - 1 when the first bucket layer is present.
+/// - 2 when the second bucket layer is present.
+/// - 3 when the two bucket layers are present.
+/// - 4 when no bucket layer is present.
+///
+/// The second digit indicates the layer at the top where the soil should
+/// avalanche:
+/// - 0 when it is the `terrain` (no bucket is present).
+/// - 1 when it is the second bucket soil layer.
+/// - 2 when it is the second bucket layer.
+/// - 3 when it is the first bucket soil layer.
+/// - 4 when it is the first bucket layer.
+///
+/// The third digit indicates whether the soil should avalanche below or above
+/// the bucket:
+/// - 0 when there is no bucket.
+/// - 1 when the soil should avalanche below the bucket.
+/// - 2 when the soil should avalanche on the top of the bucket.
+///
+/// The combination of these three digits provides a comprehensive description
+/// of how the soil should avalanche in different scenarios.
+///
+/// Note that not all combinations for `status` are possible. Some combinations,
+/// such as `401`, `231` and `220`, are impossible.
 int soil_simulator::CheckUnstableTerrainCell(
     SimOut* sim_out, int ii_c, int jj_c, float h_min, float tol
 ) {
-    // Checking whether soil is low enough, unstability may have already
-    // been solved
+    // Checking whether soil is low enough, because unstability may have
+    // already been solved
     if (sim_out->terrain_[ii_c][jj_c] + tol < h_min) {
         // Adjacent terrain is low enough
         bool bucket_presence_1 = (
@@ -165,6 +194,28 @@ int soil_simulator::CheckUnstableTerrainCell(
     return 0;
 }
 
+/// In case of instability, this function returns a two-digit number (`status`)
+/// that provides information on how the soil should avalanche. The
+/// interpretation of the two-digit number is described below.
+///
+/// The first digit indicates the potential presence of the bucket:
+/// - 1 when the first bucket layer is present.
+/// - 2 when the second bucket layer is present.
+/// - 3 when the two bucket layers are present.
+/// - 4 when no bucket layer is present.
+///
+/// The second digit indicates the layer where the soil should avalanche:
+/// - 0 when it is the `terrain` (no bucket is present).
+/// - 1 when it is the second bucket soil layer.
+/// - 2 when it is the second bucket layer.
+/// - 3 when it is the first bucket soil layer.
+/// - 4 when it is the first bucket layer.
+///
+/// The combination of these two digits provides a comprehensive description of
+/// how the soil should avalanche in different scenarios.
+///
+/// Note that not all combinations for `status` are possible.
+/// Some combinations, such as `41` and `23` are impossible.
 int soil_simulator::CheckUnstableBodyCell(
     SimOut* sim_out, int ii, int jj, int ind, int ii_c, int jj_c, float h_min,
     float tol
