@@ -28,9 +28,14 @@ std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
     std::vector<std::vector<int>> unstable_cells;
 
     // Iterating over the terrain
-    for (auto ii = sim_out->impact_area_[0][0]; ii < sim_out->impact_area_[0][1]; ii++)
-        for (auto jj = sim_out->impact_area_[1][0]; jj < sim_out->impact_area_[1][1]; jj++) {
-            // Calculating the minimum height allowed surrounding the considered soil cell
+    int ii_min = sim_out->impact_area_[0][0];
+    int ii_max = sim_out->impact_area_[0][1];
+    int jj_min = sim_out->impact_area_[1][0];
+    int jj_max = sim_out->impact_area_[1][1];
+    for (auto ii = ii_min; ii < ii_max; ii++)
+        for (auto jj = jj_min; jj < jj_max; jj++) {
+            // Calculating the minimum height allowed surrounding
+            // the considered soil cell
             float h_min = sim_out->terrain_[ii][jj] - dh_max - tol;
 
             if (
