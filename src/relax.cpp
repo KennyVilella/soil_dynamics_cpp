@@ -110,7 +110,8 @@ int soil_simulator::CheckUnstableTerrainCell(
 
                 // Checking which layer is lower
                 if (
-                    sim_out->body_[0][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]
+                    sim_out->body_[0][ii_c][jj_c] <
+                    sim_out->body_[2][ii_c][jj_c]
                 ) {
                     // First bucket layer is lower
                     bucket_bot = sim_out->body_[0][ii_c][jj_c];

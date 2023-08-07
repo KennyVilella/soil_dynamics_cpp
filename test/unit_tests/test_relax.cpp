@@ -317,7 +317,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
 
     // -- Testing case with two bucket layers, first layer with bucket soil --
     // -- being lower, second bucket layer is high enough to prevent soil   --
-    // -- from avalanching    
+    // -- from avalanching                                                  --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
