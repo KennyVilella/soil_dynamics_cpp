@@ -105,7 +105,22 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator25LocateUnstableTerrainCellEP6SimOutff">
 <span id="_CPPv3N14soil_simulator25LocateUnstableTerrainCellEP6SimOutff"></span><span id="_CPPv2N14soil_simulator25LocateUnstableTerrainCellEP6SimOutff"></span><span id="soil_simulator::LocateUnstableTerrainCell__SimOutP.float.float"></span><span class="target" id="relax_8hpp_1a0a8c6ad78abd12190ab2b54483ce7bf6"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LocateUnstableTerrainCell</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dh_max</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator25LocateUnstableTerrainCellEP6SimOutff" title="Permalink to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dd><p>This function locates all the cells in <code class="docutils literal notranslate"><span class="pre">terrain_</span></code> that have a height difference larger than <code class="docutils literal notranslate"><span class="pre">dh_max</span></code> with at least one neighboring cell. </p>
+<p>
+It is important to note that the cells selected by this function are not necessarily unstable, as a bucket or the soil resting on it could be supporting the soil column. This is only a first-order selection of cells potentially unstable. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>dh_max</strong> – Maximum height difference allowed between two neighboring cells. [m] </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collection of cells indices that are possibly unstable.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator24CheckUnstableTerrainCellEP6SimOutiiff">

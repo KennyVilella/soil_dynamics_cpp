@@ -1287,12 +1287,41 @@ This function can be separated into three main scenarios:<itemizedlist>
           <declname>tol</declname>
         </param>
         <briefdescription>
+<para>This function locates all the cells in <computeroutput>terrain_</computeroutput> that have a height difference larger than <computeroutput>dh_max</computeroutput> with at least one neighboring cell. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dh_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum height difference allowed between two neighboring cells. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Collection of cells indices that are possibly unstable.</para>
+</simplesect>
+It is important to note that the cells selected by this function are not necessarily unstable, as a bucket or the soil resting on it could be supporting the soil column. This is only a first-order selection of cells potentially unstable. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="17" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="20" bodyend="25" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="17" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="26" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="24" bodyend="48" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="26" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1ab7ab093b938d3cd2678a004f26fdb7e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1325,7 +1354,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="20" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="27" bodyend="31" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="20" declcolumn="5"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="29" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="50" bodyend="54" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="29" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1a846b24cfecc8f7c152a08debe27953c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1370,7 +1399,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="23" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="33" bodyend="38" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="23" declcolumn="5"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="32" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="56" bodyend="61" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="32" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1abff80b8641b27531ca4fe202ba0fa162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1419,7 +1448,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="27" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="40" bodyend="44" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="27" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="36" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="63" bodyend="67" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="36" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1a4f620d10accb31442cdbc93796c24ad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1476,7 +1505,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="31" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="46" bodyend="51" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="31" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="40" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="69" bodyend="74" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="40" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
