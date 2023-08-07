@@ -46,6 +46,704 @@ TEST(UnitTestRelax, LocateUnstableTerrainCell) {
 }
 
 TEST(UnitTestRelax, CheckUnstableTerrainCell) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    int status;
+
+    // -- Testing case where there is no bucket and soil is not unstable --
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+
+    // -- Testing case where there is no bucket and soil is unstable --
+    sim_out->terrain_[10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 400);
+    sim_out->terrain_[10][15] = 0.0;
+
+    // -- Testing case where there is first bucket layer with space under it --
+    sim_out->terrain_[10][15] = -0.2;
+    sim_out->body_[0][10][15] = -0.1;
+    sim_out->body_[1][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 141);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+
+    // -- Testing case with first bucket layer and soil avalanche on it --
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 142);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+
+    // -- Testing case with first bucket layer and it is high enough to --
+    // -- prevent the soil from avalanching                             --
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and it has space under it                                       --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.5;
+    sim_out->body_soil_[0][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = -0.3;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 131);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and soil should avalanche on it                                 --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.5;
+    sim_out->body_soil_[0][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = -0.3;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 132);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and it is high enough to prevent the soil from avalanching      --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.5;
+    sim_out->body_soil_[0][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with second bucket layer and it has space under it --
+    sim_out->terrain_[10][15] = -0.2;
+    sim_out->body_[2][10][15] = -0.1;
+    sim_out->body_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 221);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with second bucket layer and soil avalanche on it --
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 222);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with second bucket layer and it is high enough to --
+    // -- prevent the soil from avalanching                              --
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and it has space under it                                        --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.5;
+    sim_out->body_soil_[3][10][15] = -0.3;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 211);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and soil should avalanche on it                                  --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.5;
+    sim_out->body_soil_[3][10][15] = -0.3;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 212);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and it is high enough to prevent the soil from avalanching       --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.5;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- and it has space under it                                    --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 321);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- and soil should avalanche on the second bucket layer         --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 322);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower and    --
+    // -- second bucket layer is high enough to prevent soil from avalanching --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower and has space under it                                --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 321);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, and soil should avalanche on the second bucket layer --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 322);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, second bucket layer is high enough to prevent soil   --
+    // -- from avalanching                                                  --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- it has space under it, while second layer is with bucket soil    --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 311);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- soil should avalanche on second bucket layer with bucket soil    --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 312);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- second bucket layer with bucket soil is high enough to prevent   --
+    // -- soil from avalanching                                            --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- first layer being lower and it has space under it                --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 311);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- first layer being lower, soil should avalanche on second         --
+    // -- bucket layer                                                     --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 312);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- first layer being lower, second bucket layer is high enough to   --
+    // -- prevent soil from avalanching                                    --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- it has space under it                                             --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 341);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- soil should avalanche on the first bucket layer                   --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 342);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer being lower and  --
+    // -- first bucket layer is high enough to prevent soil from avalanching --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower and it has space under it                              --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 341);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, soil should avalanche on the first bucket layer       --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 342);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, first bucket layer is high enough to prevent soil     --
+    // -- from avalanching                                                   --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- has space under it, while the first layer is with bucket soil     --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 331);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- soil should avalanche on first bucket layer with bucket soil      --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 332);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- first bucket layer with bucket soil is high enough to prevent     --
+    // -- soil from avalanching                                             --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower and has space under it                  --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 331);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, soil avalanche on first bucket layer   --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 332);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, first bucket layer is high enough to   --
+    // -- prevent soil from avalanching                                    --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing edge case where a lot of space under the bucket is present --
+    sim_out->terrain_[10][15] = -1.0;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.6, 1e-5);
+    EXPECT_EQ(status, 141);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+
+    // -- Testing edge case for soil avalanching on the bucket --
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.1;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+
+    // -- Testing edge case for soil avalanching on terrain --
+    sim_out->terrain_[10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.4, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+
+    delete sim_out;
 }
 
 TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
