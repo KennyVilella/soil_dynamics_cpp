@@ -5,6 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <algorithm>
 #include <cmath>
+#include <random>
 #include <utility>
 #include <vector>
 #include "src/relax.hpp"
@@ -17,7 +18,7 @@ void soil_simulator::RelaxTerrain(
     sim_out->equilibrium_ = true;
 
     // Calculating the maximum slope allowed by the repose angle
-    float slope_max = std::tan(sim.repose_angle_);
+    float slope_max = std::tan(sim_param.repose_angle_);
     // Calculating the maximum height different allowed by the repose angle
     float dh_max = grid.cell_size_xy_ * slope_max;
     dh_max = grid.cell_size_z_ * round(dh_max / grid.cell_size_z_);
@@ -33,6 +34,7 @@ void soil_simulator::RelaxTerrain(
     // Randomizing unstable cells to reduce asymmetry
     // random_suffle is not used because it is machine dependent,
     // which makes unit testing difficult
+    extern std::mt19937 rng;
     for (int aa = unstable_cells.size() - 1; aa > 0; aa--) {
         std::uniform_int_distribution<int> dist(0, aa);
         int bb = dist(rng);
@@ -63,6 +65,7 @@ void soil_simulator::RelaxTerrain(
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
+        extern std::mt19937 rng;
         for (int aa = directions.size() - 1; aa > 0; aa--) {
             std::uniform_int_distribution<int> dist(0, aa);
             int bb = dist(rng);
@@ -97,12 +100,14 @@ void soil_simulator::RelaxTerrain(
     }
 
     // Updating relax_area
-    sim_out->relax_area_[0][0] = std::max(relax_min_x - sim->cell_buffer_, 2);
+    sim_out->relax_area_[0][0] = std::max(
+        relax_min_x - sim_param.cell_buffer_, 2);
     sim_out->relax_area_[0][1] = std::min(
-        relax_max_x + sim.cell_buffer_, 2 * grid.half_length_x_);
-    sim_out->relax_area_[1][0] = std::max(relax_min_y - sim.cell_buffer_, 2);
+        relax_max_x + sim_param.cell_buffer_, 2 * grid.half_length_x_);
+    sim_out->relax_area_[1][0] = std::max(
+        relax_min_y - sim_param.cell_buffer_, 2);
     sim_out->relax_area_[1][1] = std::min(
-        relax_max_y + sim.cell_buffer_, 2 * grid.half_length_y_);
+        relax_max_y + sim_param.cell_buffer_, 2 * grid.half_length_y_);
 }
 
 void soil_simulator::RelaxBodySoil(
