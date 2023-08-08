@@ -55,6 +55,127 @@ TEST(UnitTestRelax, RelaxTerrain) {
 }
 
 TEST(UnitTestRelax, CheckUnstableBodyCell) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    int status;
+
+    // -- Testing case where there is no bucket and soil is unstable --
+
+    // -- Testing case with first bucket layer and soil avalanche on it --
+
+    // -- Testing case where there is the first bucket layer with bucket soil --
+    // -- and soil should avalanche on it                                     --
+
+    // -- Testing case with second bucket layer and soil avalanche on it --
+
+    // -- Testing case where there is the second bucket layer with bucket --
+    // -- soil and soil should avalanche on it                            --
+
+    // -- Testing case where there are two bucket layers, the first layer --
+    // -- being lower and soil should avalanche on it                     --
+
+    // -- Testing case with two bucket layers, the first layer with bucket --
+    // -- soil being lower and soil should avalanche on it                 --
+
+    // -- Testing case with two bucket layers, the first layer being lower --
+    // -- and soil avalanche on it, while second layer is with bucket soil --
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- the first layer being lower and soil should avalanche on it      --
+
+    // -- Testing case with two bucket layers, the first layer being lower --
+    // -- and soil should avalanche on the second bucket layer             --
+
+    // -- Testing case with two bucket layers, the first layer with bucket  --
+    // -- soil being lower and soil should avalanche on second bucket layer --
+
+    // -- Testing case with two bucket layers, the first layer being lower --
+    // -- and soil should avalanche on the second bucket layer with soil   --
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- the first layer being lower and soil should avalanche on the     --
+    // -- second bucket layer                                              --
+
+    // -- Testing case with two bucket layers, the second layer being lower --
+    // -- and soil should avalanche on it                                   --
+
+    // -- Testing case with two bucket layers, the second layer with bucket --
+    // -- soil being lower and soil should avalanche on it                  --
+
+    // -- Testing case with two bucket layers, the second layer being lower --
+    // -- and soil avalanche on it, while first layer is with bucket soil   --
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- the second layer being lower and soil should avalanche on it     --
+
+    // -- Testing case with two bucket layers, the second layer being lower --
+    // -- and soil should avalanche on the first bucket layer               --
+
+    // -- Testing case with two bucket layers, the second layer with bucket --
+    // -- soil being lower and soil should avalanche on first bucket layer  --
+
+    // -- Testing case with two bucket layers, the second layer being lower --
+    // -- and soil should avalanche on the first bucket layer with soil     --
+
+    // -- Testing case where there are two bucket layers with bucket soil,  --
+    // -- second layer being lower and soil avalanche on first bucket layer --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- soil fully cover the space between the two layers, first bucket   --
+    // -- layer is too high for soil to avalanche                           --
+
+    // -- Testing case where there are two bucket layers with soil, second  --
+    // -- layer being lower and soil fully cover the space between the two  --
+    // -- layers, first bucket soil layer is too high for soil to avalanche --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- soil fully cover the space between the two layers, second bucket --
+    // -- layer is too high for soil to avalanche                          --
+
+    // -- Testing case where there are two bucket layers with soil, first    --
+    // -- layer being lower and soil fully cover the space between the two   --
+    // -- layers, second bucket soil layer is too high for soil to avalanche --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- soil fully cover the space between the two layers, but soil can   --
+    // -- avalanche on the first bucket layer                               --
+
+    // -- Testing case where there are two bucket layers with soil, second  --
+    // -- layer being lower and soil fully cover the space between the two  --
+    // -- layers, but the soil can avalanche on the first bucket soil layer --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- soil fully cover the space between the two layers, but the soil  --
+    // -- can avalanche on the second bucket layer                         --
+
+    // -- Testing case where there are two bucket layers with soil, first    --
+    // -- layer being lower and soil fully cover the space between the two   --
+    // -- layers, but the soil can avalanche on the second bucket soil layer --
+
+    // -- Testing case where there is no bucket and soil is not unstable --
+
+    // -- Testing case with first bucket layer and soil is not unstable --
+
+    // -- Testing case where there is the first bucket layer with bucket --
+    // -- soil and soil is not unstable                                  --
+
+    // -- Testing case with second bucket layer and soil is not unstable --
+
+    // -- Testing case where there is the second bucket layer with bucket --
+    // -- soil and soil is not unstable                                   --
+
+    // -- Testing case with two bucket layers and soil is not unstable (1) --
+
+    // -- Testing case with two bucket layers and soil is not unstable (2) --
+
+    // -- Testing case with two bucket layers and soil is not unstable (3) --
+
+    // -- Testing case with two bucket layers and soil is not unstable (4) --
+
+
+
+    delete sim_out;
 }
 
 TEST(UnitTestRelax, RelaxUnstableBodyCell) {
