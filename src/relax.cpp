@@ -272,7 +272,7 @@ int soil_simulator::CheckUnstableBodyCell(
             column_top = sim_out->body_[1][ii_c][jj_c];
         }
 
-        if (column_top + tol < h_min){
+        if (column_top + tol < h_min) {
             // Column is low enough
             return status;
         }
