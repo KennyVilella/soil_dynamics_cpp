@@ -26,9 +26,35 @@ void RelaxBodySoil(SimOut* sim_out, Grid grid, SimParam sim_param, float tol);
 std::vector<std::vector<int>> LocateUnstableTerrainCell(
     SimOut* sim_out, float dh_max, float tol);
 
+/// \brief This function checks the stability of a soil column in `terrain_`
+///        compared to one of its neighbor (`ii_c`, `jj_c`)
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param ii_c: Index of the neighboring cell in the X direction.
+/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param h_min: Minimum allowed height for a stable configuration. [m]
+/// \param tol: Small number used to handle numerical approximation errors.
+///
+/// \return Three-digit number indicating how the soil should avalanche.
+///         `0` is returned if the soil column is stable.
 int CheckUnstableTerrainCell(
     SimOut* sim_out, int ii_c, int jj_c, float h_min, float tol);
 
+/// \brief This function checks the stability of a soil column in the soil
+///        layer `ind` of `body_soil_` at (`ii`, `jj`) compared to one of its
+///        neighbor at (`ii_c`, `jj_c`).
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param ii: Index of the considered cell in the X direction.
+/// \param jj: Index of the considered cell in the Y direction.
+/// \param ind: Index of the considered soil layer.
+/// \param ii_c: Index of the neighboring cell in the X direction.
+/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param h_min: Minimum allowed height for a stable configuration. [m]
+/// \param tol: Small number used to handle numerical approximation errors.
+///
+/// \return Two-digit number indicating how the soil should avalanche.
+///         `0` is returned if the soil column is stable.
 int CheckUnstableBodyCell(
     SimOut* sim_out, int ii, int jj, int ind, int ii_c, int jj_c, float h_min,
     float tol);
