@@ -241,7 +241,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
     SimOut* sim_out, int status, float dh_max, int ii, int jj, int ii_c,
     int jj_c, Grid grid, float tol
 ) {
-    // Converting status into a char for convenience
+    // Converting status into a string for convenience
     std::string st = std::to_string(status);
 
     // Calculating new height values
