@@ -756,6 +756,131 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
 }
 
 TEST(UnitTestRelax, RelaxUnstableBodyCell) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // -- Testing the case with no bucket and soil should partially avalanche --
+
+    // -- Testing the case with no bucket and soil should fully avalanche --
+
+    // -- Testing the case with first bucket layer and soil should partially --
+    // -- avalanche on it                                                    --
+
+    // -- Testing the case with first bucket layer and soil should fully --
+    // -- avalanche on it                                                --
+
+    // -- Testing the case where there is the first bucket layer with bucket --
+    // -- soil and soil should partially avalanche on it                     --
+
+    // -- Testing the case where there is the first bucket layer with bucket --
+    // -- soil and soil should fully avalanche on it                         --
+
+    // -- Testing the case with second bucket layer and soil  should --
+    // -- partially avalanche on it                                  --
+
+    // -- Testing the case with second bucket layer and soil should fully --
+    // -- avalanche on it                                                 --
+
+    // -- Testing the case where there is the second bucket layer with bucket --
+    // -- soil and soil should partially avalanche on it                      --
+
+    // -- Testing the case where there is the second bucket layer with bucket --
+    // -- soil and soil should fully avalanche on it                          --
+
+    // -- Testing the case with two bucket layers, first layer being lower --
+    // -- and soil should partially avalanche on it                        --
+
+    // -- Testing the case with two bucket layers, first layer being lower --
+    // -- and soil should fully avalanche on it                            --
+
+    // -- Testing the case whith two bucket layers, first layer being lower --
+    // -- and soil should partially avalanche on it but there is not enough --
+    // -- space for all the soil                                            --
+
+    // -- Testing the case with two bucket layers, first layer being lower --
+    // -- and soil should partially avalanche on the second bucket layer   --
+
+    // -- Testing the case with two bucket layers, first layer being lower --
+    // -- and soil should fully avalanche on the second bucket layer       --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- first layer being lower and soil should partially avalanche on it   --
+
+    // -- Testing the case where there are two bucket layers with bucket soil -- 
+    // -- first layer being lower and soil should fully avalanche on it       --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- first layer being lower and soil should partially avalanche on it   --
+    // -- but there is not enough space for all the soil                      --
+
+    // -- Testing the case where there are two bucket layers with bucket soil -- 
+    // -- first layer being lower and soil should partially avalanche on the  --
+    // -- second bucket layer                                                 --
+
+    // -- Testing the case where there are two bucket layers with bucket soil -- 
+    // -- first layer being lower and soil should fully avalanche on the      --
+    // -- second bucket layer                                                 --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil should partially avalanche on it                         --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil should fully avalanche on it                             --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil should partially avalanche on it but there is not enough --
+    // -- space for all the soil                                            --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil should partially avalanche on the first bucket layer     --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil should fully avalanche on the first bucket layer         --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- second layer being lower and soil should partially avalanche on it  --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- the second layer being lower and soil should fully avalanche on it  --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- second layer being lower and soil should partially avalanche on it  --
+    // -- but there is not enough space for all the soil                      --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- second layer being lower and soil should partially avalanche on the --
+    // -- first bucket layer                                                  --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- the second layer being lower and soil should fully avalanche on the --
+    // -- first bucket layer                                                  --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- first layer being lower and soil should partially avalanche on it   --
+    // -- but there is no space at all                                        --
+
+    // -- Testing the case where there are two bucket layers with bucket soil --
+    // -- second layer being lower and soil should partially avalanche on it  --
+    // -- but there is no space at all                                        --
+
+    // -- Testing the case with two bucket layers, first layer being lower --
+    // -- and soil fully cover the space between the two layers, the soil  --
+    // -- can partially avalanche to the second bucket layer               --
+
+    // -- Testing the case with two bucket layers, first layer being lower --
+    // -- and soil fully cover the space between the two layers, the soil  --
+    // -- can partially avalanche to the second bucket soil layer          --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil fully cover the space between the two layers, the soil   --
+    // -- can partially avalanche to the first bucket layer                 --
+
+    // -- Testing the case with two bucket layers, second layer being lower --
+    // -- and soil fully cover the space between the two layers, the soil   --
+    // -- can partially avalanche to the first bucket soil layer            --
+
+    delete sim_out;
 }
 
 TEST(UnitTestRelax, RelaxBodySoil) {
