@@ -228,7 +228,7 @@ int soil_simulator::CheckUnstableBodyCell(
         (sim_out->body_[2][ii_c][jj_c] == 0.0) &&
         (sim_out->body_[3][ii_c][jj_c] == 0.0));
     int status;
-    int column_top;
+    float column_top;
 
     if (bucket_absence_1 && bucket_absence_3) {
         // No bucket
@@ -284,12 +284,12 @@ int soil_simulator::CheckUnstableBodyCell(
 
         if (sim_out->body_[0][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
             // First layer at bottom
-            ind_n_bot = 1;
-            ind_n_top = 3;
+            ind_n_bot = 0;
+            ind_n_top = 2;
         } else {
             // Second layer at bottom
-            ind_n_bot = 3;
-            ind_n_top = 1;
+            ind_n_bot = 2;
+            ind_n_top = 0;
         }
 
         if (
@@ -304,12 +304,12 @@ int soil_simulator::CheckUnstableBodyCell(
                     sim_out->body_soil_[ind_n_bot+1][ii_c][jj_c] + tol <
                     sim_out->body_[ind_n_top][ii_c][jj_c]) {
                     // Some space is avilable
-                    status += ind_n_top;
+                    status += ind_n_top + 1;
                     column_top = sim_out->body_soil_[ind_n_bot+1][ii_c][jj_c];
                 }
             } else {
                 // Bucket soil is not present
-                status += ind_n_top + 1;
+                status += ind_n_top + 2;
                 column_top = sim_out->body_[ind_n_bot+1][ii_c][jj_c];
             }
         }
@@ -323,11 +323,11 @@ int soil_simulator::CheckUnstableBodyCell(
                 (sim_out->body_soil_[ind_n_top][ii_c][jj_c] != 0.0) ||
                 (sim_out->body_soil_[ind_n_top+1][ii_c][jj_c] != 0.0)) {
                 // Bucket soil is present
-                status += ind_n_bot;
+                status += ind_n_bot + 1;
                 column_top = sim_out->body_soil_[ind_n_top+1][ii_c][jj_c];
             } else {
                 // Bucket soil is not present
-                status += ind_n_bot + 1;
+                status += ind_n_bot + 2;
                 column_top = sim_out->body_[ind_n_top+1][ii_c][jj_c];
             }
         }
