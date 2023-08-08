@@ -3,6 +3,9 @@ This file implements the functions used for the terrain relaxation.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <algorithm>
+#include <cmath>
+#include <utility>
 #include <vector>
 #include "src/relax.hpp"
 #include "src/types.hpp"
@@ -10,6 +13,96 @@ Copyright, 2023, Vilella Kenny.
 void soil_simulator::RelaxTerrain(
     SimOut* sim_out, Grid grid, SimParam sim_param, float tol
 ) {
+    // Assuming that the terrain is at equilibrium
+    sim_out->equilibrium_ = true;
+
+    // Calculating the maximum slope allowed by the repose angle
+    float slope_max = std::tan(sim.repose_angle_);
+    // Calculating the maximum height different allowed by the repose angle
+    float dh_max = grid.cell_size_xy_ * slope_max;
+    dh_max = grid.cell_size_z_ * round(dh_max / grid.cell_size_z_);
+
+    // Locating cells requiring relaxation
+    auto unstable_cells = LocateUnstableTerrainCell(sim_out, dh_max, tol);
+
+    if (unstable_cells.size() == 0) {
+        // Terrain is already at equilibrium
+        return;
+    }
+
+    // Randomizing unstable cells to reduce asymmetry
+    // random_suffle is not used because it is machine dependent,
+    // which makes unit testing difficult
+    for (int aa = unstable_cells.size() - 1; aa > 0; aa--) {
+        std::uniform_int_distribution<int> dist(0, aa);
+        int bb = dist(rng);
+        std::swap(unstable_cells[aa], unstable_cells[bb]);
+    }
+
+    // Storing all possible directions for relaxation
+    std::vector<std::vector<int>> directions = {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    // Initializing the 2D bounding box of the unstable cells
+    int relax_min_x = 2 * grid.half_length_x_;
+    int relax_max_x = 0;
+    int relax_min_y = 2 * grid.half_length_y_;
+    int relax_max_y = 0;
+
+    // Iterating over all unstable cells
+    for (auto nn = 0; nn < unstable_cells.size(); nn++) {
+        int ii = unstable_cells[nn][0];
+        int jj = unstable_cells[nn][1];
+
+        // Updating the 2D bounding box of the unstable cells
+        relax_min_x = std::min(relax_min_x, ii);
+        relax_max_x = std::max(relax_max_x, ii);
+        relax_min_y = std::min(relax_min_y, jj);
+        relax_max_y = std::max(relax_max_y, jj);
+
+        // Randomizing direction to avoid asymmetry
+        // random_suffle is not used because it is machine dependent,
+        // which makes unit testing difficult
+        for (int aa = directions.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(directions[aa], directions[bb]);
+        }
+
+        // Iterating over the possible directions
+        for (auto xy = 0; xy < directions.size(); xy++) {
+            int ii_c = ii + directions[xy][0];
+            int jj_c = jj + directions[xy][1];
+
+            // Calculating minimum height allowed surrounding the considered
+            // soil cell
+            float h_min = sim_out->terrain_[ii][jj] - dh_max;
+
+            // Checking if the cell requires relaxation
+            auto status = CheckUnstableTerrainCell(
+                sim_out, ii_c, jj_c, h_min, tol);
+
+            if (status == 0) {
+                // Soil cell already at equilibrium
+                continue;
+            } else {
+                // Soil cell requires relaxation
+                sim_out->equilibrium_ = false;
+            }
+
+            // Relaxing the soil cell
+            RelaxUnstableTerrainCell(
+                sim_out, status, dh_max, ii, jj, ii_c, jj_c, grid, tol);
+        }
+    }
+
+    // Updating relax_area
+    sim_out->relax_area_[0][0] = std::max(relax_min_x - sim->cell_buffer_, 2);
+    sim_out->relax_area_[0][1] = std::min(
+        relax_max_x + sim.cell_buffer_, 2 * grid.half_length_x_);
+    sim_out->relax_area_[1][0] = std::max(relax_min_y - sim.cell_buffer_, 2);
+    sim_out->relax_area_[1][1] = std::min(
+        relax_max_y + sim.cell_buffer_, 2 * grid.half_length_y_);
 }
 
 void soil_simulator::RelaxBodySoil(
