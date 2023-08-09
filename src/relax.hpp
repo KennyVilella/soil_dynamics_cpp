@@ -59,6 +59,19 @@ int CheckUnstableBodyCell(
     SimOut* sim_out, int ii, int jj, int ind, int ii_c, int jj_c, float h_min,
     float tol);
 
+/// \brief This function moves the soil from the `terrain_` at (`ii`, `jj`) to
+///        the soil column in (`ii_c`, `jj_c`).
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param status: Three-digit number indicating how the soil should avalanche.
+/// \param dh_max: Maximum height difference allowed between two neighboring
+///                cells. [m]
+/// \param ii: Index of the considered cell in the X direction.
+/// \param jj: Index of the considered cell in the Y direction.
+/// \param ii_c: Index of the neighboring cell in the X direction.
+/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param tol: Small number used to handle numerical approximation errors.
 void RelaxUnstableTerrainCell(
     SimOut* sim_out, int status, float dh_max, int ii, int jj, int ii_c,
     int jj_c, Grid grid, float tol);
