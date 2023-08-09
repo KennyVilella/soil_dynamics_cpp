@@ -89,7 +89,6 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
-        extern std::mt19937 rng;
         for (int aa = directions.size() - 1; aa > 0; aa--) {
             std::uniform_int_distribution<int> dist(0, aa);
             int bb = dist(rng);
@@ -180,7 +179,6 @@ void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
-        extern std::mt19937 rng;
         for (int aa = directions.size() - 1; aa > 0; aa--) {
             std::uniform_int_distribution<int> dist(0, aa);
             int bb = dist(rng);

@@ -5,7 +5,6 @@ Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
 #include "src/intersecting_cells.cpp"
-#include "src/soil_dynamics.hpp"
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
     // Setting up the environment

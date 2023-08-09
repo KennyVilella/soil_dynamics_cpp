@@ -36,7 +36,7 @@ void soil_simulator::RelaxTerrain(
     // Randomizing unstable cells to reduce asymmetry
     // random_suffle is not used because it is machine dependent,
     // which makes unit testing difficult
-    extern std::mt19937 rng;
+    std::mt19937 rng;
     for (int aa = unstable_cells.size() - 1; aa > 0; aa--) {
         std::uniform_int_distribution<int> dist(0, aa);
         int bb = dist(rng);
@@ -67,7 +67,7 @@ void soil_simulator::RelaxTerrain(
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
-        extern std::mt19937 rng;
+        std::mt19937 rng;
         for (int aa = directions.size() - 1; aa > 0; aa--) {
             std::uniform_int_distribution<int> dist(0, aa);
             int bb = dist(rng);

@@ -10,6 +10,9 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
+// Declaring RNG
+extern std::mt19937 rng;
+
 void RelaxTerrain(SimOut* sim_out, Grid grid, SimParam sim_param, float tol);
 
 void RelaxBodySoil(SimOut* sim_out, Grid grid, SimParam sim_param, float tol);

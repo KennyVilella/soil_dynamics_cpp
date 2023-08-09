@@ -5,7 +5,6 @@ Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
 #include "src/relax.cpp"
-#include "src/soil_dynamics.hpp"
 
 TEST(UnitTestRelax, LocateUnstableTerrainCell) {
     // Setting up the environment
@@ -1275,132 +1274,187 @@ TEST(UnitTestRelax, RelaxTerrain) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    soil_simulator::SimParam sim_param(0.785, 3, 4);
     sim_out->impact_area_[0][0] = 4;
     sim_out->impact_area_[0][1] = 16;
     sim_out->impact_area_[1][0] = 9;
     sim_out->impact_area_[1][1] = 20;
 
     // -- Testing case with no bucket and soil is unstable --
-
+    soil_simulator::rng.seed(1234);
+    sim_out->terrain_[10][15] = -0.2;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+/*
     // -- Testing case with first bucket layer and it has space under it --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with first bucket layer and soil avalanche on it --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with the first bucket layer and it is high enough to --
     // --  prevent the soil from avalanching                                --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there is the first bucket layer with bucket soil --
     // -- and it has space under it                                           --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there is the first bucket layer with bucket soil --
     // -- and soil should avalanche on it                                     --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there is the first bucket layer with bucket soil --
     // -- and it is high enough to prevent the soil from avalanching          --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with second bucket layer and it has space under it --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with second bucket layer and soil avalanche on it --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with second bucket layer and it is high enough to --
     // --  prevent the soil from avalanching                             --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there is the second bucket layer with bucket --
     // -- soil and it has space under it                                  --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there is the second bucket layer with bucket --
     // -- soil and soil should avalanche on it                            --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there is the second bucket layer with bucket --
     // -- soil and it is high enough to prevent the soil from avalanching --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- it has space under it                                            --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- soil should avalanche on the second bucket layer                 --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer being lower and    --
     // -- second bucket layer is high enough to prevent soil from avalanching --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer with bucket soil --
     // -- being lower and has space under it                                --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer with bucket soil --
     // -- being lower and soil should avalanche on the second bucket layer  --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer with bucket soil --
     // -- being lower and the second bucket layer is high enough to prevent --
     // -- soil from avalanching                                             --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- it has space under it, while second layer is with bucket soil    --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- soil should avalanche on second bucket layer with bucket soil    --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- second bucket layer with bucket soil is high enough to prevent   --
     // -- the soil from avalanching                                        --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there are two bucket layers with bucket soil, --
     // first layer being lower and it has space under it                   --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there are two bucket layers with bucket soil,  --
     // -- first layer being lower and soil avalanche on second bucket layer --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there are two bucket layers with bucket soil,   --
     // -- first layer being lower and the second bucket layer is high enough --
     // -- to prevent the soil from avalanching                               --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- it has space under it                                             --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- soil should avalanche on the first bucket layer                   --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer being lower and  --
     // -- first bucket layer is high enough to prevent soil from avalanching --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer with bucket soil --
     // -- being lower and it has space under it                              --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer with bucket soil --
     // -- being lower and soil should avalanche on the first bucket layer    --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer with bucket soil --
     // -- being lower and first bucket layer is high enough to prevent the   --
     // -- soil from avalanching                                              --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- has space under it, while the first layer is with bucket soil     --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- soil should avalanche on the first bucket layer with bucket soil  --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- first bucket layer with bucket soil is high enough to prevent the --
     // --soil from avalanching                                              --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there are two bucket layers with bucket soil, --
     // -- second layer being lower and has space under it                  --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there are two bucket layers with bucket soil,  --
     // -- second layer being lower and soil avalanche on first bucket layer --
+    soil_simulator::rng.seed(1234);
 
     // -- Testing case where there are two bucket layers with bucket soil,  --
     // -- second layer being lower and first bucket layer is high enough to --
     // -- prevent the soil from avalanching                                 --
-
-    // -- Testing edge case where a lot of space under the bucket is present --
-
-    // -- Testing edge case for soil avalanching on terrain --
-
-    // -- Testing randomization --
-
-
     soil_simulator::rng.seed(1234);
 
+    // -- Testing edge case where a lot of space under the bucket is present --
+    soil_simulator::rng.seed(1234);
+
+    // -- Testing edge case for soil avalanching on terrain --
+    soil_simulator::rng.seed(1234);
+
+    // -- Testing randomization --
+    soil_simulator::rng.seed(1234);
+*/
 
     delete sim_out;
 }

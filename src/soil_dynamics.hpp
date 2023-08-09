@@ -9,8 +9,8 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
-// Setting RNG
-std::mt19937 rng;
+// Declaring RNG
+extern std::mt19937 rng;
 
 /// \brief Simulation class.
 class SoilDynamics {

@@ -10,6 +10,10 @@ Copyright, 2023, Vilella Kenny.
 #include "src/types.hpp"
 
 namespace soil_simulator {
+
+// Declaring RNG
+extern std::mt19937 rng;
+
 /// \brief This function moves all soil cells in `terrain_` and in `body_soil_`
 ///        that intersect with the bucket or with another soil cell.
 ///
