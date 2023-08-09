@@ -5,6 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
 #include "src/relax.cpp"
+#include "src/soil_dynamics.hpp"
 
 TEST(UnitTestRelax, LocateUnstableTerrainCell) {
     // Setting up the environment
@@ -1271,6 +1272,137 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
 }
 
 TEST(UnitTestRelax, RelaxTerrain) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    sim_out->impact_area_[0][0] = 4;
+    sim_out->impact_area_[0][1] = 16;
+    sim_out->impact_area_[1][0] = 9;
+    sim_out->impact_area_[1][1] = 20;
+
+    // -- Testing case with no bucket and soil is unstable --
+
+    // -- Testing case with first bucket layer and it has space under it --
+
+    // -- Testing case with first bucket layer and soil avalanche on it --
+
+    // -- Testing case with the first bucket layer and it is high enough to --
+    // --  prevent the soil from avalanching                                --
+
+    // -- Testing case where there is the first bucket layer with bucket soil --
+    // -- and it has space under it                                           --
+
+    // -- Testing case where there is the first bucket layer with bucket soil --
+    // -- and soil should avalanche on it                                     --
+
+    // -- Testing case where there is the first bucket layer with bucket soil --
+    // -- and it is high enough to prevent the soil from avalanching          --
+
+    // -- Testing case with second bucket layer and it has space under it --
+
+    // -- Testing case with second bucket layer and soil avalanche on it --
+
+    // -- Testing case with second bucket layer and it is high enough to --
+    // --  prevent the soil from avalanching                             --
+
+    // -- Testing case where there is the second bucket layer with bucket --
+    // -- soil and it has space under it                                  --
+
+    // -- Testing case where there is the second bucket layer with bucket --
+    // -- soil and soil should avalanche on it                            --
+
+    // -- Testing case where there is the second bucket layer with bucket --
+    // -- soil and it is high enough to prevent the soil from avalanching --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- it has space under it                                            --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- soil should avalanche on the second bucket layer                 --
+
+    // -- Testing case with two bucket layers, first layer being lower and    --
+    // -- second bucket layer is high enough to prevent soil from avalanching --
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower and has space under it                                --
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower and soil should avalanche on the second bucket layer  --
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower and the second bucket layer is high enough to prevent --
+    // -- soil from avalanching                                             --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- it has space under it, while second layer is with bucket soil    --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- soil should avalanche on second bucket layer with bucket soil    --
+
+    // -- Testing case with two bucket layers, first layer being lower and --
+    // -- second bucket layer with bucket soil is high enough to prevent   --
+    // -- the soil from avalanching                                        --
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // first layer being lower and it has space under it                   --
+
+    // -- Testing case where there are two bucket layers with bucket soil,  --
+    // -- first layer being lower and soil avalanche on second bucket layer --
+
+    // -- Testing case where there are two bucket layers with bucket soil,   --
+    // -- first layer being lower and the second bucket layer is high enough --
+    // -- to prevent the soil from avalanching                               --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- it has space under it                                             --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- soil should avalanche on the first bucket layer                   --
+
+    // -- Testing case with two bucket layers, second layer being lower and  --
+    // -- first bucket layer is high enough to prevent soil from avalanching --
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower and it has space under it                              --
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower and soil should avalanche on the first bucket layer    --
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower and first bucket layer is high enough to prevent the   --
+    // -- soil from avalanching                                              --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- has space under it, while the first layer is with bucket soil     --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- soil should avalanche on the first bucket layer with bucket soil  --
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- first bucket layer with bucket soil is high enough to prevent the --
+    // --soil from avalanching                                              --
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower and has space under it                  --
+
+    // -- Testing case where there are two bucket layers with bucket soil,  --
+    // -- second layer being lower and soil avalanche on first bucket layer --
+
+    // -- Testing case where there are two bucket layers with bucket soil,  --
+    // -- second layer being lower and first bucket layer is high enough to --
+    // -- prevent the soil from avalanching                                 --
+
+    // -- Testing edge case where a lot of space under the bucket is present --
+
+    // -- Testing edge case for soil avalanching on terrain --
+
+    // -- Testing randomization --
+
+
+    soil_simulator::rng.seed(1234);
+
+
+    delete sim_out;
 }
 
 TEST(UnitTestRelax, CheckUnstableBodyCell) {
