@@ -13,6 +13,13 @@ namespace soil_simulator {
 // Declaring RNG
 extern std::mt19937 rng;
 
+/// \brief This function moves the soil in `terrain_` towards a state closer
+///        to equilibrium.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param sim_param: Class that stores information related to the simulation.
+/// \param tol: Small number used to handle numerical approximation errors.
 void RelaxTerrain(SimOut* sim_out, Grid grid, SimParam sim_param, float tol);
 
 void RelaxBodySoil(SimOut* sim_out, Grid grid, SimParam sim_param, float tol);

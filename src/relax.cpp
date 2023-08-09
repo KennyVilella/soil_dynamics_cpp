@@ -13,6 +13,31 @@ Copyright, 2023, Vilella Kenny.
 #include "src/relax.hpp"
 #include "src/types.hpp"
 
+/// The soil stability is determined by the `repose_angle_`. If the slope formed
+/// by two neighboring soil columns exceeds the `repose_angle_`, it is
+/// considered unstable, and the soil from the higher column should avalanche to
+/// the neighboring column to reach an equilibrium state.
+///
+/// By convention, this function only checks the stability of the soil in the
+/// four adjacent cells:
+///                     ↑
+///                   ← O →
+///                     ↓
+///
+/// The diagonal directions are not checked for simplicity and performance
+/// reasons.
+///
+/// This function only moves the soil when the following conditions are met:
+///
+/// (1) The soil column in the neighboring cell is low enough.
+/// (2) Either:
+///     (a) The bucket is not on the soil, meaning there is space between the
+///         `terrain_` and the bucket, or there is no bucket.
+///     (b) The bucket is on the `terrain_`, but the combination of the bucket
+///         and bucket soil is not high enough to prevent soil avalanche.
+///
+/// In case (2a), the soil will avalanche on the `terrain_`, while in case (2b),
+/// the soil will avalanche on the bucket.
 void soil_simulator::RelaxTerrain(
     SimOut* sim_out, Grid grid, SimParam sim_param, float tol
 ) {
