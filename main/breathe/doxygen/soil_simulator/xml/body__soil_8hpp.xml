@@ -11,8 +11,6 @@
         <link refid="types_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
       </node>
       <node id="1">
         <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp</label>
@@ -24,10 +22,6 @@
       </node>
       <node id="2">
         <label>vector</label>
-      </node>
-      <node id="4">
-        <label>src/soil_dynamics.hpp</label>
-        <link refid="soil__dynamics_8hpp_source"/>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacesoil__simulator">soil_simulator</innernamespace>
