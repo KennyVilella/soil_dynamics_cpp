@@ -3,6 +3,7 @@
   <compounddef id="soil__dynamics_8cpp" kind="file" language="C++">
     <compoundname>soil_dynamics.cpp</compoundname>
     <includes local="no">iostream</includes>
+    <includes local="no">random</includes>
     <includes refid="soil__dynamics_8hpp" local="yes">src/soil_dynamics.hpp</includes>
     <includes refid="types_8hpp" local="yes">src/types.hpp</includes>
     <incdepgraph>
@@ -19,19 +20,21 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="3">
         <label>random</label>
       </node>
       <node id="6">
         <label>vector</label>
       </node>
-      <node id="3">
+      <node id="4">
         <label>src/soil_dynamics.hpp</label>
         <link refid="soil__dynamics_8hpp_source"/>
-        <childnode refid="4" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -50,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" line="19" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="19" bodyend="24"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" line="23" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="23" bodyend="28"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -64,24 +67,28 @@
 <codeline lineno="4"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/soil_dynamics.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" kindref="member">soil_simulator::SoilDynamics::step</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="11"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" kindref="member">soil_simulator::SoilDynamics::check</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kindref="member">soil_simulator::SoilDynamics::WriteOutputs</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics" kindref="compound">soil_simulator::SoilDynamics</ref><sp/>sim;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid" kindref="compound">soil_simulator::Grid</ref><sp/>grid(4.0,<sp/>4.0,<sp/>4.0,<sp/>0.05,<sp/>0.05);</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>grid.vect_x_[0];</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;random&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/soil_dynamics.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Defining<sp/>RNG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">std::mt19937<sp/>soil_simulator::rng;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" kindref="member">soil_simulator::SoilDynamics::step</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" kindref="member">soil_simulator::SoilDynamics::check</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kindref="member">soil_simulator::SoilDynamics::WriteOutputs</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics" kindref="compound">soil_simulator::SoilDynamics</ref><sp/>sim;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid" kindref="compound">soil_simulator::Grid</ref><sp/>grid(4.0,<sp/>4.0,<sp/>4.0,<sp/>0.05,<sp/>0.05);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>grid.vect_x_[0];</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp"/>
   </compounddef>
