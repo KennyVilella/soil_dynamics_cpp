@@ -138,6 +138,83 @@ void soil_simulator::RelaxTerrain(
 void soil_simulator::RelaxBodySoil(
     SimOut* sim_out, Grid grid, SimParam sim_param, float tol
 ) {
+    // Calculating the maximum slope allowed by the repose angle
+    float slope_max = std::tan(sim_param.repose_angle_);
+    // Calculating the maximum height different allowed by the repose angle
+    float dh_max = grid.cell_size_xy_ * slope_max;
+    dh_max = grid.cell_size_z_ * round(dh_max / grid.cell_size_z_);
+
+    // Removing duplicates in body_soil_pos
+    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+    sim_out->body_soil_pos_.erase(unique(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
+        sim_out->body_soil_pos_.end());
+
+    // Randomizing body_soil_pos to reduce asymmetry
+    // random_suffle is not used because it is machine dependent,
+    // which makes unit testing difficult
+    for (int aa = sim_out->body_soil_pos_.size() - 1; aa > 0; aa--) {
+        std::uniform_int_distribution<int> dist(0, aa);
+        int bb = dist(rng);
+        std::swap(sim_out->body_soil_pos_[aa], sim_out->body_soil_pos_[bb]);
+    }
+
+    // Storing all possible directions for relaxation
+    std::vector<std::vector<int>> directions = {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    // Initializing queue for new body_soil_pos
+    std::vector<std::vector<int>> *new_body_soil_pos = (
+        new std::vector<std::vector<int>>);
+
+    // Iterating over all body_soil cells
+    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+        int ii = sim_out->body_soil_pos_[nn][1];
+        int jj = sim_out->body_soil_pos_[nn][2];
+        int ind = sim_out->body_soil_pos_[nn][0];
+
+        // Randomizing direction to avoid asymmetry
+        // random_suffle is not used because it is machine dependent,
+        // which makes unit testing difficult
+        for (int aa = directions.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(directions[aa], directions[bb]);
+        }
+
+        // Iterating over the possible directions
+        for (auto xy = 0; xy < directions.size(); xy++) {
+            int ii_c = ii + directions[xy][0];
+            int jj_c = jj + directions[xy][1];
+
+            // Calculating minimum height allowed surrounding the considered
+            // soil cell
+            float h_min = sim_out->body_soil_[ind+1][ii][jj] - dh_max;
+
+            // Checking if the cell requires relaxation
+            auto status = CheckUnstableBodyCell(
+                sim_out, ii, jj, ind, ii_c, jj_c, h_min, tol);
+
+            if (status == 0) {
+                // Soil cell already at equilibrium
+                continue;
+            } else {
+                // Soil cell requires relaxation
+                sim_out->equilibrium_ = false;
+            }
+
+            // Relaxing the soil cell
+            RelaxUnstableBodyCell(
+                sim_out, status, new_body_soil_pos, dh_max, ii, jj, ind,
+                ii_c, jj_c, grid, tol);
+        }
+    }
+
+    // Adding new body_soil_pos
+    for (auto nn = 0; nn < new_body_soil_pos->size(); nn++) {
+        sim_out->body_soil_pos_.push_back((*new_body_soil_pos)[nn]);
+    }
+    delete new_body_soil_pos;
 }
 
 /// It is important to note that the cells selected by this function are not
