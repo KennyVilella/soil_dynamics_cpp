@@ -6,6 +6,7 @@ Copyright, 2023, Vilella Kenny.
 #pragma once
 
 #include <vector>
+#include <tuple>
 
 namespace soil_simulator {
 
@@ -17,8 +18,8 @@ namespace soil_simulator {
 /// \param c: Cartesian coordinates of the third point of the plane. [m]
 ///
 /// \return Unit normal vector of the provided plane. [m]
-std::vector <float> CalcNormal(
-    std::vector <float> a, std::vector <float> b, std::vector <float> c);
+std::vector<float> CalcNormal(
+    std::vector<float> a, std::vector<float> b, std::vector<float> c);
 
 /// \brief This function applies a rotation `ori` to the Cartesian
 ///        coordinates `pos`.
@@ -31,8 +32,8 @@ std::vector <float> CalcNormal(
 ///
 /// \return Rotated Cartesian coordinates of the input `pos` relative to the
 ///         bucket origin. [m]
-std::vector <float> CalcRotationQuaternion(
-    std::vector <float> ori, std::vector <float> pos);
+std::vector<float> CalcRotationQuaternion(
+    std::vector<float> ori, std::vector<float> pos);
 
 /// \brief This function calculates the product of two Quaternions.
 ///
@@ -40,6 +41,10 @@ std::vector <float> CalcRotationQuaternion(
 /// \param q2: Second quaternion. [Quaternion]
 ///
 /// \return Product of the two inputs quaternions. [Quaternion]
-std::vector <float> MultiplyQuaternion(
-    std::vector <float> q1, std::vector <float> q2);
+std::vector<float> MultiplyQuaternion(
+    std::vector<float> q1, std::vector<float> q2);
+
+std::tuple<
+    std::vector<std::vector<float>>, std::vector<std::vector<float>>
+> CalcTrajectory(float x_i, float z_i, float x_min, float z_min, int nn);
 }  // namespace soil_simulator
