@@ -343,6 +343,124 @@ int soil_simulator::CheckUnstableBodyCell(
     SimOut* sim_out, int ii, int jj, int ind, int ii_c, int jj_c, float h_min,
     float tol
 ) {
+    // Determining presence of bucket
+    bool bucket_absence_1 = (
+        (sim_out->body_[0][ii_c][jj_c] == 0.0) &&
+        (sim_out->body_[1][ii_c][jj_c] == 0.0));
+    bool bucket_absence_3 = (
+        (sim_out->body_[2][ii_c][jj_c] == 0.0) &&
+        (sim_out->body_[3][ii_c][jj_c] == 0.0));
+    int status;
+    float column_top;
+
+    if (bucket_absence_1 && bucket_absence_3) {
+        // No bucket
+        if (sim_out->terrain_[ii_c][jj_c] + tol < h_min) {
+            return 40;
+        }
+    } else if (bucket_absence_1) {
+        // Only the second bucket layer
+        status = 20;
+
+        if (
+            (sim_out->body_soil_[2][ii_c][jj_c] != 0.0) ||
+            (sim_out->body_soil_[3][ii_c][jj_c] != 0.0)) {
+            // Bucket soil is present
+            status += 1;
+            column_top = sim_out->body_soil_[3][ii_c][jj_c];
+        } else {
+            // Bucket soil is not present
+            status += 2;
+            column_top = sim_out->body_[3][ii_c][jj_c];
+        }
+
+        if (column_top + tol < h_min) {
+            // Column is low enough
+            return status;
+        }
+    } else if (bucket_absence_3) {
+        // Only the first bucket layer
+        status = 10;
+
+        if (
+            (sim_out->body_soil_[0][ii_c][jj_c] != 0.0) ||
+            (sim_out->body_soil_[1][ii_c][jj_c] != 0.0)
+        ) {
+            // Bucket soil is present
+            status += 3;
+            column_top = sim_out->body_soil_[1][ii_c][jj_c];
+        } else {
+            // Bucket soil is not present
+            status += 4;
+            column_top = sim_out->body_[1][ii_c][jj_c];
+        }
+
+        if (column_top + tol < h_min) {
+            // Column is low enough
+            return status;
+        }
+    } else {
+        // Both bucket layers are present
+        status = 30;
+        int ind_n_bot;
+        int ind_n_top;
+
+        if (sim_out->body_[0][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
+            // First layer at bottom
+            ind_n_bot = 0;
+            ind_n_top = 2;
+        } else {
+            // Second layer at bottom
+            ind_n_bot = 2;
+            ind_n_top = 0;
+        }
+
+        if (
+            sim_out->body_[ind+1][ii][jj] + tol <
+            sim_out->body_[ind_n_top][ii_c][jj_c]) {
+            // Soil may avalanche on the bottom layer
+            if (
+                (sim_out->body_soil_[ind_n_bot][ii_c][jj_c] != 0.0) ||
+                (sim_out->body_soil_[ind_n_bot+1][ii_c][jj_c] != 0.0)) {
+                // Bucket soil is present
+                if (
+                    sim_out->body_soil_[ind_n_bot+1][ii_c][jj_c] + tol <
+                    sim_out->body_[ind_n_top][ii_c][jj_c]) {
+                    // Some space is avilable
+                    status += ind_n_top + 1;
+                    column_top = sim_out->body_soil_[ind_n_bot+1][ii_c][jj_c];
+                }
+            } else {
+                // Bucket soil is not present
+                status += ind_n_top + 2;
+                column_top = sim_out->body_[ind_n_bot+1][ii_c][jj_c];
+            }
+        }
+
+        if (
+            (sim_out->body_[ind+1][ii][jj] + tol >
+            sim_out->body_[ind_n_top][ii_c][jj_c]) ||
+            (status == 30)) {
+            // Soil may avalanche on the top layer
+            if (
+                (sim_out->body_soil_[ind_n_top][ii_c][jj_c] != 0.0) ||
+                (sim_out->body_soil_[ind_n_top+1][ii_c][jj_c] != 0.0)) {
+                // Bucket soil is present
+                status += ind_n_bot + 1;
+                column_top = sim_out->body_soil_[ind_n_top+1][ii_c][jj_c];
+            } else {
+                // Bucket soil is not present
+                status += ind_n_bot + 2;
+                column_top = sim_out->body_[ind_n_top+1][ii_c][jj_c];
+            }
+        }
+
+        if (column_top + tol < h_min) {
+            // Column is low enough
+            return status;
+        }
+    }
+
     return 0;
 }
 
