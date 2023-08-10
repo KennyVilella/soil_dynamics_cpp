@@ -472,6 +472,15 @@ void soil_simulator::RelaxUnstableTerrainCell(
     }
 }
 
+/// The precise movement applied to the soil cell depends on the `status` number
+/// provided by the `CheckUnstableBodyCell` function.
+///
+/// The soil is moved such that the slope formed by the two neighboring soil
+/// columns is equal to the `repose_angle_`, provided that the bucket is not
+/// preventing this configuration.
+///
+/// Note that it is assumed that the given `status` is accurate, so no extra
+/// checks are present.
 void soil_simulator::RelaxUnstableBodyCell(
     SimOut* sim_out, int status, std::vector<std::vector<int>>* body_soil_pos,
     float dh_max, int ii, int jj, int ind, int ii_c, int jj_c, Grid grid,
