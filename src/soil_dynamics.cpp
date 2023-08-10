@@ -33,6 +33,28 @@ void soil_simulator::SoilDynamics::step(
 
     // Assuming that the terrain is not at equilibrium
     sim_out->equilibrium_ = false;
+
+    // Iterating until equilibrium or maximum number of iterations is reached
+    int it = 0;
+    while (!sim_out->equilibrium_ && it < sim_param.max_iterations_) {
+        it++;
+
+        // Updating impact_area
+        sim_out->impact_area_[0][0] = std::min(
+            sim_out->bucket_area_[0][0], sim_out->relax_area_[0][0]);
+        sim_out->impact_area_[1][0] = std::min(
+            sim_out->bucket_area_[1][0], sim_out->relax_area_[1][0]);
+        sim_out->impact_area_[0][1] = std::max(
+            sim_out->bucket_area_[0][1], sim_out->relax_area_[0][1]);
+        sim_out->impact_area_[1][1] = std::max(
+            sim_out->bucket_area_[1][1], sim_out->relax_area_[1][1]);
+
+        // Relaxing the terrain
+        RelaxTerrain(sim_out, grid, sim_param, tol);
+
+        // Relaxing the soil resting on the bucket
+        RelaxBodySoil(sim_out, grid, sim_param, tol);
+    }
 }
 
 void soil_simulator::SoilDynamics::check() {
