@@ -4,8 +4,12 @@ This file implements the main functions of the simulator.
 Copyright, 2023, Vilella Kenny.
 */
 #include <iostream>
+#include <random>
 #include "src/soil_dynamics.hpp"
 #include "src/types.hpp"
+
+// Defining RNG
+std::mt19937 soil_simulator::rng;
 
 void soil_simulator::SoilDynamics::step() {
 }

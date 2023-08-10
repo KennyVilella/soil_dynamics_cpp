@@ -5,7 +5,12 @@ Copyright, 2023, Vilella Kenny.
 */
 #pragma once
 
+#include <random>
+
 namespace soil_simulator {
+
+// Declaring RNG
+extern std::mt19937 rng;
 
 /// \brief Simulation class.
 class SoilDynamics {
