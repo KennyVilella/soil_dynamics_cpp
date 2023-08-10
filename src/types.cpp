@@ -9,7 +9,6 @@ Copyright, 2023, Vilella Kenny.
 #include <vector>
 #include <stdexcept>
 #include <iostream>
-#include "src/soil_dynamics.hpp"
 #include "src/types.hpp"
 
 soil_simulator::Grid::Grid(

@@ -6,7 +6,6 @@ Copyright, 2023, Vilella Kenny.
 #pragma once
 
 #include <vector>
-#include "src/soil_dynamics.hpp"
 
 namespace soil_simulator {
 
