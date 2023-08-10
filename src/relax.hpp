@@ -77,7 +77,7 @@ void RelaxUnstableTerrainCell(
     int jj_c, Grid grid, float tol);
 
 void RelaxUnstableBodyCell(
-    SimOut* sim_out, int status, std::vector<std::vector<int>> body_soil_pos,
+    SimOut* sim_out, int status, std::vector<std::vector<int>>* body_soil_pos,
     float dh_max, int ii, int jj, int ind, int ii_c, int jj_c, Grid grid,
     float tol);
 
