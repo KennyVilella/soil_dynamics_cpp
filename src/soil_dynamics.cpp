@@ -140,9 +140,9 @@ int main() {
         // Calculating lateral vector of the bucket
         auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
         std::vector<float> half_width = {
-            0.5 * bucket_width * normal_side[0],
-            0.5 * bucket_width * normal_side[1],
-            0.5 * bucket_width * normal_side[2]};
+            bucket_width * normal_side[0] / 2,
+            bucket_width * normal_side[1] / 2,
+            bucket_width * normal_side[2] / 2};
 
         // Populating position of the bucket corners
         j_r_pos.push_back(std::vector<float> {
