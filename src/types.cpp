@@ -161,12 +161,16 @@ soil_simulator::SimOut::SimOut(
         4, std::vector<std::vector<float>>(2*grid.half_length_x_+1,
         std::vector<float>(2*grid.half_length_y_+1, 0.0)));
 
-    body_soil_pos_.resize(1);
-
-    for (auto ii = 0 ; ii < 2 ; ii++)
-        for (auto jj = 0 ; jj < 2 ; jj++) {
-            bucket_area_[ii][jj] = 0.0;
-            relax_area_[ii][jj] = 0.0;
-            impact_area_[ii][jj] = 0.0;
-        }
+    bucket_area_[0][0] = 1;
+    relax_area_[0][0] = 1;
+    impact_area_[0][0] = 1;
+    bucket_area_[1][0] = 1;
+    relax_area_[1][0] = 1;
+    impact_area_[1][0] = 1;
+    bucket_area_[0][1] = 2 * grid.half_length_x_;
+    relax_area_[0][1] = 2 * grid.half_length_x_;
+    impact_area_[0][1] = 2 * grid.half_length_x_;
+    bucket_area_[1][1] = 2 * grid.half_length_y_;
+    relax_area_[1][1] = 2 * grid.half_length_y_;
+    impact_area_[1][1] = 2 * grid.half_length_y_;
 }
