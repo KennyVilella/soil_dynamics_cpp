@@ -135,6 +135,24 @@ void soil_simulator::RelaxTerrain(
         relax_max_y + sim_param.cell_buffer_, 2 * grid.half_length_y_);
 }
 
+/// The soil stability is determined by the `repose_angle_`. If the slope formed
+/// by two neighboring soil columns exceeds the `repose_angle_`, it is
+/// considered unstable, and the soil from the higher column should avalanche to
+/// the neighboring column to reach an equilibrium state.
+///
+/// By convention, this function only checks the stability of the soil in the
+/// four adjacent cells:
+///                     ↑
+///                   ← O →
+///                     ↓
+///
+/// The diagonal directions are not checked for simplicity and performance
+/// reasons.
+///
+/// This function only moves the soil when the following conditions are met:
+///
+/// (1) The soil column in the neighboring cell is low enough.
+/// (2) There is space on the top of the neighboring soil column.
 void soil_simulator::RelaxBodySoil(
     SimOut* sim_out, Grid grid, SimParam sim_param, float tol
 ) {
