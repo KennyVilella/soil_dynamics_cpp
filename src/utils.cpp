@@ -96,6 +96,23 @@ std::vector<float> soil_simulator::MultiplyQuaternion(
     return quat;
 }
 
+/// The parabolic trajectory is described by
+///
+///    z(x) = a * x * x + b * x + c.
+///
+/// Knowing that at the starting position
+///
+///    z(x_i) = z_i
+///
+/// and that at the deepest point of the trajectory
+///
+///    dz(x_min) / dx = 0.0
+///    z(x_min) = z_min,
+///
+/// it is possible to calculate the three parameters (a, b, c) of the parabolic
+/// equation. The orientation is assumed to be equal to the gradient of the
+/// trajectory. This implies that the bucket teeth would follow the movement, so
+/// that it can somewhat replicate an actual digging scoop.
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>
 > soil_simulator::CalcTrajectory(
