@@ -35,6 +35,12 @@ std::vector<float> CalcNormal(
 std::vector<float> CalcRotationQuaternion(
     std::vector<float> ori, std::vector<float> pos);
 
+/// \brief This function converts Euler angles following the ZYX convention to
+///        a quaternion.
+///
+/// \param ori: Orientation of the bucket. [Euler angles, ZYX sequence]
+///
+/// \return Orientation of the bucket. [Quaternion]
 std::vector<float> AngleToQuat(std::vector<float> ori);
 
 /// \brief This function calculates the product of two Quaternions.

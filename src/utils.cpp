@@ -51,6 +51,11 @@ std::vector<float> soil_simulator::CalcRotationQuaternion(
     return {quat[1], quat[2], quat[3]};
 }
 
+/// The mathematical reasoning behind this implementation can be easily found
+/// in the Wiki page of Quaternion or elsewhere.
+///
+/// Note that this function only works if the Euler angles follow the
+/// ZYX convention.
 std::vector<float> soil_simulator::AngleToQuat(
     std::vector<float> ori
 ) {
