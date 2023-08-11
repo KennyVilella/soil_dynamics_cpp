@@ -35,6 +35,8 @@ std::vector<float> CalcNormal(
 std::vector<float> CalcRotationQuaternion(
     std::vector<float> ori, std::vector<float> pos);
 
+std::vector<float> AngleToQuat(std::vector<float> ori);
+
 /// \brief This function calculates the product of two Quaternions.
 ///
 /// \param q1: First quaternion. [Quaternion]

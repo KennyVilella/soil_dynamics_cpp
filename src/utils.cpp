@@ -51,6 +51,34 @@ std::vector<float> soil_simulator::CalcRotationQuaternion(
     return {quat[1], quat[2], quat[3]};
 }
 
+std::vector<float> soil_simulator::AngleToQuat(
+    std::vector<float> ori
+) {
+    // Compute the sines and cosines of half angle.
+    float sin_0 = std::sin(ori[0] / 2.0);
+    float sin_1 = std::sin(ori[1] / 2.0);
+    float sin_2 = std::sin(ori[2] / 2.0);
+    float cos_0 = std::cos(ori[0] / 2.0);
+    float cos_1 = std::cos(ori[1] / 2.0);
+    float cos_2 = std::cos(ori[2] / 2.0);
+
+    float q_0 = cos_0 * cos_1 * cos_2 + sin_0 * sin_1 * sin_2;
+    std::vector<float> quat(4);
+    if (q_0 > 0) {
+        quat[0] = q_0;
+        quat[1] = cos_0 * cos_1 * sin_2 - sin_0 * sin_1 * cos_2;
+        quat[2] = cos_0 * sin_1 * cos_2 + sin_0 * cos_1 * sin_2;
+        quat[3] = sin_0 * cos_1 * cos_2 - cos_0 * sin_1 * sin_2;
+    } else {
+        quat[0] = -q_0;
+        quat[1] = -cos_0 * cos_1 * sin_2 + sin_0 * sin_1 * cos_2;
+        quat[2] = -cos_0 * sin_1 * cos_2 - sin_0 * cos_1 * sin_2;
+        quat[3] = -sin_0 * cos_1 * cos_2 + cos_0 * sin_1 * sin_2;
+    }
+
+    return quat;
+}
+
 /// The mathematical reasoning behind this implementation can be easily found
 /// in the Wiki page of Quaternion or elsewhere.
 std::vector<float> soil_simulator::MultiplyQuaternion(
@@ -107,7 +135,7 @@ std::tuple<
         pos.push_back(std::vector<float> {x, 0.0, a * x * x + b * x + c});
 
         // Calculating orientation following the gradient of the trajectory
-        ori.push_back(std::vector<float> {0.0, std::atan((2 * a * x) / x), 0.0});
+        ori.push_back(std::vector<float> {0.0, std::atan((2 * a * x) / x), 0});
     }
 
     return {pos, ori};
