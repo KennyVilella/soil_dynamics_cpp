@@ -6,6 +6,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <vector>
 #include "src/body_soil.hpp"
 #include "src/types.hpp"
