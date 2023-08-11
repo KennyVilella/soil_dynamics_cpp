@@ -198,7 +198,8 @@ int main() {
        pos_vec.push_back(std::vector<float> {
            pos[kk][0] * a + pos[kk+1][0] * b,
            pos[kk][1] * a + pos[kk+1][1] * b,
-           pos[kk][2] * a + pos[kk+1][5] * b});
+           pos[kk][2] * a + pos[kk+1][2] * b});
+
        ori_vec.push_back(soil_simulator::AngleToQuat({
             -(ori[kk][0] * a + ori[kk+1][0] * b),
             -(ori[kk][1] * a + ori[kk+1][1] * b),
@@ -318,7 +319,7 @@ int main() {
 
     // Simulation loop
     for (auto ii = 0; ii < time_vec.size(); ii++) {
-        std::cout << "Step " << ii << " / " << time_vec.size() << "\n";
+        std::cout << "Step " << ii << " / " << time_vec.size()-1 << "\n";
 
         // Stepping the soil dynamics
         sim.step(
