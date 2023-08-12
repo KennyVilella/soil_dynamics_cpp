@@ -71,7 +71,7 @@
     <member refid="relax_8hpp_1ab7ab093b938d3cd2678a004f26fdb7e4" kind="function"><name>CheckUnstableTerrainCell</name></member>
     <member refid="relax_8hpp_1a846b24cfecc8f7c152a08debe27953c7" kind="function"><name>CheckUnstableBodyCell</name></member>
     <member refid="relax_8hpp_1abff80b8641b27531ca4fe202ba0fa162" kind="function"><name>RelaxUnstableTerrainCell</name></member>
-    <member refid="relax_8hpp_1a4f620d10accb31442cdbc93796c24ad8" kind="function"><name>RelaxUnstableBodyCell</name></member>
+    <member refid="relax_8hpp_1ab302e765b73adc70fb91f5ae814a577d" kind="function"><name>RelaxUnstableBodyCell</name></member>
     <member refid="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" kind="function"><name>CalcNormal</name></member>
     <member refid="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" kind="function"><name>CalcRotationQuaternion</name></member>
     <member refid="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" kind="function"><name>MultiplyQuaternion</name></member>

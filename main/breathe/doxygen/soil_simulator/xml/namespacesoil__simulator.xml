@@ -1736,10 +1736,10 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="85" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="477" bodyend="591" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="85" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="relax_8hpp_1a4f620d10accb31442cdbc93796c24ad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="relax_8hpp_1ab302e765b73adc70fb91f5ae814a577d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void soil_simulator::RelaxUnstableBodyCell</definition>
-        <argsstring>(SimOut *sim_out, int status, std::vector&lt; std::vector&lt; int &gt;&gt; body_soil_pos, float dh_max, int ii, int jj, int ind, int ii_c, int jj_c, Grid grid, float tol)</argsstring>
+        <argsstring>(SimOut *sim_out, int status, std::vector&lt; std::vector&lt; int &gt;&gt; *body_soil_pos, float dh_max, int ii, int jj, int ind, int ii_c, int jj_c, Grid grid, float tol)</argsstring>
         <name>RelaxUnstableBodyCell</name>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
@@ -1750,7 +1750,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
           <declname>status</declname>
         </param>
         <param>
-          <type>std::vector&lt; std::vector&lt; int &gt;&gt;</type>
+          <type>std::vector&lt; std::vector&lt; int &gt;&gt; *</type>
           <declname>body_soil_pos</declname>
         </param>
         <param>
@@ -1786,12 +1786,105 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
           <declname>tol</declname>
         </param>
         <briefdescription>
+<para>This function moves the soil from the soil layer <computeroutput>ind</computeroutput> of <computeroutput>body_soil_</computeroutput> at (<computeroutput>ii</computeroutput>, <computeroutput>jj</computeroutput>) to the soil column in (<computeroutput>ii_c</computeroutput>, <computeroutput>jj_c</computeroutput>). </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Two-digit number indicating how the soil should avalanche. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>body_soil_pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Queue to append new body_soil_pos. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dh_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum height difference allowed between two neighboring cells. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ii</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the considered cell in the X direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the considered cell in the Y direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the considered soil layer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ii_c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the neighboring cell in the X direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jj_c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the neighboring cell in the Y direction. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The precise movement applied to the soil cell depends on the <computeroutput>status</computeroutput> number provided by the <computeroutput>CheckUnstableBodyCell</computeroutput> function.</para>
+<para>The soil is moved such that the slope formed by the two neighboring soil columns is equal to the <computeroutput>repose_angle_</computeroutput>, provided that the bucket is not preventing this configuration.</para>
+<para>Note that it is assumed that the given <computeroutput>status</computeroutput> is accurate, so no extra checks are present. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="89" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="593" bodyend="598" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="89" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="104" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="602" bodyend="1002" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="104" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
