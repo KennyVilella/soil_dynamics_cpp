@@ -5068,6 +5068,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
     delete sim_out;
+    delete body_soil_pos;
 }
 
 TEST(UnitTestRelax, RelaxBodySoil) {
