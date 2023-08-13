@@ -154,11 +154,7 @@ std::tuple<
         pos.push_back(std::vector<float> {x, 0.0, a * x * x + b * x + c});
 
         // Calculating orientation following the gradient of the trajectory
-        if (x == 0)
-            ori.push_back(std::vector<float> {0.0, 0.0, 0.0});
-        else
-            ori.push_back(std::vector<float> {
-                0.0, std::atan(2 * a * x + b), 0.0});
+        ori.push_back(std::vector<float> {0.0, std::atan(2 * a * x + b), 0.0});
     }
 
     return {pos, ori};
