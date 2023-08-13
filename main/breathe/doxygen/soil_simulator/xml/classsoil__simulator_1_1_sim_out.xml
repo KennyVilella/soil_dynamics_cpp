@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="358" column="15" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.cpp" bodystart="149" bodyend="172"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.hpp" line="358" column="15" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.cpp" bodystart="149" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="classsoil__simulator_1_1_sim_out_1a854bd1d28c331603b18f5a9f565b9fa9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>

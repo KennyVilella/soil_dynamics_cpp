@@ -67,6 +67,8 @@
         <link refid="utils_8hpp_source"/>
         <childnode refid="7" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
       <node id="4">
         <label>iostream</label>
@@ -97,15 +99,15 @@
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
 <codeline lineno="22"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>soil_simulator::CalcBucketPos(</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket<sp/>bucket,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket*<sp/>bucket,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>position<sp/>of<sp/>the<sp/>bucker<sp/>vertices</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>j_pos<sp/>=<sp/>soil_simulator::CalcRotationQuaternion(</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori,<sp/>bucket.j_pos_init_);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori,<sp/>bucket-&gt;j_pos_init_);</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>b_pos<sp/>=<sp/>soil_simulator::CalcRotationQuaternion(</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori,<sp/>bucket.b_pos_init_);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori,<sp/>bucket-&gt;b_pos_init_);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>t_pos<sp/>=<sp/>soil_simulator::CalcRotationQuaternion(</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori,<sp/>bucket.t_pos_init_);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori,<sp/>bucket-&gt;t_pos_init_);</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Unit<sp/>vector<sp/>normal<sp/>to<sp/>the<sp/>side<sp/>of<sp/>the<sp/>bucket</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>normal_side<sp/>=<sp/>soil_simulator::CalcNormal(j_pos,<sp/>b_pos,<sp/>t_pos);</highlight></codeline>
@@ -125,12 +127,12 @@
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_pos[ii]<sp/>+=<sp/>pos[ii];</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Position<sp/>of<sp/>each<sp/>vertex<sp/>of<sp/>the<sp/>bucket</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_r_pos[ii]<sp/>=<sp/>j_pos[ii]<sp/>+<sp/>0.5<sp/>*<sp/>bucket.width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_l_pos[ii]<sp/>=<sp/>j_pos[ii]<sp/>-<sp/>0.5<sp/>*<sp/>bucket.width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b_r_pos[ii]<sp/>=<sp/>b_pos[ii]<sp/>+<sp/>0.5<sp/>*<sp/>bucket.width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b_l_pos[ii]<sp/>=<sp/>b_pos[ii]<sp/>-<sp/>0.5<sp/>*<sp/>bucket.width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_r_pos[ii]<sp/>=<sp/>t_pos[ii]<sp/>+<sp/>0.5<sp/>*<sp/>bucket.width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_l_pos[ii]<sp/>=<sp/>t_pos[ii]<sp/>-<sp/>0.5<sp/>*<sp/>bucket.width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_r_pos[ii]<sp/>=<sp/>j_pos[ii]<sp/>+<sp/>0.5<sp/>*<sp/>bucket-&gt;width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_l_pos[ii]<sp/>=<sp/>j_pos[ii]<sp/>-<sp/>0.5<sp/>*<sp/>bucket-&gt;width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b_r_pos[ii]<sp/>=<sp/>b_pos[ii]<sp/>+<sp/>0.5<sp/>*<sp/>bucket-&gt;width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b_l_pos[ii]<sp/>=<sp/>b_pos[ii]<sp/>-<sp/>0.5<sp/>*<sp/>bucket-&gt;width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_r_pos[ii]<sp/>=<sp/>t_pos[ii]<sp/>+<sp/>0.5<sp/>*<sp/>bucket-&gt;width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_l_pos[ii]<sp/>=<sp/>t_pos[ii]<sp/>-<sp/>0.5<sp/>*<sp/>bucket-&gt;width_<sp/>*<sp/>normal_side[ii];</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Adding<sp/>a<sp/>small<sp/>increment<sp/>to<sp/>all<sp/>vertices</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>to<sp/>account<sp/>for<sp/>the<sp/>edge<sp/>case<sp/>where<sp/>one<sp/>of<sp/>the<sp/>vertex<sp/>is<sp/>at</highlight><highlight class="normal"></highlight></codeline>

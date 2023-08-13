@@ -45,13 +45,13 @@
   </compound>
   <compound refid="classsoil__simulator_1_1_soil_dynamics" kind="class"><name>soil_simulator::SoilDynamics</name>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" kind="function"><name>init</name></member>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" kind="function"><name>step</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1a627ff93047777c7f0937b289a2cd32cd" kind="function"><name>step</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" kind="function"><name>check</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kind="function"><name>WriteOutputs</name></member>
   </compound>
   <compound refid="namespacesoil__simulator" kind="namespace"><name>soil_simulator</name>
     <member refid="soil__dynamics_8hpp_1abb83f81ddb27ef2a1d88a7993c3f4634" kind="variable"><name>rng</name></member>
-    <member refid="bucket__pos_8hpp_1a6a6f9d5de436e7416dce324bdbab7456" kind="function"><name>CalcBucketPos</name></member>
+    <member refid="bucket__pos_8hpp_1a302e88f20b14dbf062cac9fb0913d511" kind="function"><name>CalcBucketPos</name></member>
     <member refid="bucket__pos_8hpp_1ae5c6e2a9518feb3017b99269d2f1bc34" kind="function"><name>CalcRectanglePos</name></member>
     <member refid="bucket__pos_8hpp_1a548c40b2efad17e1de1cefd5213b180d" kind="function"><name>DecomposeVectorRectangle</name></member>
     <member refid="bucket__pos_8hpp_1ac834b269e50e9b93faf48729d3322247" kind="function"><name>CalcTrianglePos</name></member>
@@ -74,7 +74,9 @@
     <member refid="relax_8hpp_1ab302e765b73adc70fb91f5ae814a577d" kind="function"><name>RelaxUnstableBodyCell</name></member>
     <member refid="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" kind="function"><name>CalcNormal</name></member>
     <member refid="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" kind="function"><name>CalcRotationQuaternion</name></member>
+    <member refid="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7" kind="function"><name>AngleToQuat</name></member>
     <member refid="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" kind="function"><name>MultiplyQuaternion</name></member>
+    <member refid="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165" kind="function"><name>CalcTrajectory</name></member>
   </compound>
   <compound refid="body__soil_8cpp" kind="file"><name>body_soil.cpp</name>
   </compound>

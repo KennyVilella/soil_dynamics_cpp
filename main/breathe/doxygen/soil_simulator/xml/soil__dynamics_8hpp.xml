@@ -3,15 +3,30 @@
   <compounddef id="soil__dynamics_8hpp" kind="file" language="C++">
     <compoundname>soil_dynamics.hpp</compoundname>
     <includes local="no">random</includes>
+    <includes local="no">vector</includes>
+    <includes refid="types_8hpp" local="yes">src/types.hpp</includes>
     <includedby refid="soil__dynamics_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp</includedby>
     <incdepgraph>
+      <node id="4">
+        <label>src/types.hpp</label>
+        <link refid="types_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
       <node id="2">
         <label>random</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
       </node>
       <node id="1">
         <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp</label>
         <link refid="soil__dynamics_8hpp"/>
         <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -30,23 +45,27 @@
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;random&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">soil_simulator<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Declaring<sp/>RNG</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::mt19937<sp/>rng;</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16" refid="classsoil__simulator_1_1_soil_dynamics" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classsoil__simulator_1_1_soil_dynamics" kindref="compound">SoilDynamics</ref><sp/>{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="19" refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" kindref="member">init</ref>();</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a8deea2dc27d526278165f2bdbe8c5ea8" kindref="member">step</ref>();</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" kindref="member">check</ref>();</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kindref="member">WriteOutputs</ref>();</highlight></codeline>
-<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="30"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">soil_simulator<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Declaring<sp/>RNG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::mt19937<sp/>rng;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classsoil__simulator_1_1_soil_dynamics" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classsoil__simulator_1_1_soil_dynamics" kindref="compound">SoilDynamics</ref><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21" refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" kindref="member">init</ref>();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a627ff93047777c7f0937b289a2cd32cd" kindref="member">step</ref>(</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref>*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref><sp/>grid,<sp/><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref>*<sp/>bucket,<sp/><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref><sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1ae552784bdf81ae8dcdbe2eb932015025" kindref="member">check</ref>();</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kindref="member">WriteOutputs</ref>();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp"/>
   </compounddef>

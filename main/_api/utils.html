@@ -130,6 +130,23 @@ The mathematical reasoning behind this implementation can be easily found in the
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11AngleToQuatENSt6vectorIfEE">
+<span id="_CPPv3N14soil_simulator11AngleToQuatENSt6vectorIfEE"></span><span id="_CPPv2N14soil_simulator11AngleToQuatENSt6vectorIfEE"></span><span id="soil_simulator::AngleToQuat__std::vector:float:"></span><span class="target" id="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AngleToQuat</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11AngleToQuatENSt6vectorIfEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function converts Euler angles following the ZYX convention to a quaternion. </p>
+<p>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere.</p>
+<p>Note that this function only works if the Euler angles follow the ZYX convention. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ori</strong> – Orientation of the bucket. [Euler angles, ZYX sequence]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Orientation of the bucket. [Quaternion]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE">
 <span id="_CPPv3N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE"></span><span id="_CPPv2N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE"></span><span id="soil_simulator::MultiplyQuaternion__std::vector:float:.std::vector:float:"></span><span class="target" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MultiplyQuaternion</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q1</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This function calculates the product of two Quaternions. </p>
@@ -144,6 +161,26 @@ The mathematical reasoning behind this implementation can be easily found in the
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Product of the two inputs quaternions. [Quaternion]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator14CalcTrajectoryEffffi">
+<span id="_CPPv3N14soil_simulator14CalcTrajectoryEffffi"></span><span id="_CPPv2N14soil_simulator14CalcTrajectoryEffffi"></span><span id="soil_simulator::CalcTrajectory__float.float.float.float.i"></span><span class="target" id="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalcTrajectory</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x_i</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z_i</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x_min</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z_min</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nn</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator14CalcTrajectoryEffffi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function calculates a parabolic trajectory given the starting position (<code class="docutils literal notranslate"><span class="pre">x_i</span></code>, <code class="docutils literal notranslate"><span class="pre">z_i</span></code>) and the deepest position (<code class="docutils literal notranslate"><span class="pre">x_min</span></code>, <code class="docutils literal notranslate"><span class="pre">z_min</span></code>) of the trajectory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_i</strong> – X coordinate of the starting position of the trajectory. [m] </p></li>
+<li><p><strong>z_i</strong> – Z coordinate of the starting position of the trajectory. [m] </p></li>
+<li><p><strong>x_min</strong> – X coordinate of the deepest position of the trajectory. [m] </p></li>
+<li><p><strong>z_min</strong> – Z coordinate of the deepest position of the trajectory. [m] </p></li>
+<li><p><strong>nn</strong> – Number of increments in the trajectory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple composed of a vector aggregating the position of the bucket with time in meter, and a vector aggregating the orientation of the bucket with time following the quaternion convention. </p>
 </dd>
 </dl>
 </dd></dl>

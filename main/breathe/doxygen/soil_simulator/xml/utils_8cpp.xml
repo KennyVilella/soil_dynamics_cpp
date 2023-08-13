@@ -22,6 +22,9 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
+      <node id="6">
+        <label>tuple</label>
+      </node>
       <node id="4">
         <label>vector</label>
       </node>
@@ -29,6 +32,8 @@
         <label>src/utils.hpp</label>
         <link refid="utils_8hpp_source"/>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -50,12 +55,12 @@
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/utils.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal">std::vector<sp/>&lt;float&gt;<sp/>soil_simulator::CalcNormal(</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>a,<sp/>std::vector<sp/>&lt;float&gt;<sp/>b,<sp/>std::vector<sp/>&lt;float&gt;<sp/>c</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">std::vector&lt;float&gt;<sp/>soil_simulator::CalcNormal(</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c</highlight></codeline>
 <codeline lineno="13"><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>normal(3);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>cross(3);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>normal(3);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>cross(3);</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>cross<sp/>product</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>cross[0]<sp/>=<sp/>(b[1]<sp/>-<sp/>a[1])<sp/>*<sp/>(c[2]<sp/>-<sp/>a[2])<sp/>-<sp/>(b[2]<sp/>-<sp/>a[2])<sp/>*<sp/>(c[1]<sp/>-<sp/>a[1]);</highlight></codeline>
@@ -72,18 +77,18 @@
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>normal;</highlight></codeline>
 <codeline lineno="31"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal">std::vector<sp/>&lt;float&gt;<sp/>soil_simulator::CalcRotationQuaternion(</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>ori,<sp/>std::vector<sp/>&lt;float&gt;<sp/>pos</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">std::vector&lt;float&gt;<sp/>soil_simulator::CalcRotationQuaternion(</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>std::vector&lt;float&gt;<sp/>pos</highlight></codeline>
 <codeline lineno="37"><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>norm_ori<sp/>=<sp/>(</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori[0]<sp/>*<sp/>ori[0]<sp/>+<sp/>ori[1]<sp/>*<sp/>ori[1]<sp/>+<sp/>ori[2]<sp/>*<sp/>ori[2]<sp/>+<sp/>ori[3]<sp/>*<sp/>ori[3]);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>conj_ori<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>conj_ori<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori[0]<sp/>/<sp/>norm_ori,</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-ori[1]<sp/>/<sp/>norm_ori,</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-ori[2]<sp/>/<sp/>norm_ori,</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-ori[3]<sp/>/<sp/>norm_ori};</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>temp_pos<sp/>=<sp/>{0.0,<sp/>pos[0],<sp/>pos[1],<sp/>pos[2]};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>temp_pos<sp/>=<sp/>{0.0,<sp/>pos[0],<sp/>pos[1],<sp/>pos[2]};</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>rotation</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>temp_quat<sp/>=<sp/>soil_simulator::MultiplyQuaternion(conj_ori,<sp/>temp_pos);</highlight></codeline>
@@ -91,20 +96,94 @@
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{quat[1],<sp/>quat[2],<sp/>quat[3]};</highlight></codeline>
 <codeline lineno="52"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal">std::vector<sp/>&lt;float&gt;<sp/>soil_simulator::MultiplyQuaternion(</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>q1,<sp/>std::vector<sp/>&lt;float&gt;<sp/>q2</highlight></codeline>
-<codeline lineno="58"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>&lt;float&gt;<sp/>quat(4);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>quaternion<sp/>multiplication</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[0]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[0]<sp/>-<sp/>q1[1]<sp/>*<sp/>q2[1]<sp/>-<sp/>q1[2]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[3]<sp/>*<sp/>q2[3];</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[1]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[1]<sp/>+<sp/>q1[1]<sp/>*<sp/>q2[0]<sp/>+<sp/>q1[2]<sp/>*<sp/>q2[3]<sp/>-<sp/>q1[3]<sp/>*<sp/>q2[2];</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[2]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[1]<sp/>*<sp/>q2[3]<sp/>+<sp/>q1[2]<sp/>*<sp/>q2[0]<sp/>+<sp/>q1[3]<sp/>*<sp/>q2[1];</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[3]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[3]<sp/>+<sp/>q1[1]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[2]<sp/>*<sp/>q2[1]<sp/>+<sp/>q1[3]<sp/>*<sp/>q2[0];</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>quat;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">std::vector&lt;float&gt;<sp/>soil_simulator::AngleToQuat(</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ori</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Compute<sp/>the<sp/>sines<sp/>and<sp/>cosines<sp/>of<sp/>half<sp/>angle.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sin_0<sp/>=<sp/>std::sin(ori[0]<sp/>/<sp/>2.0);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sin_1<sp/>=<sp/>std::sin(ori[1]<sp/>/<sp/>2.0);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>sin_2<sp/>=<sp/>std::sin(ori[2]<sp/>/<sp/>2.0);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cos_0<sp/>=<sp/>std::cos(ori[0]<sp/>/<sp/>2.0);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cos_1<sp/>=<sp/>std::cos(ori[1]<sp/>/<sp/>2.0);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cos_2<sp/>=<sp/>std::cos(ori[2]<sp/>/<sp/>2.0);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>q_0<sp/>=<sp/>cos_0<sp/>*<sp/>cos_1<sp/>*<sp/>cos_2<sp/>+<sp/>sin_0<sp/>*<sp/>sin_1<sp/>*<sp/>sin_2;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>quat(4);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(q_0<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[0]<sp/>=<sp/>q_0;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[1]<sp/>=<sp/>cos_0<sp/>*<sp/>cos_1<sp/>*<sp/>sin_2<sp/>-<sp/>sin_0<sp/>*<sp/>sin_1<sp/>*<sp/>cos_2;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[2]<sp/>=<sp/>cos_0<sp/>*<sp/>sin_1<sp/>*<sp/>cos_2<sp/>+<sp/>sin_0<sp/>*<sp/>cos_1<sp/>*<sp/>sin_2;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[3]<sp/>=<sp/>sin_0<sp/>*<sp/>cos_1<sp/>*<sp/>cos_2<sp/>-<sp/>cos_0<sp/>*<sp/>sin_1<sp/>*<sp/>sin_2;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[0]<sp/>=<sp/>-q_0;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[1]<sp/>=<sp/>-cos_0<sp/>*<sp/>cos_1<sp/>*<sp/>sin_2<sp/>+<sp/>sin_0<sp/>*<sp/>sin_1<sp/>*<sp/>cos_2;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[2]<sp/>=<sp/>-cos_0<sp/>*<sp/>sin_1<sp/>*<sp/>cos_2<sp/>-<sp/>sin_0<sp/>*<sp/>cos_1<sp/>*<sp/>sin_2;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quat[3]<sp/>=<sp/>-sin_0<sp/>*<sp/>cos_1<sp/>*<sp/>cos_2<sp/>+<sp/>cos_0<sp/>*<sp/>sin_1<sp/>*<sp/>sin_2;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>quat;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">std::vector&lt;float&gt;<sp/>soil_simulator::MultiplyQuaternion(</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>q1,<sp/>std::vector&lt;float&gt;<sp/>q2</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declaring<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>quat(4);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>quaternion<sp/>multiplication</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[0]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[0]<sp/>-<sp/>q1[1]<sp/>*<sp/>q2[1]<sp/>-<sp/>q1[2]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[3]<sp/>*<sp/>q2[3];</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[1]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[1]<sp/>+<sp/>q1[1]<sp/>*<sp/>q2[0]<sp/>+<sp/>q1[2]<sp/>*<sp/>q2[3]<sp/>-<sp/>q1[3]<sp/>*<sp/>q2[2];</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[2]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[1]<sp/>*<sp/>q2[3]<sp/>+<sp/>q1[2]<sp/>*<sp/>q2[0]<sp/>+<sp/>q1[3]<sp/>*<sp/>q2[1];</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>quat[3]<sp/>=<sp/>q1[0]<sp/>*<sp/>q2[3]<sp/>+<sp/>q1[1]<sp/>*<sp/>q2[2]<sp/>-<sp/>q1[2]<sp/>*<sp/>q2[1]<sp/>+<sp/>q1[3]<sp/>*<sp/>q2[0];</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>quat;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal">std::tuple&lt;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">&gt;<sp/>soil_simulator::CalcTrajectory(</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_min,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_min,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nn</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>X<sp/>vector<sp/>of<sp/>the<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>x_vec(nn);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>delta_x<sp/>=<sp/>2.0<sp/>*<sp/>(x_min<sp/>-<sp/>x_i)<sp/>/<sp/>(nn<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>nn;<sp/>ii++)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_vec[ii]<sp/>=<sp/>x_i<sp/>+<sp/>ii<sp/>*<sp/>delta_x;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>factor<sp/>of<sp/>the<sp/>parabolic<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>a;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(x_min<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>(z_i<sp/>-<sp/>z_min)<sp/>/<sp/>(x_i<sp/>*<sp/>x_i);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>z_min;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>2<sp/>*<sp/>x_min<sp/>*<sp/>(z_min<sp/>-<sp/>z_i)<sp/>/<sp/>((x_i<sp/>-<sp/>x_min)<sp/>*<sp/>(x_i<sp/>-<sp/>x_min));</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>-b<sp/>/<sp/>(2<sp/>*<sp/>x_min);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>z_min<sp/>+<sp/>b<sp/>*<sp/>b<sp/>/<sp/>(4<sp/>*<sp/>a);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initializing<sp/>trajectory<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>pos;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>ori;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Creating<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>nn;<sp/>ii++)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>trajectory<sp/>following<sp/>a<sp/>parabole</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>x_vec[ii];</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pos.push_back(std::vector&lt;float&gt;<sp/>{x,<sp/>0.0,<sp/>a<sp/>*<sp/>x<sp/>*<sp/>x<sp/>+<sp/>b<sp/>*<sp/>x<sp/>+<sp/>c});</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>orientation<sp/>following<sp/>the<sp/>gradient<sp/>of<sp/>the<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(x<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori.push_back(std::vector&lt;float&gt;<sp/>{0.0,<sp/>0.0,<sp/>0.0});</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori.push_back(std::vector&lt;float&gt;<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0,<sp/>std::atan(2<sp/>*<sp/>a<sp/>*<sp/>x<sp/>+<sp/>b),<sp/>0.0});</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{pos,<sp/>ori};</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp"/>
   </compounddef>

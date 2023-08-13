@@ -19,14 +19,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="13" column="21" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" bodystart="15" bodyend="-1" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" declline="13" declcolumn="21"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="15" column="21" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" bodystart="15" bodyend="-1" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" declline="15" declcolumn="21"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="bucket__pos_8hpp_1a6a6f9d5de436e7416dce324bdbab7456" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="bucket__pos_8hpp_1a302e88f20b14dbf062cac9fb0913d511" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void soil_simulator::CalcBucketPos</definition>
-        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Bucket bucket, SimParam sim_param, float tol)</argsstring>
+        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Bucket *bucket, SimParam sim_param, float tol)</argsstring>
         <name>CalcBucketPos</name>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
@@ -45,7 +45,7 @@
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></type>
+          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
           <declname>bucket</declname>
         </param>
         <param>
@@ -910,7 +910,7 @@ In this function, the movement applied to the base of the soil column is calcula
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.cpp" bodystart="25" bodyend="144" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp" declline="23" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.cpp" bodystart="26" bodyend="145" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/body_soil.hpp" declline="23" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a9d38a4b3998507e89943b2aa74d54476" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1977,7 +1977,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="20" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="11" bodyend="31" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="20" declcolumn="14"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="21" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="11" bodyend="31" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="21" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2020,7 +2020,38 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="34" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="35" bodyend="52" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="34" declcolumn="14"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="35" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="35" bodyend="52" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="35" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt; float &gt; soil_simulator::AngleToQuat</definition>
+        <argsstring>(std::vector&lt; float &gt; ori)</argsstring>
+        <name>AngleToQuat</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ori</declname>
+        </param>
+        <briefdescription>
+<para>This function converts Euler angles following the ZYX convention to a quaternion. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ori</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation of the bucket. [Euler angles, ZYX sequence]</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Orientation of the bucket. [Quaternion]</para>
+</simplesect>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere.</para>
+<para>Note that this function only works if the Euler angles follow the ZYX convention. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="44" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="59" bodyend="85" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="44" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2062,13 +2093,91 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="43" column="14" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="56" bodyend="69" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="43" declcolumn="14"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="52" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="89" bodyend="102" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="52" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;&gt;</type>
+        <definition>std::tuple&lt; std::vector&lt;std::vector&lt;float&gt; &gt;, std::vector&lt;std::vector&lt;float&gt; &gt;&gt; soil_simulator::CalcTrajectory</definition>
+        <argsstring>(float x_i, float z_i, float x_min, float z_min, int nn)</argsstring>
+        <name>CalcTrajectory</name>
+        <param>
+          <type>float</type>
+          <declname>x_i</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>z_i</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>x_min</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>z_min</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nn</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates a parabolic trajectory given the starting position (<computeroutput>x_i</computeroutput>, <computeroutput>z_i</computeroutput>) and the deepest position (<computeroutput>x_min</computeroutput>, <computeroutput>z_min</computeroutput>) of the trajectory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x_i</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>X coordinate of the starting position of the trajectory. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z_i</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Z coordinate of the starting position of the trajectory. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>X coordinate of the deepest position of the trajectory. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Z coordinate of the deepest position of the trajectory. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of increments in the trajectory.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A tuple composed of a vector aggregating the position of the bucket with time in meter, and a vector aggregating the orientation of the bucket with time following the quaternion convention. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="70" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="70" declcolumn="2"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="10" column="1"/>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="12" column="1"/>
   </compounddef>
 </doxygen>

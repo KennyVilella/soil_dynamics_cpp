@@ -209,15 +209,19 @@
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;(2*grid.half_length_x_+1,</highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;(2*grid.half_length_y_+1,<sp/>0.0)));</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>body_soil_pos_.resize(1);</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0<sp/>;<sp/>ii<sp/>&lt;<sp/>2<sp/>;<sp/>ii++)</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>jj<sp/>=<sp/>0<sp/>;<sp/>jj<sp/>&lt;<sp/>2<sp/>;<sp/>jj++)<sp/>{</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bucket_area_[ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>relax_area_[ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>impact_area_[ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[0][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[0][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[0][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[1][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[1][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[1][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[0][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_x_;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[0][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_x_;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[0][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_x_;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[1][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_y_;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[1][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_y_;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[1][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_y_;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/types.cpp"/>
   </compounddef>
