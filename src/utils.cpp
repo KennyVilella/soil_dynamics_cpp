@@ -146,18 +146,19 @@ std::tuple<
     // Initializing trajectory vector
     std::vector<std::vector<float>> pos;
     std::vector<std::vector<float>> ori;
-    pos.push_back(std::vector<float> {x_i, 0.0, z_i});
-    ori.push_back(
-        std::vector<float> {0.0, std::atan((2 * a * x_i) / x_i), 0.0});
 
     // Creating trajectory
-    for (auto ii = 1; ii < nn; ii++) {
+    for (auto ii = 0; ii < nn; ii++) {
         // Calculating the trajectory following a parabole
         float x = x_vec[ii];
         pos.push_back(std::vector<float> {x, 0.0, a * x * x + b * x + c});
 
         // Calculating orientation following the gradient of the trajectory
-        ori.push_back(std::vector<float> {0.0, std::atan((2 * a * x) / x), 0});
+        if (x == 0)
+            ori.push_back(std::vector<float> {0.0, 0.0, 0.0});
+        else
+            ori.push_back(std::vector<float> {
+                0.0, std::atan(2 * a * x + b), 0.0});
     }
 
     return {pos, ori};
