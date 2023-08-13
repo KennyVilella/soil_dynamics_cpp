@@ -180,7 +180,8 @@ TEST(UnitTestUtils, CalcTrajectory) {
     EXPECT_TRUE((ori[2] == std::vector<float> {0.0, 0.0, 0.0}));
 
     // -- Testing for a simple trajectory --
-    std::tie(pos, ori) = soil_simulator::CalcTrajectory(-1.0, 0.0, 0.0, -1.0, 3);
+    std::tie(pos, ori) = soil_simulator::CalcTrajectory(
+        -1.0, 0.0, 0.0, -1.0, 3);
     EXPECT_EQ(pos.size(), 3);
     EXPECT_EQ(ori.size(), 3);
     EXPECT_TRUE((pos[0] == std::vector<float> {-1.0, 0.0, 0.0}));
@@ -225,7 +226,8 @@ TEST(UnitTestUtils, CalcTrajectory) {
     EXPECT_NEAR(ori[2][1], 1.10715, 1e-5);
 
     // -- Testing for a simple trajectory with more points --
-    std::tie(pos, ori) = soil_simulator::CalcTrajectory(-1.0, 0.0, 0.0, -1.0, 5);
+    std::tie(pos, ori) = soil_simulator::CalcTrajectory(
+        -1.0, 0.0, 0.0, -1.0, 5);
     EXPECT_EQ(pos.size(), 5);
     EXPECT_EQ(ori.size(), 5);
     EXPECT_TRUE((pos[0] == std::vector<float> {-1.0, 0.0, 0.0}));
