@@ -22,7 +22,7 @@ namespace soil_simulator {
 /// \param tol: Small number used to handle numerical approximation errors.
 void CalcBucketPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
-    Bucket bucket, SimParam sim_param, float tol);
+    Bucket* bucket, SimParam sim_param, float tol);
 
 /// \brief This function determines the cells where a rectangle surface is
 ///        located.

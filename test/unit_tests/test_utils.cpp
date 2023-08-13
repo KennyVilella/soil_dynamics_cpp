@@ -114,7 +114,7 @@ TEST(UnitTestUtils, CalcRotationQuaternion) {
     EXPECT_NEAR(new_pos[1], 0.5, 1e-5);
     EXPECT_NEAR(new_pos[2], -0.1, 1e-5);
 
-    // -- Testing applying a pi/2 rotation around the Y axis --
+    // -- Testing applying a pi/2 rotation around the X axis --
     ori = {0.707107, -0.707107, 0.0, 0.0};
     pos = {-0.1, 0.3, -0.5};
     new_pos = soil_simulator::CalcRotationQuaternion(ori, pos);
@@ -130,4 +130,116 @@ TEST(UnitTestUtils, CalcRotationQuaternion) {
     EXPECT_NEAR(new_pos[0], -0.380155, 1e-5);
     EXPECT_NEAR(new_pos[1], 0.504297, 1e-5);
     EXPECT_NEAR(new_pos[2], -0.29490, 1e-5);
+}
+
+TEST(UnitTestUtils, AngleToQuat) {
+    // -- Testing applying a pi/2 rotation around the Z axis --
+    std::vector<float> ori = {-1.570796327, 0.0, 0.0};
+    auto quat = soil_simulator::AngleToQuat(ori);
+    EXPECT_NEAR(quat[0], 0.707107, 1e-5);
+    EXPECT_NEAR(quat[1], 0.0, 1e-5);
+    EXPECT_NEAR(quat[2], 0.0, 1e-5);
+    EXPECT_NEAR(quat[3], -0.707107, 1e-5);
+
+    // -- Testing applying a pi/2 rotation around the Y axis --
+    ori = {0.0, -1.570796327, 0.0};
+    quat = soil_simulator::AngleToQuat(ori);
+    EXPECT_NEAR(quat[0], 0.707107, 1e-5);
+    EXPECT_NEAR(quat[1], 0.0, 1e-5);
+    EXPECT_NEAR(quat[2], -0.707107, 1e-5);
+    EXPECT_NEAR(quat[3], 0.0, 1e-5);
+
+    // -- Testing applying a pi/2 rotation around the X axis --
+    ori = {0.0, 0.0, -1.570796327};
+    quat = soil_simulator::AngleToQuat(ori);
+    EXPECT_NEAR(quat[0], 0.707107, 1e-5);
+    EXPECT_NEAR(quat[1], -0.707107, 1e-5);
+    EXPECT_NEAR(quat[2], 0.0, 1e-5);
+    EXPECT_NEAR(quat[3], 0.0, 1e-5);
+
+    // -- Testing applying an arbitrary rotation --
+    // Results checked against ReferenceFrameRotations library in Julia
+    ori = {0.53, 1.2, -0.3};
+    quat = soil_simulator::AngleToQuat(ori);
+    EXPECT_NEAR(quat[0], 0.765481, 1e-5);
+    EXPECT_NEAR(quat[1], -0.265256, 1e-5);
+    EXPECT_NEAR(quat[2], 0.50651, 1e-5);
+    EXPECT_NEAR(quat[3], 0.295169, 1e-5);
+}
+
+TEST(UnitTestUtils, CalcTrajectory) {
+    // -- Testing for a simple flat trajectory --
+    auto [pos, ori] = soil_simulator::CalcTrajectory(-1.0, 0.0, 0.0, 0.0, 3);
+    EXPECT_EQ(pos.size(), 3);
+    EXPECT_EQ(ori.size(), 3);
+    EXPECT_TRUE((pos[0] == std::vector<float> {-1.0, 0.0, 0.0}));
+    EXPECT_TRUE((pos[1] == std::vector<float> {0.0, 0.0, 0.0}));
+    EXPECT_TRUE((pos[2] == std::vector<float> {1.0, 0.0, 0.0}));
+    EXPECT_TRUE((ori[0] == std::vector<float> {0.0, 0.0, 0.0}));
+    EXPECT_TRUE((ori[1] == std::vector<float> {0.0, 0.0, 0.0}));
+    EXPECT_TRUE((ori[2] == std::vector<float> {0.0, 0.0, 0.0}));
+
+    // -- Testing for a simple trajectory --
+    std::tie(pos, ori) = soil_simulator::CalcTrajectory(
+        -1.0, 0.0, 0.0, -1.0, 3);
+    EXPECT_EQ(pos.size(), 3);
+    EXPECT_EQ(ori.size(), 3);
+    EXPECT_TRUE((pos[0] == std::vector<float> {-1.0, 0.0, 0.0}));
+    EXPECT_TRUE((pos[1] == std::vector<float> {0.0, 0.0, -1.0}));
+    EXPECT_TRUE((pos[2] == std::vector<float> {1.0, 0.0, 0.0}));
+    for (auto ii = 0; ii < 3; ii++) {
+        EXPECT_NEAR(ori[ii][0], 0.0, 1e-5);
+        EXPECT_NEAR(ori[ii][2], 0.0, 1e-5);
+    }
+    EXPECT_NEAR(ori[0][1], -1.10715, 1e-5);
+    EXPECT_NEAR(ori[1][1], 0.0, 1e-5);
+    EXPECT_NEAR(ori[2][1], 1.10715, 1e-5);
+
+    // -- Testing for a simple trajectory translated in the Z axis --
+    std::tie(pos, ori) = soil_simulator::CalcTrajectory(-1.0, 2.5, 0.0, 1.5, 3);
+    EXPECT_EQ(pos.size(), 3);
+    EXPECT_EQ(ori.size(), 3);
+    EXPECT_TRUE((pos[0] == std::vector<float> {-1.0, 0.0, 2.5}));
+    EXPECT_TRUE((pos[1] == std::vector<float> {0.0, 0.0, 1.5}));
+    EXPECT_TRUE((pos[2] == std::vector<float> {1.0, 0.0, 2.5}));
+    for (auto ii = 0; ii < 3; ii++) {
+        EXPECT_NEAR(ori[ii][0], 0.0, 1e-5);
+        EXPECT_NEAR(ori[ii][2], 0.0, 1e-5);
+    }
+    EXPECT_NEAR(ori[0][1], -1.10715, 1e-5);
+    EXPECT_NEAR(ori[1][1], 0.0, 1e-5);
+    EXPECT_NEAR(ori[2][1], 1.10715, 1e-5);
+
+    // -- Testing for a simple trajectory translated in the X axis --
+    std::tie(pos, ori) = soil_simulator::CalcTrajectory(2.0, 0.0, 3.0, -1.0, 3);
+    EXPECT_EQ(pos.size(), 3);
+    EXPECT_EQ(ori.size(), 3);
+    EXPECT_TRUE((pos[0] == std::vector<float> {2.0, 0.0, 0.0}));
+    EXPECT_TRUE((pos[1] == std::vector<float> {3.0, 0.0, -1.0}));
+    EXPECT_TRUE((pos[2] == std::vector<float> {4.0, 0.0, 0.0}));
+    for (auto ii = 0; ii < 3; ii++) {
+        EXPECT_NEAR(ori[ii][0], 0.0, 1e-5);
+        EXPECT_NEAR(ori[ii][2], 0.0, 1e-5);
+    }
+    EXPECT_NEAR(ori[0][1], -1.10715, 1e-5);
+    EXPECT_NEAR(ori[1][1], 0.0, 1e-5);
+    EXPECT_NEAR(ori[2][1], 1.10715, 1e-5);
+
+    // -- Testing for a simple trajectory with more points --
+    std::tie(pos, ori) = soil_simulator::CalcTrajectory(
+        -1.0, 0.0, 0.0, -1.0, 5);
+    EXPECT_EQ(pos.size(), 5);
+    EXPECT_EQ(ori.size(), 5);
+    EXPECT_TRUE((pos[0] == std::vector<float> {-1.0, 0.0, 0.0}));
+    EXPECT_TRUE((pos[1] == std::vector<float> {-0.5, 0.0, -0.75}));
+    EXPECT_TRUE((pos[2] == std::vector<float> {0.0, 0.0, -1.0}));
+    EXPECT_TRUE((pos[3] == std::vector<float> {0.5, 0.0, -0.75}));
+    EXPECT_TRUE((pos[4] == std::vector<float> {1.0, 0.0, 0.0}));
+    for (auto ii = 0; ii < 5; ii++) {
+        EXPECT_NEAR(ori[ii][0], 0.0, 1e-5);
+        EXPECT_NEAR(ori[ii][2], 0.0, 1e-5);
+    }
+    EXPECT_NEAR(ori[0][1], -1.10715, 1e-5);
+    EXPECT_NEAR(ori[2][1], 0.0, 1e-5);
+    EXPECT_NEAR(ori[4][1], 1.10715, 1e-5);
 }

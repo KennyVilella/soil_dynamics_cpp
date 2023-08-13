@@ -1666,7 +1666,8 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     std::vector<float> j_pos = {0.0, 0.0, 0.0};
     std::vector<float> b_pos = {0.5, 0.01, 0.0};
     std::vector<float> t_pos = {0.5, 0.0, 0.0};
-    soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
+        o_pos, j_pos, b_pos, t_pos, 0.5);
     std::vector<float> ori = {1.0, 0.0, 0.0, 0.0};
     std::vector<float> pos = {0.0, 0.0, 0.0};
     soil_simulator::CalcBucketPos(
@@ -1695,12 +1696,13 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
                     (kk == 10) && (jj < 16) && (jj > 9)))
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
             }
+
     // -- Testing for a bucket in the XY plane --
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
-    soil_simulator::Bucket bucket_2(o_pos, j_pos, b_pos, t_pos, 0.5);
+    *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::CalcBucketPos(
-        sim_out, pos, ori, grid, bucket_2, sim_param, 1.e-5);
+        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
             for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
@@ -1721,11 +1723,11 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     // -- Testing for a bucket in a dummy position --
     b_pos = {0.0, 0.0, -0.5};
     t_pos = {0.5, 0.0, -0.5};
-    soil_simulator::Bucket bucket_3(o_pos, j_pos, b_pos, t_pos, 0.5);
+    *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {0.707107, 0.0, -0.707107, 0.0};  // -pi/2 rotation around the Y axis
     pos = {0.0, 0.0, -0.1};
     soil_simulator::CalcBucketPos(
-        sim_out, pos, ori, grid, bucket_3, sim_param, 1.e-5);
+        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto jj = 5; jj < 11; jj++)
         for (auto kk = 8; kk < 13; kk++)
             EXPECT_NEAR(sim_out->body_[1][jj][kk], -0.1, 1.e-5);
@@ -1756,5 +1758,6 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
             }
 
+    delete bucket;
     delete sim_out;
 }
