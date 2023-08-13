@@ -118,7 +118,24 @@ The soil stability is determined by the <code class="docutils literal notranslat
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator13RelaxBodySoilEP6SimOut4Grid8SimParamf">
 <span id="_CPPv3N14soil_simulator13RelaxBodySoilEP6SimOut4Grid8SimParamf"></span><span id="_CPPv2N14soil_simulator13RelaxBodySoilEP6SimOut4Grid8SimParamf"></span><span id="soil_simulator::RelaxBodySoil__SimOutP.Grid.SimParam.float"></span><span class="target" id="relax_8hpp_1a664e090b8814033e581d22394278c461"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RelaxBodySoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator8SimParamE" title="soil_simulator::SimParam"><span class="n"><span class="pre">SimParam</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sim_param</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator13RelaxBodySoilEP6SimOut4Grid8SimParamf" title="Permalink to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dd><p>This function moves the soil in <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> towards a state closer to equilibrium. </p>
+<p>
+The soil stability is determined by the <code class="docutils literal notranslate"><span class="pre">repose_angle_</span></code>. If the slope formed by two neighboring soil columns exceeds the <code class="docutils literal notranslate"><span class="pre">repose_angle_</span></code>, it is considered unstable, and the soil from the higher column should avalanche to the neighboring column to reach an equilibrium state.</p>
+<p>By convention, this function only checks the stability of the soil in the four adjacent cells: ↑ ← O → ↓</p>
+<p>The diagonal directions are not checked for simplicity and performance reasons.</p>
+<p>This function only moves the soil when the following conditions are met:</p>
+<p>(1) The soil column in the neighboring cell is low enough. (2) There is space on the top of the neighboring soil column. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>sim_param</strong> – Class that stores information related to the simulation. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator25LocateUnstableTerrainCellEP6SimOutff">

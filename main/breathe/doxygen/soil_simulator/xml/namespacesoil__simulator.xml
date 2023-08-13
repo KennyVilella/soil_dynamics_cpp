@@ -1317,12 +1317,51 @@ The soil stability is determined by the <computeroutput>repose_angle_</computero
           <declname>tol</declname>
         </param>
         <briefdescription>
+<para>This function moves the soil in <computeroutput>body_soil_</computeroutput> towards a state closer to equilibrium. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sim_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The soil stability is determined by the <computeroutput>repose_angle_</computeroutput>. If the slope formed by two neighboring soil columns exceeds the <computeroutput>repose_angle_</computeroutput>, it is considered unstable, and the soil from the higher column should avalanche to the neighboring column to reach an equilibrium state.</para>
+<para>By convention, this function only checks the stability of the soil in the four adjacent cells: ↑ ← O → ↓</para>
+<para>The diagonal directions are not checked for simplicity and performance reasons.</para>
+<para>This function only moves the soil when the following conditions are met:</para>
+<para>(1) The soil column in the neighboring cell is low enough. (2) There is space on the top of the neighboring soil column. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="25" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="138" bodyend="141" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="25" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="32" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="156" bodyend="236" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="32" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1a0a8c6ad78abd12190ab2b54483ce7bf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -1376,7 +1415,7 @@ It is important to note that the cells selected by this function are not necessa
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="36" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="147" bodyend="176" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="36" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="43" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="242" bodyend="271" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="43" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1ab7ab093b938d3cd2678a004f26fdb7e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1477,7 +1516,7 @@ In case of instability, this function returns a three-digit number (<computerout
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="50" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="207" bodyend="318" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="50" declcolumn="5"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="57" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="302" bodyend="413" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="57" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1a846b24cfecc8f7c152a08debe27953c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1608,7 +1647,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="68" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="342" bodyend="465" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="68" declcolumn="5"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="75" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="437" bodyend="560" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="75" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1abff80b8641b27531ca4fe202ba0fa162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1734,7 +1773,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="85" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="477" bodyend="591" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="85" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="92" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="572" bodyend="686" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="92" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1ab302e765b73adc70fb91f5ae814a577d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1884,7 +1923,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="104" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="602" bodyend="1002" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="104" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="111" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="697" bodyend="1097" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="111" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
