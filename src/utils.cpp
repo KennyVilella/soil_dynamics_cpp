@@ -332,6 +332,8 @@ bool soil_simulator::CheckSoil(
     return true;
 }
 
+/// `terrain` and `body_soil` are saved into files named `terrain` and
+/// `body_soil`, respectively, followed by the file number.
 void soil_simulator::WriteSoil(
     SimOut* sim_out, Grid grid
 ) {
@@ -402,6 +404,8 @@ void soil_simulator::WriteSoil(
     }
 }
 
+/// The bucket corners are saved into a file named `bucket` followed by
+/// the file number.
 void soil_simulator::WriteBucket(
     Bucket* bucket
 ) {

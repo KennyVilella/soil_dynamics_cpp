@@ -72,14 +72,16 @@ bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
 bool CheckSoil(SimOut* sim_out, float tol);
 
 /// \brief This function writes the terrain and the bucket soil into a csv
-///        located in the `results` directory. `terrain_` and `body_soil_` are
-///        saved into files named `terrain` and `body_soil`, respectively,
-///        followed by the file number.
+///        located in the `results` directory.
 ///
 /// \param sim_out: Class that stores simulation outputs.
 /// \param grid: Class that stores information related to the simulation grid.
 void WriteSoil(SimOut* sim_out, Grid grid);
 
+/// \brief This function writes the position of all bucket faces into a csv
+///        located in the `results` directory.
+///
+/// \param grid: Class that stores information related to the simulation grid.
 void WriteBucket(Bucket* bucket);
 
 /// \brief This function calculates a parabolic trajectory given the starting
