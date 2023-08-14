@@ -102,6 +102,7 @@ std::vector<float> soil_simulator::MultiplyQuaternion(
     return quat;
 }
 
+/// The initial volume of soil (`init_volume`) has to be provided.
 bool soil_simulator::CheckVolume(
     SimOut* sim_out, float init_volume, Grid grid
 ) {
