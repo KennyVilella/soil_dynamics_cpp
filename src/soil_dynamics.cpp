@@ -58,7 +58,14 @@ void soil_simulator::SoilDynamics::step(
     }
 }
 
-void soil_simulator::SoilDynamics::check() {
+void soil_simulator::SoilDynamics::check(
+    SimOut* sim_out, float init_volume, Grid grid, float tol
+) {
+    // Checking mass conservation
+    soil_simulator::CheckVolume(sim_out, init_volume, grid);
+
+    // Checking consistency of simulation outputs
+    soil_simulator::CheckSoil(sim_out, tol);
 }
 
 void soil_simulator::SoilDynamics::WriteOutputs() {
