@@ -46,6 +46,6 @@ class SoilDynamics {
      void check(SimOut* sim_out, float init_volume, Grid grid, float tol);
 
      /// \brief Write the simulation outputs into files.
-     void WriteOutputs();
+     void WriteOutputs(SimOut* sim_out, Grid grid, Bucket* bucket);
 };
 }  // namespace soil_simulator
