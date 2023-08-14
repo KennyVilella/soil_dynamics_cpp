@@ -220,6 +220,213 @@ TEST(UnitTestUtils, CheckVolume) {
     EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 0.0, grid));
 }
 
+TEST(UnitTestUtils, CheckSoil) {
+    // Setting dummy classes
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // -- Testing that no warning is sent when everything is at zero --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // Changing terrain to an arbitrary shape
+    sim_out->terrain_[1][1] = -0.2;
+    sim_out->terrain_[1][2] = -0.15;
+    sim_out->terrain_[2][1] = 0.0;
+    sim_out->terrain_[2][2] = 0.0;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // Setting the bucket
+    sim_out->body_[0][1][1] = -0.2;
+    sim_out->body_[1][1][1] = 0.0;
+    sim_out->body_[0][1][2] = -0.15;
+    sim_out->body_[1][1][2] = 0.0;
+    sim_out->body_[2][1][2] = 0.1;
+    sim_out->body_[3][1][2] = 0.2;
+    sim_out->body_[2][2][1] = 0.0;
+    sim_out->body_[3][2][1] = 0.15;
+    sim_out->body_[0][2][2] = 0.1;
+    sim_out->body_[1][2][2] = 0.1;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // Setting the bucket soil
+    sim_out->body_soil_[0][1][1] = 0.0;
+    sim_out->body_soil_[1][1][1] = 0.1;
+    sim_out->body_soil_[0][1][2] = 0.0;
+    sim_out->body_soil_[1][1][2] = 0.1;
+    sim_out->body_soil_[2][1][2] = 0.2;
+    sim_out->body_soil_[3][1][2] = 0.3;
+    sim_out->body_soil_[2][2][1] = 0.15;
+    sim_out->body_soil_[3][2][1] = 0.25;
+    sim_out->body_soil_[0][2][2] = 0.1;
+    sim_out->body_soil_[1][2][2] = 0.1;
+    sim_out->body_soil_pos_.resize(5, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 1, 1};
+    sim_out->body_soil_pos_[1] = std::vector<int> {0, 1, 2};
+    sim_out->body_soil_pos_[2] = std::vector<int> {2, 1, 2};
+    sim_out->body_soil_pos_[3] = std::vector<int> {2, 2, 1};
+    sim_out->body_soil_pos_[4] = std::vector<int> {0, 2, 2};
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when terrain is above the bucket --
+    sim_out->terrain_[1][1] = 0.5;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->terrain_[1][1] = -0.2;
+    sim_out->terrain_[2][1] = 0.05;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->terrain_[2][1] = 0.0;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when body is not set properly --
+    sim_out->body_[0][1][1] = 0.0;
+    sim_out->body_[1][1][1] = -0.1;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[0][1][1] = 0.0;
+    sim_out->body_soil_[1][1][1] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][1][1] = 0.41;
+    sim_out->body_[1][1][1] = 0.4;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[1][1][1] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][1][1] = 0.0;
+    sim_out->body_[1][1][1] = -0.4;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][1][1] = -0.2;
+    sim_out->body_[1][1][1] = 0.0;
+    sim_out->body_soil_[0][1][1] = 0.0;
+    sim_out->body_soil_[1][1][1] = 0.1;
+    sim_out->body_[2][2][1] = 0.16;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[2][2][1] = 0.0;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when bucket soil is not set properly --
+    sim_out->body_soil_[0][1][1] = 0.0;
+    sim_out->body_soil_[1][1][1] = -0.1;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[0][1][1] = 0.2;
+    sim_out->body_soil_[1][1][1] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[0][1][1] = 0.0;
+    sim_out->body_soil_[1][1][1] = 0.1;
+    sim_out->body_soil_[2][2][1] = 0.15;
+    sim_out->body_soil_[3][2][1] = 0.14;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[2][2][1] = 0.15;
+    sim_out->body_soil_[3][2][1] = 0.25;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when bucket is above bucket soil --
+    sim_out->body_[1][1][1] = 0.05;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[1][1][1] = 0.0;
+    sim_out->body_[3][1][2] = 0.25;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[3][1][2] = 0.45;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[3][1][2] = 0.2;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when there is a gap between bucket --
+    // -- and bucket soil                                                 --
+    sim_out->body_soil_[0][1][1] = 0.1;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[0][1][1] = 0.05;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[0][1][1] = 0.0;
+    sim_out->body_soil_[2][2][1] = 0.20;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[2][2][1] = 0.15;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when there is bucket soil but --
+    // -- no bucket                                                  --
+    sim_out->body_[2][1][2] = 0.0;
+    sim_out->body_[3][1][2] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[2][1][2] = 0.1;
+    sim_out->body_[3][1][2] = 0.2;
+    sim_out->body_[0][1][1] = 0.0;
+    sim_out->body_[1][1][1] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][1][1] = -0.2;
+    sim_out->body_[1][1][1] = 0.0;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when two bucket layers are --
+    // -- intersecting                                            --
+    sim_out->terrain_[3][2] = -0.2;
+    sim_out->body_[0][3][2] = -0.15;
+    sim_out->body_[1][3][2] = 0.1;
+    sim_out->body_[2][3][2] = 0.0;
+    sim_out->body_[3][3][2] = 0.2;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[1][3][2] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][3][2] = 0.0;
+    sim_out->body_[1][3][2] = 0.2;
+    sim_out->body_[2][3][2] = -0.2;
+    sim_out->body_[3][3][2] = 0.1;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[3][3][2] = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][3][2] = 0.0;
+    sim_out->body_[1][3][2] = 0.0;
+    sim_out->body_[2][3][2] = 0.0;
+    sim_out->body_[3][3][2] = 0.0;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    // -- Testing that warning is sent when a bucket layer and a bucket --
+    // -- soil layer are intersecting                                   --
+    sim_out->body_[0][3][2] = -0.15;
+    sim_out->body_[1][3][2] = 0.0;
+    sim_out->body_[2][3][2] = 0.1;
+    sim_out->body_[3][3][2] = 0.2;
+    sim_out->body_soil_[0][3][2] = 0.0;
+    sim_out->body_soil_[1][3][2] = 0.15;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[0][3][2] = 0.0;
+    sim_out->body_soil_[1][3][2] = 0.0;
+    sim_out->body_[2][3][2] = -0.15;
+    sim_out->body_[3][3][2] = 0.0;
+    sim_out->body_[0][3][2] = 0.1;
+    sim_out->body_[1][3][2] = 0.2;
+    sim_out->body_soil_[2][3][2] = 0.0;
+    sim_out->body_soil_[3][3][2] = 0.15;
+    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_soil_[3][3][2] = 0.1;
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    sim_out->body_[0][3][2] = 0.0;
+    sim_out->body_[1][3][2] = 0.0;
+    sim_out->body_[2][3][2] = 0.0;
+    sim_out->body_[3][3][2] = 0.0;
+    sim_out->body_soil_[2][3][2] = 0.0;
+    sim_out->body_soil_[3][3][2] = 0.0;
+
+    // -- Testing that no warning is sent --
+    EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+}
+
 TEST(UnitTestUtils, CalcTrajectory) {
     // -- Testing for a simple flat trajectory --
     auto [pos, ori] = soil_simulator::CalcTrajectory(-1.0, 0.0, 0.0, 0.0, 3);
