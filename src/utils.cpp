@@ -3,10 +3,12 @@ This file implements the utility functions used in this simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include "src/utils.hpp"
+#include "src/types.hpp"
 
 std::vector<float> soil_simulator::CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c
@@ -99,6 +101,233 @@ std::vector<float> soil_simulator::MultiplyQuaternion(
     quat[3] = q1[0] * q2[3] + q1[1] * q2[2] - q1[2] * q2[1] + q1[3] * q2[0];
 
     return quat;
+}
+
+/// The initial volume of soil (`init_volume`) has to be provided.
+bool soil_simulator::CheckVolume(
+    SimOut* sim_out, float init_volume, Grid grid
+) {
+    // Calculating volume of soil in the terrain
+    float terrain_volume = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            terrain_volume += sim_out->terrain_[ii][jj];
+
+    terrain_volume = grid.cell_area_ * terrain_volume;
+
+    // Removing duplicates in body_soil_pos
+    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+    sim_out->body_soil_pos_.erase(unique(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
+        sim_out->body_soil_pos_.end());
+
+    // Calculating volume of bucket soil
+    float body_soil_volume = 0.0;
+    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+        int ii = sim_out->body_soil_pos_[nn][1];
+        int jj = sim_out->body_soil_pos_[nn][2];
+        int ind = sim_out->body_soil_pos_[nn][0];
+        body_soil_volume += (
+            sim_out->body_soil_[ind+1][ii][jj] -
+            sim_out->body_soil_[ind][ii][jj]);
+    }
+    body_soil_volume = grid.cell_area_ * body_soil_volume;
+
+    // Calculating total volume of soil
+    float total_volume = terrain_volume + body_soil_volume;
+
+    if (abs(total_volume - init_volume) > 0.5 * grid.cell_volume_) {
+        std::cout << "Volume is not conserved! \n" <<
+            "Initial volume: " << init_volume << "   Current volume: " <<
+            total_volume << "\n";
+        return false;
+    }
+    return true;
+}
+
+/// The conventions that are checked by this function include:
+/// - The terrain should not overlap with the bucket.
+/// - The bucket should be properly defined, with its maximum height higher than
+///   its minimum height.
+/// - The bucket soil should be properly defined, with its maximum height higher
+///   than its minimum height.
+/// - The two bucket layers should not overlap or touch each other.
+/// - One bucket layer should not overlap with all bucket soil layer.
+/// - The bucket should not overlap with the corresponding bucket soil layer.
+/// - The bucket soil layer should be resting on the corresponding bucket layer.
+/// - The bucket should be present when there is bucket soil.
+bool soil_simulator::CheckSoil(
+    SimOut* sim_out, float tol
+) {
+    // Iterating over all cells in the bucket area
+    int ii_min = sim_out->bucket_area_[0][0];
+    int ii_max = sim_out->bucket_area_[0][1];
+    int jj_min = sim_out->bucket_area_[1][0];
+    int jj_max = sim_out->bucket_area_[1][1];
+    for (auto ii = ii_min; ii < ii_max; ii++)
+        for (auto jj = jj_min; jj < jj_max; jj++) {
+            // Renaming for convenience
+            float terrain = sim_out->terrain_[ii][jj];
+            float body_0 = sim_out->body_[0][ii][jj];
+            float body_1 = sim_out->body_[1][ii][jj];
+            float body_2 = sim_out->body_[2][ii][jj];
+            float body_3 = sim_out->body_[3][ii][jj];
+            float body_soil_0 = sim_out->body_soil_[0][ii][jj];
+            float body_soil_1 = sim_out->body_soil_[1][ii][jj];
+            float body_soil_2 = sim_out->body_soil_[2][ii][jj];
+            float body_soil_3 = sim_out->body_soil_[3][ii][jj];
+
+            // Checking presence of bucket and soil
+            bool bucket_presence_0 = ((body_0 != 0.0) || (body_1 != 0.0));
+            bool bucket_presence_2 = ((body_2 != 0.0) || (body_3 != 0.0));
+            bool bucket_soil_presence_0 = (
+                (body_soil_0 != 0.0) || (body_soil_1 != 0.0));
+            bool bucket_soil_presence_2 = (
+                (body_soil_2 != 0.0) || (body_soil_3 != 0.0));
+
+            if ((bucket_presence_0) && (terrain > body_0 + tol)) {
+                std::cout << "Terrain is above the bucket\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Terrain height: " << terrain << "\n" <<
+                    "Bucket min height: " << body_0 << "\n";
+                return false;
+            }
+
+            if ((bucket_presence_2) && (terrain > body_2 + tol)) {
+                std::cout << "Terrain is above the bucket\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Terrain height: " << terrain << "\n" <<
+                    "Bucket min height: " << body_2 << "\n";
+                return false;
+            }
+
+            if ((bucket_presence_0) && (body_0 > body_1 + tol)) {
+                std::cout <<  "Min height of the bucket is above its max height"
+                    << "\nLocation: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket min height: " << body_0 << "\n" <<
+                    "Bucket max height: " << body_1 << "\n";
+                return false;
+            }
+
+            if ((bucket_presence_2) && (body_2 > body_3 + tol)) {
+                std::cout << "Min height of the bucket is above its max height"
+                    << "\nLocation: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket min height: " << body_2 <<  "\n" <<
+                    "Bucket max height: " << body_3 << "\n";
+                return false;
+            }
+
+            if (
+                (bucket_presence_0) && (bucket_presence_2) &&
+                (body_1 + tol > body_2) && (body_3 + tol > body_0)) {
+                std::cout << "The two bucket layers are intersecting\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket 1 min height: " << body_0 << "\n" <<
+                    "Bucket 1 max height: " << body_1 << "\n" <<
+                    "Bucket 2 min height: " << body_2 << "\n" <<
+                    "Bucket 2 max height: " << body_3 << "\n";
+                return false;
+            }
+
+            if (
+                (bucket_presence_0) && (bucket_soil_presence_2) &&
+                (body_1 - tol > body_soil_2) && (body_soil_3 - tol > body_0)) {
+                std::cout << "A bucket layer and a bucket soil layer are inter"
+                    "secting\n Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket 1 min height: " << body_0 << "\n" <<
+                    "Bucket 1 max height: " << body_1 << "\n" <<
+                    "Bucket soil 2 min height: " << body_soil_2 << "\n" <<
+                    "Bucket soil 2 max height: " << body_soil_3 << "\n";
+                return false;
+            }
+
+            if (
+                (bucket_presence_2) && (bucket_soil_presence_0) &&
+                (body_soil_1 - tol > body_2) && (body_3 - tol > body_soil_0)) {
+                std::cout << "A bucket layer and a bucket soil layer are inter"
+                    "secting\n Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket soil 1 min height: " << body_soil_0 << "\n" <<
+                    "Bucket soil 1 max height: " << body_soil_1 << "\n" <<
+                    "Bucket 2 min height: " << body_2 << "\n" <<
+                    "Bucket 2 max height: " << body_3 << "\n";
+                return false;
+            }
+
+            if ((bucket_soil_presence_0) && (body_soil_0 > body_soil_1 + tol)) {
+                std::cout << "Min height of the bucket soil is above its max "
+                    << "height\n Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket soil 1 min height: " << body_soil_0 << "\n" <<
+                    "Bucket soil 1 max height: " << body_soil_1 << "\n";
+                return false;
+            }
+
+            if ((bucket_soil_presence_2) && (body_soil_2 > body_soil_3 + tol)) {
+                std::cout << "Min height of the bucket soil is above its max "
+                    << "height\n Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket soil 2 min height: " << body_soil_2 << "\n" <<
+                    "Bucket soil 2 max height: " << body_soil_3 << "\n";
+                return false;
+            }
+
+            if ((bucket_soil_presence_0) && (body_1 > body_soil_0 + tol)) {
+                std::cout << "Bucket is above the bucket soil\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket 1 max height: " << body_1 << "\n" <<
+                    "Bucket soil 1 min height: " << body_soil_0 << "\n";
+                return false;
+            }
+
+            if ((bucket_soil_presence_2) && (body_3 > body_soil_2 + tol)) {
+                std::cout << "Bucket is above the bucket soil\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket 2 max height: " << body_3 << "\n" <<
+                    "Bucket soil 2 min height: " << body_soil_2 << "\n";
+                return false;
+            }
+
+            if ((bucket_soil_presence_0) && (body_soil_0 != body_1)) {
+                std::cout << "Bucket soil is not resting on the bucket\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket 1 max height: " << body_1 << "\n" <<
+                    "Bucket soil 1 min height: " << body_soil_0 << "\n";
+                return false;
+            }
+
+            if ((bucket_soil_presence_2) && (body_soil_2 != body_3)) {
+                std::cout << "Bucket soil is not resting on the bucket\n" <<
+                    "Location: (" << ii << ", " << jj << ")\n" <<
+                    "Bucket 2 max height: " << body_3 << "\n" <<
+                    "Bucket soil 2 min height: " << body_soil_2 << "\n";
+                return false;
+            }
+        }
+
+    // Iterating over all cells where bucket soil is located
+    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+        // Renaming for convenience
+        int ii = sim_out->body_soil_pos_[nn][1];
+        int jj = sim_out->body_soil_pos_[nn][2];
+        int ind = sim_out->body_soil_pos_[nn][0];
+        float body_min = sim_out->body_[ind][ii][jj];
+        float body_max = sim_out->body_[ind+1][ii][jj];
+        float body_soil_min = sim_out->body_soil_[ind][ii][jj];
+        float body_soil_max = sim_out->body_soil_[ind+1][ii][jj];
+
+
+        // Check that soil is actually present
+        bool bucket_soil_presence = (
+            (body_soil_min != 0.0) || (body_soil_max != 0.0));
+
+       if ((bucket_soil_presence) && (body_min == 0.0) && (body_max == 0.0)) {
+            std::cout << "Bucket soil is present but there is no bucket\n" <<
+                "Location: (" << ii << ", " << jj << ")\n" <<
+                "Bucket soil min height: " << body_soil_min << "\n" <<
+                "Bucket soil max height: " << body_soil_max << "\n";
+           return false;
+       }
+    }
+
+    return true;
 }
 
 /// The parabolic trajectory is described by

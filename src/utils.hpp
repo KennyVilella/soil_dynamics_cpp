@@ -7,6 +7,7 @@ Copyright, 2023, Vilella Kenny.
 
 #include <vector>
 #include <tuple>
+#include "src/types.hpp"
 
 namespace soil_simulator {
 
@@ -51,6 +52,24 @@ std::vector<float> AngleToQuat(std::vector<float> ori);
 /// \return Product of the two inputs quaternions. [Quaternion]
 std::vector<float> MultiplyQuaternion(
     std::vector<float> q1, std::vector<float> q2);
+
+/// \brief This function checks that the volume of soil is conserved.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param init_volume: Initial volume of soil in the terrain. [m^3]
+/// \param grid: Class that stores information related to the simulation grid.
+///
+/// \return Boolean indicating whether soil is conserved or not.
+bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
+
+/// \brief This function checks that all the simulation outputs follow the
+///        conventions of the simulator.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param tol: Small number used to handle numerical approximation errors.
+///
+/// \return Boolean indicating whether the simulation outputs are consistent.
+bool CheckSoil(SimOut* sim_out, float tol);
 
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)
