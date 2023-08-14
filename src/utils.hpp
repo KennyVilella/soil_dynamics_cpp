@@ -62,6 +62,8 @@ std::vector<float> MultiplyQuaternion(
 /// \return Boolean indicating whether soil is conserved or not.
 bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
 
+bool CheckSoil(SimOut* sim_out, float tol);
+
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)
 ///        of the trajectory.
