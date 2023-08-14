@@ -6,6 +6,8 @@ Copyright, 2023, Vilella Kenny.
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <fstream>
+#include <source_location>
 #include <vector>
 #include "src/utils.hpp"
 #include "src/types.hpp"
@@ -328,6 +330,76 @@ bool soil_simulator::CheckSoil(
     }
 
     return true;
+}
+
+void soil_simulator::WriteSoil(
+    SimOut* sim_out, Grid grid
+) {
+    // Finding next filename for the terrain file
+    std::source_location location = std::source_location::current();
+    std::string filename = location.file_name();
+    std::string path = filename.substr(
+        0, filename.find_last_of("/")) + "/../results/";
+    std::string terrain_filename;
+
+    // Iterating until finding a filename that does not exist
+    for (auto ii = 0; ii < 100000; ii++) {
+        std::string file_number = std::to_string(ii);
+        size_t n = 5;  // Number of digit
+        int nn = n - std::min(n, file_number.size());  // Number of leading 0
+
+        // Setting next filename
+        terrain_filename = (
+            path + "terrain_" + std::string(nn, '0').append(file_number)
+            + ".csv");
+
+        // Checking if file exists
+        std::ifstream infile(terrain_filename);
+        if (!infile.good()) {
+            // File does not exist
+            break;
+        }
+    }
+
+    std::ofstream terrain_file;
+    terrain_file.open(terrain_filename);
+    terrain_file << "x\ty\tz\n";
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            terrain_file << grid.vect_x_[ii] << "\t" << grid.vect_y_[jj] << "\t"
+                << sim_out->terrain_[ii][jj] << "\n";
+    terrain_file.close();
+
+    // Setting filename for the bucket soil
+    std::string new_body_soil_filename = (
+        terrain_filename.substr(0, terrain_filename.find_last_of("/")) +
+        "/body_soil_" + terrain_filename.substr(
+            terrain_filename.find_last_of("_")+1, terrain_filename.size()));
+
+    // Removing duplicates in body_soil_pos
+    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+    sim_out->body_soil_pos_.erase(unique(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
+        sim_out->body_soil_pos_.end());
+
+    std::ofstream body_soil_file;
+    body_soil_file.open(new_body_soil_filename);
+    body_soil_file << "x\ty\tz\n";
+    if (sim_out->body_soil_pos_.size() == 0) {
+        // No soil is resting on the bucket
+        // Writing a dummy position for paraview
+        body_soil_file << grid.vect_x_[0] << "\t" << grid.vect_y_[0] << "\t"
+                << grid.vect_z_[0] << "\n";
+    } else {
+        for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+            int ii = sim_out->body_soil_pos_[nn][1];
+            int jj = sim_out->body_soil_pos_[nn][2];
+            int ind = sim_out->body_soil_pos_[nn][0];
+
+            body_soil_file << grid.vect_x_[ii] << "\t" << grid.vect_y_[jj] << "\t"
+                << sim_out->body_soil_[ind+1][ii][jj] << "\n";
+        }
+    }
 }
 
 /// The parabolic trajectory is described by

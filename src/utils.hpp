@@ -71,6 +71,8 @@ bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
 /// \return Boolean indicating whether the simulation outputs are consistent.
 bool CheckSoil(SimOut* sim_out, float tol);
 
+void WriteSoil(SimOut* sim_out, Grid grid);
+
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)
 ///        of the trajectory.
