@@ -3,6 +3,7 @@ This file implements the utility functions used in this simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <vector>
