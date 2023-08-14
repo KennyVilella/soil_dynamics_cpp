@@ -1977,7 +1977,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="21" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="11" bodyend="31" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="21" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="22" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="13" bodyend="33" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="22" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2020,7 +2020,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="35" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="35" bodyend="52" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="35" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="36" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="37" bodyend="54" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="36" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2051,7 +2051,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="44" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="59" bodyend="85" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="44" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="45" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="61" bodyend="87" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="45" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2093,7 +2093,114 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="52" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="89" bodyend="102" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="52" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="53" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="91" bodyend="104" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="53" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1aa73c7a46ed52e9eeb51bcd48e459e4b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool soil_simulator::CheckVolume</definition>
+        <argsstring>(SimOut *sim_out, float init_volume, Grid grid)</argsstring>
+        <name>CheckVolume</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>init_volume</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <briefdescription>
+<para>This function checks that the volume of soil is conserved. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The initial volume of soil (<computeroutput>init_volume</computeroutput>) has to be provided.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>init_volume</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial volume of soil in the terrain. [m^3] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Boolean indicating whether soil is conserved or not. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="63" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="107" bodyend="146" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="63" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool soil_simulator::CheckSoil</definition>
+        <argsstring>(SimOut *sim_out, float tol)</argsstring>
+        <name>CheckSoil</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function checks that all the simulation outputs follow the conventions of the simulator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Boolean indicating whether the simulation outputs are consistent.</para>
+</simplesect>
+The conventions that are checked by this function include:<itemizedlist>
+<listitem><para>The terrain should not overlap with the bucket.</para>
+</listitem><listitem><para>The bucket should be properly defined, with its maximum height higher than its minimum height.</para>
+</listitem><listitem><para>The bucket soil should be properly defined, with its maximum height higher than its minimum height.</para>
+</listitem><listitem><para>The two bucket layers should not overlap or touch each other.</para>
+</listitem><listitem><para>One bucket layer should not overlap with all bucket soil layer.</para>
+</listitem><listitem><para>The bucket should not overlap with the corresponding bucket soil layer.</para>
+</listitem><listitem><para>The bucket soil layer should be resting on the corresponding bucket layer.</para>
+</listitem><listitem><para>The bucket should be present when there is bucket soil. </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="72" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="159" bodyend="331" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="72" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;&gt;</type>
@@ -2171,7 +2278,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="70" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="70" declcolumn="2"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="89" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="89" declcolumn="2"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

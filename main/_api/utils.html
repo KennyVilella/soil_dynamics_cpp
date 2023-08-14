@@ -166,6 +166,54 @@ The mathematical reasoning behind this implementation can be easily found in the
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Grid">
+<span id="_CPPv3N14soil_simulator11CheckVolumeEP6SimOutf4Grid"></span><span id="_CPPv2N14soil_simulator11CheckVolumeEP6SimOutf4Grid"></span><span id="soil_simulator::CheckVolume__SimOutP.float.Grid"></span><span class="target" id="utils_8hpp_1aa73c7a46ed52e9eeb51bcd48e459e4b9"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckVolume</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Grid" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function checks that the volume of soil is conserved. </p>
+<p>The initial volume of soil (<code class="docutils literal notranslate"><span class="pre">init_volume</span></code>) has to be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>init_volume</strong> – Initial volume of soil in the terrain. [m^3] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean indicating whether soil is conserved or not. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator9CheckSoilEP6SimOutf">
+<span id="_CPPv3N14soil_simulator9CheckSoilEP6SimOutf"></span><span id="_CPPv2N14soil_simulator9CheckSoilEP6SimOutf"></span><span id="soil_simulator::CheckSoil__SimOutP.float"></span><span class="target" id="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckSoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator9CheckSoilEP6SimOutf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function checks that all the simulation outputs follow the conventions of the simulator. </p>
+<p>
+The conventions that are checked by this function include:<ul class="simple">
+<li><p>The terrain should not overlap with the bucket.</p></li>
+<li><p>The bucket should be properly defined, with its maximum height higher than its minimum height.</p></li>
+<li><p>The bucket soil should be properly defined, with its maximum height higher than its minimum height.</p></li>
+<li><p>The two bucket layers should not overlap or touch each other.</p></li>
+<li><p>One bucket layer should not overlap with all bucket soil layer.</p></li>
+<li><p>The bucket should not overlap with the corresponding bucket soil layer.</p></li>
+<li><p>The bucket soil layer should be resting on the corresponding bucket layer.</p></li>
+<li><p>The bucket should be present when there is bucket soil. </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean indicating whether the simulation outputs are consistent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator14CalcTrajectoryEffffi">
 <span id="_CPPv3N14soil_simulator14CalcTrajectoryEffffi"></span><span id="_CPPv2N14soil_simulator14CalcTrajectoryEffffi"></span><span id="soil_simulator::CalcTrajectory__float.float.float.float.i"></span><span class="target" id="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalcTrajectory</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x_i</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z_i</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x_min</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z_min</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nn</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator14CalcTrajectoryEffffi" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This function calculates a parabolic trajectory given the starting position (<code class="docutils literal notranslate"><span class="pre">x_i</span></code>, <code class="docutils literal notranslate"><span class="pre">z_i</span></code>) and the deepest position (<code class="docutils literal notranslate"><span class="pre">x_min</span></code>, <code class="docutils literal notranslate"><span class="pre">z_min</span></code>) of the trajectory. </p>

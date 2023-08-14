@@ -76,6 +76,8 @@
     <member refid="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" kind="function"><name>CalcRotationQuaternion</name></member>
     <member refid="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7" kind="function"><name>AngleToQuat</name></member>
     <member refid="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" kind="function"><name>MultiplyQuaternion</name></member>
+    <member refid="utils_8hpp_1aa73c7a46ed52e9eeb51bcd48e459e4b9" kind="function"><name>CheckVolume</name></member>
+    <member refid="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891" kind="function"><name>CheckSoil</name></member>
     <member refid="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165" kind="function"><name>CalcTrajectory</name></member>
   </compound>
   <compound refid="body__soil_8cpp" kind="file"><name>body_soil.cpp</name>
