@@ -411,11 +411,11 @@ void soil_simulator::WriteBucket(
 ) {
     // Calculating position of the bucker points
     auto j_pos = soil_simulator::CalcRotationQuaternion(
-        ori, bucket->j_pos_init_);
+        bucket->ori_, bucket->j_pos_init_);
     auto b_pos = soil_simulator::CalcRotationQuaternion(
-        ori, bucket->b_pos_init_);
+        bucket->ori_, bucket->b_pos_init_);
     auto t_pos = soil_simulator::CalcRotationQuaternion(
-        ori, bucket->t_pos_init_);
+        bucket->ori_, bucket->t_pos_init_);
 
     // Unit vector normal to the side of the bucket
     auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
@@ -430,9 +430,9 @@ void soil_simulator::WriteBucket(
 
     for (auto ii = 0; ii < 3; ii++) {
         // Adding position of the bucket origin
-        j_pos[ii] += pos[ii];
-        b_pos[ii] += pos[ii];
-        t_pos[ii] += pos[ii];
+        j_pos[ii] += bucket->pos_[ii];
+        b_pos[ii] += bucket->pos_[ii];
+        t_pos[ii] += bucket->pos_[ii];
 
         // Position of each vertex of the bucket
         j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
