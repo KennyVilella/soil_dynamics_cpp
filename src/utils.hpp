@@ -7,6 +7,7 @@ Copyright, 2023, Vilella Kenny.
 
 #include <vector>
 #include <tuple>
+#include "src/types.hpp"
 
 namespace soil_simulator {
 
@@ -51,6 +52,8 @@ std::vector<float> AngleToQuat(std::vector<float> ori);
 /// \return Product of the two inputs quaternions. [Quaternion]
 std::vector<float> MultiplyQuaternion(
     std::vector<float> q1, std::vector<float> q2);
+
+bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
 
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)

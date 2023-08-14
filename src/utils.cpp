@@ -7,6 +7,7 @@ Copyright, 2023, Vilella Kenny.
 #include <iostream>
 #include <vector>
 #include "src/utils.hpp"
+#include "src/types.hpp"
 
 std::vector<float> soil_simulator::CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c
@@ -100,6 +101,48 @@ std::vector<float> soil_simulator::MultiplyQuaternion(
 
     return quat;
 }
+
+bool soil_simulator::CheckVolume(
+    SimOut* sim_out, float init_volume, Grid grid
+) {
+    // Calculating volume of soil in the terrain
+    float terrain_volume = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            terrain_volume += sim_out->terrain_[ii][jj];
+
+    terrain_volume = grid.cell_area_ * terrain_volume;
+
+    // Removing duplicates in body_soil_pos
+    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+    sim_out->body_soil_pos_.erase(unique(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
+        sim_out->body_soil_pos_.end());
+
+    // Calculating volume of bucket soil
+    float body_soil_volume = 0.0;
+    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+        int ii = sim_out->body_soil_pos_[nn][1];
+        int jj = sim_out->body_soil_pos_[nn][2];
+        int ind = sim_out->body_soil_pos_[nn][0];
+        body_soil_volume += (
+            sim_out->body_soil_[ind+1][ii][jj] -
+            sim_out->body_soil_[ind][ii][jj]);
+    }
+    body_soil_volume = grid.cell_area_ * body_soil_volume;
+
+    // Calculating total volume of soil
+    float total_volume = terrain_volume + body_soil_volume;
+
+    if (abs(total_volume - init_volume) > 0.5 * grid.cell_volume_) {
+        std::cout << "Volume is not conserved! \n" <<
+            "Initial volume: " << init_volume << "   Current volume: " <<
+            total_volume << "\n";
+        return false;
+    }
+    return true;
+}
+
 
 /// The parabolic trajectory is described by
 ///
