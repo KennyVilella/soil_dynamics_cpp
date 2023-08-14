@@ -144,6 +144,17 @@ bool soil_simulator::CheckVolume(
     return true;
 }
 
+/// The conventions that are checked by this function include:
+/// - The terrain should not overlap with the bucket.
+/// - The bucket should be properly defined, with its maximum height higher than
+///   its minimum height.
+/// - The bucket soil should be properly defined, with its maximum height higher
+///   than its minimum height.
+/// - The two bucket layers should not overlap or touch each other.
+/// - One bucket layer should not overlap with all bucket soil layer.
+/// - The bucket should not overlap with the corresponding bucket soil layer.
+/// - The bucket soil layer should be resting on the corresponding bucket layer.
+/// - The bucket should be present when there is bucket soil.
 bool soil_simulator::CheckSoil(
     SimOut* sim_out, float tol
 ) {

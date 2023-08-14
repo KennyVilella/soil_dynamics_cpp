@@ -62,6 +62,13 @@ std::vector<float> MultiplyQuaternion(
 /// \return Boolean indicating whether soil is conserved or not.
 bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
 
+/// \brief This function checks that all the simulation outputs follow the
+///        conventions of the simulator.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param tol: Small number used to handle numerical approximation errors.
+///
+/// \return Boolean indicating whether the simulation outputs are consistent.
 bool CheckSoil(SimOut* sim_out, float tol);
 
 /// \brief This function calculates a parabolic trajectory given the starting
