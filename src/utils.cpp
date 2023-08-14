@@ -365,10 +365,10 @@ void soil_simulator::WriteSoil(
 
     std::ofstream terrain_file;
     terrain_file.open(terrain_filename);
-    terrain_file << "x\ty\tz\n";
+    terrain_file << "x,y,z\n";
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            terrain_file << grid.vect_x_[ii] << "\t" << grid.vect_y_[jj] << "\t"
+            terrain_file << grid.vect_x_[ii] << "," << grid.vect_y_[jj] << ","
                 << sim_out->terrain_[ii][jj] << "\n";
     terrain_file.close();
 
@@ -386,11 +386,11 @@ void soil_simulator::WriteSoil(
 
     std::ofstream body_soil_file;
     body_soil_file.open(new_body_soil_filename);
-    body_soil_file << "x\ty\tz\n";
+    body_soil_file << "x,y,z\n";
     if (sim_out->body_soil_pos_.size() == 0) {
         // No soil is resting on the bucket
         // Writing a dummy position for paraview
-        body_soil_file << grid.vect_x_[0] << "\t" << grid.vect_y_[0] << "\t"
+        body_soil_file << grid.vect_x_[0] << "," << grid.vect_y_[0] << ","
                 << grid.vect_z_[0] << "\n";
     } else {
         for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
@@ -398,7 +398,7 @@ void soil_simulator::WriteSoil(
             int jj = sim_out->body_soil_pos_[nn][2];
             int ind = sim_out->body_soil_pos_[nn][0];
 
-            body_soil_file << grid.vect_x_[ii] << "\t" << grid.vect_y_[jj] << "\t"
+            body_soil_file << grid.vect_x_[ii] << "," << grid.vect_y_[jj] << ","
                 << sim_out->body_soil_[ind+1][ii][jj] << "\n";
         }
     }
@@ -471,38 +471,38 @@ void soil_simulator::WriteBucket(
 
     std::ofstream bucket_file;
     bucket_file.open(bucket_filename);
-    bucket_file << "x\ty\tz\n";
+    bucket_file << "x,y,z\n";
     // Writing bucket right side
-    bucket_file << b_r_pos[0] << "\t" << b_r_pos[1] << "\t"
+    bucket_file << b_r_pos[0] << "," << b_r_pos[1] << ","
                 <<  b_r_pos[2] << "\n";
-    bucket_file << t_r_pos[0] << "\t" << t_r_pos[1] << "\t"
+    bucket_file << t_r_pos[0] << "," << t_r_pos[1] << ","
                 <<  t_r_pos[2] << "\n";
-    bucket_file << j_r_pos[0] << "\t" << j_r_pos[1] << "\t"
+    bucket_file << j_r_pos[0] << "," << j_r_pos[1] << ","
                 <<  j_r_pos[2] << "\n";
     // Writing bucket back
-    bucket_file << j_r_pos[0] << "\t" << j_r_pos[1] << "\t"
+    bucket_file << j_r_pos[0] << "," << j_r_pos[1] << ","
                 <<  j_r_pos[2] << "\n";
-    bucket_file << j_l_pos[0] << "\t" << j_l_pos[1] << "\t"
+    bucket_file << j_l_pos[0] << "," << j_l_pos[1] << ","
                 <<  j_l_pos[2] << "\n";
-    bucket_file << b_l_pos[0] << "\t" << b_l_pos[1] << "\t"
+    bucket_file << b_l_pos[0] << "," << b_l_pos[1] << ","
                 <<  b_l_pos[2] << "\n";
-    bucket_file << b_r_pos[0] << "\t" << b_r_pos[1] << "\t"
+    bucket_file << b_r_pos[0] << "," << b_r_pos[1] << ","
                 <<  b_r_pos[2] << "\n";
     // Writing bucket base
-    bucket_file << b_r_pos[0] << "\t" << b_r_pos[1] << "\t"
+    bucket_file << b_r_pos[0] << "," << b_r_pos[1] << ","
                 <<  b_r_pos[2] << "\n";
-    bucket_file << t_r_pos[0] << "\t" << t_r_pos[1] << "\t"
+    bucket_file << t_r_pos[0] << "," << t_r_pos[1] << ","
                 <<  t_r_pos[2] << "\n";
-    bucket_file << t_l_pos[0] << "\t" << t_l_pos[1] << "\t"
+    bucket_file << t_l_pos[0] << "," << t_l_pos[1] << ","
                 <<  t_l_pos[2] << "\n";
-    bucket_file << b_l_pos[0] << "\t" << b_l_pos[1] << "\t"
+    bucket_file << b_l_pos[0] << "," << b_l_pos[1] << ","
                 <<  b_l_pos[2] << "\n";
     // Writing bucket left side
-    bucket_file << b_l_pos[0] << "\t" << b_l_pos[1] << "\t"
+    bucket_file << b_l_pos[0] << "," << b_l_pos[1] << ","
                 <<  b_l_pos[2] << "\n";
-    bucket_file << t_l_pos[0] << "\t" << t_l_pos[1] << "\t"
+    bucket_file << t_l_pos[0] << "," << t_l_pos[1] << ","
                 <<  t_l_pos[2] << "\n";
-    bucket_file << j_l_pos[0] << "\t" << j_l_pos[1] << "\t"
+    bucket_file << j_l_pos[0] << "," << j_l_pos[1] << ","
                 <<  j_l_pos[2] << "\n";
     bucket_file.close();
 }
