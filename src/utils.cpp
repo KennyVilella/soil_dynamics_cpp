@@ -402,6 +402,107 @@ void soil_simulator::WriteSoil(
     }
 }
 
+void soil_simulator::WriteBucket(
+    Bucket* bucket
+) {
+    // Calculating position of the bucker points
+    auto j_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket->j_pos_init_);
+    auto b_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket->b_pos_init_);
+    auto t_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket->t_pos_init_);
+
+    // Unit vector normal to the side of the bucket
+    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
+
+    // Declaring vectors for each vertex of the bucket
+    std::vector<float> j_r_pos(3);
+    std::vector<float> j_l_pos(3);
+    std::vector<float> b_r_pos(3);
+    std::vector<float> b_l_pos(3);
+    std::vector<float> t_r_pos(3);
+    std::vector<float> t_l_pos(3);
+
+    for (auto ii = 0; ii < 3; ii++) {
+        // Adding position of the bucket origin
+        j_pos[ii] += pos[ii];
+        b_pos[ii] += pos[ii];
+        t_pos[ii] += pos[ii];
+
+        // Position of each vertex of the bucket
+        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+    }
+
+    // Finding next filename for the bucket file
+    std::source_location location = std::source_location::current();
+    std::string filename = location.file_name();
+    std::string path = filename.substr(
+        0, filename.find_last_of("/")) + "/../results/";
+    std::string bucket_filename;
+
+    // Iterating until finding a filename that does not exist
+    for (auto ii = 0; ii < 100000; ii++) {
+        std::string file_number = std::to_string(ii);
+        size_t n = 5;  // Number of digit
+        int nn = n - std::min(n, file_number.size());  // Number of leading 0
+
+        // Setting next filename
+        bucket_filename = (
+            path + "bucket_" + std::string(nn, '0').append(file_number)
+            + ".csv");
+
+        // Checking if file exists
+        std::ifstream infile(bucket_filename);
+        if (!infile.good()) {
+            // File does not exist
+            break;
+        }
+    }
+
+    std::ofstream bucket_file;
+    bucket_file.open(bucket_filename);
+    bucket_file << "x\ty\tz\n";
+    // Writing bucket right side
+    bucket_file << b_r_pos[0] << "\t" << b_r_pos[1] << "\t"
+                <<  b_r_pos[2] << "\n";
+    bucket_file << t_r_pos[0] << "\t" << t_r_pos[1] << "\t"
+                <<  t_r_pos[2] << "\n";
+    bucket_file << j_r_pos[0] << "\t" << j_r_pos[1] << "\t"
+                <<  j_r_pos[2] << "\n";
+    // Writing bucket back
+    bucket_file << j_r_pos[0] << "\t" << j_r_pos[1] << "\t"
+                <<  j_r_pos[2] << "\n";
+    bucket_file << j_l_pos[0] << "\t" << j_l_pos[1] << "\t"
+                <<  j_l_pos[2] << "\n";
+    bucket_file << b_l_pos[0] << "\t" << b_l_pos[1] << "\t"
+                <<  b_l_pos[2] << "\n";
+    bucket_file << b_r_pos[0] << "\t" << b_r_pos[1] << "\t"
+                <<  b_r_pos[2] << "\n";
+    // Writing bucket base
+    bucket_file << b_r_pos[0] << "\t" << b_r_pos[1] << "\t"
+                <<  b_r_pos[2] << "\n";
+    bucket_file << t_r_pos[0] << "\t" << t_r_pos[1] << "\t"
+                <<  t_r_pos[2] << "\n";
+    bucket_file << t_l_pos[0] << "\t" << t_l_pos[1] << "\t"
+                <<  t_l_pos[2] << "\n";
+    bucket_file << b_l_pos[0] << "\t" << b_l_pos[1] << "\t"
+                <<  b_l_pos[2] << "\n";
+    // Writing bucket left side
+    bucket_file << b_l_pos[0] << "\t" << b_l_pos[1] << "\t"
+                <<  b_l_pos[2] << "\n";
+    bucket_file << t_l_pos[0] << "\t" << t_l_pos[1] << "\t"
+                <<  t_l_pos[2] << "\n";
+    bucket_file << j_l_pos[0] << "\t" << j_l_pos[1] << "\t"
+                <<  j_l_pos[2] << "\n";
+    bucket_file.close();
+}
+
 /// The parabolic trajectory is described by
 ///
 ///    z(x) = a * x * x + b * x + c.

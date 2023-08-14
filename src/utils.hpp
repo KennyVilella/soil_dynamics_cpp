@@ -80,6 +80,8 @@ bool CheckSoil(SimOut* sim_out, float tol);
 /// \param grid: Class that stores information related to the simulation grid.
 void WriteSoil(SimOut* sim_out, Grid grid);
 
+void WriteBucket(Bucket* bucket);
+
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)
 ///        of the trajectory.
