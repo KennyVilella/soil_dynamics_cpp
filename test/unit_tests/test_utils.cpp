@@ -218,6 +218,8 @@ TEST(UnitTestUtils, CheckVolume) {
 
     // -- Testing that warning is sent for incorrect initial volume --
     EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 0.0, grid));
+
+    delete sim_out;
 }
 
 TEST(UnitTestUtils, CheckSoil) {
@@ -425,6 +427,8 @@ TEST(UnitTestUtils, CheckSoil) {
 
     // -- Testing that no warning is sent --
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
+
+    delete sim_out;
 }
 
 TEST(UnitTestUtils, CalcTrajectory) {
