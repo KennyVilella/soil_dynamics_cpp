@@ -83,7 +83,7 @@ static void BM_MoveIntersectingBodySoil(benchmark::State& state) {
         soil_simulator::MoveIntersectingBodySoil(sim_out, 1.e-5);
     delete sim_out;
 }
-BENCHMARK(BM_MoveIntersectingBodySoil)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BM_MoveIntersectingBodySoil);
 
 // -- LocateIntersectingCells --
 static void BM_LocateIntersectingCells(benchmark::State& state) {
@@ -134,4 +134,4 @@ static void BM_MoveBodySoil(benchmark::State& state) {
             sim_out, 0, 5, 7, 0.4, 5, 11, 0.5, true, 1.e-5);
     delete sim_out;
 }
-BENCHMARK(BM_MoveBodySoil)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BM_MoveBodySoil);

@@ -122,7 +122,7 @@ static void BM_RelaxUnstableTerrainCell(benchmark::State& state) {
             sim_out, 142, 0.1, 50, 55, 49, 55, grid, 1.e-5);
     delete sim_out;
 }
-BENCHMARK(BM_RelaxUnstableTerrainCell)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BM_RelaxUnstableTerrainCell);
 
 // -- CheckUnstableBodyCell --
 static void BM_CheckUnstableBodyCell(benchmark::State& state) {
@@ -177,4 +177,4 @@ static void BM_RelaxUnstableBodyCell(benchmark::State& state) {
     delete sim_out;
     delete body_soil_pos;
 }
-BENCHMARK(BM_RelaxUnstableBodyCell)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BM_RelaxUnstableBodyCell);

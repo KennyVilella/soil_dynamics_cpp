@@ -81,4 +81,4 @@ static void BM_UpdateBodySoil(benchmark::State& state) {
     delete sim_out;
     delete bucket;
 }
-BENCHMARK(BM_UpdateBodySoil)->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_UpdateBodySoil)->Unit(benchmark::kMicrosecond);

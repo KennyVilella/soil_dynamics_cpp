@@ -27,7 +27,7 @@ static void BM_CalcBucketPos(benchmark::State& state) {
     delete sim_out;
     delete bucket;
 }
-BENCHMARK(BM_CalcBucketPos)->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_CalcBucketPos)->Unit(benchmark::kMicrosecond);
 
 // -- CalcRectanglePos --
 static void BM_CalcRectanglePos(benchmark::State& state) {
@@ -41,7 +41,7 @@ static void BM_CalcRectanglePos(benchmark::State& state) {
     for (auto _ : state)
         soil_simulator::CalcRectanglePos(a, b, c, d, 0.01, grid, 1.e-5);
 }
-BENCHMARK(BM_CalcRectanglePos)->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_CalcRectanglePos)->Unit(benchmark::kMicrosecond);
 
 // -- DecomposeVectorRectangle --
 static void BM_DecomposeVectorRectangle(benchmark::State& state) {
@@ -67,7 +67,7 @@ static void BM_CalcTrianglePos(benchmark::State& state) {
     for (auto _ : state)
         soil_simulator::CalcTrianglePos(a, b, c, 0.01, grid, 1.e-5);
 }
-BENCHMARK(BM_CalcTrianglePos)->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_CalcTrianglePos)->Unit(benchmark::kMicrosecond);
 
 // -- DecomposeVectorTriangle --
 static void BM_DecomposeVectorTriangle(benchmark::State& state) {
@@ -108,7 +108,7 @@ static void BM_UpdateBody(benchmark::State& state) {
         soil_simulator::UpdateBody(tri_pos, sim_out, grid, 1.e-5);
     delete sim_out;
 }
-BENCHMARK(BM_UpdateBody)->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_UpdateBody)->Unit(benchmark::kMicrosecond);
 
 // -- IncludeNewBodyPos --
 static void BM_IncludeNewBodyPos(benchmark::State& state) {
