@@ -175,5 +175,6 @@ static void BM_RelaxUnstableBodyCell(benchmark::State& state) {
         soil_simulator::RelaxUnstableBodyCell(
             sim_out, 13, body_soil_pos, 0.1, 50, 61, 0, 50, 60, grid, 1.e-5);
     delete sim_out;
+    delete body_soil_pos;
 }
 BENCHMARK(BM_RelaxUnstableBodyCell)->Unit(benchmark::kMicrosecond);
