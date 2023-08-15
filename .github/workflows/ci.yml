@@ -41,7 +41,7 @@ jobs:
       - name: Run cpplint on the benchmark files
         run: |
           cd test/benchmarks/
-          cpplint --filter=-'build/include',-'runtime/references' *
+          cpplint --filter=-'runtime/references' *
           cd ../..
 
       - name: Install Google test
