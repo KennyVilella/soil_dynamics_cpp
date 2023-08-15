@@ -10,6 +10,7 @@ target_sources(benchmarks
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_body_soil.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_intersecting_cells.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_relax.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.hpp
