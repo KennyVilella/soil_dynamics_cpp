@@ -3,8 +3,8 @@ This file implements benchmarking for the functions in relax.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
-#include <random>
 #include <benchmark/benchmark.h>
+#include <random>
 #include "src/relax.hpp"
 
 // -- RelaxTerrain --

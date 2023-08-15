@@ -3,8 +3,8 @@ This file benchmarks all the simulator functions.
 
 Copyright, 2023, Vilella Kenny.
 */
-#include <random>
 #include <benchmark/benchmark.h>
+#include <random>
 #include "src/soil_dynamics.hpp"
 
 // Defining RNG
