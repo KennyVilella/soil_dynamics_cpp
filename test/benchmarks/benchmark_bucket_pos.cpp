@@ -26,6 +26,8 @@ static void BM_CalcBucketPos(benchmark::State& state) {
     for (auto _ : state)
         soil_simulator::CalcBucketPos(
             sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    delete sim_out;
+    delete bucket;
 }
 BENCHMARK(BM_CalcBucketPos)->Unit(benchmark::kMillisecond);
 
