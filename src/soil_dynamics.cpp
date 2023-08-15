@@ -58,7 +58,14 @@ void soil_simulator::SoilDynamics::step(
     }
 }
 
-void soil_simulator::SoilDynamics::check() {
+void soil_simulator::SoilDynamics::check(
+    SimOut* sim_out, float init_volume, Grid grid, float tol
+) {
+    // Checking mass conservation
+    soil_simulator::CheckVolume(sim_out, init_volume, grid);
+
+    // Checking consistency of simulation outputs
+    soil_simulator::CheckSoil(sim_out, tol);
 }
 
 void soil_simulator::SoilDynamics::WriteOutputs() {
@@ -68,6 +75,7 @@ int main() {
     // Flags for the simulation
     bool set_rng = true;
     bool random_trajectory = true;
+    bool check_outputs = true;
 
     // Initalizing the simulator
     soil_simulator::SoilDynamics sim;
@@ -317,6 +325,14 @@ int main() {
     ori_vec.push_back(soil_simulator::AngleToQuat(
         {-ori[nn][0], -ori[nn][1], -ori[nn][2]}));
 
+    float init_volume = 0.0;
+    if (check_outputs) {
+        for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+            for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+                init_volume += sim_out->terrain_[ii][jj];
+        init_volume = grid.cell_area_ * init_volume;
+    }
+
     // Simulation loop
     for (auto ii = 0; ii < time_vec.size(); ii++) {
         std::cout << "Step " << ii << " / " << time_vec.size()-1 << "\n";
@@ -324,6 +340,10 @@ int main() {
         // Stepping the soil dynamics
         sim.step(
             sim_out, pos_vec[ii], ori_vec[ii], grid, bucket, sim_param, 1e-5);
+
+        // Checking consistency of simulation outputs
+        if (check_outputs)
+            sim.check(sim_out, init_volume, grid, 1e-5);
     }
 
     delete bucket;
