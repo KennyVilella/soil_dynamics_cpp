@@ -38,6 +38,12 @@ jobs:
           cpplint --filter=-'build/include',-'readability/fn_size' *
           cd ../..
 
+      - name: Run cpplint on the benchmark files
+        run: |
+          cd test/benchmarks/
+          cpplint --filter=-'build/include',-'runtime/references' *
+          cd ../..
+
       - name: Install Google test
         run: |
           sudo apt-get install libgtest-dev
@@ -55,6 +61,11 @@ jobs:
           cmake -S . -B build
           cmake --build build --target unit_tests
 
+      - name: Build the benchmark functions
+        run: |
+          cmake -S . -B build
+          cmake --build build --target benchmarks
+
       - name: Install Valgrind
         run: sudo apt-get install valgrind
 
@@ -64,6 +75,10 @@ jobs:
 
       - name: Run valgrind on the unit tests
         run: valgrind --leak-check=yes --error-exitcode=1 ./build/test/unit_tests/unit_tests
+        shell: bash
+
+      - name: Run valgrind on the benchmark functions
+        run: valgrind --leak-check=yes --error-exitcode=1 ./build/test/benchmarks/benchmarks
         shell: bash
   tests:
     name: Unit tests || C++ - ${{ matrix.os }} - ${{ github.event_name }}
