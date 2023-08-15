@@ -3,11 +3,8 @@ This file implements benchmarking for the functions in bucket_pos.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
-#include <iostream>
 #include <benchmark/benchmark.h>
-#include "src/bucket_pos.cpp"
-#include "src/utils.cpp"
-#include "src/types.cpp"
+#include "src/bucket_pos.hpp"
 
 // -- CalcBucketPos --
 static void BM_CalcBucketPos(benchmark::State& state) {
@@ -123,4 +120,4 @@ static void BM_IncludeNewBodyPos(benchmark::State& state) {
         soil_simulator::IncludeNewBodyPos(sim_out, 10, 15, 0.5, 0.6, 1.e-5);
     delete sim_out;
 }
-BENCHMARK(BM_IncludeNewBodyPos)->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_IncludeNewBodyPos);
