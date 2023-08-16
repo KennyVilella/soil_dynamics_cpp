@@ -1977,7 +1977,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="22" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="15" bodyend="35" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="22" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="22" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="16" bodyend="36" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="22" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2020,7 +2020,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="36" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="39" bodyend="56" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="36" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="36" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="40" bodyend="57" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="36" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2051,7 +2051,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="45" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="63" bodyend="89" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="45" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="45" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="64" bodyend="90" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="45" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2093,7 +2093,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="53" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="93" bodyend="106" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="53" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="53" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="94" bodyend="107" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="53" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1aa73c7a46ed52e9eeb51bcd48e459e4b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2148,7 +2148,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="63" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="109" bodyend="148" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="63" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="63" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="110" bodyend="149" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="63" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2200,7 +2200,7 @@ The conventions that are checked by this function include:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="72" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="161" bodyend="333" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="72" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="72" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="162" bodyend="334" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="72" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a3a1312acf11adcd75455909ec81fceb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2240,7 +2240,7 @@ The conventions that are checked by this function include:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="79" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="337" bodyend="405" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="79" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="79" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="338" bodyend="406" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="79" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a2d9951b9f38d874e35c6a4c31abf1873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2268,7 +2268,7 @@ The bucket corners are saved into a file named <computeroutput>bucket</computero
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="85" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="409" bodyend="508" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="85" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="85" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="410" bodyend="509" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="85" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;&gt;</type>
