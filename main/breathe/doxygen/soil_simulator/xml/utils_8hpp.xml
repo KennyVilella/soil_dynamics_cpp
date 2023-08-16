@@ -67,10 +67,14 @@
 <codeline lineno="64"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CheckSoil(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal">std::tuple&lt;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;</highlight></codeline>
-<codeline lineno="89"><highlight class="normal">&gt;<sp/>CalcTrajectory(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_min,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_min,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nn);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteSoil(SimOut*<sp/>sim_out,<sp/>Grid<sp/>grid);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBucket(Bucket*<sp/>bucket);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">std::tuple&lt;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">&gt;<sp/>CalcTrajectory(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_min,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_min,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nn);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp"/>
   </compounddef>
