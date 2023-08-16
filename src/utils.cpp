@@ -138,7 +138,7 @@ bool soil_simulator::CheckVolume(
     // Calculating total volume of soil
     float total_volume = terrain_volume + body_soil_volume;
 
-    if (abs(total_volume - init_volume) > 0.5 * grid.cell_volume_) {
+    if (std::abs(total_volume - init_volume) > 0.5 * grid.cell_volume_) {
         std::cout << "Volume is not conserved! \n" <<
             "Initial volume: " << init_volume << "   Current volume: " <<
             total_volume << "\n";

@@ -7,7 +7,7 @@ Copyright, 2023, Vilella Kenny.
 #include <exception>
 #include <iostream>
 #include "gtest/gtest.h"
-#include "src/types.cpp"
+#include "src/types.hpp"
 
 TEST(UnitTestTypes, Grid) {
     // -- Testing member of the Grid class --
