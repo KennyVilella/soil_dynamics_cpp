@@ -3,9 +3,12 @@ This file implements the utility functions used in this simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <source_location>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <vector>
 #include "src/utils.hpp"
 #include "src/types.hpp"
@@ -328,6 +331,181 @@ bool soil_simulator::CheckSoil(
     }
 
     return true;
+}
+
+/// `terrain` and `body_soil` are saved into files named `terrain` and
+/// `body_soil`, respectively, followed by the file number.
+void soil_simulator::WriteSoil(
+    SimOut* sim_out, Grid grid
+) {
+    // Finding next filename for the terrain file
+    std::source_location location = std::source_location::current();
+    std::string filename = location.file_name();
+    std::string path = filename.substr(
+        0, filename.find_last_of("/")) + "/../results/";
+    std::string terrain_filename;
+
+    // Iterating until finding a filename that does not exist
+    for (auto ii = 0; ii < 100000; ii++) {
+        std::string file_number = std::to_string(ii);
+        size_t n = 5;  // Number of digit
+        int nn = n - std::min(n, file_number.size());  // Number of leading 0
+
+        // Setting next filename
+        terrain_filename = (
+            path + "terrain_" + std::string(nn, '0').append(file_number)
+            + ".csv");
+
+        // Checking if file exists
+        std::ifstream infile(terrain_filename);
+        if (!infile.good()) {
+            // File does not exist
+            break;
+        }
+    }
+
+    std::ofstream terrain_file;
+    terrain_file.open(terrain_filename);
+    terrain_file << "x,y,z\n";
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            terrain_file << grid.vect_x_[ii] << "," << grid.vect_y_[jj] << ","
+                << sim_out->terrain_[ii][jj] << "\n";
+    terrain_file.close();
+
+    // Setting filename for the bucket soil
+    std::string new_body_soil_filename = (
+        terrain_filename.substr(0, terrain_filename.find_last_of("/")) +
+        "/body_soil_" + terrain_filename.substr(
+            terrain_filename.find_last_of("_")+1, terrain_filename.size()));
+
+    // Removing duplicates in body_soil_pos
+    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+    sim_out->body_soil_pos_.erase(unique(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
+        sim_out->body_soil_pos_.end());
+
+    std::ofstream body_soil_file;
+    body_soil_file.open(new_body_soil_filename);
+    body_soil_file << "x,y,z\n";
+    if (sim_out->body_soil_pos_.size() == 0) {
+        // No soil is resting on the bucket
+        // Writing a dummy position for paraview
+        body_soil_file << grid.vect_x_[0] << "," << grid.vect_y_[0] << ","
+                << grid.vect_z_[0] << "\n";
+    } else {
+        for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+            int ii = sim_out->body_soil_pos_[nn][1];
+            int jj = sim_out->body_soil_pos_[nn][2];
+            int ind = sim_out->body_soil_pos_[nn][0];
+
+            body_soil_file << grid.vect_x_[ii] << "," << grid.vect_y_[jj] << ","
+                << sim_out->body_soil_[ind+1][ii][jj] << "\n";
+        }
+    }
+}
+
+/// The bucket corners are saved into a file named `bucket` followed by
+/// the file number.
+void soil_simulator::WriteBucket(
+    Bucket* bucket
+) {
+    // Calculating position of the bucker points
+    auto j_pos = soil_simulator::CalcRotationQuaternion(
+        bucket->ori_, bucket->j_pos_init_);
+    auto b_pos = soil_simulator::CalcRotationQuaternion(
+        bucket->ori_, bucket->b_pos_init_);
+    auto t_pos = soil_simulator::CalcRotationQuaternion(
+        bucket->ori_, bucket->t_pos_init_);
+
+    // Unit vector normal to the side of the bucket
+    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
+
+    // Declaring vectors for each vertex of the bucket
+    std::vector<float> j_r_pos(3);
+    std::vector<float> j_l_pos(3);
+    std::vector<float> b_r_pos(3);
+    std::vector<float> b_l_pos(3);
+    std::vector<float> t_r_pos(3);
+    std::vector<float> t_l_pos(3);
+
+    for (auto ii = 0; ii < 3; ii++) {
+        // Adding position of the bucket origin
+        j_pos[ii] += bucket->pos_[ii];
+        b_pos[ii] += bucket->pos_[ii];
+        t_pos[ii] += bucket->pos_[ii];
+
+        // Position of each vertex of the bucket
+        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+    }
+
+    // Finding next filename for the bucket file
+    std::source_location location = std::source_location::current();
+    std::string filename = location.file_name();
+    std::string path = filename.substr(
+        0, filename.find_last_of("/")) + "/../results/";
+    std::string bucket_filename;
+
+    // Iterating until finding a filename that does not exist
+    for (auto ii = 0; ii < 100000; ii++) {
+        std::string file_number = std::to_string(ii);
+        size_t n = 5;  // Number of digit
+        int nn = n - std::min(n, file_number.size());  // Number of leading 0
+
+        // Setting next filename
+        bucket_filename = (
+            path + "bucket_" + std::string(nn, '0').append(file_number)
+            + ".csv");
+
+        // Checking if file exists
+        std::ifstream infile(bucket_filename);
+        if (!infile.good()) {
+            // File does not exist
+            break;
+        }
+    }
+
+    std::ofstream bucket_file;
+    bucket_file.open(bucket_filename);
+    bucket_file << "x,y,z\n";
+    // Writing bucket right side
+    bucket_file << b_r_pos[0] << "," << b_r_pos[1] << ","
+                <<  b_r_pos[2] << "\n";
+    bucket_file << t_r_pos[0] << "," << t_r_pos[1] << ","
+                <<  t_r_pos[2] << "\n";
+    bucket_file << j_r_pos[0] << "," << j_r_pos[1] << ","
+                <<  j_r_pos[2] << "\n";
+    // Writing bucket back
+    bucket_file << j_r_pos[0] << "," << j_r_pos[1] << ","
+                <<  j_r_pos[2] << "\n";
+    bucket_file << j_l_pos[0] << "," << j_l_pos[1] << ","
+                <<  j_l_pos[2] << "\n";
+    bucket_file << b_l_pos[0] << "," << b_l_pos[1] << ","
+                <<  b_l_pos[2] << "\n";
+    bucket_file << b_r_pos[0] << "," << b_r_pos[1] << ","
+                <<  b_r_pos[2] << "\n";
+    // Writing bucket base
+    bucket_file << b_r_pos[0] << "," << b_r_pos[1] << ","
+                <<  b_r_pos[2] << "\n";
+    bucket_file << t_r_pos[0] << "," << t_r_pos[1] << ","
+                <<  t_r_pos[2] << "\n";
+    bucket_file << t_l_pos[0] << "," << t_l_pos[1] << ","
+                <<  t_l_pos[2] << "\n";
+    bucket_file << b_l_pos[0] << "," << b_l_pos[1] << ","
+                <<  b_l_pos[2] << "\n";
+    // Writing bucket left side
+    bucket_file << b_l_pos[0] << "," << b_l_pos[1] << ","
+                <<  b_l_pos[2] << "\n";
+    bucket_file << t_l_pos[0] << "," << t_l_pos[1] << ","
+                <<  t_l_pos[2] << "\n";
+    bucket_file << j_l_pos[0] << "," << j_l_pos[1] << ","
+                <<  j_l_pos[2] << "\n";
+    bucket_file.close();
 }
 
 /// The parabolic trajectory is described by
