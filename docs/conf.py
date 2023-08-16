@@ -33,7 +33,10 @@ breathe_projects_source = {
         "relax.hpp",
         "relax.cpp",
         "utils.hpp",
-        "utils.cpp"])
+        "utils.cpp"],
+        "../test/example",
+        ["soil_evolution.hpp",
+        "soil_evolution.cpp"])
 }
 
 templates_path = ["_templates"]
