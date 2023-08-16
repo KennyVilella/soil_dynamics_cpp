@@ -19,6 +19,15 @@ Copyright, 2023, Vilella Kenny.
 // Defining RNG
 std::mt19937 soil_simulator::rng;
 
+/// This example script simulates a bucket performing a simple digging scoop in
+/// the XZ plane following a parabolic trajectory. There is an option to
+/// randomize the parabolic trajectory by selecting the initial position
+/// (`x_i`, `z_i`) of the bucket and the deepest point of the scoop
+/// (`x_min`, `z_min`) wihtin reasonable ranges.
+///
+/// Note that the parabolic trajectory assumes that the orientation of the
+/// bucket follows the gradient of the trajectory. While it may not be fully
+/// accurate, it provides a good approximation for testing the simulator.
 void soil_simulator::SoilEvolution(
     bool set_rng, bool random_trajectory, bool logging, bool check_outputs,
     bool write_outputs

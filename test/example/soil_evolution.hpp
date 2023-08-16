@@ -7,6 +7,16 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
+/// \brief This function provides an example script to run the simulator.
+///
+/// \param set_rng: Indicates whether the RNG seed is set or not.
+/// \param random_trajectory: Indicates whether the default trajectory or a
+///                           randomized one is used.
+/// \param logging: Indicates whether logging information are provided.
+/// \param check_outputs: Indicates whether to run simulation outputs check
+///                       at every step.
+/// \param write_outputs: Indicates whether the simulation outputs are written
+///                       into files at every step.
 void SoilEvolution(
     bool set_rng, bool random_trajectory, bool logging, bool check_outputs,
     bool write_outputs);
