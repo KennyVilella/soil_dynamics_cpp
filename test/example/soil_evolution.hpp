@@ -8,7 +8,7 @@ Copyright, 2023, Vilella Kenny.
 namespace soil_simulator {
 
 void SoilEvolution(
-    bool set_rng, bool random_trajectory, bool check_outputs,
+    bool set_rng, bool random_trajectory, bool logging, bool check_outputs,
     bool write_outputs);
 
 /// \brief This function calculates a parabolic trajectory given the starting

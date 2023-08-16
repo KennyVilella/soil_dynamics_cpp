@@ -20,7 +20,8 @@ Copyright, 2023, Vilella Kenny.
 std::mt19937 soil_simulator::rng;
 
 void soil_simulator::SoilEvolution(
-    bool set_rng, bool random_trajectory, bool check_outputs, bool write_outputs
+    bool set_rng, bool random_trajectory, bool logging, bool check_outputs,
+    bool write_outputs
 ) {
     // Initalizing the simulator
     soil_simulator::SoilDynamics sim;
@@ -280,7 +281,8 @@ void soil_simulator::SoilEvolution(
 
     // Simulation loop
     for (auto ii = 0; ii < time_vec.size(); ii++) {
-        std::cout << "Step " << ii << " / " << time_vec.size()-1 << "\n";
+        if (logging)
+            std::cout << "Step " << ii << " / " << time_vec.size()-1 << "\n";
 
         // Stepping the soil dynamics
         sim.step(
@@ -360,7 +362,7 @@ std::tuple<
 
 int main() {
     // Launching a simulation
-    soil_simulator::SoilEvolution(true, false, true, false);
+    soil_simulator::SoilEvolution(true, false, true, true, false);
 
     return 0;
 }
