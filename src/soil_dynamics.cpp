@@ -68,7 +68,14 @@ void soil_simulator::SoilDynamics::check(
     soil_simulator::CheckSoil(sim_out, tol);
 }
 
-void soil_simulator::SoilDynamics::WriteOutputs() {
+void soil_simulator::SoilDynamics::WriteOutputs(
+        SimOut* sim_out, Grid grid, Bucket* bucket
+) {
+    // Writing terrain_ and body_soil_
+    soil_simulator::WriteSoil(sim_out, grid);
+
+    // Writing bucket corners
+    soil_simulator::WriteBucket(bucket);
 }
 
 int main() {
@@ -76,6 +83,7 @@ int main() {
     bool set_rng = true;
     bool random_trajectory = true;
     bool check_outputs = true;
+    bool write_outputs = true;
 
     // Initalizing the simulator
     soil_simulator::SoilDynamics sim;
@@ -344,6 +352,10 @@ int main() {
         // Checking consistency of simulation outputs
         if (check_outputs)
             sim.check(sim_out, init_volume, grid, 1e-5);
+
+        // Writing simulation outputs into csv files
+        if (write_outputs)
+            sim.WriteOutputs(sim_out, grid, bucket);
     }
 
     delete bucket;
