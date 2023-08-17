@@ -182,11 +182,23 @@
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="46" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="61" bodyend="69"/>
       </memberdef>
-      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void soil_simulator::SoilDynamics::WriteOutputs</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(SimOut *sim_out, Grid grid, Bucket *bucket)</argsstring>
         <name>WriteOutputs</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
+          <declname>bucket</declname>
+        </param>
         <briefdescription>
 <para>Write the simulation outputs into files. </para>
         </briefdescription>
@@ -194,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="49" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="71" bodyend="72"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.hpp" line="49" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/soil_dynamics.cpp" bodystart="71" bodyend="79"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -207,7 +219,7 @@
       <member refid="classsoil__simulator_1_1_soil_dynamics_1ac74563070fa12a0cb5bda7f0a3519e2d" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>check</name></member>
       <member refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>init</name></member>
       <member refid="classsoil__simulator_1_1_soil_dynamics_1a627ff93047777c7f0937b289a2cd32cd" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>step</name></member>
-      <member refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>WriteOutputs</name></member>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>WriteOutputs</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -47,7 +47,7 @@
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a4f197e080ecd89f98445d7094a0aa610" kind="function"><name>init</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a627ff93047777c7f0937b289a2cd32cd" kind="function"><name>step</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1ac74563070fa12a0cb5bda7f0a3519e2d" kind="function"><name>check</name></member>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1a620b996bfed6fad632be6bc5e7bca7e7" kind="function"><name>WriteOutputs</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" kind="function"><name>WriteOutputs</name></member>
   </compound>
   <compound refid="namespacesoil__simulator" kind="namespace"><name>soil_simulator</name>
     <member refid="soil__dynamics_8hpp_1abb83f81ddb27ef2a1d88a7993c3f4634" kind="variable"><name>rng</name></member>
