@@ -71,6 +71,19 @@ bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid);
 /// \return Boolean indicating whether the simulation outputs are consistent.
 bool CheckSoil(SimOut* sim_out, float tol);
 
+/// \brief This function writes the terrain and the bucket soil into a csv
+///        located in the `results` directory.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param grid: Class that stores information related to the simulation grid.
+void WriteSoil(SimOut* sim_out, Grid grid);
+
+/// \brief This function writes the position of all bucket faces into a csv
+///        located in the `results` directory.
+///
+/// \param grid: Class that stores information related to the simulation grid.
+void WriteBucket(Bucket* bucket);
+
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)
 ///        of the trajectory.
