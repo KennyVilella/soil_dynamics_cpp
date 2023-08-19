@@ -3,11 +3,12 @@ This file implements the utility functions used in this simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <source_location>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <fstream>
-#include <source_location>
+#include <string>
 #include <vector>
 #include "src/utils.hpp"
 #include "src/types.hpp"
