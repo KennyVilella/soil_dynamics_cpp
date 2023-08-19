@@ -51,6 +51,9 @@ jobs:
           sudo cmake CMakeLists.txt
           sudo make
 
+      - name: Install Google benchmark
+        run: sudo apt-get install libbenchmark-dev
+
       - name: Build the simulator
         run: |
           cmake -S . -B build
@@ -58,12 +61,10 @@ jobs:
 
       - name: Build the unit tests
         run: |
-          cmake -S . -B build
           cmake --build build --target unit_tests
 
       - name: Build the benchmark functions
         run: |
-          cmake -S . -B build
           cmake --build build --target benchmarks
 
       - name: Install Valgrind
@@ -98,6 +99,9 @@ jobs:
           cd /usr/src/gtest
           sudo cmake CMakeLists.txt
           sudo make
+
+      - name: Install Google benchmark
+        run: sudo apt-get install libbenchmark-dev
 
       - name: Build the unit test
         run: |
