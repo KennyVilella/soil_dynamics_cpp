@@ -1,5 +1,5 @@
 /*
-This file declares the main class of this simulator.
+This file declares an example script for the simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
