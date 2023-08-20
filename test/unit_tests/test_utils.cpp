@@ -3,8 +3,9 @@ This file implements unit tests for the functions in utils.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <cmath>
 #include "gtest/gtest.h"
-#include "src/utils.cpp"
+#include "src/utils.hpp"
 
 TEST(UnitTestUtils, CalcNormal) {
     // Setting dummy coordinates forming a triangle in the XY plane
