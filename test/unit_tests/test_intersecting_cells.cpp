@@ -3,8 +3,9 @@ This file implements unit tests for the functions in intersecting_cells.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <random>
 #include "gtest/gtest.h"
-#include "src/intersecting_cells.cpp"
+#include "src/intersecting_cells.hpp"
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
     // Setting up the environment

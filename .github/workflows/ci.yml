@@ -35,7 +35,7 @@ jobs:
       - name: Run cpplint on the unit test files
         run: |
           cd test/unit_tests/
-          cpplint --filter=-'build/include',-'readability/fn_size' *
+          cpplint --filter=-'readability/fn_size' *
           cd ../..
 
       - name: Run cpplint on the benchmark files

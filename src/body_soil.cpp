@@ -92,7 +92,7 @@ void soil_simulator::UpdateBodySoil(
         if (
             ((sim_out->body_[0][ii_n][jj_n] != 0.0) ||
             (sim_out->body_[1][ii_n][jj_n] != 0.0)) &&
-            (abs(new_cell_pos[2] - sim_out->body_[1][ii_n][jj_n]) - tol
+            (std::abs(new_cell_pos[2] - sim_out->body_[1][ii_n][jj_n]) - tol
                 < grid.cell_size_xy_)
         ) {
             // Bucket is present
@@ -109,7 +109,7 @@ void soil_simulator::UpdateBodySoil(
         } else if (
             ((sim_out->body_[2][ii_n][jj_n] != 0.0) ||
             (sim_out->body_[3][ii_n][jj_n] != 0.0)) &&
-            (abs(new_cell_pos[2] - sim_out->body_[3][ii_n][jj_n]) - tol
+            (std::abs(new_cell_pos[2] - sim_out->body_[3][ii_n][jj_n]) - tol
                 < grid.cell_size_xy_)
         ) {
             // Bucket is present
