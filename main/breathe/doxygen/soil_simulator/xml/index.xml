@@ -80,7 +80,8 @@
     <member refid="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891" kind="function"><name>CheckSoil</name></member>
     <member refid="utils_8hpp_1a3a1312acf11adcd75455909ec81fceb7" kind="function"><name>WriteSoil</name></member>
     <member refid="utils_8hpp_1a2d9951b9f38d874e35c6a4c31abf1873" kind="function"><name>WriteBucket</name></member>
-    <member refid="utils_8hpp_1a8688bd9d156d0aaa67a1f95287315165" kind="function"><name>CalcTrajectory</name></member>
+    <member refid="soil__evolution_8hpp_1a3f5b0d4194a5c9e074306089e81c71ce" kind="function"><name>SoilEvolution</name></member>
+    <member refid="soil__evolution_8hpp_1a8688bd9d156d0aaa67a1f95287315165" kind="function"><name>CalcTrajectory</name></member>
   </compound>
   <compound refid="body__soil_8cpp" kind="file"><name>body_soil.cpp</name>
   </compound>
@@ -99,7 +100,6 @@
   <compound refid="relax_8hpp" kind="file"><name>relax.hpp</name>
   </compound>
   <compound refid="soil__dynamics_8cpp" kind="file"><name>soil_dynamics.cpp</name>
-    <member refid="soil__dynamics_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
   <compound refid="soil__dynamics_8hpp" kind="file"><name>soil_dynamics.hpp</name>
   </compound>
@@ -111,6 +111,15 @@
   </compound>
   <compound refid="utils_8hpp" kind="file"><name>utils.hpp</name>
   </compound>
+  <compound refid="soil__evolution_8cpp" kind="file"><name>soil_evolution.cpp</name>
+    <member refid="soil__evolution_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="soil__evolution_8hpp" kind="file"><name>soil_evolution.hpp</name>
+  </compound>
+  <compound refid="dir_c19ca5e3756d7ba8846e9abf743f6090" kind="dir"><name>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example</name>
+  </compound>
   <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src</name>
+  </compound>
+  <compound refid="dir_13e138d54eb8818da29c3992edef070a" kind="dir"><name>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test</name>
   </compound>
 </doxygenindex>

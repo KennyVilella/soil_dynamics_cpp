@@ -564,48 +564,6 @@
 <codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/><sp/>j_l_pos[2]<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_file.close();</highlight></codeline>
 <codeline lineno="509"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="510"><highlight class="normal"></highlight></codeline>
-<codeline lineno="528"><highlight class="normal">std::tuple&lt;</highlight></codeline>
-<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;</highlight></codeline>
-<codeline lineno="530"><highlight class="normal">&gt;<sp/>soil_simulator::CalcTrajectory(</highlight></codeline>
-<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_i,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_min,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z_min,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nn</highlight></codeline>
-<codeline lineno="532"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>X<sp/>vector<sp/>of<sp/>the<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>x_vec(nn);</highlight></codeline>
-<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>delta_x<sp/>=<sp/>2.0<sp/>*<sp/>(x_min<sp/>-<sp/>x_i)<sp/>/<sp/>(nn<sp/>-<sp/>1);</highlight></codeline>
-<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>nn;<sp/>ii++)</highlight></codeline>
-<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_vec[ii]<sp/>=<sp/>x_i<sp/>+<sp/>ii<sp/>*<sp/>delta_x;</highlight></codeline>
-<codeline lineno="538"><highlight class="normal"></highlight></codeline>
-<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>factor<sp/>of<sp/>the<sp/>parabolic<sp/>function</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>a;</highlight></codeline>
-<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b;</highlight></codeline>
-<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
-<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(x_min<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>(z_i<sp/>-<sp/>z_min)<sp/>/<sp/>(x_i<sp/>*<sp/>x_i);</highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>z_min;</highlight></codeline>
-<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>2<sp/>*<sp/>x_min<sp/>*<sp/>(z_min<sp/>-<sp/>z_i)<sp/>/<sp/>((x_i<sp/>-<sp/>x_min)<sp/>*<sp/>(x_i<sp/>-<sp/>x_min));</highlight></codeline>
-<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>-b<sp/>/<sp/>(2<sp/>*<sp/>x_min);</highlight></codeline>
-<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>z_min<sp/>+<sp/>b<sp/>*<sp/>b<sp/>/<sp/>(4<sp/>*<sp/>a);</highlight></codeline>
-<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="552"><highlight class="normal"></highlight></codeline>
-<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initializing<sp/>trajectory<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>pos;</highlight></codeline>
-<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;<sp/>ori;</highlight></codeline>
-<codeline lineno="556"><highlight class="normal"></highlight></codeline>
-<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Creating<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>nn;<sp/>ii++)<sp/>{</highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>trajectory<sp/>following<sp/>a<sp/>parabole</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>x_vec[ii];</highlight></codeline>
-<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pos.push_back(std::vector&lt;float&gt;<sp/>{x,<sp/>0.0,<sp/>a<sp/>*<sp/>x<sp/>*<sp/>x<sp/>+<sp/>b<sp/>*<sp/>x<sp/>+<sp/>c});</highlight></codeline>
-<codeline lineno="562"><highlight class="normal"></highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>orientation<sp/>following<sp/>the<sp/>gradient<sp/>of<sp/>the<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori.push_back(std::vector&lt;float&gt;<sp/>{0.0,<sp/>std::atan(2<sp/>*<sp/>a<sp/>*<sp/>x<sp/>+<sp/>b),<sp/>0.0});</highlight></codeline>
-<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="566"><highlight class="normal"></highlight></codeline>
-<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{pos,<sp/>ori};</highlight></codeline>
-<codeline lineno="568"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp"/>
   </compounddef>
