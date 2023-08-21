@@ -6,11 +6,13 @@ add_executable(benchmarks)
 target_sources(benchmarks
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/run_benchmarks.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_soil_evolution.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_bucket_pos.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_body_soil.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_intersecting_cells.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_relax.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_utils.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.hpp
@@ -24,6 +26,8 @@ target_sources(benchmarks
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/relax.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../example/soil_evolution.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../example/soil_evolution.hpp
 )
 
 # Link to Google benchmark

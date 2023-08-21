@@ -33,7 +33,7 @@ void soil_simulator::SoilEvolution(
     soil_simulator::SoilDynamics sim;
 
     // Initalizing the simulation grid
-    soil_simulator::Grid grid(4.0, 4.0, 4.0, 0.05, 0.05);
+    soil_simulator::Grid grid(4.0, 4.0, 4.0, 0.05, 0.01);
 
     // Initalizing the simulated bucket
     std::vector<float> o_pos_init = {0.0, 0.0, 0.0};
