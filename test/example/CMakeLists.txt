@@ -1,6 +1,7 @@
 add_executable(soil_evolution)
 target_sources(soil_evolution
     PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/soil_evolution.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/soil_evolution.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.cpp

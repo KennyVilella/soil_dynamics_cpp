@@ -16,9 +16,6 @@ Copyright, 2023, Vilella Kenny.
 #include "src/relax.hpp"
 #include "src/utils.hpp"
 
-// Defining RNG
-std::mt19937 soil_simulator::rng;
-
 /// This example script simulates a bucket performing a simple digging scoop in
 /// the XZ plane following a parabolic trajectory. There is an option to
 /// randomize the parabolic trajectory by selecting the initial position
@@ -367,11 +364,4 @@ std::tuple<
     }
 
     return {pos, ori};
-}
-
-int main() {
-    // Launching a simulation
-    soil_simulator::SoilEvolution(true, false, true, true, false);
-
-    return 0;
 }
