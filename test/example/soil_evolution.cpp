@@ -55,6 +55,8 @@ void soil_simulator::SoilEvolution(
 
     std::vector<std::vector<float>> pos;
     std::vector<std::vector<float>> ori;
+    float origin_angle = std::atan2(
+        t_pos_init[2] - b_pos_init[2], t_pos_init[0] - b_pos_init[0]);
     if (random_trajectory) {
         // Random parabolic trajectory
         // Calculating random parameters within a certain range
@@ -66,11 +68,11 @@ void soil_simulator::SoilEvolution(
 
         // Creating the trajectory
         std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-            x_i, z_i, x_min, z_min, 100);
+            x_i, z_i, x_min, z_min, origin_angle, 100);
     } else {
         // Default parabolic trajectory
         std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-            -2.0, 1.5, 0.1, 0.25, 100);
+            -2.0, 1.5, 0.1, 0.25, origin_angle, 100);
     }
 
     // Initializing bucket corner position vectors
@@ -85,7 +87,7 @@ void soil_simulator::SoilEvolution(
     for (auto ii = 0; ii < pos.size(); ii++) {
         // Converting orientation to quaternion
         auto ori_i = soil_simulator::AngleToQuat(
-            {-ori[ii][0], -ori[ii][1], -ori[ii][2]});
+            {ori[ii][0], ori[ii][1], ori[ii][2]});
 
         // Calculating position of bucket points
         auto j_pos = soil_simulator::CalcRotationQuaternion(ori_i, j_pos_init);
@@ -140,7 +142,7 @@ void soil_simulator::SoilEvolution(
     float time = dt;
     pos_vec.push_back(pos[0]);
     auto ori_i = soil_simulator::AngleToQuat(
-            {-ori[0][0], -ori[0][1], -ori[0][2]});
+            {ori[0][0], ori[0][1], ori[0][2]});
     ori_vec.push_back(ori_i);
 
     // Creating time evolution
@@ -161,9 +163,9 @@ void soil_simulator::SoilEvolution(
            pos[kk][2] * a + pos[kk+1][2] * b});
 
        ori_vec.push_back(soil_simulator::AngleToQuat({
-            -(ori[kk][0] * a + ori[kk+1][0] * b),
-            -(ori[kk][1] * a + ori[kk+1][1] * b),
-            -(ori[kk][2] * a + ori[kk+1][2] * b)}));
+            (ori[kk][0] * a + ori[kk+1][0] * b),
+            (ori[kk][1] * a + ori[kk+1][1] * b),
+            (ori[kk][2] * a + ori[kk+1][2] * b)}));
 
        // Calculating linear interpolation of bucket corners
        float time_plus = time + 0.5 * dt_i;
@@ -275,7 +277,7 @@ void soil_simulator::SoilEvolution(
     time_vec.push_back(total_time);
     pos_vec.push_back(pos[nn]);
     ori_vec.push_back(soil_simulator::AngleToQuat(
-        {-ori[nn][0], -ori[nn][1], -ori[nn][2]}));
+        {ori[nn][0], ori[nn][1], ori[nn][2]}));
 
     float init_volume = 0.0;
     if (check_outputs) {
@@ -327,7 +329,7 @@ void soil_simulator::SoilEvolution(
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>
 > soil_simulator::CalcTrajectory(
-    float x_i, float z_i, float x_min, float z_min, int nn
+    float x_i, float z_i, float x_min, float z_min, float origin_angle, int nn
 ) {
     // Calculating X vector of the trajectory
     std::vector<float> x_vec(nn);
@@ -360,7 +362,8 @@ std::tuple<
         pos.push_back(std::vector<float> {x, 0.0, a * x * x + b * x + c});
 
         // Calculating orientation following the gradient of the trajectory
-        ori.push_back(std::vector<float> {0.0, std::atan(2 * a * x + b), 0.0});
+        ori.push_back(std::vector<float> {
+            0.0, -origin_angle + std::atan2(2 * a * x + b, 1.0), 0.0});
     }
 
     return {pos, ori};
