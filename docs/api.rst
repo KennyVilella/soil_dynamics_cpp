@@ -9,6 +9,7 @@ A doxygen documentation is available for all the files of the simulator.
    :maxdepth: 1
    :hidden:
 
+   soil_evolution <_api/soil_evolution>
    soil_dynamics <_api/soil_dynamics>
    types <_api/types>
    bucket_pos <_api/bucket_pos>

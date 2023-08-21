@@ -1,17 +1,9 @@
-# Setup benchmarking
-find_package(benchmark REQUIRED)
-
-# Build benchmarking
-add_executable(benchmarks)
-target_sources(benchmarks
+add_executable(soil_evolution)
+target_sources(soil_evolution
     PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/run_benchmarks.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_soil_evolution.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_bucket_pos.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_body_soil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_intersecting_cells.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_relax.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/benchmark_utils.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/soil_evolution.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/soil_evolution.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.cpp
@@ -26,12 +18,4 @@ target_sources(benchmarks
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/relax.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../example/soil_evolution.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../example/soil_evolution.hpp
-)
-
-# Link to Google benchmark
-target_link_libraries(
-  benchmarks
-  benchmark::benchmark
 )

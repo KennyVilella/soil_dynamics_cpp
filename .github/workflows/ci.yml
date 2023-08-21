@@ -63,6 +63,10 @@ jobs:
         run: |
           cmake --build build --target unit_tests
 
+      - name: Build the example script
+        run: |
+          cmake --build build --target soil_evolution
+
       - name: Build the benchmark functions
         run: |
           cmake --build build --target benchmarks
@@ -76,6 +80,10 @@ jobs:
 
       - name: Run valgrind on the unit tests
         run: valgrind --leak-check=yes --error-exitcode=1 ./build/test/unit_tests/unit_tests
+        shell: bash
+
+      - name: Run valgrind on the example script
+        run: valgrind --leak-check=yes --error-exitcode=1 ./build/test/example/soil_evolution
         shell: bash
 
       - name: Run valgrind on the benchmark functions

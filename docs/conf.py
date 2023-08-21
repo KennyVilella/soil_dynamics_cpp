@@ -19,21 +19,23 @@ extensions = [
 ]
 
 breathe_projects_source = {
-    "soil_simulator" : ("../src", 
-        ["soil_dynamics.hpp",
-        "soil_dynamics.cpp",
-        "types.hpp",
-        "types.cpp",
-        "bucket_pos.hpp",
-        "bucket_pos.cpp",
-        "body_soil.hpp",
-        "body_soil.cpp",
-        "intersecting_cells.hpp",
-        "intersecting_cells.cpp",
-        "relax.hpp",
-        "relax.cpp",
-        "utils.hpp",
-        "utils.cpp"])
+    "soil_simulator" : ("../", 
+        ["src/soil_dynamics.hpp",
+        "src/soil_dynamics.cpp",
+        "src/types.hpp",
+        "src/types.cpp",
+        "src/bucket_pos.hpp",
+        "src/bucket_pos.cpp",
+        "src/body_soil.hpp",
+        "src/body_soil.cpp",
+        "src/intersecting_cells.hpp",
+        "src/intersecting_cells.cpp",
+        "src/relax.hpp",
+        "src/relax.cpp",
+        "src/utils.hpp",
+        "src/utils.cpp",
+        "test/example/soil_evolution.hpp",
+        "test/example/soil_evolution.cpp"])
 }
 
 templates_path = ["_templates"]
