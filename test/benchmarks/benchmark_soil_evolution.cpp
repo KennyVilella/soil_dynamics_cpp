@@ -4,7 +4,6 @@ This file implements benchmarking for the example script.
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include <random>
 #include "test/example/soil_evolution.hpp"
 
 // -- SoilEvolution -
