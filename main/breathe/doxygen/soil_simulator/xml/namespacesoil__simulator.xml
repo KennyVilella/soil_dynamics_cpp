@@ -2345,12 +2345,12 @@ This example script simulates a bucket performing a simple digging scoop in the 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="20" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.cpp" bodystart="28" bodyend="308" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="20" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="20" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.cpp" bodystart="28" bodyend="310" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="20" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="soil__evolution_8hpp_1a8688bd9d156d0aaa67a1f95287315165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="soil__evolution_8hpp_1aa35555d66b277c532fedcee36e34a40d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;&gt;</type>
         <definition>std::tuple&lt; std::vector&lt;std::vector&lt;float&gt; &gt;, std::vector&lt;std::vector&lt;float&gt; &gt;&gt; soil_simulator::CalcTrajectory</definition>
-        <argsstring>(float x_i, float z_i, float x_min, float z_min, int nn)</argsstring>
+        <argsstring>(float x_i, float z_i, float x_min, float z_min, float origin_angle, int nn)</argsstring>
         <name>CalcTrajectory</name>
         <param>
           <type>float</type>
@@ -2367,6 +2367,10 @@ This example script simulates a bucket performing a simple digging scoop in the 
         <param>
           <type>float</type>
           <declname>z_min</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>origin_angle</declname>
         </param>
         <param>
           <type>int</type>
@@ -2410,6 +2414,14 @@ This example script simulates a bucket performing a simple digging scoop in the 
 </parameteritem>
 <parameteritem>
 <parameternamelist>
+<parametername>origin_angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Angle to the horizontal plane of the bucket in its reference pose. [rad] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
 <parametername>nn</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -2423,7 +2435,7 @@ This example script simulates a bucket performing a simple digging scoop in the 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="39" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="39" declcolumn="2"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="41" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="41" declcolumn="2"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
