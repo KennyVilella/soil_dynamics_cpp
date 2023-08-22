@@ -29,6 +29,8 @@ void SoilEvolution(
 /// \param z_i: Z coordinate of the starting position of the trajectory. [m]
 /// \param x_min: X coordinate of the deepest position of the trajectory. [m]
 /// \param z_min: Z coordinate of the deepest position of the trajectory. [m]
+/// \param origin_angle: Angle to the horizontal plane of the bucket in
+///                      its reference pose. [rad]
 /// \param nn: Number of increments in the trajectory.
 ///
 /// \return A tuple composed of a vector aggregating the position of the bucket
@@ -36,5 +38,6 @@ void SoilEvolution(
 ///         bucket with time following the quaternion convention.
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>
-> CalcTrajectory(float x_i, float z_i, float x_min, float z_min, int nn);
+> CalcTrajectory(
+    float x_i, float z_i, float x_min, float z_min, float origin_angle, int nn);
 }  // namespace soil_simulator
