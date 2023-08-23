@@ -3,8 +3,8 @@ This file implements the main function.
 
 Copyright, 2023, Vilella Kenny.
 */
-#include <random>
 #include <glog/logging.h>
+#include <random>
 #include "src/soil_dynamics.hpp"
 
 // Defining RNG

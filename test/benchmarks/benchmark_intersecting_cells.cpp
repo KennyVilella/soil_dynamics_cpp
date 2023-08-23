@@ -4,8 +4,8 @@ This file implements benchmarking for the functions in intersecting_cells.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include <random>
 #include <glog/logging.h>
+#include <random>
 #include "src/intersecting_cells.hpp"
 #include "src/bucket_pos.hpp"
 

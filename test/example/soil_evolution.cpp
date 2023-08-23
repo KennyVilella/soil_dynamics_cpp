@@ -3,11 +3,12 @@ This file implements an example script for the simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <glog/logging.h>
 #include <algorithm>
 #include <iostream>
 #include <random>
+#include <tuple>
 #include <vector>
-#include <glog/logging.h>
 #include "test/example/soil_evolution.hpp"
 #include "src/soil_dynamics.hpp"
 #include "src/types.hpp"

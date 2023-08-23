@@ -3,8 +3,8 @@ This file implements the main function.
 
 Copyright, 2023, Vilella Kenny.
 */
-#include <random>
 #include <glog/logging.h>
+#include <random>
 #include "src/soil_dynamics.hpp"
 #include "test/example/soil_evolution.hpp"
 
@@ -13,7 +13,7 @@ std::mt19937 soil_simulator::rng;
 
 /// This function removes the prefix of glog message.
 void EmptyPrefix(std::ostream &s, const google::LogMessageInfo &l, void*) {
-   s;
+    s;
 }
 
 int main(int argc, char* argv[]) {

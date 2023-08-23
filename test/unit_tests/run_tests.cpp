@@ -3,8 +3,8 @@ This file runs all unit tests.
 
 Copyright, 2023, Vilella Kenny.
 */
-#include <random>
 #include <glog/logging.h>
+#include <random>
 #include "gtest/gtest.h"
 #include "src/soil_dynamics.hpp"
 

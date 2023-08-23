@@ -5,6 +5,9 @@ Copyright, 2023, Vilella Kenny.
 */
 #pragma once
 
+#include <tuple>
+#include <vector>
+
 namespace soil_simulator {
 
 /// \brief This function provides an example script to run the simulator.
