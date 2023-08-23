@@ -1,6 +1,9 @@
 # Setup benchmarking
 find_package(benchmark REQUIRED)
 
+# Setup Logging
+find_package (glog REQUIRED)
+
 # Build benchmarking
 add_executable(benchmarks)
 target_sources(benchmarks
@@ -34,4 +37,10 @@ target_sources(benchmarks
 target_link_libraries(
   benchmarks
   benchmark::benchmark
+)
+
+# Link to logging framework
+target_link_libraries(
+  benchmarks
+  glog::glog
 )
