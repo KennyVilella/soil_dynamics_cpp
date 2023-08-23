@@ -3,6 +3,9 @@ enable_testing()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
+# Setup Logging
+find_package (glog REQUIRED)
+
 # Build testing
 add_executable(unit_tests)
 target_sources(unit_tests
@@ -33,4 +36,10 @@ target_sources(unit_tests
 target_link_libraries(
   unit_tests
   GTest::gtest_main
+)
+
+# Link to logging framework
+target_link_libraries(
+  unit_tests
+  glog::glog
 )
