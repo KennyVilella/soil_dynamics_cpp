@@ -7,6 +7,7 @@ Copyright, 2023, Vilella Kenny.
 #include <iostream>
 #include <random>
 #include <vector>
+#include <glog/logging.h>
 #include "test/example/soil_evolution.hpp"
 #include "src/soil_dynamics.hpp"
 #include "src/types.hpp"
@@ -290,7 +291,7 @@ void soil_simulator::SoilEvolution(
     // Simulation loop
     for (auto ii = 0; ii < time_vec.size(); ii++) {
         if (logging)
-            std::cout << "Step " << ii << " / " << time_vec.size()-1 << "\n";
+            LOG(INFO) << "Step " << ii << " / " << time_vec.size()-1;
 
         // Stepping the soil dynamics
         sim.step(
