@@ -9,6 +9,7 @@ Copyright, 2023, Vilella Kenny.
 #include <tuple>
 #include <utility>
 #include <vector>
+#include <glog/logging.h>
 #include "src/types.hpp"
 #include "src/intersecting_cells.hpp"
 
@@ -125,9 +126,9 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
         }
 
         if (h_soil > tol) {
-            std::cout << "WARNING: Not all soil intersecting with a bucket" <<
-                " layer could be moved\n The extra soil has been arbitrarily" <<
-                "removed";
+            LOG(WARNING) << "WARNING\nNot all soil intersecting with a " <<
+                "bucket layer could be moved\nThe extra soil has been " <<
+                "arbitrarily removed";
         }
 
         // Updating bucket soil
