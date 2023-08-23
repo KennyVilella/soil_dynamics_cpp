@@ -11,9 +11,14 @@ Copyright, 2023, Vilella Kenny.
 // Defining RNG
 std::mt19937 soil_simulator::rng;
 
+/// This function removes the prefix of glog message.
+void EmptyPrefix(std::ostream &s, const google::LogMessageInfo &l, void*) {
+   s;
+}
+
 int main(int argc, char* argv[]) {
     // Initialize Google’s logging library.
-    google::InitGoogleLogging(argv[0]);
+    google::InitGoogleLogging(argv[0], &EmptyPrefix);
 
     // Writting outputs to stderr instead of logfiles
     FLAGS_logtostderr = 1;
