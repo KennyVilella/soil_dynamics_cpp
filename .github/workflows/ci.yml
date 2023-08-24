@@ -54,6 +54,10 @@ jobs:
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
 
+      - name: Install Google Logging
+        run: |
+          sudo apt-get install libgflags-dev libgoogle-glog-dev 
+
       - name: Build the simulator
         run: |
           cmake -S . -B build
@@ -110,6 +114,10 @@ jobs:
 
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
+
+      - name: Install Google Logging
+        run: |
+          sudo apt-get install libgflags-dev libgoogle-glog-dev
 
       - name: Build the unit test
         run: |
