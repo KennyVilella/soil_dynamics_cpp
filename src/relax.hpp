@@ -80,7 +80,7 @@ int CheckUnstableBodyCell(
 ///        the soil column in (`ii_c`, `jj_c`).
 ///
 /// \param sim_out: Class that stores simulation outputs.
-/// \param status: Three-digit number indicating how the soil should avalanche.
+/// \param status: Two-digit number indicating how the soil should avalanche.
 /// \param dh_max: Maximum height difference allowed between two neighboring
 ///                cells. [m]
 /// \param ii: Index of the considered cell in the X direction.
