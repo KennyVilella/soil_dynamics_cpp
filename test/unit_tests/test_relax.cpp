@@ -1033,7 +1033,6 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     delete sim_out;
 }
 
-/*
 TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
@@ -1043,7 +1042,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->terrain_[10][14] = 0.4;
     sim_out->terrain_[10][15] = 0.1;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 400, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 40, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], 0.2, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1057,7 +1056,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = -0.5;
     sim_out->body_soil_[3][10][15] = -0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 211, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
@@ -1077,7 +1076,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = 0.3;
     sim_out->body_soil_[3][10][15] = 0.5;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 211, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
@@ -1097,7 +1096,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = -0.5;
     sim_out->body_soil_[3][10][15] = -0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 212, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 21, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
@@ -1115,7 +1114,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = -0.4;
     sim_out->body_[3][10][15] = 0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 221, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1129,7 +1128,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 221, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1145,7 +1144,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 222, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 22, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
@@ -1166,7 +1165,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = -0.5;
     sim_out->body_soil_[1][10][15] = -0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 131, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
@@ -1186,7 +1185,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = -0.1;
     sim_out->body_soil_[1][10][15] = 0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 131, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
@@ -1206,7 +1205,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = -0.5;
     sim_out->body_soil_[1][10][15] = -0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 132, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 13, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
@@ -1224,7 +1223,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[0][10][15] = -0.5;
     sim_out->body_[1][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 141, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.5, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1238,7 +1237,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[0][10][15] = -0.3;
     sim_out->body_[1][10][15] = -0.1;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 141, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1254,7 +1253,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 142, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 14, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
@@ -1280,7 +1279,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = -0.3;
     sim_out->body_soil_[3][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 311, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
@@ -1311,7 +1310,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = 0.5;
     sim_out->body_soil_[3][10][15] = 0.7;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 311, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
@@ -1342,7 +1341,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = -0.3;
     sim_out->body_soil_[3][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 312, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 31, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
@@ -1368,7 +1367,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = -0.4;
     sim_out->body_[3][10][15] = -0.3;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 321, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1386,7 +1385,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = 0.2;
     sim_out->body_[3][10][15] = 0.4;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 321, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1406,7 +1405,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 322, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 32, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
@@ -1432,7 +1431,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = -0.3;
     sim_out->body_soil_[1][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 331, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
@@ -1457,7 +1456,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = -0.1;
     sim_out->body_soil_[1][10][15] = 0.0;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 331, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
@@ -1482,7 +1481,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = -0.3;
     sim_out->body_soil_[1][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 332, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 33, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
@@ -1504,7 +1503,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = -0.7;
     sim_out->body_[3][10][15] = -0.6;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 341, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1522,7 +1521,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = -0.3;
     sim_out->body_[3][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 341, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1542,7 +1541,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 342, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 34, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
@@ -1558,6 +1557,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     delete sim_out;
 }
 
+/*
 TEST(UnitTestRelax, RelaxTerrain) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
