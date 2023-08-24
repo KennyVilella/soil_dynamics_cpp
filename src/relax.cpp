@@ -458,6 +458,11 @@ int soil_simulator::CheckUnstableBodyCell(
         status = 20;
 
         if (
+            sim_out->body_[ind+1][ii][jj] + tol < sim_out->body_[2][ii_c][jj_c]
+        ) {
+            // Soil should avalanche to the terrain
+            column_top = sim_out->terrain_[ii_c][jj_c];
+        } else if (
             (sim_out->body_soil_[2][ii_c][jj_c] != 0.0) ||
             (sim_out->body_soil_[3][ii_c][jj_c] != 0.0)) {
             // Bucket soil is present
@@ -478,6 +483,11 @@ int soil_simulator::CheckUnstableBodyCell(
         status = 10;
 
         if (
+            sim_out->body_[ind+1][ii][jj] + tol < sim_out->body_[0][ii_c][jj_c]
+        ) {
+            // Soil should avalanche to the terrain
+            column_top = sim_out->terrain_[ii_c][jj_c];
+        } else if (
             (sim_out->body_soil_[0][ii_c][jj_c] != 0.0) ||
             (sim_out->body_soil_[1][ii_c][jj_c] != 0.0)
         ) {
@@ -704,7 +714,7 @@ void soil_simulator::RelaxUnstableBodyCell(
     float h_new;
     float h_new_c;
 
-    if (status == 40) {
+    if (st[1] == '0') {
         // No Bucket
         // Calculating new height values
         h_new = 0.5 * (
@@ -715,6 +725,28 @@ void soil_simulator::RelaxUnstableBodyCell(
         h_new_c = (
             sim_out->body_soil_[ind+1][ii][jj] + sim_out->terrain_[ii_c][jj_c] -
             h_new);
+
+        if (st[0] == '1') {
+            // First bucket layer is present
+            if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
+                // Not enough space for all the soil
+                h_new_c = sim_out->body_[0][ii_c][jj_c];
+                h_new = (
+                    sim_out->body_soil_[ind+1][ii][jj] -
+                    sim_out->body_[0][ii_c][jj_c] +
+                    sim_out->terrain_[ii_c][jj_c]);
+            }
+        } else if (st[0] == '2') {
+            // Second bucket layer is present
+            if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
+                // Not enough space for all the soil
+                h_new_c = sim_out->body_[2][ii_c][jj_c];
+                h_new = (
+                    sim_out->body_soil_[ind+1][ii][jj] -
+                    sim_out->body_[2][ii_c][jj_c] +
+                    sim_out->terrain_[ii_c][jj_c]);
+            }
+        }
 
         if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
             // Soil on the bucket should partially avalanche
