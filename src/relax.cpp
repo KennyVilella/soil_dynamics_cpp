@@ -658,8 +658,8 @@ void soil_simulator::RelaxUnstableTerrainCell(
                     // Not enough space for all the soil
                     h_new_c = sim_out->body_[0][ii_c][jj_c];
                     h_new = (
-                        sim_out->terrain_[ii][jj] +
-                        sim_out->body_[0][ii_c][jj_c] -
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[0][ii_c][jj_c] +
                         sim_out->body_soil_[3][ii_c][jj_c]);
                 }
             }
@@ -687,8 +687,8 @@ void soil_simulator::RelaxUnstableTerrainCell(
                     // Not enough space for all the soil
                     h_new_c = sim_out->body_[0][ii_c][jj_c];
                     h_new = (
-                        sim_out->terrain_[ii][jj] +
-                        sim_out->body_[0][ii_c][jj_c] -
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[0][ii_c][jj_c] +
                         sim_out->body_[3][ii_c][jj_c]);
                 }
             }
@@ -721,8 +721,8 @@ void soil_simulator::RelaxUnstableTerrainCell(
                     // Not enough space for all the soil
                     h_new_c = sim_out->body_[2][ii_c][jj_c];
                     h_new = (
-                        sim_out->terrain_[ii][jj] +
-                        sim_out->body_[2][ii_c][jj_c] -
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[2][ii_c][jj_c] +
                         sim_out->body_soil_[1][ii_c][jj_c]);
                 }
             }
@@ -750,8 +750,8 @@ void soil_simulator::RelaxUnstableTerrainCell(
                     // Not enough space for all the soil
                     h_new_c = sim_out->body_[2][ii_c][jj_c];
                     h_new = (
-                        sim_out->terrain_[ii][jj] +
-                        sim_out->body_[2][ii_c][jj_c] -
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[2][ii_c][jj_c] +
                         sim_out->body_[1][ii_c][jj_c]);
                 }
             }
