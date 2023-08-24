@@ -950,7 +950,7 @@ Note that <computeroutput>MoveIntersectingBodySoil</computeroutput> must be call
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="22" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="17" bodyend="24" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="22" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="22" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="18" bodyend="25" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="22" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a81b23c9cf33af5de4da526de32fc3e4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -994,7 +994,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="29" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="45" bodyend="136" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="29" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="29" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="46" bodyend="137" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="29" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1039,7 +1039,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="36" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="152" bodyend="251" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="36" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="36" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="153" bodyend="252" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="36" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a8782f9bf7be372b263e6d4c045a2c802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; int, int, int, float, bool &gt;</type>
@@ -1184,7 +1184,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="58" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="271" bodyend="461" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="58" declcolumn="12"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="58" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="272" bodyend="462" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="58" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -1224,7 +1224,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="67" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="463" bodyend="493" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="67" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" line="67" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.cpp" bodystart="464" bodyend="494" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/intersecting_cells.hpp" declline="67" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1adba6d77a9de31f9f32f1f94be197b745" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1977,7 +1977,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="22" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="16" bodyend="36" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="22" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="22" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="17" bodyend="37" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="22" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2020,7 +2020,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="36" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="40" bodyend="57" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="36" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="36" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="41" bodyend="58" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="36" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2051,7 +2051,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="45" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="64" bodyend="90" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="45" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="45" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="65" bodyend="91" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="45" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -2093,7 +2093,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="53" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="94" bodyend="107" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="53" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="53" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="95" bodyend="108" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="53" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1aa73c7a46ed52e9eeb51bcd48e459e4b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2148,7 +2148,7 @@ The mathematical reasoning behind this implementation can be easily found in the
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="63" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="110" bodyend="149" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="63" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" line="63" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.cpp" bodystart="111" bodyend="149" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/utils.hpp" declline="63" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2345,7 +2345,7 @@ This example script simulates a bucket performing a simple digging scoop in the 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="20" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.cpp" bodystart="28" bodyend="310" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="20" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.cpp" bodystart="30" bodyend="312" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="23" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="soil__evolution_8hpp_1aa35555d66b277c532fedcee36e34a40d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;&gt;</type>
@@ -2435,7 +2435,7 @@ This example script simulates a bucket performing a simple digging scoop in the 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="41" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="41" declcolumn="2"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" line="44" column="2" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.hpp" declline="44" declcolumn="2"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
