@@ -61,6 +61,10 @@ jobs:
         with:
           repository: google/glog
 
+      - name: Install dependencies of Google Logging
+        run: |
+          sudo apt-get install libgflags-dev libunwind-dev
+
       - name: Install Google Logging
         run: |
           cmake -S . -B build -G "Unix Makefiles"
