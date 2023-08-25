@@ -63,7 +63,7 @@ jobs:
 
       - name: Install Google Logging
         run: |
-          cd glog
+          ls
           cmake -S . -B build -G "Unix Makefiles"
           cmake --build build
 
