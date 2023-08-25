@@ -56,9 +56,16 @@ jobs:
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
 
+      - name: Clone Google Logging repo
+        uses: actions/checkout@v3
+        with:
+          repository: google/glog
+
       - name: Install Google Logging
         run: |
-          sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev 
+          cd glog
+          cmake -S . -B build -G "Unix Makefiles"
+          cmake --build build
 
       - name: Build the example script
         env:
