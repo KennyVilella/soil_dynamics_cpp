@@ -22,6 +22,20 @@ jobs:
 
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
+      - name: Clone Google Logging repo
+        uses: actions/checkout@v3
+        with:
+          repository: google/glog
+
+      - name: Install dependencies of Google Logging
+        run: |
+          sudo apt-get install libgflags-dev libunwind-dev
+
+      - name: Install Google Logging
+        run: |
+          cmake -S . -B build -G "Unix Makefiles"
+          cmake --build build
+
       - name: Checkout the repository
         uses: actions/checkout@v3
 
@@ -30,7 +44,6 @@ jobs:
 
       - name: Run cpplint on the source files
         run: |
-          pwd
           cd src
           cpplint *
           cd ..
@@ -56,22 +69,6 @@ jobs:
 
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
-
-      - name: Clone Google Logging repo
-        uses: actions/checkout@v3
-        with:
-          repository: google/glog
-
-      - name: Install dependencies of Google Logging
-        run: |
-          sudo apt-get install libgflags-dev libunwind-dev
-
-      - name: Install Google Logging
-        run: |
-          cmake -S . -B build -G "Unix Makefiles"
-          cmake --build build
-          cd ../soil_dynamics_cpp
-          pwd
 
       - name: Build the example script
         env:
