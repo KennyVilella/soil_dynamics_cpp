@@ -18,6 +18,8 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+        compiler: [gcc]
+
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
       - name: Checkout the repository
@@ -58,6 +60,12 @@ jobs:
         run: |
           sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev 
 
+      - name: Build the example script
+        env:
+          CC: ${{ matrix.compiler }}
+        run: |
+          cmake --build build --target soil_evolution
+
       - name: Build the simulator
         run: |
           cmake -S . -B build
@@ -66,10 +74,6 @@ jobs:
       - name: Build the unit tests
         run: |
           cmake --build build --target unit_tests
-
-      - name: Build the example script
-        run: |
-          cmake --build build --target soil_evolution
 
       - name: Build the benchmark functions
         run: |
