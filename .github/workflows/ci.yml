@@ -21,24 +21,6 @@ jobs:
 
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
-      - name: Clone Google Logging repo
-        uses: actions/checkout@v3
-        with:
-          repository: google/glog
-
-      - name: Install dependencies of Google Logging
-        run: |
-          sudo apt-get install libgflags-dev libunwind-dev
-
-      - name: Install Google Logging
-        run: |
-          cmake -S . -B build -G "Unix Makefiles"
-          cmake --build build
-          sudo cmake --build build --target install
-
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-
       # ---------------------------------------------------------------------- #
       # ------------------------ Install dependencies ------------------------ #
       # ---------------------------------------------------------------------- #
@@ -58,9 +40,29 @@ jobs:
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
 
+      # Google Logging has to be installed from source
+      # This is because the example script use LogMessageInfo
+      # that is not recognized when using the ubuntu package
+      - name: Clone Google Logging repo
+        uses: actions/checkout@v3
+        with:
+          repository: google/glog
+
+      - name: Install dependencies of Google Logging
+        run: sudo apt-get install libgflags-dev libunwind-dev
+
+      - name: Install Google Logging
+        run: |
+          cmake -S . -B build -G "Unix Makefiles"
+          cmake --build build
+          sudo cmake --build build --target install
+
       # ---------------------------------------------------------------------- #
       # ---------------------- Run linter on all files ----------------------- #
       # ---------------------------------------------------------------------- #
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
       - name: Run cpplint on the source files
         run: cpplint src/*
 
@@ -68,7 +70,7 @@ jobs:
         run: cpplint --filter=-'readability/fn_size' test/unit_tests/*
 
       - name: Run cpplint on the example script
-        run: cpplint test/examnple//*
+        run: cpplint test/examnple/*
 
       - name: Run cpplint on the benchmark files
         run: cpplint --filter=-'runtime/references' test/benchmarks/*
@@ -76,10 +78,11 @@ jobs:
       # ---------------------------------------------------------------------- #
       # ------------------------- Build all targets -------------------------- #
       # ---------------------------------------------------------------------- #
+      - name: Build the environment
+        run: cmake -S . -B build
+
       - name: Build the simulator
-        run: |
-          cmake -S . -B build
-          cmake --build build --target soil_dynamics
+        run: cmake --build build --target soil_dynamics
 
       - name: Build the unit tests
         run: cmake --build build --target unit_tests
@@ -131,8 +134,7 @@ jobs:
         run: sudo apt-get install libbenchmark-dev
 
       - name: Install Google Logging
-        run: |
-          sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev
+        run: sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev
 
       - name: Build the unit test
         run: |
