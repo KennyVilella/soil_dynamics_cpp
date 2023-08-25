@@ -30,6 +30,7 @@ jobs:
 
       - name: Run cpplint on the source files
         run: |
+          pwd
           cd src
           cpplint *
           cd ..
@@ -70,7 +71,7 @@ jobs:
           cmake -S . -B build -G "Unix Makefiles"
           cmake --build build
           cd ../soil_dynamics_cpp
-          ls
+          pwd
 
       - name: Build the example script
         env:
