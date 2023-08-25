@@ -64,6 +64,7 @@ jobs:
         env:
           CC: ${{ matrix.compiler }}
         run: |
+          cmake -S . -B build
           cmake --build build --target soil_evolution
 
       - name: Build the simulator
