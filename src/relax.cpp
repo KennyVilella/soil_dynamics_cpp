@@ -396,10 +396,11 @@ int soil_simulator::CheckUnstableTerrainCell(
                             (sim_out->body_soil_[ind_top+1][ii_c][jj_c] != 0.0)
                         ) {
                             // Bucket soil is present on the top bucket layer
-                            column_top = sim_out->body_soil_[ind_top+1][ii_c][jj_c];
+                            column_top = (
+                                sim_out->body_soil_[ind_top+1][ii_c][jj_c]);
                             status += ind_bot + 1;
                         } else {
-                            // Bucket soil is not present on the top bucket layer
+                            // Bucket soil is not present on top bucket layer
                             column_top = sim_out->body_[ind_top+1][ii_c][jj_c];
                             status += ind_bot + 2;
                         }
@@ -651,8 +652,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
 
         if (st[0] == '3') {
             // Two bucket layers are present
-            if (sim_out->body_[3][ii_c][jj_c] < sim_out->body_[0][ii_c][jj_c])
-            {
+            if (sim_out->body_[3][ii_c][jj_c] < sim_out->body_[0][ii_c][jj_c]) {
                 // Soil should avalanche between the two bucket layer
                 if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
                     // Not enough space for all the soil
@@ -680,8 +680,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
 
         if (st[0] == '3') {
             // Two bucket layers are present
-            if (sim_out->body_[3][ii_c][jj_c] < sim_out->body_[0][ii_c][jj_c])
-            {
+            if (sim_out->body_[3][ii_c][jj_c] < sim_out->body_[0][ii_c][jj_c]) {
                 // Soil should avalanche between the two bucket layer
                 if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
                     // Not enough space for all the soil
@@ -714,8 +713,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
 
         if (st[0] == '3') {
             // Two bucket layers are present
-            if (sim_out->body_[1][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c])
-            {
+            if (sim_out->body_[1][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche between the two bucket layer
                 if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
                     // Not enough space for all the soil
@@ -743,8 +741,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
 
         if (st[0] == '3') {
             // Two bucket layers are present
-            if (sim_out->body_[1][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c])
-            {
+            if (sim_out->body_[1][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche between the two bucket layer
                 if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
                     // Not enough space for all the soil
