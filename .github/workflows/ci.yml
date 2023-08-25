@@ -65,9 +65,7 @@ jobs:
         run: |
           cmake -S . -B build -G "Unix Makefiles"
           cmake --build build
-          cd ../
-          ls
-          cd soil_simulator_cpp/
+          cd ../soil_dynamics_cpp
 
       - name: Build the example script
         env:
