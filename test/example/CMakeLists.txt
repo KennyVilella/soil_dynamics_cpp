@@ -1,8 +1,6 @@
 # Setup Logging
 find_package (glog REQUIRED)
 
-set(CMAKE_CXX_FLAGS "-DGLOG_CUSTOM_PREFIX_SUPPORT")
-
 # Build example script
 add_executable(soil_evolution)
 target_sources(soil_evolution
