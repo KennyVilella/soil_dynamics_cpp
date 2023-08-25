@@ -63,9 +63,11 @@ jobs:
 
       - name: Install Google Logging
         run: |
-          ls
           cmake -S . -B build -G "Unix Makefiles"
           cmake --build build
+          cd ../
+          ls
+          cd soil_simulator_cpp/
 
       - name: Build the example script
         env:
