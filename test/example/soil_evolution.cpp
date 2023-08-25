@@ -3,9 +3,11 @@ This file implements an example script for the simulator.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <glog/logging.h>
 #include <algorithm>
 #include <iostream>
 #include <random>
+#include <tuple>
 #include <vector>
 #include "test/example/soil_evolution.hpp"
 #include "src/soil_dynamics.hpp"
@@ -290,7 +292,7 @@ void soil_simulator::SoilEvolution(
     // Simulation loop
     for (auto ii = 0; ii < time_vec.size(); ii++) {
         if (logging)
-            std::cout << "Step " << ii << " / " << time_vec.size()-1 << "\n";
+            LOG(INFO) << "Step " << ii << " / " << time_vec.size()-1;
 
         // Stepping the soil dynamics
         sim.step(

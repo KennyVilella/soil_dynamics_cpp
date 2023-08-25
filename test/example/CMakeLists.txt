@@ -1,3 +1,7 @@
+# Setup Logging
+find_package (glog REQUIRED)
+
+# Build example script
 add_executable(soil_evolution)
 target_sources(soil_evolution
     PUBLIC
@@ -18,4 +22,10 @@ target_sources(soil_evolution
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/relax.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.hpp
+)
+
+# Link to logging framework
+target_link_libraries(
+  soil_evolution
+  glog::glog
 )

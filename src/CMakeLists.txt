@@ -1,5 +1,8 @@
-add_executable(soil_dynamics)
+# Setup Logging
+find_package (glog REQUIRED)
 
+# Build simulator
+add_executable(soil_dynamics)
 target_sources(soil_dynamics
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
@@ -17,4 +20,10 @@ target_sources(soil_dynamics
         ${CMAKE_CURRENT_SOURCE_DIR}/relax.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils.hpp
+)
+
+# Link to logging framework
+target_link_libraries(
+  soil_dynamics
+  glog::glog
 )

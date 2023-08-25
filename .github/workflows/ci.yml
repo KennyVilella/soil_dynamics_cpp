@@ -18,8 +18,24 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
+      - name: Clone Google Logging repo
+        uses: actions/checkout@v3
+        with:
+          repository: google/glog
+
+      - name: Install dependencies of Google Logging
+        run: |
+          sudo apt-get install libgflags-dev libunwind-dev
+
+      - name: Install Google Logging
+        run: |
+          cmake -S . -B build -G "Unix Makefiles"
+          cmake --build build
+          sudo cmake --build build --target install
+
       - name: Checkout the repository
         uses: actions/checkout@v3
 
@@ -110,6 +126,10 @@ jobs:
 
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
+
+      - name: Install Google Logging
+        run: |
+          sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev
 
       - name: Build the unit test
         run: |

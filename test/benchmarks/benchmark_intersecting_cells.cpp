@@ -4,12 +4,16 @@ This file implements benchmarking for the functions in intersecting_cells.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
+#include <glog/logging.h>
 #include <random>
 #include "src/intersecting_cells.hpp"
 #include "src/bucket_pos.hpp"
 
 // -- MoveIntersectingCells --
 static void BM_MoveIntersectingCells(benchmark::State& state) {
+    // Writting outputs to stderr instead of logfiles
+    FLAGS_logtostderr = 1;
+
     // Defining inputs
     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
     soil_simulator::SimParam sim_param(0.85, 3, 4);
@@ -58,6 +62,9 @@ BENCHMARK(BM_MoveIntersectingBody)->Unit(benchmark::kMicrosecond);
 
 // -- MoveIntersectingBodySoil --
 static void BM_MoveIntersectingBodySoil(benchmark::State& state) {
+    // Writting outputs to stderr instead of logfiles
+    FLAGS_logtostderr = 1;
+
     // Defining inputs
     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);

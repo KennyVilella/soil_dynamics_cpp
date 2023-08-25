@@ -3,6 +3,7 @@ This file implements the functions used to move the intersecting soil cells.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <glog/logging.h>
 #include <algorithm>
 #include <iostream>
 #include <random>
@@ -125,8 +126,8 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
         }
 
         if (h_soil > tol) {
-            std::cout << "WARNING: Not all soil intersecting with a bucket" <<
-                " layer could be moved\n The extra soil has been arbitrarily" <<
+            LOG(WARNING) << "WARNING\nNot all soil intersecting with a bucket "
+                "layer could be moved\nThe extra soil has been arbitrarily "
                 "removed";
         }
 
