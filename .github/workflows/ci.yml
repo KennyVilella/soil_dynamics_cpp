@@ -21,44 +21,11 @@ jobs:
 
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
-      - name: Clone Google Logging repo
-        uses: actions/checkout@v3
-        with:
-          repository: google/glog
-
-      - name: Install dependencies of Google Logging
-        run: |
-          sudo apt-get install libgflags-dev libunwind-dev
-
-      - name: Install Google Logging
-        run: |
-          cmake -S . -B build -G "Unix Makefiles"
-          cmake --build build
-          sudo cmake --build build --target install
-
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-
+      # ---------------------------------------------------------------------- #
+      # ------------------------ Install dependencies ------------------------ #
+      # ---------------------------------------------------------------------- #
       - name: Install cpplint
         run: pip install cpplint
-
-      - name: Run cpplint on the source files
-        run: |
-          cd src
-          cpplint *
-          cd ..
-
-      - name: Run cpplint on the unit test files
-        run: |
-          cd test/unit_tests/
-          cpplint --filter=-'readability/fn_size' *
-          cd ../..
-
-      - name: Run cpplint on the benchmark files
-        run: |
-          cd test/benchmarks/
-          cpplint --filter=-'runtime/references' *
-          cd ../..
 
       - name: Install Google test
         run: |
@@ -67,29 +34,68 @@ jobs:
           sudo cmake CMakeLists.txt
           sudo make
 
-      - name: Install Google benchmark
-        run: sudo apt-get install libbenchmark-dev
-
-      - name: Build the simulator
-        run: |
-          cmake -S . -B build
-          cmake --build build --target soil_dynamics
-
-      - name: Build the unit tests
-        run: |
-          cmake --build build --target unit_tests
-
-      - name: Build the example script
-        run: |
-          cmake --build build --target soil_evolution
-
-      - name: Build the benchmark functions
-        run: |
-          cmake --build build --target benchmarks
-
       - name: Install Valgrind
         run: sudo apt-get install valgrind
 
+      - name: Install Google benchmark
+        run: sudo apt-get install libbenchmark-dev
+
+      # Google Logging has to be installed from source
+      # This is because the example script use LogMessageInfo
+      # that is not recognized when using the ubuntu package
+      - name: Clone Google Logging repo
+        uses: actions/checkout@v3
+        with:
+          repository: google/glog
+
+      - name: Install dependencies of Google Logging
+        run: sudo apt-get install libgflags-dev libunwind-dev
+
+      - name: Install Google Logging
+        run: |
+          cmake -S . -B build -G "Unix Makefiles"
+          cmake --build build
+          sudo cmake --build build --target install
+
+      # ---------------------------------------------------------------------- #
+      # ---------------------- Run linter on all files ----------------------- #
+      # ---------------------------------------------------------------------- #
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Run cpplint on the source files
+        run: cpplint src/*
+
+      - name: Run cpplint on the unit test files
+        run: cpplint --filter=-'readability/fn_size' test/unit_tests/*
+
+      - name: Run cpplint on the example script
+        run: cpplint test/examnple/*
+
+      - name: Run cpplint on the benchmark files
+        run: cpplint --filter=-'runtime/references' test/benchmarks/*
+
+      # ---------------------------------------------------------------------- #
+      # ------------------------- Build all targets -------------------------- #
+      # ---------------------------------------------------------------------- #
+      - name: Build the environment
+        run: cmake -S . -B build
+
+      - name: Build the simulator
+        run: cmake --build build --target soil_dynamics
+
+      - name: Build the unit tests
+        run: cmake --build build --target unit_tests
+
+      - name: Build the example script
+        run: cmake --build build --target soil_evolution
+
+      - name: Build the benchmark functions
+        run: cmake --build build --target benchmarks
+
+      # ---------------------------------------------------------------------- #
+      # -------------------- Run Valgrind on all targets --------------------- #
+      # ---------------------------------------------------------------------- #
       - name: Run valgrind on the simulator
         run: valgrind --leak-check=yes --error-exitcode=1 ./build/src/soil_dynamics
         shell: bash
@@ -128,8 +134,7 @@ jobs:
         run: sudo apt-get install libbenchmark-dev
 
       - name: Install Google Logging
-        run: |
-          sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev
+        run: sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog-dev
 
       - name: Build the unit test
         run: |
