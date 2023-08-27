@@ -1487,9 +1487,9 @@ It is important to note that the cells selected by this function are not necessa
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Three-digit number indicating how the soil should avalanche. <computeroutput>0</computeroutput> is returned if the soil column is stable.</para>
+<simplesect kind="return"><para>Two-digit number indicating how the soil should avalanche. <computeroutput>0</computeroutput> is returned if the soil column is stable.</para>
 </simplesect>
-In case of instability, this function returns a three-digit number (<computeroutput>status</computeroutput>) that provides information on how the soil should avalanche. The interpretation of the three-digit number is described below.</para>
+In case of instability, this function returns a two-digit number (<computeroutput>status</computeroutput>) that provides information on how the soil should avalanche. The interpretation of the two-digit number is described below.</para>
 <para>The first digit indicates the potential presence of the bucket:<itemizedlist>
 <listitem><para>1 when the first bucket layer is present.</para>
 </listitem><listitem><para>2 when the second bucket layer is present.</para>
@@ -1497,26 +1497,20 @@ In case of instability, this function returns a three-digit number (<computerout
 </listitem><listitem><para>4 when no bucket layer is present.</para>
 </listitem></itemizedlist>
 </para>
-<para>The second digit indicates the layer at the top where the soil should avalanche:<itemizedlist>
-<listitem><para>0 when it is the <computeroutput>terrain</computeroutput> (no bucket is present).</para>
+<para>The second digit indicates the layer where the soil should avalanche:<itemizedlist>
+<listitem><para>0 when it is the terrai` (no bucket is present).</para>
 </listitem><listitem><para>1 when it is the second bucket soil layer.</para>
 </listitem><listitem><para>2 when it is the second bucket layer.</para>
 </listitem><listitem><para>3 when it is the first bucket soil layer.</para>
 </listitem><listitem><para>4 when it is the first bucket layer.</para>
 </listitem></itemizedlist>
 </para>
-<para>The third digit indicates whether the soil should avalanche below or above the bucket:<itemizedlist>
-<listitem><para>0 when there is no bucket.</para>
-</listitem><listitem><para>1 when the soil should avalanche below the bucket.</para>
-</listitem><listitem><para>2 when the soil should avalanche on the top of the bucket.</para>
-</listitem></itemizedlist>
-</para>
-<para>The combination of these three digits provides a comprehensive description of how the soil should avalanche in different scenarios.</para>
-<para>Note that not all combinations for <computeroutput>status</computeroutput> are possible. Some combinations, such as <computeroutput>401</computeroutput>, <computeroutput>231</computeroutput> and <computeroutput>220</computeroutput>, are impossible. </para>
+<para>The combination of these two digits provides a comprehensive description of how the soil should avalanche in different scenarios.</para>
+<para>Note that not all combinations for <computeroutput>status</computeroutput> are possible. Some combinations, such as <computeroutput>41</computeroutput> or <computeroutput>23</computeroutput> are impossible. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="57" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="302" bodyend="413" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="57" declcolumn="5"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="57" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="295" bodyend="425" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="57" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1a846b24cfecc8f7c152a08debe27953c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1635,7 +1629,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 </listitem></itemizedlist>
 </para>
 <para>The second digit indicates the layer where the soil should avalanche:<itemizedlist>
-<listitem><para>0 when it is the <computeroutput>terrain</computeroutput> (no bucket is present).</para>
+<listitem><para>0 when it is the terrain (no bucket is present).</para>
 </listitem><listitem><para>1 when it is the second bucket soil layer.</para>
 </listitem><listitem><para>2 when it is the second bucket layer.</para>
 </listitem><listitem><para>3 when it is the first bucket soil layer.</para>
@@ -1643,11 +1637,11 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 </listitem></itemizedlist>
 </para>
 <para>The combination of these two digits provides a comprehensive description of how the soil should avalanche in different scenarios.</para>
-<para>Note that not all combinations for <computeroutput>status</computeroutput> are possible. Some combinations, such as <computeroutput>41</computeroutput> and <computeroutput>23</computeroutput> are impossible. </para>
+<para>Note that not all combinations for <computeroutput>status</computeroutput> are possible. Some combinations, such as <computeroutput>41</computeroutput> or <computeroutput>23</computeroutput> are impossible. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="75" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="437" bodyend="570" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="75" declcolumn="5"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="75" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="449" bodyend="582" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="75" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1abff80b8641b27531ca4fe202ba0fa162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1707,7 +1701,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 <parametername>status</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Three-digit number indicating how the soil should avalanche. </para>
+<para>Two-digit number indicating how the soil should avalanche. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1773,7 +1767,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="92" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="582" bodyend="696" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="92" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="92" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="594" bodyend="765" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="92" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1ab302e765b73adc70fb91f5ae814a577d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1923,7 +1917,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="111" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="707" bodyend="1129" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="111" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" line="111" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.cpp" bodystart="776" bodyend="1198" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/src/relax.hpp" declline="111" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; float &gt;</type>

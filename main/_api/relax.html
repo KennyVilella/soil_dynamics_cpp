@@ -163,7 +163,7 @@ It is important to note that the cells selected by this function are not necessa
 <span id="_CPPv3N14soil_simulator24CheckUnstableTerrainCellEP6SimOutiiff"></span><span id="_CPPv2N14soil_simulator24CheckUnstableTerrainCellEP6SimOutiiff"></span><span id="soil_simulator::CheckUnstableTerrainCell__SimOutP.i.i.float.float"></span><span class="target" id="relax_8hpp_1ab7ab093b938d3cd2678a004f26fdb7e4"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckUnstableTerrainCell</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ii_c</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">jj_c</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h_min</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator24CheckUnstableTerrainCellEP6SimOutiiff" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This function checks the stability of a soil column in <code class="docutils literal notranslate"><span class="pre">terrain_</span></code> compared to one of its neighbor (<code class="docutils literal notranslate"><span class="pre">ii_c</span></code>, <code class="docutils literal notranslate"><span class="pre">jj_c</span></code>) </p>
 <p>
-In case of instability, this function returns a three-digit number (<code class="docutils literal notranslate"><span class="pre">status</span></code>) that provides information on how the soil should avalanche. The interpretation of the three-digit number is described below.</p>
+In case of instability, this function returns a two-digit number (<code class="docutils literal notranslate"><span class="pre">status</span></code>) that provides information on how the soil should avalanche. The interpretation of the two-digit number is described below.</p>
 <p>The first digit indicates the potential presence of the bucket:<ul class="simple">
 <li><p>1 when the first bucket layer is present.</p></li>
 <li><p>2 when the second bucket layer is present.</p></li>
@@ -171,22 +171,16 @@ In case of instability, this function returns a three-digit number (<code class=
 <li><p>4 when no bucket layer is present.</p></li>
 </ul>
 </p>
-<p>The second digit indicates the layer at the top where the soil should avalanche:<ul class="simple">
-<li><p>0 when it is the <code class="docutils literal notranslate"><span class="pre">terrain</span></code> (no bucket is present).</p></li>
+<p>The second digit indicates the layer where the soil should avalanche:<ul class="simple">
+<li><p>0 when it is the terrai` (no bucket is present).</p></li>
 <li><p>1 when it is the second bucket soil layer.</p></li>
 <li><p>2 when it is the second bucket layer.</p></li>
 <li><p>3 when it is the first bucket soil layer.</p></li>
 <li><p>4 when it is the first bucket layer.</p></li>
 </ul>
 </p>
-<p>The third digit indicates whether the soil should avalanche below or above the bucket:<ul class="simple">
-<li><p>0 when there is no bucket.</p></li>
-<li><p>1 when the soil should avalanche below the bucket.</p></li>
-<li><p>2 when the soil should avalanche on the top of the bucket.</p></li>
-</ul>
-</p>
-<p>The combination of these three digits provides a comprehensive description of how the soil should avalanche in different scenarios.</p>
-<p>Note that not all combinations for <code class="docutils literal notranslate"><span class="pre">status</span></code> are possible. Some combinations, such as <code class="docutils literal notranslate"><span class="pre">401</span></code>, <code class="docutils literal notranslate"><span class="pre">231</span></code> and <code class="docutils literal notranslate"><span class="pre">220</span></code>, are impossible. </p>
+<p>The combination of these two digits provides a comprehensive description of how the soil should avalanche in different scenarios.</p>
+<p>Note that not all combinations for <code class="docutils literal notranslate"><span class="pre">status</span></code> are possible. Some combinations, such as <code class="docutils literal notranslate"><span class="pre">41</span></code> or <code class="docutils literal notranslate"><span class="pre">23</span></code> are impossible. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -198,7 +192,7 @@ In case of instability, this function returns a three-digit number (<code class=
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Three-digit number indicating how the soil should avalanche. <code class="docutils literal notranslate"><span class="pre">0</span></code> is returned if the soil column is stable.</p>
+<dd class="field-even"><p>Two-digit number indicating how the soil should avalanche. <code class="docutils literal notranslate"><span class="pre">0</span></code> is returned if the soil column is stable.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -217,7 +211,7 @@ In case of instability, this function returns a two-digit number (<code class="d
 </ul>
 </p>
 <p>The second digit indicates the layer where the soil should avalanche:<ul class="simple">
-<li><p>0 when it is the <code class="docutils literal notranslate"><span class="pre">terrain</span></code> (no bucket is present).</p></li>
+<li><p>0 when it is the terrain (no bucket is present).</p></li>
 <li><p>1 when it is the second bucket soil layer.</p></li>
 <li><p>2 when it is the second bucket layer.</p></li>
 <li><p>3 when it is the first bucket soil layer.</p></li>
@@ -225,7 +219,7 @@ In case of instability, this function returns a two-digit number (<code class="d
 </ul>
 </p>
 <p>The combination of these two digits provides a comprehensive description of how the soil should avalanche in different scenarios.</p>
-<p>Note that not all combinations for <code class="docutils literal notranslate"><span class="pre">status</span></code> are possible. Some combinations, such as <code class="docutils literal notranslate"><span class="pre">41</span></code> and <code class="docutils literal notranslate"><span class="pre">23</span></code> are impossible. </p>
+<p>Note that not all combinations for <code class="docutils literal notranslate"><span class="pre">status</span></code> are possible. Some combinations, such as <code class="docutils literal notranslate"><span class="pre">41</span></code> or <code class="docutils literal notranslate"><span class="pre">23</span></code> are impossible. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -257,7 +251,7 @@ The precise movement applied to the soil cell depends on the <code class="docuti
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
-<li><p><strong>status</strong> – Three-digit number indicating how the soil should avalanche. </p></li>
+<li><p><strong>status</strong> – Two-digit number indicating how the soil should avalanche. </p></li>
 <li><p><strong>dh_max</strong> – Maximum height difference allowed between two neighboring cells. [m] </p></li>
 <li><p><strong>ii</strong> – Index of the considered cell in the X direction. </p></li>
 <li><p><strong>jj</strong> – Index of the considered cell in the Y direction. </p></li>
