@@ -61,7 +61,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->terrain_[10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 400);
+    EXPECT_EQ(status, 40);
     sim_out->terrain_[10][15] = 0.0;
 
     // -- Testing case where there is first bucket layer with space under it --
@@ -70,7 +70,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[1][10][15] = 0.0;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 141);
+    EXPECT_EQ(status, 10);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -81,7 +81,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[1][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 142);
+    EXPECT_EQ(status, 14);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -107,7 +107,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = -0.3;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 131);
+    EXPECT_EQ(status, 10);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -123,7 +123,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = -0.3;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 132);
+    EXPECT_EQ(status, 13);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -152,7 +152,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = 0.0;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 221);
+    EXPECT_EQ(status, 20);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
@@ -163,7 +163,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 222);
+    EXPECT_EQ(status, 22);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
@@ -189,7 +189,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.3;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 211);
+    EXPECT_EQ(status, 20);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
@@ -205,7 +205,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.3;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 212);
+    EXPECT_EQ(status, 21);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
@@ -237,7 +237,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.3;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 321);
+    EXPECT_EQ(status, 30);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -245,7 +245,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = 0.0;
 
     // -- Testing case with two bucket layers, first layer being lower --
-    // -- and soil should avalanche on the second bucket layer         --
+    // -- and soil should avalanche on the first bucket layer          --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
@@ -253,7 +253,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.3;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 322);
+    EXPECT_EQ(status, 34);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -262,80 +262,20 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
 
     // -- Testing case with two bucket layers, first layer being lower and    --
     // -- second bucket layer is high enough to prevent soil from avalanching --
+    // -- soil avalanche on the first bucket layer                            --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.2;
+    sim_out->body_[3][10][15] = 0.4;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 0);
+    EXPECT_EQ(status, 34);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
-
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower and has space under it                                --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    status = soil_simulator::CheckUnstableTerrainCell(
-        sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 321);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower, and soil should avalanche on the second bucket layer --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    status = soil_simulator::CheckUnstableTerrainCell(
-        sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 322);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower, second bucket layer is high enough to prevent soil   --
-    // -- from avalanching                                                  --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    status = soil_simulator::CheckUnstableTerrainCell(
-        sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 0);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- it has space under it, while second layer is with bucket soil    --
@@ -348,7 +288,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 311);
+    EXPECT_EQ(status, 30);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -357,8 +297,9 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = 0.0;
     sim_out->body_soil_[3][10][15] = 0.0;
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should avalanche on second bucket layer with bucket soil    --
+    // -- Testing case with two bucket layers, first layer being lower,      --
+    // -- second bucket layer with bucket soil, soil avalanche on the first  --
+    // -- bucket layer                                                       --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
@@ -368,7 +309,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 312);
+    EXPECT_EQ(status, 34);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -379,14 +320,139 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- second bucket layer with bucket soil is high enough to prevent   --
-    // -- soil from avalanching                                            --
+    // -- soil from avalanching, soil avalanche on the first bucket layer  --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
     sim_out->body_[2][10][15] = -0.4;
     sim_out->body_[3][10][15] = -0.3;
     sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = 0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 34);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
     sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower and has space under it                                --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 30);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, soil should avalanche on the first bucket soil layer --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, second bucket layer is high enough to prevent soil   --
+    // -- from avalanching, soil avalanche on the first bucket layer        --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,   --
+    // -- space is available under the bucket                               --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 30);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,   --
+    // -- soil avalanche on the second bucket layer                         --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 32);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil   --
+    // -- being lower, soil fill the space between the two bucket layers,     --
+    // -- second bucket layer is high enough to prevent soil from avalanching --
+    // -- soil does not avalanche                                             --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
@@ -395,8 +461,8 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
 
     // -- Testing case where there are two bucket layers with bucket soil, --
     // -- first layer being lower and it has space under it                --
@@ -411,7 +477,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 311);
+    EXPECT_EQ(status, 30);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -423,7 +489,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = 0.0;
 
     // -- Testing case where there are two bucket layers with bucket soil, --
-    // -- first layer being lower, soil should avalanche on second         --
+    // -- first layer being lower, soil should avalanche on first          --
     // -- bucket layer                                                     --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -436,7 +502,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 312);
+    EXPECT_EQ(status, 33);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -449,7 +515,8 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
 
     // -- Testing case where there are two bucket layers with bucket soil, --
     // -- first layer being lower, second bucket layer is high enough to   --
-    // -- prevent soil from avalanching                                    --
+    // -- prevent soil from avalanching, soil avalanche on the first       --
+    // -- bucket layer                                                     --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
@@ -459,6 +526,82 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = -0.5;
     sim_out->body_soil_[2][10][15] = -0.3;
     sim_out->body_soil_[3][10][15] = 0.0;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil,    --
+    // -- first layer being lower, soil fill the space between the two bucket --
+    // -- layers, space is available under the bucket                         --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 30);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil,    --
+    // -- first layer being lower, soil fill the space between the two bucket --
+    // -- layers, soil should avalanche on the second bucket soil layer       --
+    sim_out->terrain_[10][15] = -0.7;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil,    --
+    // -- first layer being lower, soil fill the space between the two bucket --
+    // -- layers, second bucket layer is high enough to prevent soil from     --
+    // -- avalanching, soil does not avalanche                                --
+    sim_out->terrain_[10][15] = -0.7;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = 0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
@@ -481,7 +624,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.6;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 341);
+    EXPECT_EQ(status, 30);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -489,7 +632,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = 0.0;
 
     // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should avalanche on the first bucket layer                   --
+    // -- soil should avalanche on the second bucket layer                  --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.3;
@@ -497,15 +640,16 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.6;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 342);
+    EXPECT_EQ(status, 32);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
 
-    // -- Testing case with two bucket layers, second layer being lower and  --
-    // -- first bucket layer is high enough to prevent soil from avalanching --
+    // -- Testing case with two bucket layers, second layer being lower and   --
+    // -- first bucket layer is high enough to prevent soil from avalanching, --
+    // -- soil avalanche on the second bucket layer                           --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = 0.0;
@@ -513,73 +657,12 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.6;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 0);
+    EXPECT_EQ(status, 32);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
-
-    // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower and it has space under it                              --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.7;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[2][10][15] = -0.6;
-    sim_out->body_soil_[3][10][15] = -0.5;
-    status = soil_simulator::CheckUnstableTerrainCell(
-        sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 341);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower, soil should avalanche on the first bucket layer       --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[2][10][15] = -0.6;
-    sim_out->body_soil_[3][10][15] = -0.5;
-    status = soil_simulator::CheckUnstableTerrainCell(
-        sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 342);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower, first bucket layer is high enough to prevent soil     --
-    // -- from avalanching                                                   --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[2][10][15] = -0.6;
-    sim_out->body_soil_[3][10][15] = -0.5;
-    status = soil_simulator::CheckUnstableTerrainCell(
-        sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 0);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- has space under it, while the first layer is with bucket soil     --
@@ -592,7 +675,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 331);
+    EXPECT_EQ(status, 30);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -601,8 +684,9 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = 0.0;
     sim_out->body_soil_[1][10][15] = 0.0;
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should avalanche on first bucket layer with bucket soil      --
+    // -- Testing case with two bucket layers, second layer being lower,    --
+    // -- first bucket layer with bucket soil, soil should avalanche on the --
+    // -- second bucket layer                                               --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.3;
@@ -612,7 +696,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 332);
+    EXPECT_EQ(status, 32);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -623,7 +707,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
 
     // -- Testing case with two bucket layers, second layer being lower and --
     // -- first bucket layer with bucket soil is high enough to prevent     --
-    // -- soil from avalanching                                             --
+    // -- soil from avalanching, soil avalanche on the second bucket layer  --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.3;
@@ -633,7 +717,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = 0.0;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 0);
+    EXPECT_EQ(status, 32);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -641,6 +725,131 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[3][10][15] = 0.0;
     sim_out->body_soil_[0][10][15] = 0.0;
     sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower and it has space under it                              --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 30);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, soil should avalanche on the second bucket layer      --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, first bucket layer is high enough to prevent soil     --
+    // -- from avalanching, soil avalanche on the second bucket soil layer   --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,    --
+    // -- space is available under the bucket                                --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 30);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,    --
+    // -- soil avalanche on the first bucket layer                           --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 34);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,    --
+    // -- first bucket layer is high enough to prevent soil from avalanching --
+    // -- soil does not avalanche                                            --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
 
     // -- Testing case where there are two bucket layers with bucket soil, --
     // -- second layer being lower and has space under it                  --
@@ -655,7 +864,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.5;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 331);
+    EXPECT_EQ(status, 30);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -667,7 +876,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = 0.0;
 
     // -- Testing case where there are two bucket layers with bucket soil, --
-    // -- second layer being lower, soil avalanche on first bucket layer   --
+    // -- second layer being lower, soil avalanche on second bucket layer  --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.3;
@@ -679,7 +888,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[3][10][15] = -0.5;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 332);
+    EXPECT_EQ(status, 31);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -692,7 +901,8 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
 
     // -- Testing case where there are two bucket layers with bucket soil, --
     // -- second layer being lower, first bucket layer is high enough to   --
-    // -- prevent soil from avalanching                                    --
+    // -- prevent soil from avalanching, soil avalanche on the second      --
+    // -- bucket layer                                                     --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.3;
@@ -702,6 +912,82 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_soil_[1][10][15] = 0.0;
     sim_out->body_soil_[2][10][15] = -0.6;
     sim_out->body_soil_[3][10][15] = -0.5;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, soil fill the space between the two    --
+    // -- bucket layers, space is available under the bucket               --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 30);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, soil fill the space between the two    --
+    // -- bucket layers, soil avalanche on the first bucket soil layer     --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
+    status = soil_simulator::CheckUnstableTerrainCell(
+        sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, soil fill the space between the two    --
+    // -- bucket layers, first bucket layer is high enough to prevent soil --
+    // -- from avalanching, soil does not avalanche                        --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.3;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
@@ -721,7 +1007,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     sim_out->body_[1][10][15] = -0.2;
     status = soil_simulator::CheckUnstableTerrainCell(
         sim_out, 10, 15, -0.6, 1e-5);
-    EXPECT_EQ(status, 141);
+    EXPECT_EQ(status, 10);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
@@ -756,188 +1042,19 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->terrain_[10][14] = 0.4;
     sim_out->terrain_[10][15] = 0.1;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 400, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 40, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], 0.2, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and it has space under it, the soil fully avalanche        --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[2][10][15] = -0.7;
-    sim_out->body_[3][10][15] = -0.5;
-    sim_out->body_soil_[2][10][15] = -0.5;
-    sim_out->body_soil_[3][10][15] = -0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 211, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and it has space under it, the soil partially avalanche    --
-    sim_out->terrain_[10][15] = -0.3;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.3;
-    sim_out->body_soil_[2][10][15] = 0.3;
-    sim_out->body_soil_[3][10][15] = 0.5;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 211, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and soil should avalanche on it                            --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.5;
-    sim_out->body_soil_[2][10][15] = -0.5;
-    sim_out->body_soil_[3][10][15] = -0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 212, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case where there is the second bucket layer and it has --
-    // -- space under it, the soil fully avalanche                       --
-    sim_out->terrain_[10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = 0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 221, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-
-    // -- Testing case where there is the second bucket layer and it has --
-    // -- space under it, the soil partially avalanche                   --
-    sim_out->terrain_[10][15] = -0.6;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 221, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-
-    // -- Testing case where there is the second bucket layer and soil --
-    // -- should avalanche on it                                       --
-    sim_out->terrain_[10][15] = -0.4;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 222, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case where there is the first bucket layer with bucket --
-    // -- soil and it has space under it, the soil fully avalanche       --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.5;
-    sim_out->body_soil_[0][10][15] = -0.5;
-    sim_out->body_soil_[1][10][15] = -0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 131, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case where there is the first bucket layer with bucket --
-    // -- soil and it has space under it, the soil partially avalanche   --
-    sim_out->terrain_[10][15] = -0.7;
-    sim_out->body_[0][10][15] = -0.2;
-    sim_out->body_[1][10][15] = -0.1;
-    sim_out->body_soil_[0][10][15] = -0.1;
-    sim_out->body_soil_[1][10][15] = 0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 131, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.3, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case where there is the first bucket layer with bucket --
-    // -- soil and soil should avalanche on it                           --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.5;
-    sim_out->body_soil_[0][10][15] = -0.5;
-    sim_out->body_soil_[1][10][15] = -0.3;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 132, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case where there is the first bucket layer and it has --
-    // -- space under it, the soil fully avalanche                      --
+    // -- Testing case where there is first bucket layer with space under it, --
+    // -- soil fully avalanche                                                --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.5;
     sim_out->body_[1][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 141, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.5, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -945,13 +1062,13 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
 
-    // -- Testing case where there is the first bucket layer and it has --
-    // -- space under it, the soil partially avalanche                  --
+    // -- Testing case where there is first bucket layer with space under it, --
+    // -- soil partially avalanche                                            --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.3;
     sim_out->body_[1][10][15] = -0.1;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 141, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -959,15 +1076,14 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
 
-    // -- Testing case where there is the first bucket layer and soil --
-    // -- should avalanche on it                                      --
+    // -- Testing case with first bucket layer and soil fully avalanche on it --
     sim_out->terrain_[10][15] = -0.4;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.2;
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 142, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 14, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
@@ -980,11 +1096,329 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[0][10][15] = 0.0;
     sim_out->body_soil_[1][10][15] = 0.0;
 
-    // -- Testing case where there are two bucket layers with bucket soil, --
-    // -- the first layer being lower and it has space under it,           --
-    // -- the soil fully avalanche                                         --
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and it has space under it, soil fully avalanche                 --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.5;
+    sim_out->body_soil_[0][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = -0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and it has space under it, soil partially avalanche             --
+    sim_out->terrain_[10][15] = -0.7;
+    sim_out->body_[0][10][15] = -0.2;
+    sim_out->body_[1][10][15] = -0.1;
+    sim_out->body_soil_[0][10][15] = -0.1;
+    sim_out->body_soil_[1][10][15] = 0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 10, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.3, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and soil fully avalanche on it                                  --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.5;
+    sim_out->body_soil_[0][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = -0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 13, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with space under it --
+    // -- soil fully avalanche                                                --
+    sim_out->terrain_[10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with space under it --
+    // -- soil partially avalanche                                            --
+    sim_out->terrain_[10][15] = -0.6;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with second bucket layer and soil fully avalanche --
+    // -- on it                                                          --
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 22, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and it has space under it, soil fully avalanche                  --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.5;
+    sim_out->body_soil_[3][10][15] = -0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and it has space under it, soil partially avalanche              --
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.3;
+    sim_out->body_soil_[2][10][15] = 0.3;
+    sim_out->body_soil_[3][10][15] = 0.5;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 20, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and soil should fully avalanche on it                            --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.5;
+    sim_out->body_soil_[2][10][15] = -0.5;
+    sim_out->body_soil_[3][10][15] = -0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 21, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- and it has space under it, soil fully avalanche              --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.7;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- and it has space under it, soil partially avalanche          --
+    sim_out->terrain_[10][15] = -0.5;
+    sim_out->body_[0][10][15] = -0.1;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.2;
+    sim_out->body_[3][10][15] = 0.4;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- and soil should fully avalanche on the first bucket layer    --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = 0.1;
+    sim_out->body_[3][10][15] = 0.3;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 34, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer being lower  --
+    // -- and soil should partially avalanche on the first bucket layer --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.3;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 34, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,   --
+    // -- soil fully avalanche on the second bucket layer                   --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.4;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 32, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- first layer being lower, soil should fully avalanche on first    --
+    // -- bucket layer                                                     --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.4;
+    sim_out->body_[2][10][15] = 0.4;
+    sim_out->body_[3][10][15] = 0.7;
+    sim_out->body_soil_[0][10][15] = -0.4;
+    sim_out->body_soil_[1][10][15] = -0.3;
+    sim_out->body_soil_[2][10][15] = 0.7;
+    sim_out->body_soil_[3][10][15] = 0.9;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 33, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.9, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil,  --
+    // -- first layer being lower, soil should partially avalanche on first --
+    // -- bucket layer                                                      --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
     sim_out->body_[2][10][15] = -0.4;
     sim_out->body_[3][10][15] = -0.3;
@@ -993,11 +1427,11 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = -0.3;
     sim_out->body_soil_[3][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 311, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 33, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1011,55 +1445,24 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = 0.0;
     sim_out->body_soil_[3][10][15] = 0.0;
 
-    // -- Testing case where there are two bucket layers with bucket soil, --
-    // -- the first layer being lower and it has space under it,           --
-    // -- the soil partially avalanche                                     --
-    sim_out->terrain_[10][15] = -0.6;
-    sim_out->body_[0][10][15] = -0.2;
-    sim_out->body_[1][10][15] = -0.1;
-    sim_out->body_[2][10][15] = 0.3;
-    sim_out->body_[3][10][15] = 0.5;
-    sim_out->body_soil_[0][10][15] = -0.1;
-    sim_out->body_soil_[1][10][15] = 0.2;
-    sim_out->body_soil_[2][10][15] = 0.5;
-    sim_out->body_soil_[3][10][15] = 0.7;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 311, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-
-    // -- Testing case where there are two bucket layers with bucket soil, --
-    // -- the first layer being lower, and soil should avalanche on the    --
-    // -- second bucket layer                                              --
+    // -- Testing case where there are two bucket layers with bucket soil,    --
+    // -- first layer being lower, soil fill the space between the two bucket --
+    // -- layers, soil should fully avalanche on the second bucket soil layer --
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
     sim_out->body_[1][10][15] = -0.6;
     sim_out->body_[2][10][15] = -0.4;
     sim_out->body_[3][10][15] = -0.3;
     sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = -0.4;
     sim_out->body_soil_[2][10][15] = -0.3;
     sim_out->body_soil_[3][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 312, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 31, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1073,15 +1476,15 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = 0.0;
     sim_out->body_soil_[3][10][15] = 0.0;
 
-    // -- Testing case where there are two bucket layers, the first layer --
-    // -- being lower and it has space under it, the soil fully avalanche --
+    // -- Testing case with two bucket layers, second layer being lower --
+    // -- and it has space under it, soil fully avalanche               --
     sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[3][10][15] = -0.6;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 321, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
@@ -1091,17 +1494,17 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
 
-    // -- Testing case where there are two bucket layers, the first layer     --
-    // -- being lower and it has space under it, the soil partially avalanche --
-    sim_out->terrain_[10][15] = -0.5;
+    // -- Testing case with two bucket layers, second layer being lower --
+    // -- and it has space under it, soil partially avalanche           --
+    sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.1;
     sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.2;
-    sim_out->body_[3][10][15] = 0.4;
+    sim_out->body_[2][10][15] = -0.3;
+    sim_out->body_[3][10][15] = -0.2;
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 321, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+        sim_out, 30, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
@@ -1109,21 +1512,21 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
 
-    // -- Testing case where there are two bucket layers, the first layer   --
-    // -- being lower, and soil should avalanche on the second bucket layer --
+    // -- Testing case with two bucket layers, second layer being lower --
+    // -- and soil should fully avalanche on the second bucket layer    --
     sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.2;
+    sim_out->body_[1][10][15] = 0.3;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 322, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+        sim_out, 32, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
     EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
@@ -1134,132 +1537,51 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_soil_[2][10][15] = 0.0;
     sim_out->body_soil_[3][10][15] = 0.0;
 
-    // -- Testing case where there are two bucket layers, the second layer  --
-    // -- being lower and has space under it, while the first layer is with --
-    // -- bucket soil, the soil fully avalanche                             --
+    // -- Testing case with two bucket layers, second layer being lower  --
+    // -- and soil should partially avalanche on the second bucket layer --
     sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.7;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[0][10][15] = -0.3;
-    sim_out->body_soil_[1][10][15] = -0.2;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 331, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case where there are two bucket layers, the second layer  --
-    // -- being lower and has space under it, while the first layer is with --
-    // -- bucket soil, the soil partially avalanche                         --
-    sim_out->terrain_[10][15] = -0.9;
-    sim_out->body_[0][10][15] = -0.2;
-    sim_out->body_[1][10][15] = -0.1;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_[0][10][15] = -0.1;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 331, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case where there are two bucket layers, the second layer --
-    // -- being lower, and soil should avalanche on the first bucket layer --
-    // -- with bucket soil                                                 --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.3;
+    sim_out->body_[1][10][15] = 0.3;
     sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[0][10][15] = -0.3;
-    sim_out->body_soil_[1][10][15] = -0.2;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 332, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-
-    // -- Testing case where there are two bucket layers, the second layer --
-    // -- being lower and it has space under it, the soil fully avalanche  --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.7;
-    sim_out->body_[3][10][15] = -0.6;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 341, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-
-    // -- Testing case where there are two bucket layers, the second layer    --
-    // -- being lower and it has space under it, the soil partially avalanche --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.1;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = -0.3;
-    sim_out->body_[3][10][15] = -0.2;
-    soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 341, 0.1, 10, 14, 10, 15, grid, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
-    sim_out->terrain_[10][14] = 0.0;
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-
-    // -- Testing case where there are two bucket layers, the second layer --
-    // -- being lower, and soil should avalanche on the first bucket layer --
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_[3][10][15] = -0.4;
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxUnstableTerrainCell(
-        sim_out, 342, 0.1, 10, 14, 10, 15, grid, 1e-5);
+        sim_out, 32, 0.1, 10, 14, 10, 15, grid, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case with two bucket layers, second layer with bucket soil --
+    // -- being lower, soil fill the space between the two bucket layers,    --
+    // -- soil fully avalanche on the first bucket layer                     --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.6;
+    sim_out->body_[1][10][15] = -0.4;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.7;
+    sim_out->body_soil_[2][10][15] = -0.7;
+    sim_out->body_soil_[3][10][15] = -0.6;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 34, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.6, 1e-5);
     EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
@@ -1267,6 +1589,104 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, soil should fully avalanche on second  --
+    // -- bucket layer                                                     --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.2;
+    sim_out->body_[1][10][15] = -0.1;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.7;
+    sim_out->body_soil_[0][10][15] = -0.1;
+    sim_out->body_soil_[1][10][15] = 0.5;
+    sim_out->body_soil_[2][10][15] = -0.7;
+    sim_out->body_soil_[3][10][15] = -0.6;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 31, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil,    --
+    // -- second layer being lower, soil should partially avalanche on second --
+    // -- bucket layer                                                        --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.5;
+    sim_out->body_[1][10][15] = -0.4;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.7;
+    sim_out->body_soil_[0][10][15] = -0.4;
+    sim_out->body_soil_[1][10][15] = 0.5;
+    sim_out->body_soil_[2][10][15] = -0.7;
+    sim_out->body_soil_[3][10][15] = -0.6;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 31, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+
+    // -- Testing case where there are two bucket layers with bucket soil,  --
+    // -- second layer being lower, soil fill the space between the two     --
+    // -- bucket layers, soil should fully avalanche on the first bucket    --
+    // -- soil layer                                                        --
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.5;
+    sim_out->body_[1][10][15] = -0.4;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.7;
+    sim_out->body_soil_[0][10][15] = -0.4;
+    sim_out->body_soil_[1][10][15] = -0.3;
+    sim_out->body_soil_[2][10][15] = -0.7;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    soil_simulator::RelaxUnstableTerrainCell(
+        sim_out, 33, 0.1, 10, 14, 10, 15, grid, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
 
     delete sim_out;
 }
@@ -1280,6 +1700,26 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->impact_area_[0][1] = 16;
     sim_out->impact_area_[1][0] = 9;
     sim_out->impact_area_[1][1] = 20;
+
+    // -- Testing case with no bucket and soil is not unstable --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.1;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], 0.0, 1e-5);
+    EXPECT_EQ(sim_out->relax_area_[0][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 15);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
     // -- Testing case with no bucket and soil is unstable --
     soil_simulator::rng.seed(200);
@@ -1301,7 +1741,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with first bucket layer and it has space under it --
+    // -- Testing case where there is first bucket layer with space under it --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.2;
     sim_out->body_[0][10][15] = -0.1;
@@ -1356,8 +1796,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with the first bucket layer and it is high enough to --
-    // --  prevent the soil from avalanching                                --
+    // -- Testing case with first bucket layer and it is high enough to --
+    // -- prevent the soil from avalanching                             --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.4;
     sim_out->body_[0][10][15] = -0.4;
@@ -1382,8 +1822,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there is the first bucket layer with bucket soil --
-    // -- and it has space under it                                           --
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and it has space under it                                       --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.7;
@@ -1415,8 +1855,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there is the first bucket layer with bucket soil --
-    // -- and soil should avalanche on it                                     --
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and soil should avalanche on it                                 --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -1450,8 +1890,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there is the first bucket layer with bucket soil --
-    // -- and it is high enough to prevent the soil from avalanching          --
+    // -- Testing case where there is first bucket layer with bucket soil --
+    // -- and it is high enough to prevent the soil from avalanching      --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -1537,7 +1977,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
     // -- Testing case with second bucket layer and it is high enough to --
-    // --  prevent the soil from avalanching                             --
+    // -- prevent the soil from avalanching                              --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.4;
     sim_out->body_[2][10][15] = -0.4;
@@ -1559,8 +1999,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and it has space under it                                  --
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and it has space under it                                        --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[2][10][15] = -0.7;
@@ -1592,8 +2032,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and soil should avalanche on it                            --
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and soil should avalanche on it                                  --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[2][10][15] = -0.8;
@@ -1625,8 +2065,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and it is high enough to prevent the soil from avalanching --
+    // -- Testing case where there is second bucket layer with bucket soil --
+    // -- and it is high enough to prevent the soil from avalanching       --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[2][10][15] = -0.8;
@@ -1656,21 +2096,21 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- it has space under it                                            --
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- and it has space under it, soil avalanche under the bucket   --
     soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.1;
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[0][10][15] = -0.2;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.2;
+    sim_out->body_[3][10][15] = 0.4;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -1685,8 +2125,46 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should avalanche on the second bucket layer                 --
+    // -- Testing case with two bucket layers, first layer being lower and    --
+    // -- second bucket layer is high enough to prevent soil from avalanching --
+    // -- soil avalanche on the first bucket layer                            --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, first layer being lower --
+    // -- soil avalanche on the first bucket layer then on the second  --
+    // -- bucket layer                                                 --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -1701,199 +2179,27 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {2, 10, 15}));
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->terrain_[10][16] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, first layer being lower and    --
-    // -- second bucket layer is high enough to prevent soil from avalanching --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower and has space under it                                --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.1;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
     sim_out->body_soil_[0][10][15] = 0.0;
     sim_out->body_soil_[1][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower and soil should avalanche on the second bucket layer  --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.2;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->terrain_[10][16] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower and the second bucket layer is high enough to prevent --
-    // -- soil from avalanching                                             --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- it has space under it, while second layer is with bucket soil    --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_[2][10][15] = -0.3;
-    sim_out->body_soil_[3][10][15] = 0.4;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.4, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->terrain_[10][16] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
     sim_out->body_soil_[2][10][15] = 0.0;
     sim_out->body_soil_[3][10][15] = 0.0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
@@ -1901,15 +2207,16 @@ TEST(UnitTestRelax, RelaxTerrain) {
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
     // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should avalanche on second bucket layer with bucket soil    --
+    // -- it has space under it, while second layer is with bucket soil,   --
+    // -- soil avalanche under the bucket                                  --
     soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.8;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_[2][10][15] = -0.3;
-    sim_out->body_soil_[3][10][15] = -0.2;
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[0][10][15] = -0.2;
+    sim_out->body_[1][10][15] = -0.1;
+    sim_out->body_[2][10][15] = 0.4;
+    sim_out->body_[3][10][15] = 0.5;
+    sim_out->body_soil_[2][10][15] = 0.5;
+    sim_out->body_soil_[3][10][15] = 0.7;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
@@ -1917,10 +2224,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -1939,7 +2246,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
 
     // -- Testing case with two bucket layers, first layer being lower and --
     // -- second bucket layer with bucket soil is high enough to prevent   --
-    // -- the soil from avalanching                                        --
+    // -- soil from avalanching, soil avalanche on the first bucket layer  --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -1956,49 +2263,12 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case where there are two bucket layers with bucket soil, --
-    // first layer being lower and it has space under it                   --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.7;
-    sim_out->body_[1][10][15] = -0.6;
-    sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.3;
-    sim_out->body_soil_[0][10][15] = -0.6;
-    sim_out->body_soil_[1][10][15] = -0.5;
-    sim_out->body_soil_[2][10][15] = -0.3;
-    sim_out->body_soil_[3][10][15] = -0.1;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(2, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    sim_out->body_soil_pos_[1] = std::vector<int> {2, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -2017,8 +2287,222 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
+    // -- Testing case with two bucket layers, first layer being lower,      --
+    // -- second bucket layer with bucket soil, soil avalanche on the first  --
+    // -- bucket layer, then on the second bucket soil layer                 --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, first layer with bucket soil   --
+    // -- being lower and has space under it, soil avalanche under the bucket --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.1;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.2;
+    sim_out->body_[3][10][15] = 0.3;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.1;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, first layer with bucket soil --
+    // -- being lower, second bucket layer is high enough to prevent soil   --
+    // -- from avalanching, soil avalanche on the first bucket layer        --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, first layer with bucket soil  --
+    // -- being lower, soil avalanche on the first bucket soil layer then on --
+    // -- second bucket layer                                                --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.8;
+    sim_out->body_[1][10][15] = -0.6;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.2;
+    sim_out->body_soil_[0][10][15] = -0.6;
+    sim_out->body_soil_[1][10][15] = -0.5;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
     // -- Testing case where there are two bucket layers with bucket soil,  --
-    // -- first layer being lower and soil avalanche on second bucket layer --
+    // -- first layer being lower and it has space under it, soil avalanche --
+    // -- under the bucket                                                  --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.6;
+    sim_out->body_[0][10][15] = -0.5;
+    sim_out->body_[1][10][15] = -0.4;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.3;
+    sim_out->body_soil_[0][10][15] = -0.4;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.3;
+    sim_out->body_soil_[3][10][15] = 0.4;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(2, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_[1] = std::vector<int> {2, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.4, 1e-5);
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- first layer being lower, second bucket layer is high enough to   --
+    // -- prevent soil from avalanching, soil avalanche on the first       --
+    // -- bucket layer                                                     --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -2028,7 +2512,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_[0][10][15] = -0.6;
     sim_out->body_soil_[1][10][15] = -0.5;
     sim_out->body_soil_[2][10][15] = -0.3;
-    sim_out->body_soil_[3][10][15] = -0.2;
+    sim_out->body_soil_[3][10][15] = 0.0;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
@@ -2040,9 +2524,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -2062,8 +2546,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
     // -- Testing case where there are two bucket layers with bucket soil,   --
-    // -- first layer being lower and the second bucket layer is high enough --
-    // -- to prevent the soil from avalanching                               --
+    // -- first layer being lower, soil avalanche on first bucket soil layer --
+    // -- then on the second bucket soil layer                               --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.8;
@@ -2073,7 +2557,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_[0][10][15] = -0.6;
     sim_out->body_soil_[1][10][15] = -0.5;
     sim_out->body_soil_[2][10][15] = -0.3;
-    sim_out->body_soil_[3][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = -0.2;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
@@ -2083,15 +2567,19 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_pos_[1] = std::vector<int> {2, 10, 15};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
     sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
@@ -2104,14 +2592,14 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- it has space under it                                             --
+    // -- Testing case with two bucket layers, second layer being lower --
+    // -- and it has space under it, soil avalanche under the bucket    --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.1;
+    sim_out->body_[0][10][15] = 0.4;
+    sim_out->body_[1][10][15] = 0.7;
     sim_out->body_[2][10][15] = -0.7;
-    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_[3][10][15] = -0.1;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
@@ -2133,8 +2621,46 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should avalanche on the first bucket layer                   --
+    // -- Testing case with two bucket layers, second layer being lower and  --
+    // -- first bucket layer is high enough to prevent soil from avalanching --
+    // -- soil avalanche on the second bucket layer                          --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, second layer being lower --
+    // -- soil avalanche on the second bucket layer then on the first   --
+    // -- bucket layer                                                  --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
@@ -2149,10 +2675,55 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 0, 0};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_TRUE((sim_out->body_soil_pos_[2] == std::vector<int> {0, 10, 15}));
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- it has space under it, while first layer is with bucket soil,     --
+    // -- soil avalanche under the bucket                                   --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.2;
+    sim_out->body_[0][10][15] = 0.4;
+    sim_out->body_[1][10][15] = 0.5;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.2;
+    sim_out->body_soil_[0][10][15] = 0.5;
+    sim_out->body_soil_[1][10][15] = 0.6;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.6, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -2169,35 +2740,96 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, second layer being lower and  --
-    // -- first bucket layer is high enough to prevent soil from avalanching --
+    // -- Testing case with two bucket layers, second layer being lower and --
+    // -- first bucket layer with bucket soil is high enough to prevent     --
+    // -- soil from avalanching, soil avalanche on the second bucket layer  --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.4;
+    sim_out->body_[1][10][15] = 0.5;
     sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_[3][10][15] = -0.2;
+    sim_out->body_soil_[0][10][15] = 0.5;
+    sim_out->body_soil_[1][10][15] = 0.6;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
     sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
     sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower and it has space under it                              --
+    // -- Testing case with two bucket layers, second layer being lower,    --
+    // -- first bucket layer with bucket soil, soil avalanche on the second --
+    // -- bucket layer, then on the first bucket soil layer                 --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.4;
+    sim_out->body_[1][10][15] = -0.2;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[0][10][15] = -0.4;
+    sim_out->body_soil_[1][10][15] = -0.2;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
+    EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {2, 10, 15}));
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, second layer with bucket soil  --
+    // -- being lower and has space under it, soil avalanche under the bucket --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
@@ -2205,7 +2837,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_[2][10][15] = -0.7;
     sim_out->body_[3][10][15] = -0.6;
     sim_out->body_soil_[2][10][15] = -0.6;
-    sim_out->body_soil_[3][10][15] = -0.5;
+    sim_out->body_soil_[3][10][15] = -0.4;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
@@ -2216,7 +2848,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -2234,7 +2866,50 @@ TEST(UnitTestRelax, RelaxTerrain) {
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
     // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower and soil should avalanche on the first bucket layer    --
+    // -- being lower, first bucket layer is high enough to prevent soil     --
+    // -- from avalanching, soil avalanche on the second bucket layer        --
+    soil_simulator::rng.seed(200);
+    sim_out->terrain_[10][15] = -0.8;
+    sim_out->body_[0][10][15] = -0.1;
+    sim_out->body_[1][10][15] = 0.1;
+    sim_out->body_[2][10][15] = -0.8;
+    sim_out->body_[3][10][15] = -0.6;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.5;
+    sim_out->relax_area_[0][0] = 10;
+    sim_out->relax_area_[0][1] = 15;
+    sim_out->relax_area_[1][0] = 10;
+    sim_out->relax_area_[1][1] = 15;
+    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
+    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
+    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
+    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
+    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+
+    // -- Testing case with two bucket layers, second layer with bucket soil  --
+    // -- being lower, soil avalanche on the second bucket soil layer then on --
+    // -- first bucket layer                                                  --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
@@ -2252,10 +2927,11 @@ TEST(UnitTestRelax, RelaxTerrain) {
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
     EXPECT_TRUE((sim_out->body_soil_pos_[1] == std::vector<int> {0, 10, 15}));
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
@@ -2263,6 +2939,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->terrain_[10][16] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;
@@ -2275,44 +2952,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower and first bucket layer is high enough to prevent the   --
-    // -- soil from avalanching                                              --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[2][10][15] = -0.6;
-    sim_out->body_soil_[3][10][15] = -0.5;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {2, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- has space under it, while the first layer is with bucket soil     --
+    // -- Testing case where there are two bucket layers with bucket soil,   --
+    // -- second layer being lower and it has space under it, soil avalanche --
+    // -- under the bucket                                                   --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
@@ -2321,17 +2963,22 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_[3][10][15] = -0.6;
     sim_out->body_soil_[0][10][15] = -0.3;
     sim_out->body_soil_[1][10][15] = -0.1;
+    sim_out->body_soil_[2][10][15] = -0.6;
+    sim_out->body_soil_[3][10][15] = -0.4;
     sim_out->relax_area_[0][0] = 10;
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
+    sim_out->body_soil_pos_.resize(2, std::vector<int>(3, 0));
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
+    sim_out->body_soil_pos_[1] = std::vector<int> {2, 10, 15};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -2344,93 +2991,24 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_[3][10][15] = 0.0;
     sim_out->body_soil_[0][10][15] = 0.0;
     sim_out->body_soil_[1][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should avalanche on the first bucket layer with bucket soil  --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[0][10][15] = -0.3;
-    sim_out->body_soil_[1][10][15] = -0.2;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->terrain_[10][16] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- first bucket layer with bucket soil is high enough to prevent the --
-    // --soil from avalanching                                              --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[0][10][15] = -0.3;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(1, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
     // -- Testing case where there are two bucket layers with bucket soil, --
-    // -- second layer being lower and has space under it                  --
+    // -- second layer being lower, first bucket layer is high enough to   --
+    // -- prevent soil from avalanching, soil avalanche on the second      --
+    // -- bucket layer                                                     --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.7;
+    sim_out->body_[2][10][15] = -0.8;
     sim_out->body_[3][10][15] = -0.6;
     sim_out->body_soil_[0][10][15] = -0.3;
-    sim_out->body_soil_[1][10][15] = -0.1;
+    sim_out->body_soil_[1][10][15] = 0.0;
     sim_out->body_soil_[2][10][15] = -0.6;
     sim_out->body_soil_[3][10][15] = -0.5;
     sim_out->relax_area_[0][0] = 10;
@@ -2441,12 +3019,12 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
     sim_out->body_soil_pos_[1] = std::vector<int> {2, 10, 15};
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.7, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
@@ -2465,8 +3043,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
-    // -- Testing case where there are two bucket layers with bucket soil,  --
-    // -- second layer being lower and soil avalanche on first bucket layer --
+    // -- Testing case where there are two bucket layers with bucket soil, --
+    // -- second layer being lower, soil avalanche on second bucket soil   --
+    // -- layer then on the first bucket soil layer                        --
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.8;
     sim_out->body_[0][10][15] = -0.4;
@@ -2487,59 +3066,18 @@ TEST(UnitTestRelax, RelaxTerrain) {
     soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
     sim_out->terrain_[10][15] = 0.0;
     sim_out->terrain_[10][16] = 0.0;
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.0;
-    sim_out->body_[2][10][15] = 0.0;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = 0.0;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.0;
-    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
-
-    // -- Testing case where there are two bucket layers with bucket soil,  --
-    // -- second layer being lower and first bucket layer is high enough to --
-    // -- prevent the soil from avalanching                                 --
-    soil_simulator::rng.seed(200);
-    sim_out->terrain_[10][15] = -0.8;
-    sim_out->body_[0][10][15] = -0.4;
-    sim_out->body_[1][10][15] = -0.3;
-    sim_out->body_[2][10][15] = -0.8;
-    sim_out->body_[3][10][15] = -0.6;
-    sim_out->body_soil_[0][10][15] = -0.3;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = -0.6;
-    sim_out->body_soil_[3][10][15] = -0.5;
-    sim_out->relax_area_[0][0] = 10;
-    sim_out->relax_area_[0][1] = 15;
-    sim_out->relax_area_[1][0] = 10;
-    sim_out->relax_area_[1][1] = 15;
-    sim_out->body_soil_pos_.resize(2, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 10, 15};
-    sim_out->body_soil_pos_[1] = std::vector<int> {2, 10, 15};
-    soil_simulator::RelaxTerrain(sim_out, grid, sim_param, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->relax_area_[0][0], 5);
-    EXPECT_EQ(sim_out->relax_area_[0][1], 15);
-    EXPECT_EQ(sim_out->relax_area_[1][0], 10);
-    EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    sim_out->terrain_[10][15] = 0.0;
+    sim_out->terrain_[9][15] = 0.0;
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.0;
     sim_out->body_[2][10][15] = 0.0;

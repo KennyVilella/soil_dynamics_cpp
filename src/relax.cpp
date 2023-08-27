@@ -270,9 +270,9 @@ std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
     return unstable_cells;
 }
 
-/// In case of instability, this function returns a three-digit number
-/// (`status`) that provides information on how the soil should avalanche.
-/// The interpretation of the three-digit number is described below.
+/// In case of instability, this function returns a two-digit number (`status`)
+/// that provides information on how the soil should avalanche. The
+/// interpretation of the two-digit number is described below.
 ///
 /// The first digit indicates the potential presence of the bucket:
 /// - 1 when the first bucket layer is present.
@@ -280,25 +280,18 @@ std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
 /// - 3 when the two bucket layers are present.
 /// - 4 when no bucket layer is present.
 ///
-/// The second digit indicates the layer at the top where the soil should
-/// avalanche:
-/// - 0 when it is the `terrain` (no bucket is present).
+/// The second digit indicates the layer where the soil should avalanche:
+/// - 0 when it is the terrai` (no bucket is present).
 /// - 1 when it is the second bucket soil layer.
 /// - 2 when it is the second bucket layer.
 /// - 3 when it is the first bucket soil layer.
 /// - 4 when it is the first bucket layer.
 ///
-/// The third digit indicates whether the soil should avalanche below or above
-/// the bucket:
-/// - 0 when there is no bucket.
-/// - 1 when the soil should avalanche below the bucket.
-/// - 2 when the soil should avalanche on the top of the bucket.
+/// The combination of these two digits provides a comprehensive description of
+/// how the soil should avalanche in different scenarios.
 ///
-/// The combination of these three digits provides a comprehensive description
-/// of how the soil should avalanche in different scenarios.
-///
-/// Note that not all combinations for `status` are possible. Some combinations,
-/// such as `401`, `231` and `220`, are impossible.
+/// Note that not all combinations for `status` are possible.
+/// Some combinations, such as `41` or `23` are impossible.
 int soil_simulator::CheckUnstableTerrainCell(
     SimOut* sim_out, int ii_c, int jj_c, float h_min, float tol
 ) {
@@ -306,109 +299,128 @@ int soil_simulator::CheckUnstableTerrainCell(
     // already been solved
     if (sim_out->terrain_[ii_c][jj_c] + tol < h_min) {
         // Adjacent terrain is low enough
-        bool bucket_presence_1 = (
-            (sim_out->body_[0][ii_c][jj_c] != 0.0) ||
-            (sim_out->body_[1][ii_c][jj_c] != 0.0));
-        bool bucket_presence_3 = (
-            (sim_out->body_[2][ii_c][jj_c] != 0.0) ||
-            (sim_out->body_[3][ii_c][jj_c] != 0.0));
+        // Determining presence of bucket
+        bool bucket_absence_1 = (
+            (sim_out->body_[0][ii_c][jj_c] == 0.0) &&
+            (sim_out->body_[1][ii_c][jj_c] == 0.0));
+        bool bucket_absence_3 = (
+            (sim_out->body_[2][ii_c][jj_c] == 0.0) &&
+            (sim_out->body_[3][ii_c][jj_c] == 0.0));
         int status;
         float column_top;
         float bucket_bot;
+        if (bucket_absence_1 && bucket_absence_3) {
+            // No bucket
+            return 40;
+        } else if (bucket_absence_1) {
+            // Only the second bucket layer
+            status = 20;
+            bucket_bot = sim_out->body_[2][ii_c][jj_c];
 
-        if (bucket_presence_1 || bucket_presence_3) {
-            // Bucket is present
-            // Calculating extension of bucket and soil
-            if (!bucket_presence_1) {
-                // Only the second bucket layer is present
-                status = 200;
-                bucket_bot = sim_out->body_[2][ii_c][jj_c];
+            if (sim_out->terrain_[ii_c][jj_c] + tol < bucket_bot) {
+                // Space under the bucket
+                return status;
+            } else {
+                // Bucket is on the terrain
                 if (
                     (sim_out->body_soil_[2][ii_c][jj_c] != 0.0) ||
                     (sim_out->body_soil_[3][ii_c][jj_c] != 0.0)
                 ) {
                     // Bucket soil is present
-                    status += 10;
+                    status += 1;
                     column_top = sim_out->body_soil_[3][ii_c][jj_c];
                 } else {
                     // Bucket soil is not present
-                    status += 20;
+                    status += 2;
                     column_top = sim_out->body_[3][ii_c][jj_c];
                 }
-            } else if (!bucket_presence_3) {
-                // Only the first bucket layer is present
-                status = 100;
-                bucket_bot = sim_out->body_[0][ii_c][jj_c];
+            }
+        } else if (bucket_absence_3) {
+            // Only the first bucket layer
+            status = 10;
+            bucket_bot = sim_out->body_[0][ii_c][jj_c];
+
+            if (sim_out->terrain_[ii_c][jj_c] + tol < bucket_bot) {
+                // Space under the bucket
+                return status;
+            } else {
+                // Bucket is on the terrain
                 if (
                     (sim_out->body_soil_[0][ii_c][jj_c] != 0.0) ||
                     (sim_out->body_soil_[1][ii_c][jj_c] != 0.0)
                 ) {
                     // Bucket soil is present
-                    status += 30;
+                    status += 3;
                     column_top = sim_out->body_soil_[1][ii_c][jj_c];
                 } else {
                     // Bucket soil is not present
-                    status += 40;
+                    status += 4;
                     column_top = sim_out->body_[1][ii_c][jj_c];
                 }
+            }
+        } else {
+            // Two bucket layers are present
+            status = 30;
+            int ind_bot;
+            int ind_top;
+
+            // Checking which layer is lower
+            if (sim_out->body_[0][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
+                // First bucket layer is lower
+                bucket_bot = sim_out->body_[0][ii_c][jj_c];
+                ind_bot = 0;
+                ind_top = 2;
             } else {
-                // Two bucket layers are present
-                status = 300;
-
-                // Checking which layer is lower
-                if (
-                    sim_out->body_[0][ii_c][jj_c] <
-                    sim_out->body_[2][ii_c][jj_c]
-                ) {
-                    // First bucket layer is lower
-                    bucket_bot = sim_out->body_[0][ii_c][jj_c];
-
-                    if (
-                        (sim_out->body_soil_[2][ii_c][jj_c] != 0.0) ||
-                        (sim_out->body_soil_[3][ii_c][jj_c] != 0.0)
-                    ) {
-                        // Bucket soil is present
-                        status += 10;
-                        column_top = sim_out->body_soil_[3][ii_c][jj_c];
-                    } else {
-                        // Bucket soil is not present
-                        status += 20;
-                        column_top = sim_out->body_[3][ii_c][jj_c];
-                    }
-                } else {
-                    // Second bucket layer is lower
-                    bucket_bot = sim_out->body_[2][ii_c][jj_c];
-
-                    if (
-                        (sim_out->body_soil_[0][ii_c][jj_c] != 0.0) ||
-                        (sim_out->body_soil_[1][ii_c][jj_c] != 0.0)
-                    ) {
-                        // Bucket soil is present
-                        status += 30;
-                        column_top = sim_out->body_soil_[1][ii_c][jj_c];
-                    } else {
-                        // Bucket soil is not present
-                        status += 40;
-                        column_top = sim_out->body_[1][ii_c][jj_c];
-                    }
-                }
+                // Second bucket layer is lower
+                bucket_bot = sim_out->body_[2][ii_c][jj_c];
+                ind_bot = 2;
+                ind_top = 0;
             }
 
             if (sim_out->terrain_[ii_c][jj_c] + tol < bucket_bot) {
                 // Space under the bucket
-                return status + 1;
+                return status;
+            } else {
+                // Bucket is on the terrain
+                if (
+                    (sim_out->body_soil_[ind_bot][ii_c][jj_c] != 0.0) ||
+                    (sim_out->body_soil_[ind_bot+1][ii_c][jj_c] != 0.0)) {
+                    // Bucket soil is present on the bottom bucket layer
+                    if (
+                        sim_out->body_soil_[ind_bot+1][ii_c][jj_c] + tol >
+                        sim_out->body_[ind_top][ii_c][jj_c]) {
+                        // Soil is filling the space between the bucket layers
+                        // Soil may avalanche on the bucket
+                        if (
+                            (sim_out->body_soil_[ind_top][ii_c][jj_c] != 0.0) ||
+                            (sim_out->body_soil_[ind_top+1][ii_c][jj_c] != 0.0)
+                        ) {
+                            // Bucket soil is present on the top bucket layer
+                            column_top = (
+                                sim_out->body_soil_[ind_top+1][ii_c][jj_c]);
+                            status += ind_bot + 1;
+                        } else {
+                            // Bucket soil is not present on top bucket layer
+                            column_top = sim_out->body_[ind_top+1][ii_c][jj_c];
+                            status += ind_bot + 2;
+                        }
+                    } else {
+                        // Soil may relax between the two bucket layers
+                        column_top = sim_out->body_soil_[ind_bot+1][ii_c][jj_c];
+                        status += ind_top + 1;
+                    }
+                } else {
+                    // Bucket soil is not present on the bottom bucket layer
+                    column_top = sim_out->body_[ind_bot+1][ii_c][jj_c];
+                    status += ind_top + 2;
+                }
             }
-
-            if (column_top + tol < h_min) {
-                // Column is low enough
-                return status + 2;
-            }
-        } else {
-            // No bucket
-            return 400;
+        }
+        if (column_top + tol < h_min) {
+            // Column is low enough
+            return status;
         }
     }
-
     return 0;
 }
 
@@ -423,7 +435,7 @@ int soil_simulator::CheckUnstableTerrainCell(
 /// - 4 when no bucket layer is present.
 ///
 /// The second digit indicates the layer where the soil should avalanche:
-/// - 0 when it is the `terrain` (no bucket is present).
+/// - 0 when it is the terrain (no bucket is present).
 /// - 1 when it is the second bucket soil layer.
 /// - 2 when it is the second bucket layer.
 /// - 3 when it is the first bucket soil layer.
@@ -433,7 +445,7 @@ int soil_simulator::CheckUnstableTerrainCell(
 /// how the soil should avalanche in different scenarios.
 ///
 /// Note that not all combinations for `status` are possible.
-/// Some combinations, such as `41` and `23` are impossible.
+/// Some combinations, such as `41` or `23` are impossible.
 int soil_simulator::CheckUnstableBodyCell(
     SimOut* sim_out, int ii, int jj, int ind, int ii_c, int jj_c, float h_min,
     float tol
@@ -586,23 +598,25 @@ void soil_simulator::RelaxUnstableTerrainCell(
     // Converting status into a string for convenience
     std::string st = std::to_string(status);
 
-    // Calculating new height values
-    float h_new = 0.5 * (
-        dh_max + sim_out->terrain_[ii][jj] + sim_out->terrain_[ii_c][jj_c]);
-    h_new = grid.cell_size_z_ * std::floor((h_new + tol) / grid.cell_size_z_);
-
-    float h_new_c = (
-        sim_out->terrain_[ii][jj] + sim_out->terrain_[ii_c][jj_c] - h_new);
-
-    if (status == 400) {
-        // No Bucket
-        // Updating terrain
-        sim_out->terrain_[ii][jj] = h_new;
-        sim_out->terrain_[ii_c][jj_c] = h_new_c;
-    } else if (st[2] == '1') {
-        // Space under the bucket
+    float h_new;
+    float h_new_c;
+    if (st[1] == '0') {
+        // Soil should avalanche on the terrain
+        // Calculating new height values
+        h_new = 0.5 * (
+            dh_max + sim_out->terrain_[ii][jj] + sim_out->terrain_[ii_c][jj_c]);
+        h_new = grid.cell_size_z_ * std::floor(
+            (h_new + tol) / grid.cell_size_z_);
+        h_new_c = (
+            sim_out->terrain_[ii][jj] + sim_out->terrain_[ii_c][jj_c] - h_new);
         float bucket_bot;
-        if (st[0] == '1') {
+
+        if (st[0] == '4') {
+            // No bucket
+            sim_out->terrain_[ii][jj] = h_new;
+            sim_out->terrain_[ii_c][jj_c] = h_new_c;
+            return;
+        } else if (st[0] == '1') {
             // Under the first bucket layer
             bucket_bot = sim_out->body_[0][ii_c][jj_c];
         } else if (st[0] == '2') {
@@ -625,73 +639,128 @@ void soil_simulator::RelaxUnstableTerrainCell(
                 bucket_bot);
             sim_out->terrain_[ii_c][jj_c] = bucket_bot;
         }
-    } else if (st[2] == '2') {
-        // Soil should avalanche on the bucket
-        if (st[1] == '1') {
-            // Soil avalanche on the second bucket soil layer
-            h_new = 0.5 * (
-                dh_max + sim_out->terrain_[ii][jj] +
-                sim_out->body_soil_[3][ii_c][jj_c]);
-            h_new = grid.cell_size_z_ * std::floor(
-                (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->terrain_[ii][jj] + sim_out->body_soil_[3][ii_c][jj_c] -
-                h_new);
+    } else if (st[1] == '1') {
+        // Soil avalanche on the second bucket soil layer
+        h_new = 0.5 * (
+            dh_max + sim_out->terrain_[ii][jj] +
+            sim_out->body_soil_[3][ii_c][jj_c]);
+        h_new = grid.cell_size_z_ * std::floor(
+            (h_new + tol) / grid.cell_size_z_);
+        h_new_c = (
+            sim_out->terrain_[ii][jj] + sim_out->body_soil_[3][ii_c][jj_c] -
+            h_new);
 
-            // Updating terrain
-            sim_out->terrain_[ii][jj] = h_new;
-            sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
-        } else if (st[1] == '2') {
-            // Soil avalanche on the second bucket layer
-            h_new = 0.5 * (
-                dh_max + sim_out->terrain_[ii][jj] +
-                sim_out->body_[3][ii_c][jj_c]);
-            h_new = grid.cell_size_z_ * std::floor(
-                (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->terrain_[ii][jj] + sim_out->body_[3][ii_c][jj_c] -
-                h_new);
-
-            // Updating terrain
-            sim_out->terrain_[ii][jj] = h_new;
-            sim_out->body_soil_[2][ii_c][jj_c] = sim_out->body_[3][ii_c][jj_c];
-            sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
-
-            // Adding new bucket soil position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(std::vector<int> {2, ii_c, jj_c});
-        } else if (st[1] == '3') {
-            // Soil avalanche on the first bucket soil layer
-            h_new = 0.5 * (
-                dh_max + sim_out->terrain_[ii][jj] +
-                sim_out->body_soil_[1][ii_c][jj_c]);
-            h_new = grid.cell_size_z_ * std::floor(
-                (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->terrain_[ii][jj] + sim_out->body_soil_[1][ii_c][jj_c] -
-                h_new);
-
-            // Updating terrain
-            sim_out->terrain_[ii][jj] = h_new;
-            sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
-        } else if (st[1] == '4') {
-            // Soil avalanche on the first bucket layer
-            h_new = 0.5 * (
-                dh_max + sim_out->terrain_[ii][jj] +
-                sim_out->body_[1][ii_c][jj_c]);
-            h_new = grid.cell_size_z_ * std::floor(
-                (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->terrain_[ii][jj] + sim_out->body_[1][ii_c][jj_c] -
-                h_new);
-
-            // Updating terrain
-            sim_out->terrain_[ii][jj] = h_new;
-            sim_out->body_soil_[0][ii_c][jj_c] = sim_out->body_[1][ii_c][jj_c];
-            sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
-
-            // Adding new bucket soil position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(std::vector<int> {0, ii_c, jj_c});
+        if (st[0] == '3') {
+            // Two bucket layers are present
+            if (sim_out->body_[3][ii_c][jj_c] < sim_out->body_[0][ii_c][jj_c]) {
+                // Soil should avalanche between the two bucket layer
+                if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
+                    // Not enough space for all the soil
+                    h_new_c = sim_out->body_[0][ii_c][jj_c];
+                    h_new = (
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[0][ii_c][jj_c] +
+                        sim_out->body_soil_[3][ii_c][jj_c]);
+                }
+            }
         }
+
+        // Updating terrain
+        sim_out->terrain_[ii][jj] = h_new;
+        sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
+    } else if (st[1] == '2') {
+        // Soil avalanche on the second bucket layer
+        h_new = 0.5 * (
+            dh_max + sim_out->terrain_[ii][jj] +
+            sim_out->body_[3][ii_c][jj_c]);
+        h_new = grid.cell_size_z_ * std::floor(
+            (h_new + tol) / grid.cell_size_z_);
+        h_new_c = (
+            sim_out->terrain_[ii][jj] + sim_out->body_[3][ii_c][jj_c] - h_new);
+
+        if (st[0] == '3') {
+            // Two bucket layers are present
+            if (sim_out->body_[3][ii_c][jj_c] < sim_out->body_[0][ii_c][jj_c]) {
+                // Soil should avalanche between the two bucket layer
+                if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
+                    // Not enough space for all the soil
+                    h_new_c = sim_out->body_[0][ii_c][jj_c];
+                    h_new = (
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[0][ii_c][jj_c] +
+                        sim_out->body_[3][ii_c][jj_c]);
+                }
+            }
+        }
+
+        // Updating terrain
+        sim_out->terrain_[ii][jj] = h_new;
+        sim_out->body_soil_[2][ii_c][jj_c] = sim_out->body_[3][ii_c][jj_c];
+        sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
+
+        // Adding new bucket soil position to body_soil_pos
+        sim_out->body_soil_pos_.push_back(std::vector<int> {2, ii_c, jj_c});
+    } else if (st[1] == '3') {
+        // Soil avalanche on the first bucket soil layer
+        h_new = 0.5 * (
+            dh_max + sim_out->terrain_[ii][jj] +
+            sim_out->body_soil_[1][ii_c][jj_c]);
+        h_new = grid.cell_size_z_ * std::floor(
+            (h_new + tol) / grid.cell_size_z_);
+        h_new_c = (
+            sim_out->terrain_[ii][jj] + sim_out->body_soil_[1][ii_c][jj_c] -
+            h_new);
+
+        if (st[0] == '3') {
+            // Two bucket layers are present
+            if (sim_out->body_[1][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
+                // Soil should avalanche between the two bucket layer
+                if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
+                    // Not enough space for all the soil
+                    h_new_c = sim_out->body_[2][ii_c][jj_c];
+                    h_new = (
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[2][ii_c][jj_c] +
+                        sim_out->body_soil_[1][ii_c][jj_c]);
+                }
+            }
+        }
+
+        // Updating terrain
+        sim_out->terrain_[ii][jj] = h_new;
+        sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
+    } else if (st[1] == '4') {
+        // Soil avalanche on the first bucket layer
+        h_new = 0.5 * (
+            dh_max + sim_out->terrain_[ii][jj] +
+            sim_out->body_[1][ii_c][jj_c]);
+        h_new = grid.cell_size_z_ * std::floor(
+            (h_new + tol) / grid.cell_size_z_);
+        h_new_c = (
+            sim_out->terrain_[ii][jj] + sim_out->body_[1][ii_c][jj_c] - h_new);
+
+        if (st[0] == '3') {
+            // Two bucket layers are present
+            if (sim_out->body_[1][ii_c][jj_c] < sim_out->body_[2][ii_c][jj_c]) {
+                // Soil should avalanche between the two bucket layer
+                if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
+                    // Not enough space for all the soil
+                    h_new_c = sim_out->body_[2][ii_c][jj_c];
+                    h_new = (
+                        sim_out->terrain_[ii][jj] -
+                        sim_out->body_[2][ii_c][jj_c] +
+                        sim_out->body_[1][ii_c][jj_c]);
+                }
+            }
+        }
+
+        // Updating terrain
+        sim_out->terrain_[ii][jj] = h_new;
+        sim_out->body_soil_[0][ii_c][jj_c] = sim_out->body_[1][ii_c][jj_c];
+        sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
+
+        // Adding new bucket soil position to body_soil_pos
+        sim_out->body_soil_pos_.push_back(std::vector<int> {0, ii_c, jj_c});
     }
 }
 
