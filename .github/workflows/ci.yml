@@ -40,9 +40,6 @@ jobs:
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
 
-      - name: Install Google benchmark
-        run: sudo apt-get install libbenchmark-dev
-
       # Google Logging has to be installed from source
       # This is because the example script use LogMessageInfo
       # that is not recognized when using the ubuntu package
