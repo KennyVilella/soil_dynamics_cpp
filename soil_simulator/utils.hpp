@@ -7,7 +7,7 @@ Copyright, 2023, Vilella Kenny.
 
 #include <vector>
 #include <tuple>
-#include "src/types.hpp"
+#include "soil_simulator/types.hpp"
 
 namespace soil_simulator {
 

@@ -10,8 +10,8 @@ Copyright, 2023, Vilella Kenny.
 #include <string>
 #include <utility>
 #include <vector>
-#include "src/relax.hpp"
-#include "src/types.hpp"
+#include "soil_simulator/relax.hpp"
+#include "soil_simulator/types.hpp"
 
 /// The soil stability is determined by the `repose_angle_`. If the slope formed
 /// by two neighboring soil columns exceeds the `repose_angle_`, it is

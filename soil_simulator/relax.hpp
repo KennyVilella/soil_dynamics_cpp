@@ -6,7 +6,7 @@ Copyright, 2023, Vilella Kenny.
 #pragma once
 
 #include <vector>
-#include "src/types.hpp"
+#include "soil_simulator/types.hpp"
 
 namespace soil_simulator {
 

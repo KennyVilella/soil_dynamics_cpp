@@ -11,8 +11,8 @@ Copyright, 2023, Vilella Kenny.
 #include <fstream>
 #include <string>
 #include <vector>
-#include "src/utils.hpp"
-#include "src/types.hpp"
+#include "soil_simulator/utils.hpp"
+#include "soil_simulator/types.hpp"
 
 std::vector<float> soil_simulator::CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c
