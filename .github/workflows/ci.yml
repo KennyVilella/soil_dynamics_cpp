@@ -81,7 +81,10 @@ jobs:
       - name: Build the environment
         run: cmake -S . -B build
 
-      - name: Build the simulator
+      - name: Build the simulator executable
+        run: cmake --build build --target soil_dynamics
+
+      - name: Build the simulator library
         run: cmake --build build --target soil_simulator
 
       - name: Build the unit tests
@@ -97,7 +100,7 @@ jobs:
       # -------------------- Run Valgrind on all targets --------------------- #
       # ---------------------------------------------------------------------- #
       - name: Run valgrind on the simulator
-        run: valgrind --leak-check=yes --error-exitcode=1 ./build/soil_simulator/soil_simulator
+        run: valgrind --leak-check=yes --error-exitcode=1 ./build/soil_simulator/soil_dynamics
         shell: bash
 
       - name: Run valgrind on the unit tests
