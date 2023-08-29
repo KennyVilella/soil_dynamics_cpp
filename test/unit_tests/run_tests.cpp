@@ -6,7 +6,7 @@ Copyright, 2023, Vilella Kenny.
 #include <glog/logging.h>
 #include <random>
 #include "gtest/gtest.h"
-#include "src/soil_dynamics.hpp"
+#include "soil_simulator/soil_dynamics.hpp"
 
 // Defining RNG
 std::mt19937 soil_simulator::rng;

@@ -5,7 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <random>
 #include "gtest/gtest.h"
-#include "src/intersecting_cells.hpp"
+#include "soil_simulator/intersecting_cells.hpp"
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
     // Setting up the environment

@@ -4,7 +4,7 @@ This file implements unit tests for the functions in bucket_pos.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
-#include "src/bucket_pos.hpp"
+#include "soil_simulator/bucket_pos.hpp"
 
 TEST(UnitTestBucketPos, CalcLinePos) {
     // Note that this function does not account for the case where the line
