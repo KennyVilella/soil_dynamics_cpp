@@ -17,19 +17,19 @@ target_sources(unit_tests
         ${CMAKE_CURRENT_SOURCE_DIR}/test_intersecting_cells.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_relax.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_utils.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/soil_dynamics.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/types.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bucket_pos.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/bucket_pos.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/body_soil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/body_soil.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intersecting_cells.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/intersecting_cells.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/relax.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/relax.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/utils.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/soil_dynamics.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/types.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/types.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/bucket_pos.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/bucket_pos.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/body_soil.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/body_soil.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/intersecting_cells.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/intersecting_cells.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/relax.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/relax.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/utils.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/utils.hpp
 )
 
 # Link to googletest
