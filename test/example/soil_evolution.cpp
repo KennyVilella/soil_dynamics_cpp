@@ -10,13 +10,13 @@ Copyright, 2023, Vilella Kenny.
 #include <tuple>
 #include <vector>
 #include "test/example/soil_evolution.hpp"
-#include "src/soil_dynamics.hpp"
-#include "src/types.hpp"
-#include "src/bucket_pos.hpp"
-#include "src/body_soil.hpp"
-#include "src/intersecting_cells.hpp"
-#include "src/relax.hpp"
-#include "src/utils.hpp"
+#include "soil_simulator/soil_dynamics.hpp"
+#include "soil_simulator/types.hpp"
+#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_soil.hpp"
+#include "soil_simulator/intersecting_cells.hpp"
+#include "soil_simulator/relax.hpp"
+#include "soil_simulator/utils.hpp"
 
 /// This example script simulates a bucket performing a simple digging scoop in
 /// the XZ plane following a parabolic trajectory. There is an option to

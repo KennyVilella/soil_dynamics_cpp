@@ -5,7 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <glog/logging.h>
 #include <random>
-#include "src/soil_dynamics.hpp"
+#include "soil_simulator/soil_dynamics.hpp"
 #include "test/example/soil_evolution.hpp"
 
 // Defining RNG
