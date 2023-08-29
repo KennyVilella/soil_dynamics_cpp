@@ -5,7 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
 #include <random>
-#include "src/relax.hpp"
+#include "soil_simulator/relax.hpp"
 
 // -- RelaxTerrain --
 static void BM_RelaxTerrain(benchmark::State& state) {

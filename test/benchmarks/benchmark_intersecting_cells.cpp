@@ -6,8 +6,8 @@ Copyright, 2023, Vilella Kenny.
 #include <benchmark/benchmark.h>
 #include <glog/logging.h>
 #include <random>
-#include "src/intersecting_cells.hpp"
-#include "src/bucket_pos.hpp"
+#include "soil_simulator/intersecting_cells.hpp"
+#include "soil_simulator/bucket_pos.hpp"
 
 // -- MoveIntersectingCells --
 static void BM_MoveIntersectingCells(benchmark::State& state) {

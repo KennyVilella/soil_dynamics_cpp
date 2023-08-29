@@ -4,7 +4,7 @@ This file implements benchmarking for the functions in utils.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include "src/utils.hpp"
+#include "soil_simulator/utils.hpp"
 
 // -- CalcNormal --
 static void BM_CalcNormal(benchmark::State& state) {
