@@ -9,14 +9,17 @@
     <includes local="no">tuple</includes>
     <includes local="no">vector</includes>
     <includes refid="soil__evolution_8hpp" local="yes">test/example/soil_evolution.hpp</includes>
-    <includes refid="soil__dynamics_8hpp" local="yes">src/soil_dynamics.hpp</includes>
-    <includes refid="types_8hpp" local="yes">src/types.hpp</includes>
-    <includes refid="bucket__pos_8hpp" local="yes">src/bucket_pos.hpp</includes>
-    <includes refid="body__soil_8hpp" local="yes">src/body_soil.hpp</includes>
-    <includes refid="intersecting__cells_8hpp" local="yes">src/intersecting_cells.hpp</includes>
-    <includes refid="relax_8hpp" local="yes">src/relax.hpp</includes>
-    <includes refid="utils_8hpp" local="yes">src/utils.hpp</includes>
+    <includes local="yes">soil_simulator/soil_dynamics.hpp</includes>
+    <includes local="yes">soil_simulator/types.hpp</includes>
+    <includes local="yes">soil_simulator/bucket_pos.hpp</includes>
+    <includes local="yes">soil_simulator/body_soil.hpp</includes>
+    <includes local="yes">soil_simulator/intersecting_cells.hpp</includes>
+    <includes local="yes">soil_simulator/relax.hpp</includes>
+    <includes local="yes">soil_simulator/utils.hpp</includes>
     <incdepgraph>
+      <node id="11">
+        <label>soil_simulator/bucket_pos.hpp</label>
+      </node>
       <node id="8">
         <label>test/example/soil_evolution.hpp</label>
         <link refid="soil__evolution_8hpp_source"/>
@@ -28,47 +31,8 @@
       <node id="2">
         <label>glog/logging.h</label>
       </node>
-      <node id="14">
-        <label>src/relax.hpp</label>
-        <link refid="relax_8hpp_source"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>src/intersecting_cells.hpp</label>
-        <link refid="intersecting__cells_8hpp_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>src/types.hpp</label>
-        <link refid="types_8hpp_source"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="12">
-        <label>src/body_soil.hpp</label>
-        <link refid="body__soil_8hpp_source"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="11">
-        <label>src/bucket_pos.hpp</label>
-        <link refid="bucket__pos_8hpp_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
+      <node id="15">
+        <label>soil_simulator/utils.hpp</label>
       </node>
       <node id="5">
         <label>random</label>
@@ -79,25 +43,8 @@
       <node id="7">
         <label>vector</label>
       </node>
-      <node id="15">
-        <label>src/utils.hpp</label>
-        <link refid="utils_8hpp_source"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>src/soil_dynamics.hpp</label>
-        <link refid="soil__dynamics_8hpp_source"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
+      <node id="14">
+        <label>soil_simulator/relax.hpp</label>
       </node>
       <node id="4">
         <label>iostream</label>
@@ -134,8 +81,20 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
+      <node id="9">
+        <label>soil_simulator/soil_dynamics.hpp</label>
+      </node>
       <node id="3">
         <label>algorithm</label>
+      </node>
+      <node id="12">
+        <label>soil_simulator/body_soil.hpp</label>
+      </node>
+      <node id="13">
+        <label>soil_simulator/intersecting_cells.hpp</label>
+      </node>
+      <node id="10">
+        <label>soil_simulator/types.hpp</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -155,23 +114,23 @@
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;test/example/soil_evolution.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/soil_dynamics.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/bucket_pos.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/body_soil.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/intersecting_cells.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/relax.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;src/utils.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/soil_dynamics.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/bucket_pos.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/body_soil.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/intersecting_cells.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/relax.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/utils.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>soil_simulator::SoilEvolution(</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>set_rng,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>random_trajectory,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>logging,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>check_outputs,</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>write_outputs</highlight></codeline>
 <codeline lineno="33"><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulator</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_soil_dynamics" kindref="compound">soil_simulator::SoilDynamics</ref><sp/>sim;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::SoilDynamics<sp/>sim;</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulation<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid" kindref="compound">soil_simulator::Grid</ref><sp/>grid(4.0,<sp/>4.0,<sp/>4.0,<sp/>0.05,<sp/>0.01);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::Grid<sp/>grid(4.0,<sp/>4.0,<sp/>4.0,<sp/>0.05,<sp/>0.01);</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulated<sp/>bucket</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>o_pos_init<sp/>=<sp/>{0.0,<sp/>0.0,<sp/>0.0};</highlight></codeline>
@@ -179,14 +138,14 @@
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>b_pos_init<sp/>=<sp/>{0.0,<sp/>0.0,<sp/>-0.5};</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>t_pos_init<sp/>=<sp/>{0.7,<sp/>0.0,<sp/>-0.5};</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bucket_width<sp/>=<sp/>0.5;</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">soil_simulator::Bucket</ref><sp/>*bucket<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">soil_simulator::Bucket</ref>(</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::Bucket<sp/>*bucket<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>soil_simulator::Bucket(</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>o_pos_init,<sp/>j_pos_init,<sp/>b_pos_init,<sp/>t_pos_init,<sp/>bucket_width);</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulation<sp/>parameter</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">soil_simulator::SimParam</ref><sp/>sim_param(0.85,<sp/>10,<sp/>4);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::SimParam<sp/>sim_param(0.85,<sp/>10,<sp/>4);</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulation<sp/>outputs<sp/>class</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">soil_simulator::SimOut</ref><sp/>*sim_out<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">soil_simulator::SimOut</ref>(grid);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::SimOut<sp/>*sim_out<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>soil_simulator::SimOut(grid);</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
 <codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(set_rng)</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>soil_simulator::rng.seed(1234);</highlight></codeline>
@@ -419,9 +378,9 @@
 <codeline lineno="283"><highlight class="normal"></highlight></codeline>
 <codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>init_volume<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(check_outputs)<sp/>{</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>sim_out-&gt;<ref refid="classsoil__simulator_1_1_sim_out_1a4b7a38b487950de6994e2a93b44f700e" kindref="member">terrain_</ref>.size();<sp/>ii++)</highlight></codeline>
-<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>jj<sp/>=<sp/>0;<sp/>jj<sp/>&lt;<sp/>sim_out-&gt;<ref refid="classsoil__simulator_1_1_sim_out_1a4b7a38b487950de6994e2a93b44f700e" kindref="member">terrain_</ref>[0].size();<sp/>jj++)</highlight></codeline>
-<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>init_volume<sp/>+=<sp/>sim_out-&gt;<ref refid="classsoil__simulator_1_1_sim_out_1a4b7a38b487950de6994e2a93b44f700e" kindref="member">terrain_</ref>[ii][jj];</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>sim_out-&gt;terrain_.size();<sp/>ii++)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>jj<sp/>=<sp/>0;<sp/>jj<sp/>&lt;<sp/>sim_out-&gt;terrain_[0].size();<sp/>jj++)</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>init_volume<sp/>+=<sp/>sim_out-&gt;terrain_[ii][jj];</highlight></codeline>
 <codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>init_volume<sp/>=<sp/>grid.cell_area_<sp/>*<sp/>init_volume;</highlight></codeline>
 <codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="291"><highlight class="normal"></highlight></codeline>
@@ -431,16 +390,16 @@
 <codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(INFO)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Step<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>ii<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>/<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>time_vec.size()-1;</highlight></codeline>
 <codeline lineno="296"><highlight class="normal"></highlight></codeline>
 <codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Stepping<sp/>the<sp/>soil<sp/>dynamics</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1a627ff93047777c7f0937b289a2cd32cd" kindref="member">step</ref>(</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.step(</highlight></codeline>
 <codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out,<sp/>pos_vec[ii],<sp/>ori_vec[ii],<sp/>grid,<sp/>bucket,<sp/>sim_param,<sp/>1e-5);</highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight></codeline>
 <codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Checking<sp/>consistency<sp/>of<sp/>simulation<sp/>outputs</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(check_outputs)</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1ac74563070fa12a0cb5bda7f0a3519e2d" kindref="member">check</ref>(sim_out,<sp/>init_volume,<sp/>grid,<sp/>1e-5);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.check(sim_out,<sp/>init_volume,<sp/>grid,<sp/>1e-5);</highlight></codeline>
 <codeline lineno="304"><highlight class="normal"></highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Writing<sp/>simulation<sp/>outputs<sp/>into<sp/>csv<sp/>files</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(write_outputs)</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" kindref="member">WriteOutputs</ref>(sim_out,<sp/>grid,<sp/>bucket);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.WriteOutputs(sim_out,<sp/>grid,<sp/>bucket);</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="309"><highlight class="normal"></highlight></codeline>
 <codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>bucket;</highlight></codeline>
