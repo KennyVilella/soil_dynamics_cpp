@@ -355,7 +355,7 @@ class SimOut {
      ///
      /// \param grid: Class that stores information related to the simulation
      ///              grid.
-     SimOut(Grid grid = Grid());
+     explicit SimOut(Grid grid = Grid());
 
      /// \brief Destructor
     ~SimOut() {}
