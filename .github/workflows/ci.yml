@@ -64,7 +64,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run cpplint on the source files
-        run: cpplint src/*
+        run: cpplint soil_simulator/*
 
       - name: Run cpplint on the unit test files
         run: cpplint --filter=-'readability/fn_size' test/unit_tests/*
@@ -81,8 +81,11 @@ jobs:
       - name: Build the environment
         run: cmake -S . -B build
 
-      - name: Build the simulator
+      - name: Build the simulator executable
         run: cmake --build build --target soil_dynamics
+
+      - name: Build the simulator library
+        run: cmake --build build --target soil_simulator
 
       - name: Build the unit tests
         run: cmake --build build --target unit_tests
@@ -97,7 +100,7 @@ jobs:
       # -------------------- Run Valgrind on all targets --------------------- #
       # ---------------------------------------------------------------------- #
       - name: Run valgrind on the simulator
-        run: valgrind --leak-check=yes --error-exitcode=1 ./build/src/soil_dynamics
+        run: valgrind --leak-check=yes --error-exitcode=1 ./build/soil_simulator/soil_dynamics
         shell: bash
 
       - name: Run valgrind on the unit tests

@@ -10,8 +10,8 @@ Copyright, 2023, Vilella Kenny.
 #include <tuple>
 #include <utility>
 #include <vector>
-#include "src/types.hpp"
-#include "src/intersecting_cells.hpp"
+#include "soil_simulator/types.hpp"
+#include "soil_simulator/intersecting_cells.hpp"
 
 /// Note that `MoveIntersectingBodySoil` must be called before
 /// `MoveIntersectingBody`, otherwise some intersecting soil cells may remain.

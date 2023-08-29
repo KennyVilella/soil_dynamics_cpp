@@ -4,7 +4,7 @@ This file implements benchmarking for the functions in bucket_pos.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include "src/bucket_pos.hpp"
+#include "soil_simulator/bucket_pos.hpp"
 
 // -- CalcBucketPos --
 static void BM_CalcBucketPos(benchmark::State& state) {

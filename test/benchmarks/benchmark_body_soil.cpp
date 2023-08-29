@@ -4,8 +4,8 @@ This file implements benchmarking for the functions in body_soil.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include "src/body_soil.hpp"
-#include "src/bucket_pos.hpp"
+#include "soil_simulator/body_soil.hpp"
+#include "soil_simulator/bucket_pos.hpp"
 
 // -- UpdateBodySoil --
 static void BM_UpdateBodySoil(benchmark::State& state) {

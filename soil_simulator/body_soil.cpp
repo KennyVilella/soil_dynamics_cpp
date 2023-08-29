@@ -8,9 +8,9 @@ Copyright, 2023, Vilella Kenny.
 #include <cmath>
 #include <iostream>
 #include <vector>
-#include "src/body_soil.hpp"
-#include "src/types.hpp"
-#include "src/utils.hpp"
+#include "soil_simulator/body_soil.hpp"
+#include "soil_simulator/types.hpp"
+#include "soil_simulator/utils.hpp"
 
 /// In this function, the movement applied to the base of the soil column is
 /// calculated and the soil is moved to this new location. It is however

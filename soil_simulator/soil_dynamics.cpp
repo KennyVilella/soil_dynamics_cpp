@@ -6,13 +6,13 @@ Copyright, 2023, Vilella Kenny.
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#include "src/soil_dynamics.hpp"
-#include "src/types.hpp"
-#include "src/bucket_pos.hpp"
-#include "src/body_soil.hpp"
-#include "src/intersecting_cells.hpp"
-#include "src/relax.hpp"
-#include "src/utils.hpp"
+#include "soil_simulator/soil_dynamics.hpp"
+#include "soil_simulator/types.hpp"
+#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_soil.hpp"
+#include "soil_simulator/intersecting_cells.hpp"
+#include "soil_simulator/relax.hpp"
+#include "soil_simulator/utils.hpp"
 
 void soil_simulator::SoilDynamics::step(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,

@@ -9,9 +9,9 @@ Copyright, 2023, Vilella Kenny.
 #include <stdexcept>
 #include <tuple>
 #include <vector>
-#include "src/bucket_pos.hpp"
-#include "src/types.hpp"
-#include "src/utils.hpp"
+#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/types.hpp"
+#include "soil_simulator/utils.hpp"
 
 /// The bucket position is calculated based on its reference pose stored in
 /// the `Bucket` class, as well as the provided position (`pos`) and orientation

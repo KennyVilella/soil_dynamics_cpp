@@ -4,7 +4,7 @@ This file implements unit tests for the functions in body_soil.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
-#include "src/body_soil.hpp"
+#include "soil_simulator/body_soil.hpp"
 
 TEST(UnitTestBodySoil, UpdateBodySoil) {
     // Setting up the environment

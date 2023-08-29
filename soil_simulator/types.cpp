@@ -9,7 +9,7 @@ Copyright, 2023, Vilella Kenny.
 #include <vector>
 #include <stdexcept>
 #include <iostream>
-#include "src/types.hpp"
+#include "soil_simulator/types.hpp"
 
 soil_simulator::Grid::Grid(
     float grid_size_x, float grid_size_y, float grid_size_z, float cell_size_xy,

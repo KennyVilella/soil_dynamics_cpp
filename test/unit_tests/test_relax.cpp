@@ -5,7 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <random>
 #include "gtest/gtest.h"
-#include "src/relax.hpp"
+#include "soil_simulator/relax.hpp"
 
 TEST(UnitTestRelax, LocateUnstableTerrainCell) {
     // Setting up the environment
