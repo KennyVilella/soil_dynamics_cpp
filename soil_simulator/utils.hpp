@@ -5,11 +5,20 @@ Copyright, 2023, Vilella Kenny.
 */
 #pragma once
 
-#include <vector>
 #include <tuple>
+#include <vector>
 #include "soil_simulator/types.hpp"
 
 namespace soil_simulator {
+
+std::tuple<
+    std::vector<float>, std::vector<float>, std::vector<float>,
+    std::vector<float>, std::vector<float>, std::vector<float>>
+CalcBucketCornerPos(
+    std::vector<float> pos, std::vector<float> ori, Bucket* bucket);
+
+bool CheckBucketMovement(
+    std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket);
 
 /// \brief This function calculates the unit normal vector of a plane formed by
 ///        three points using the right-hand rule.

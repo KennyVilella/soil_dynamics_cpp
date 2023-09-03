@@ -14,6 +14,101 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/utils.hpp"
 #include "soil_simulator/types.hpp"
 
+std::tuple<
+    std::vector<float>, std::vector<float>, std::vector<float>,
+    std::vector<float>, std::vector<float>, std::vector<float>>
+soil_simulator::CalcBucketCornerPos(
+    std::vector<float> pos, std::vector<float> ori, Bucket* bucket
+) {
+    // Calculating position of the bucker vertices
+    auto j_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket->j_pos_init_);
+    auto b_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket->b_pos_init_);
+    auto t_pos = soil_simulator::CalcRotationQuaternion(
+        ori, bucket->t_pos_init_);
+
+    // Unit vector normal to the side of the bucket
+    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
+
+    // Declaring vectors for each vertex of the bucket
+    std::vector<float> j_r_pos(3);
+    std::vector<float> j_l_pos(3);
+    std::vector<float> b_r_pos(3);
+    std::vector<float> b_l_pos(3);
+    std::vector<float> t_r_pos(3);
+    std::vector<float> t_l_pos(3);
+
+    for (auto ii = 0; ii < 3; ii++) {
+        // Adding position of the bucket origin
+        j_pos[ii] += pos[ii];
+        b_pos[ii] += pos[ii];
+        t_pos[ii] += pos[ii];
+
+        // Position of each vertex of the bucket
+        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
+        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+    }
+
+    return {j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos};
+}
+
+bool soil_simulator::CheckBucketMovement(
+    std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket
+) {
+    // Calculating new position of bucket corners
+    auto [j_r_pos_n, j_l_pos_n, b_r_pos_n, b_l_pos_n, t_r_pos_n, t_l_pos_n] =
+        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+
+    // Calculating former position of bucket corners
+    auto [j_r_pos_f, j_l_pos_f, b_r_pos_f, b_l_pos_f, t_r_pos_f, t_l_pos_f] =
+        soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
+
+    // Calculating distance travelled
+    float j_r_dist = std::sqrt(
+        (j_r_pos_f[0] - j_r_pos_n[0]) * (j_r_pos_f[0] - j_r_pos_n[0]) +
+        (j_r_pos_f[1] - j_r_pos_n[1]) * (j_r_pos_f[1] - j_r_pos_n[1])+
+        (j_r_pos_f[2] - j_r_pos_n[2]) * (j_r_pos_f[2] - j_r_pos_n[2]));
+    float j_l_dist = std::sqrt(
+        (j_l_pos_f[0] - j_l_pos_n[0]) * (j_l_pos_f[0] - j_l_pos_n[0]) +
+        (j_l_pos_f[1] - j_l_pos_n[1]) * (j_l_pos_f[1] - j_l_pos_n[1]) +
+        (j_l_pos_f[2] - j_l_pos_n[2]) * (j_l_pos_f[2] - j_l_pos_n[2]));
+    float b_r_dist = std::sqrt(
+        (b_r_pos_f[0] - b_r_pos_n[0]) * (b_r_pos_f[0] - b_r_pos_n[0]) +
+        (b_r_pos_f[1] - b_r_pos_n[1]) * (b_r_pos_f[1] - b_r_pos_n[1]) +
+        (b_r_pos_f[2] - b_r_pos_n[2]) * (b_r_pos_f[2] - b_r_pos_n[2]));
+    float b_l_dist = std::sqrt(
+        (b_l_pos_f[0] - b_l_pos_n[0]) * (b_l_pos_f[0] - b_l_pos_n[0]) +
+        (b_l_pos_f[1] - b_l_pos_n[1]) * (b_l_pos_f[1] - b_l_pos_n[1]) +
+        (b_l_pos_f[2] - b_l_pos_n[2]) * (b_l_pos_f[2] - b_l_pos_n[2]));
+    float t_r_dist = std::sqrt(
+        (t_r_pos_f[0] - t_r_pos_n[0]) * (t_r_pos_f[0] - t_r_pos_n[0]) +
+        (t_r_pos_f[1] - t_r_pos_n[1]) * (t_r_pos_f[1] - t_r_pos_n[1]) +
+        (t_r_pos_f[2] - t_r_pos_n[2]) * (t_r_pos_f[2] - t_r_pos_n[2]));
+    float t_l_dist = std::sqrt(
+        (t_l_pos_f[0] - t_l_pos_n[0]) * (t_l_pos_f[0] - t_l_pos_n[0]) +
+        (t_l_pos_f[1] - t_l_pos_n[1]) * (t_l_pos_f[1] - t_l_pos_n[1]) +
+        (t_l_pos_f[2] - t_l_pos_n[2]) * (t_l_pos_f[2] - t_l_pos_n[2]));
+
+    // Calculating max distance travelled
+    float max_dist = std::max(
+        {j_r_dist, j_l_dist, b_r_dist, b_l_dist, t_r_dist, t_l_dist});
+
+    if (max_dist < 0.1 * grid.cell_size_xy_) {
+        // Bucket has only slightly moved since last update
+        return false;
+    } else if (max_dist > 2 * grid.cell_size_xy_) {
+        LOG(WARNING) << "WARNING\nMovement made by the bucket is larger than "
+            "two cell size.\nThe validity of the soil update cannot be ensured";
+    }
+
+    return true;
+}
+
 std::vector<float> soil_simulator::CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c
 ) {

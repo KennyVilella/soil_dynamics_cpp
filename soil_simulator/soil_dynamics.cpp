@@ -18,6 +18,15 @@ void soil_simulator::SoilDynamics::step(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
     Grid grid, Bucket* bucket, SimParam sim_param, float tol
 ) {
+    // Checking movement made by the bucket
+    auto soil_update = soil_simulator::CheckBucketMovement(
+        pos, ori, grid, bucket);
+
+    if (!soil_update) {
+        // Bucket has not moved enough
+        return;
+    }
+
     // Updating bucket position
     soil_simulator::CalcBucketPos(
         sim_out, pos, ori, grid, bucket, sim_param, tol);
