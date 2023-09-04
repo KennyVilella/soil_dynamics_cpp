@@ -71,6 +71,73 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     EXPECT_TRUE((t_l_pos == std::vector<float> {-0.15, 0.6, -0.3}));
 }
 
+TEST(UnitTestUtils, CheckBucketMovement) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.0, 0.0, -0.5};
+    std::vector<float> t_pos = {0.7, 0.0, -0.5};
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
+        o_pos, j_pos, b_pos, t_pos, 0.5);
+    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
+    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+
+    // -- Testing for a one cell translation --
+    auto pos = std::vector<float> {0.1, 0.0, 0.0};
+    auto ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bool status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_TRUE(status);
+
+    // -- Testing for an arbitrary translation --
+    pos = std::vector<float> {0.05, 0.02, -0.05};
+    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_TRUE(status);
+
+    // -- Testing for a slight rotation --
+    pos = std::vector<float> {0.0, 0.0, 0.0};
+    ori = std::vector<float> {0.997, 0.0, 0.07, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_TRUE(status);
+
+    // -- Testing for a slight rotation and translation --
+    pos = std::vector<float> {0.05, 0.0, 0.0};
+    ori = std::vector<float> {0.997, 0.0, 0.07, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_TRUE(status);
+
+    // -- Testing for a short translation --
+    pos = std::vector<float> {0.005, 0.0, 0.0};
+    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_FALSE(status);
+
+    // -- Testing for a short arbitrary translation --
+    pos = std::vector<float> {0.001, 0.002, -0.003};
+    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_FALSE(status);
+
+    // -- Testing for a very slight rotation --
+    pos = std::vector<float> {0.0, 0.0, 0.0};
+    ori = std::vector<float> {0.999, 0.0, 0.0029, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_FALSE(status);
+
+    // -- Testing for a very slight rotation and translation --
+    pos = std::vector<float> {0.001, 0.0, 0.0};
+    ori = std::vector<float> {0.999, 0.0, 0.0029, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_FALSE(status);
+
+    // -- Testing for a three cell translation --
+    pos = std::vector<float> {0.005, 0.0, 0.0};
+    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    EXPECT_FALSE(status);
+}
+
 TEST(UnitTestUtils, CalcNormal) {
     // Setting dummy coordinates forming a triangle in the XY plane
     std::vector<float> a = {0.0, 0.0, 0.0};
