@@ -57,6 +57,14 @@ soil_simulator::CalcBucketCornerPos(
     return {j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos};
 }
 
+/// This function calculates the maximum distance traveled by any part of the
+/// bucket since the last soil update. The position of the bucket during the
+/// last soil update is stored in the `bucket` class.
+///
+/// If the maximum distance traveled is lower than 10% of the cell size,
+/// the function returns `false` otherwise it returns `true`.
+/// Note that if the distance traveled exceeds twice the cell size, a warning is
+/// issued to indicate a potential problem with the soil update.
 bool soil_simulator::CheckBucketMovement(
     std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket
 ) {
