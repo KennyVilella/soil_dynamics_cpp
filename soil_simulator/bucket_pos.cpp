@@ -23,7 +23,7 @@ void soil_simulator::CalcBucketPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, SimParam sim_param, float tol
 ) {
-    // Calculating position of the bucker corners
+    // Calculating position of the bucket corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
 

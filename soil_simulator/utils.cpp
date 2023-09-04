@@ -20,7 +20,7 @@ std::tuple<
 soil_simulator::CalcBucketCornerPos(
     std::vector<float> pos, std::vector<float> ori, Bucket* bucket
 ) {
-    // Calculating position of the bucker vertices
+    // Calculating position of the bucket vertices
     auto j_pos = soil_simulator::CalcRotationQuaternion(
         ori, bucket->j_pos_init_);
     auto b_pos = soil_simulator::CalcRotationQuaternion(
@@ -76,7 +76,7 @@ bool soil_simulator::CheckBucketMovement(
     auto [j_r_pos_f, j_l_pos_f, b_r_pos_f, b_l_pos_f, t_r_pos_f, t_l_pos_f] =
         soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
 
-    // Calculating distance travelled
+    // Calculating distance traveled
     float j_r_dist = std::sqrt(
         (j_r_pos_f[0] - j_r_pos_n[0]) * (j_r_pos_f[0] - j_r_pos_n[0]) +
         (j_r_pos_f[1] - j_r_pos_n[1]) * (j_r_pos_f[1] - j_r_pos_n[1])+
@@ -102,7 +102,7 @@ bool soil_simulator::CheckBucketMovement(
         (t_l_pos_f[1] - t_l_pos_n[1]) * (t_l_pos_f[1] - t_l_pos_n[1]) +
         (t_l_pos_f[2] - t_l_pos_n[2]) * (t_l_pos_f[2] - t_l_pos_n[2]));
 
-    // Calculating max distance travelled
+    // Calculating max distance traveled
     float max_dist = std::max(
         {j_r_dist, j_l_dist, b_r_dist, b_l_dist, t_r_dist, t_l_dist});
 
@@ -513,7 +513,7 @@ void soil_simulator::WriteSoil(
 void soil_simulator::WriteBucket(
     Bucket* bucket
 ) {
-    // Calculating position of the bucker points
+    // Calculating position of the bucket points
     auto j_pos = soil_simulator::CalcRotationQuaternion(
         bucket->ori_, bucket->j_pos_init_);
     auto b_pos = soil_simulator::CalcRotationQuaternion(
