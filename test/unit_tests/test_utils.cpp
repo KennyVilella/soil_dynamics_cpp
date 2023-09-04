@@ -19,7 +19,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     // -- Testing for a bucket in its reference pose --
     auto pos = std::vector<float> {0.0, 0.0, 0.0};
     auto ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-    auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] = 
+    auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.0, -0.25, 0.0}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {0.0, 0.25, 0.0}));
@@ -69,6 +69,8 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     EXPECT_TRUE((b_l_pos == std::vector<float> {-0.15, -0.1, -0.3}));
     EXPECT_TRUE((t_r_pos == std::vector<float> {0.35, 0.6, -0.3}));
     EXPECT_TRUE((t_l_pos == std::vector<float> {-0.15, 0.6, -0.3}));
+
+    delete bucket;
 }
 
 TEST(UnitTestUtils, CheckBucketMovement) {
@@ -136,6 +138,8 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
+
+    delete bucket;
 }
 
 TEST(UnitTestUtils, CalcNormal) {
