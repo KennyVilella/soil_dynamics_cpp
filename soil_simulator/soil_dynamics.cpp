@@ -14,10 +14,19 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/relax.hpp"
 #include "soil_simulator/utils.hpp"
 
-void soil_simulator::SoilDynamics::step(
+bool soil_simulator::SoilDynamics::step(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
     Grid grid, Bucket* bucket, SimParam sim_param, float tol
 ) {
+    // Checking movement made by the bucket
+    auto soil_update = soil_simulator::CheckBucketMovement(
+        pos, ori, grid, bucket);
+
+    if (!soil_update) {
+        // Bucket has not moved enough
+        return false;
+    }
+
     // Updating bucket position
     soil_simulator::CalcBucketPos(
         sim_out, pos, ori, grid, bucket, sim_param, tol);
@@ -52,6 +61,7 @@ void soil_simulator::SoilDynamics::step(
         // Relaxing the soil resting on the bucket
         RelaxBodySoil(sim_out, grid, sim_param, tol);
     }
+    return true;
 }
 
 void soil_simulator::SoilDynamics::check(

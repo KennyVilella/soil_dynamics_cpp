@@ -5,11 +5,42 @@ Copyright, 2023, Vilella Kenny.
 */
 #pragma once
 
-#include <vector>
 #include <tuple>
+#include <vector>
 #include "soil_simulator/types.hpp"
 
 namespace soil_simulator {
+
+/// \brief This function calculates the global position of the six corners of
+///        the bucket.
+///
+/// \param pos: Cartesian coordinates of the bucket origin. [m]
+/// \param ori: Orientation of the bucket. [Quaternion]
+/// \param bucket: Class that stores information related to the bucket object.
+///
+/// \return A tuple composed of six vectors giving the Cartesian coordinates
+///         of the bucket corners in that order: right side of the bucket joint,
+///         left side of the bucket joint, right side of the bucket base, left
+///         side of the bucket base, right side of the bucket teeth, left side
+///         of the bucket teeth. [m]
+std::tuple<
+    std::vector<float>, std::vector<float>, std::vector<float>,
+    std::vector<float>, std::vector<float>, std::vector<float>>
+CalcBucketCornerPos(
+    std::vector<float> pos, std::vector<float> ori, Bucket* bucket);
+
+/// \brief This function calculates how far the bucket has traveled since the
+///        last soil update and checks whether it is necessary to update the
+///        soil.
+///
+/// \param pos: Cartesian coordinates of the bucket origin. [m]
+/// \param ori: Orientation of the bucket. [Quaternion]
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param bucket: Class that stores information related to the bucket object.
+///
+/// \return A boolean indicating whether the soil should be updated.
+bool CheckBucketMovement(
+    std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket);
 
 /// \brief This function calculates the unit normal vector of a plane formed by
 ///        three points using the right-hand rule.
@@ -81,6 +112,6 @@ void WriteSoil(SimOut* sim_out, Grid grid);
 /// \brief This function writes the position of all bucket faces into a csv
 ///        located in the `results` directory.
 ///
-/// \param grid: Class that stores information related to the simulation grid.
+/// bucket: Class that stores information related to the bucket object.
 void WriteBucket(Bucket* bucket);
 }  // namespace soil_simulator

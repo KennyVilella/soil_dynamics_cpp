@@ -70,11 +70,11 @@ void soil_simulator::SoilEvolution(
 
         // Creating the trajectory
         std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-            x_i, z_i, x_min, z_min, origin_angle, 100);
+            x_i, z_i, x_min, z_min, origin_angle, 1000);
     } else {
         // Default parabolic trajectory
         std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-            -2.0, 1.5, 0.1, 0.25, origin_angle, 100);
+            -2.0, 1.5, 0.1, 0.25, origin_angle, 1000);
     }
 
     // Initializing bucket corner position vectors
@@ -113,20 +113,20 @@ void soil_simulator::SoilEvolution(
             j_pos[0] + half_width[0], j_pos[1] + half_width[1],
             j_pos[2] + half_width[2]});
         j_l_pos.push_back(std::vector<float> {
-            j_pos[0] + half_width[0], j_pos[1] - half_width[1],
-            j_pos[2] + half_width[2]});
+            j_pos[0] - half_width[0], j_pos[1] - half_width[1],
+            j_pos[2] - half_width[2]});
         b_r_pos.push_back(std::vector<float> {
             b_pos[0] + half_width[0], b_pos[1] + half_width[1],
             b_pos[2] + half_width[2]});
         b_l_pos.push_back(std::vector<float> {
-            b_pos[0] + half_width[0], b_pos[1] - half_width[1],
-            b_pos[2] + half_width[2]});
+            b_pos[0] - half_width[0], b_pos[1] - half_width[1],
+            b_pos[2] - half_width[2]});
         t_r_pos.push_back(std::vector<float> {
             t_pos[0] + half_width[0], t_pos[1] + half_width[1],
             t_pos[2] + half_width[2]});
         t_l_pos.push_back(std::vector<float> {
-            t_pos[0] + half_width[0], t_pos[1] - half_width[1],
-            t_pos[2] + half_width[2]});
+            t_pos[0] - half_width[0], t_pos[1] - half_width[1],
+            t_pos[2] - half_width[2]});
     }
 
     // Setting time
@@ -140,8 +140,8 @@ void soil_simulator::SoilEvolution(
     std::vector<std::vector<float>> pos_vec;
     std::vector<std::vector<float>> ori_vec;
     std::vector<float> time_vec;
-    float dt_i = dt;
-    float time = dt;
+    float dt_i = 0.1;
+    float time = 0.1;
     pos_vec.push_back(pos[0]);
     auto ori_i = soil_simulator::AngleToQuat(
             {ori[0][0], ori[0][1], ori[0][2]});
@@ -154,7 +154,7 @@ void soil_simulator::SoilEvolution(
 
        // Searching time that is closest to the time where pos and ori
        // were calculated
-       int kk = static_cast<int>(std::floor(time / dt_int));
+       int kk = static_cast<int>(std::ceil(time / dt_int));
 
        // Calculating linear interpolation of pos and ori at time
        float a = ((kk + 1) * dt_int - time) / dt_int;
@@ -171,7 +171,7 @@ void soil_simulator::SoilEvolution(
 
        // Calculating linear interpolation of bucket corners
        float time_plus = time + 0.5 * dt_i;
-       int kk_plus = static_cast<int>(std::floor(time_plus / dt_int));
+       int kk_plus = static_cast<int>(std::ceil(time_plus / dt_int));
        float a_plus = ((kk + 1) * dt_int - time_plus) / dt_int;
        float b_plus = (time_plus - kk * dt_int) / dt_int;
        std::vector<float> j_l_pos_plus = {
@@ -199,7 +199,7 @@ void soil_simulator::SoilEvolution(
            t_r_pos[kk_plus][1] * a + t_r_pos[kk_plus+1][1] * b,
            t_r_pos[kk_plus][2] * a + t_r_pos[kk_plus+1][2] * b};
        float time_minus = time - 0.5 * dt_i;
-       int kk_minus = static_cast<int>(std::floor(time_minus / dt_int));
+       int kk_minus = static_cast<int>(std::ceil(time_minus / dt_int));
        float a_minus = ((kk + 1) * dt_int - time_minus) / dt_int;
        float b_minus = (time_minus - kk * dt_int) / dt_int;
        std::vector<float> j_l_pos_minus = {
@@ -269,7 +269,7 @@ void soil_simulator::SoilEvolution(
            // Bucket is moving very slowly
            time += dt;
        } else {
-           // Bucket is mobing
+           // Bucket is moving
            time += dt_i;
        }
     }
