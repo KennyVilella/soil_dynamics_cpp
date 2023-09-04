@@ -7,6 +7,70 @@ Copyright, 2023, Vilella Kenny.
 #include "gtest/gtest.h"
 #include "soil_simulator/utils.hpp"
 
+TEST(UnitTestUtils, CalcBucketCornerPos) {
+    // Setting up the environment
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.0, 0.0, -0.5};
+    std::vector<float> t_pos = {0.7, 0.0, -0.5};
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
+        o_pos, j_pos, b_pos, t_pos, 0.5);
+
+    // -- Testing for a bucket in its reference pose --
+    auto pos = std::vector<float> {0.0, 0.0, 0.0};
+    auto ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] = 
+        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+    EXPECT_TRUE((j_r_pos == std::vector<float> {0.0, -0.25, 0.0}));
+    EXPECT_TRUE((j_l_pos == std::vector<float> {0.0, 0.25, 0.0}));
+    EXPECT_TRUE((b_r_pos == std::vector<float> {0.0, -0.25, -0.5}));
+    EXPECT_TRUE((b_l_pos == std::vector<float> {0.0, 0.25, -0.5}));
+    EXPECT_TRUE((t_r_pos == std::vector<float> {0.7, -0.25, -0.5}));
+    EXPECT_TRUE((t_l_pos == std::vector<float> {0.7, 0.25, -0.5}));
+
+    // -- Testing for a bucket translated compared to its reference pose --
+    pos = std::vector<float> {0.1, -0.1, 0.2};
+    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
+        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+    EXPECT_TRUE((j_r_pos == std::vector<float> {0.1, -0.35, 0.2}));
+    EXPECT_TRUE((j_l_pos == std::vector<float> {0.1, 0.15, 0.2}));
+    EXPECT_TRUE((b_r_pos == std::vector<float> {0.1, -0.35, -0.3}));
+    EXPECT_TRUE((b_l_pos == std::vector<float> {0.1, 0.15, -0.3}));
+    EXPECT_TRUE((t_r_pos == std::vector<float> {0.8, -0.35, -0.3}));
+    EXPECT_TRUE((t_l_pos == std::vector<float> {0.8, 0.15, -0.3}));
+
+    // -- Testing for a bucket rotated compared to its reference pose --
+    pos = std::vector<float> {0.0, 0.0, 0.0};
+    ori = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
+        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+    EXPECT_TRUE((j_r_pos == std::vector<float> {0.25, 0.0, 0.0}));
+    EXPECT_TRUE((j_l_pos == std::vector<float> {-0.25, 0.0, 0.0}));
+    EXPECT_TRUE((b_r_pos == std::vector<float> {0.25, 0.0, -0.5}));
+    EXPECT_TRUE((b_l_pos == std::vector<float> {-0.25, 0.0, -0.5}));
+    // Following ones requires a different check due to numerical approximation
+    EXPECT_NEAR(t_r_pos[0], 0.25, 1e-5);
+    EXPECT_NEAR(t_r_pos[1], 0.7, 1e-5);
+    EXPECT_NEAR(t_r_pos[2], -0.5, 1e-5);
+    EXPECT_NEAR(t_l_pos[0], -0.25, 1e-5);
+    EXPECT_NEAR(t_l_pos[1], 0.7, 1e-5);
+    EXPECT_NEAR(t_l_pos[2], -0.5, 1e-5);
+
+    // -- Testing for a bucket rotated and translated compared to its --
+    // -- reference pose                                              --
+    pos = std::vector<float> {0.1, -0.1, 0.2};
+    ori = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
+        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+    EXPECT_TRUE((j_r_pos == std::vector<float> {0.35, -0.1, 0.2}));
+    EXPECT_TRUE((j_l_pos == std::vector<float> {-0.15, -0.1, 0.2}));
+    EXPECT_TRUE((b_r_pos == std::vector<float> {0.35, -0.1, -0.3}));
+    EXPECT_TRUE((b_l_pos == std::vector<float> {-0.15, -0.1, -0.3}));
+    EXPECT_TRUE((t_r_pos == std::vector<float> {0.35, 0.6, -0.3}));
+    EXPECT_TRUE((t_l_pos == std::vector<float> {-0.15, 0.6, -0.3}));
+}
+
 TEST(UnitTestUtils, CalcNormal) {
     // Setting dummy coordinates forming a triangle in the XY plane
     std::vector<float> a = {0.0, 0.0, 0.0};
