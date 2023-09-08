@@ -574,24 +574,11 @@ soil_simulator::DecomposeVectorTriangle(
     return {c_ab, c_ac, in_triangle, n_cell};
 }
 
-/// For the sake of accuracy, the line is divided into smaller segments using a
-/// spatial increment `delta`.
+/// The algorithm implemented in this function comes from the article:
+/// "A Fast Voxel Traversal Algorithm for Ray Tracing" by J. Amanatides and
+/// A. Woo.
 ///
-/// The coordinates of each sub-point (ab_i) along the line can then be
-/// calculated as
-///
-/// \code
-///    ab_i = a + ab * i * delta / norm(ab)
-/// \endcode
-///
-/// where i is the increment number and ab = b - a.
-/// The Cartesian coordinates can then be converted into indices
-///
-/// \code
-///    ab_i_ind = ab_i / cell_size + grid_half_length + 1
-/// \endcode
-///
-/// Finally, the floating-point values are rounded to obtain the cell indices in
+/// The floating-point values are rounded to obtain the cell indices in
 /// the X, Y, Z directions.
 /// As the center of each cell is considered to be on the center of the top
 /// surface, `round` should be used for getting the cell indices in the X and Y
