@@ -31,8 +31,6 @@ void CalcBucketPos(
 /// \param b: Cartesian coordinates of one vertex of the rectangle. [m]
 /// \param c: Cartesian coordinates of one vertex of the rectangle. [m]
 /// \param d: Cartesian coordinates of one vertex of the rectangle. [m]
-/// \param delta: Spatial increment used to decompose the edges of the
-///               rectangle. [m]
 /// \param grid: Class that stores information related to the simulation grid.
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
@@ -75,8 +73,6 @@ DecomposeVectorRectangle(
 /// \param a: Cartesian coordinates of one vertex of the triangle. [m]
 /// \param b: Cartesian coordinates of one vertex of the triangle. [m]
 /// \param c: Cartesian coordinates of one vertex of the triangle. [m]
-/// \param delta: Spatial increment used to decompose the edges of the
-///               triangle. [m]
 /// \param grid: Class that stores information related to the simulation grid.
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
@@ -118,11 +114,9 @@ DecomposeVectorTriangle(
 ///
 /// \param a: Cartesian coordinates of the first extremity of the line. [m]
 /// \param b: Cartesian coordinates of the second extremity of the line. [m]
-/// \param delta: Spatial increment used to decompose the line. [m]
 /// \param grid: Class that stores information related to the simulation grid.
 ///
 /// \return Collection of cells indices where the line is located.
-///         Result is not sorted and duplicates should be expected.
 std::vector<std::vector<int>> CalcLinePos(
     std::vector<float> a, std::vector<float> b, Grid grid);
 
