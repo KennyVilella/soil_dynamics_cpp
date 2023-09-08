@@ -85,13 +85,13 @@ void soil_simulator::CalcBucketPos(
 
     // Determining where each surface of the bucket is located
     auto base_pos = soil_simulator::CalcRectanglePos(
-        b_r_pos, b_l_pos, t_l_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        b_r_pos, b_l_pos, t_l_pos, t_r_pos, grid, tol);
     auto back_pos = soil_simulator::CalcRectanglePos(
-        b_r_pos, b_l_pos, j_l_pos, j_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        b_r_pos, b_l_pos, j_l_pos, j_r_pos, grid, tol);
     auto right_side_pos = soil_simulator::CalcTrianglePos(
-        j_r_pos, b_r_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        j_r_pos, b_r_pos, t_r_pos, grid, tol);
     auto left_side_pos = soil_simulator::CalcTrianglePos(
-        j_l_pos, b_l_pos, t_l_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        j_l_pos, b_l_pos, t_l_pos, grid, tol);
 
     // Sorting all list of cells indices where the bucket is located
     sort(base_pos.begin(), base_pos.end());
@@ -141,7 +141,7 @@ void soil_simulator::CalcBucketPos(
 ///   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
-    std::vector<float> d, float delta, Grid grid, float tol
+    std::vector<float> d, Grid grid, float tol
 ) {
     // Converting the four rectangle vertices from position to indices
     std::vector<float> a_ind(3, 0);
@@ -234,10 +234,10 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
         }
 
     // Determining the cells where the four edges of the rectangle are located
-    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
-    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
-    auto cd_pos = soil_simulator::CalcLinePos(c, d, delta, grid);
-    auto da_pos = soil_simulator::CalcLinePos(d, a, delta, grid);
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, grid);
+    auto cd_pos = soil_simulator::CalcLinePos(c, d, grid);
+    auto da_pos = soil_simulator::CalcLinePos(d, a, grid);
 
     // Concatenating all cells in rect_pos
     rect_pos.insert(rect_pos.end(), ab_pos.begin(), ab_pos.end());
@@ -374,7 +374,7 @@ soil_simulator::DecomposeVectorRectangle(
 ///   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
-    float delta, Grid grid, float tol
+    Grid grid, float tol
 ) {
     // Converting the three triangle vertices from position to indices
     std::vector<float> a_ind(3, 0);
@@ -463,9 +463,9 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
         }
 
     // Determining the cells where the three edges of the triangle are located
-    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
-    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
-    auto ca_pos = soil_simulator::CalcLinePos(c, a, delta, grid);
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, grid);
+    auto ca_pos = soil_simulator::CalcLinePos(c, a, grid);
 
     // Concatenating all cells in tri_pos
     tri_pos.insert(tri_pos.end(), ab_pos.begin(), ab_pos.end());
@@ -601,8 +601,7 @@ soil_simulator::DecomposeVectorTriangle(
 /// When the line follows a cell border, the exact location of the line becomes
 /// ambiguous. It is assumed that the caller resolves this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcLinePos(
-    std::vector<float> a, std::vector<float> b, float delta,
-    Grid grid
+    std::vector<float> a, std::vector<float> b, Grid grid
 ) {
     // Converting to indices
     float x1 = a[0] / grid.cell_size_xy_ + grid.half_length_x_;

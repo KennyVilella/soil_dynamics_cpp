@@ -40,7 +40,7 @@ void CalcBucketPos(
 ///         Result is not sorted and duplicates may be present.
 std::vector<std::vector<int>> CalcRectanglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
-    std::vector<float> d, float delta, Grid grid, float tol);
+    std::vector<float> d, Grid grid, float tol);
 
 /// \brief This function performs a vector decomposition on a portion of the
 ///        horizontal plane where a rectangle ABCD is located.
@@ -84,7 +84,7 @@ DecomposeVectorRectangle(
 ///         Result is not sorted and duplicates may be present.
 std::vector<std::vector<int>> CalcTrianglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
-    float delta, Grid grid, float tol);
+    Grid grid, float tol);
 
 /// \brief This function performs a vector decomposition on a portion of the
 ///        horizontal plane where a tritangle ABC is located.
@@ -124,7 +124,7 @@ DecomposeVectorTriangle(
 /// \return Collection of cells indices where the line is located.
 ///         Result is not sorted and duplicates should be expected.
 std::vector<std::vector<int>> CalcLinePos(
-    std::vector<float> a, std::vector<float> b, float delta, Grid grid);
+    std::vector<float> a, std::vector<float> b, Grid grid);
 
 /// \brief This function updates the bucket position in `body` following the
 ///        cells composing `area_pos`.

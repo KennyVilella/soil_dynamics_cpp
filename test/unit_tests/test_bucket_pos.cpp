@@ -17,9 +17,8 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for a line following the X axis --
     std::vector<float> a = {0.0 + 1e-5, 0.0 - 1e-5, -0.06 + 1e-5};
     std::vector<float> b = {1.0 - 1e-5, 0.0 - 1e-5,  0.0  - 1e-5};
-    float delta = 0.1;
     std::vector<std::vector<int>> line_pos = soil_simulator::CalcLinePos(
-        a, b, delta, grid);
+        a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
@@ -37,8 +36,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing that the rounding is done properly --
     a = {0.04 + 1e-5,  0.04 - 1e-5, -0.09 + 1e-5};
     b = {1.04 - 1e-5, -0.04 + 1e-5,   0.0 - 1e-5};
-    delta = 0.1;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
@@ -56,8 +54,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for a line following the Y axis --
     a = {0.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {0.0 - 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    delta = 0.1;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
@@ -75,8 +72,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for an arbitrary line (results obtained manually) --
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
@@ -93,8 +89,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for an arbitrary line in the XZ plane --
     a = {0.34 + 1e-8, 0.0 - 1e-8, 0.56 + 1e-8};
     b = {0.74 - 1e-8, 0.0 - 1e-8, 0.97 - 1e-8};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
@@ -111,8 +106,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for the edge case where the line is a point --
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
@@ -121,8 +115,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for the edge case where the line is a point --
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
@@ -617,7 +610,6 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     std::vector<float> b;
     std::vector<float> c;
     std::vector<float> d;
-    float delta;
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
 
@@ -626,9 +618,8 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
     d = {0.0 + 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
     auto rect_pos = soil_simulator::CalcRectanglePos(
-        a, b, c, d, delta, grid, tol);
+        a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -672,7 +663,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
 
     // -- Testing that the input order does not influence the results (1) --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -716,7 +707,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
 
     // -- Testing that the input order does not influence the results (2) --
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -760,27 +751,27 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
 
     // -- Testing that the input order does not influence the results (3) --
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -791,8 +782,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, -0.05 + 1e-5, 0.0 - 1e-5};
     c = {0.5 - 1e-5,  0.25 - 1e-5, 0.0 - 1e-5};
     d = {0.0 + 1e-5,  0.25 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -818,37 +808,37 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 12, 10}));
 
     // -- Testing that the input order does not influence the results --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -859,8 +849,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     c = {0.5 - 1e-5, 0.0 - 1e-5, 0.5 - 1e-5};
     d = {0.0 + 1e-5, 0.0 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -886,37 +875,37 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 10, 15}));
 
     // -- Testing that the input order does not influence the results --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -927,8 +916,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.6 - 1e-5, 0.0 + 1e-5, 0.6 - 1e-5};
     c = {0.6 - 1e-5, 0.5 - 1e-5, 0.6 - 1e-5};
     d = {0.5 + 1e-5, 0.5 - 1e-5, 0.5 + 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -948,37 +936,37 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[11] == std::vector<int> {16, 15, 16}));
 
     // -- Testing that the input order does not influence the results --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -989,8 +977,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
     c = {0.44 + 1e-5, 0.67 + 1e-5, 0.0 - 1e-5};
     d = {0.64 - 1e-5, 0.87 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1011,8 +998,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     d = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1025,8 +1011,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     c = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     d = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1044,7 +1029,6 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     std::vector<float> a;
     std::vector<float> b;
     std::vector<float> c;
-    float delta;
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
 
@@ -1052,8 +1036,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.0 + 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {1.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.0 + 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1137,7 +1120,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
 
     // -- Testing that the input order does not influence the results (1) --
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1221,7 +1204,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
 
     // -- Testing that the input order does not influence the results (2) --
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1305,17 +1288,17 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
 
     // -- Testing that the input order does not influence the results (3) --
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 76);
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 76);
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1325,8 +1308,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.0 + 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     b = {1.0 - 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     c = {0.0 + 1e-5, 0.0 - 1e-5, 1.0 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1371,27 +1353,27 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[36] == std::vector<int> {20, 10, 11}));
 
     // -- Testing that the input order does not influence the results --
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1401,8 +1383,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.5 + 1e-5, 0.0 + 1e-5, 0.5 + 1e-5};
     b = {0.6 - 1e-5, 0.0 + 1e-5, 0.6 - 1e-5};
     c = {0.6 - 2e-5, 0.5 - 1e-5, 0.6 - 2e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1420,27 +1401,27 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[9] == std::vector<int> {16, 15, 16}));
 
     // -- Testing that the input order does not influence the results --
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 10);
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 10);
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 10);
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 10);
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1450,8 +1431,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
     c = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1471,8 +1451,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
