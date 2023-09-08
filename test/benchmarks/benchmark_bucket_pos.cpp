@@ -102,7 +102,7 @@ static void BM_UpdateBody(benchmark::State& state) {
     std::vector<float> a = {0.0, 0.0, 0.0};
     std::vector<float> b = {1.0, 0.0, 0.0};
     std::vector<float> c = {1.0, 0.5, 0.0};
-    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, 0.01, grid, 1.e-5);
+    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, 1.e-5);
 
     for (auto _ : state)
         soil_simulator::UpdateBody(tri_pos, sim_out, grid, 1.e-5);
