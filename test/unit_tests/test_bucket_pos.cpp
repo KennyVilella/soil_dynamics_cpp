@@ -17,9 +17,8 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for a line following the X axis --
     std::vector<float> a = {0.0 + 1e-5, 0.0 - 1e-5, -0.06 + 1e-5};
     std::vector<float> b = {1.0 - 1e-5, 0.0 - 1e-5,  0.0  - 1e-5};
-    float delta = 0.1;
     std::vector<std::vector<int>> line_pos = soil_simulator::CalcLinePos(
-        a, b, delta, grid);
+        a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
@@ -34,22 +33,10 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 10}));
     EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 10}));
 
-    // -- Testing for a line following the X axis with a larger delta --
-    a = {0.0 + 1e-5, 0.0 - 1e-5, 0.0 - 1e-5};
-    b = {1.0 - 1e-5, 0.0 - 1e-5, 0.0 - 1e-5};
-    delta = 0.5;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
-
-    EXPECT_EQ(line_pos.size(), 3);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {20, 10, 10}));
-
     // -- Testing that the rounding is done properly --
     a = {0.04 + 1e-5,  0.04 - 1e-5, -0.09 + 1e-5};
     b = {1.04 - 1e-5, -0.04 + 1e-5,   0.0 - 1e-5};
-    delta = 0.1;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
@@ -67,8 +54,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for a line following the Y axis --
     a = {0.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {0.0 - 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    delta = 0.1;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
@@ -86,8 +72,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for an arbitrary line (results obtained manually) --
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
@@ -104,8 +89,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for an arbitrary line in the XZ plane --
     a = {0.34 + 1e-8, 0.0 - 1e-8, 0.56 + 1e-8};
     b = {0.74 - 1e-8, 0.0 - 1e-8, 0.97 - 1e-8};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
@@ -122,8 +106,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for the edge case where the line is a point --
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
@@ -132,8 +115,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // -- Testing for the edge case where the line is a point --
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
-    delta = 0.01;
-    line_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
@@ -628,7 +610,6 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     std::vector<float> b;
     std::vector<float> c;
     std::vector<float> d;
-    float delta;
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
 
@@ -637,9 +618,8 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
     d = {0.0 + 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
     auto rect_pos = soil_simulator::CalcRectanglePos(
-        a, b, c, d, delta, grid, tol);
+        a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -683,7 +663,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
 
     // -- Testing that the input order does not influence the results (1) --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -727,7 +707,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
 
     // -- Testing that the input order does not influence the results (2) --
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -771,27 +751,27 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
 
     // -- Testing that the input order does not influence the results (3) --
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -802,8 +782,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, -0.05 + 1e-5, 0.0 - 1e-5};
     c = {0.5 - 1e-5,  0.25 - 1e-5, 0.0 - 1e-5};
     d = {0.0 + 1e-5,  0.25 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -829,37 +808,37 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 12, 10}));
 
     // -- Testing that the input order does not influence the results --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -870,8 +849,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     c = {0.5 - 1e-5, 0.0 - 1e-5, 0.5 - 1e-5};
     d = {0.0 + 1e-5, 0.0 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -897,37 +875,37 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 10, 15}));
 
     // -- Testing that the input order does not influence the results --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -938,8 +916,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.6 - 1e-5, 0.0 + 1e-5, 0.6 - 1e-5};
     c = {0.6 - 1e-5, 0.5 - 1e-5, 0.6 - 1e-5};
     d = {0.5 + 1e-5, 0.5 - 1e-5, 0.5 + 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -959,37 +936,37 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     EXPECT_TRUE((rect_pos[11] == std::vector<int> {16, 15, 16}));
 
     // -- Testing that the input order does not influence the results --
-    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
-    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1000,8 +977,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
     c = {0.44 + 1e-5, 0.67 + 1e-5, 0.0 - 1e-5};
     d = {0.64 - 1e-5, 0.87 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1022,8 +998,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     d = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1036,8 +1011,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     c = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     d = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, delta, grid, tol);
+    rect_pos = soil_simulator::CalcRectanglePos(a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
     // Checking the number of cells
@@ -1055,7 +1029,6 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     std::vector<float> a;
     std::vector<float> b;
     std::vector<float> c;
-    float delta;
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
 
@@ -1063,12 +1036,11 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.0 + 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {1.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.0 + 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 66);
+    EXPECT_EQ(tri_pos.size(), 76);
     // Checking cells
     EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
     EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 10}));
@@ -1091,58 +1063,68 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 10}));
     EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 10}));
     EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 10}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 16, 10}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 17, 10}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 18, 10}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 17, 10}));
-    EXPECT_TRUE((tri_pos[38] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((tri_pos[39] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((tri_pos[40] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[45] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((tri_pos[46] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((tri_pos[47] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((tri_pos[48] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 15, 10}));
-    EXPECT_TRUE((tri_pos[51] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((tri_pos[52] == std::vector<int> {16, 11, 10}));
-    EXPECT_TRUE((tri_pos[53] == std::vector<int> {16, 12, 10}));
-    EXPECT_TRUE((tri_pos[54] == std::vector<int> {16, 13, 10}));
-    EXPECT_TRUE((tri_pos[55] == std::vector<int> {16, 14, 10}));
-    EXPECT_TRUE((tri_pos[56] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((tri_pos[57] == std::vector<int> {17, 11, 10}));
-    EXPECT_TRUE((tri_pos[58] == std::vector<int> {17, 12, 10}));
-    EXPECT_TRUE((tri_pos[59] == std::vector<int> {17, 13, 10}));
-    EXPECT_TRUE((tri_pos[60] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((tri_pos[61] == std::vector<int> {18, 11, 10}));
-    EXPECT_TRUE((tri_pos[62] == std::vector<int> {18, 12, 10}));
-    EXPECT_TRUE((tri_pos[63] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((tri_pos[64] == std::vector<int> {19, 11, 10}));
-    EXPECT_TRUE((tri_pos[65] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 10}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 10}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 10}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 10}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 10}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 10}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 10}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 10}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 10}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 10}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 10}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 10}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 10}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 10}));
+    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 10}));
+    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 10}));
+    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 10}));
+    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 10}));
+    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 10}));
+    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 10}));
+    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 10}));
+    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 10}));
+    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 10}));
+    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 10}));
+    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 10}));
+    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 10}));
+    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 10}));
+    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 10}));
+    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 10}));
+    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 10}));
+    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 10}));
+    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 10}));
+    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 10}));
+    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 10}));
+    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 10}));
+    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 10}));
+    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 10}));
+    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 10}));
+    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 10}));
+    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 10}));
+    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 10}));
+    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 10}));
+    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 10}));
+    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 10}));
+    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 10}));
+    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 10}));
+    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 10}));
+    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 10}));
+    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 10}));
+    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
 
     // -- Testing that the input order does not influence the results (1) --
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 66);
+    EXPECT_EQ(tri_pos.size(), 76);
     // Checking cells
     EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
     EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 10}));
@@ -1165,58 +1147,68 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 10}));
     EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 10}));
     EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 10}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 16, 10}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 17, 10}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 18, 10}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 17, 10}));
-    EXPECT_TRUE((tri_pos[38] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((tri_pos[39] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((tri_pos[40] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[45] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((tri_pos[46] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((tri_pos[47] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((tri_pos[48] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 15, 10}));
-    EXPECT_TRUE((tri_pos[51] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((tri_pos[52] == std::vector<int> {16, 11, 10}));
-    EXPECT_TRUE((tri_pos[53] == std::vector<int> {16, 12, 10}));
-    EXPECT_TRUE((tri_pos[54] == std::vector<int> {16, 13, 10}));
-    EXPECT_TRUE((tri_pos[55] == std::vector<int> {16, 14, 10}));
-    EXPECT_TRUE((tri_pos[56] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((tri_pos[57] == std::vector<int> {17, 11, 10}));
-    EXPECT_TRUE((tri_pos[58] == std::vector<int> {17, 12, 10}));
-    EXPECT_TRUE((tri_pos[59] == std::vector<int> {17, 13, 10}));
-    EXPECT_TRUE((tri_pos[60] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((tri_pos[61] == std::vector<int> {18, 11, 10}));
-    EXPECT_TRUE((tri_pos[62] == std::vector<int> {18, 12, 10}));
-    EXPECT_TRUE((tri_pos[63] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((tri_pos[64] == std::vector<int> {19, 11, 10}));
-    EXPECT_TRUE((tri_pos[65] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 10}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 10}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 10}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 10}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 10}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 10}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 10}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 10}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 10}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 10}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 10}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 10}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 10}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 10}));
+    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 10}));
+    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 10}));
+    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 10}));
+    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 10}));
+    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 10}));
+    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 10}));
+    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 10}));
+    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 10}));
+    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 10}));
+    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 10}));
+    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 10}));
+    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 10}));
+    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 10}));
+    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 10}));
+    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 10}));
+    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 10}));
+    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 10}));
+    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 10}));
+    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 10}));
+    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 10}));
+    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 10}));
+    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 10}));
+    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 10}));
+    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 10}));
+    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 10}));
+    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 10}));
+    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 10}));
+    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 10}));
+    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 10}));
+    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 10}));
+    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 10}));
+    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 10}));
+    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 10}));
+    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 10}));
+    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 10}));
+    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
 
     // -- Testing that the input order does not influence the results (2) --
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 66);
+    EXPECT_EQ(tri_pos.size(), 76);
     // Checking cells
     EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
     EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 10}));
@@ -1239,75 +1231,84 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 10}));
     EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 10}));
     EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 10}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 16, 10}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 17, 10}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 18, 10}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 17, 10}));
-    EXPECT_TRUE((tri_pos[38] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((tri_pos[39] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((tri_pos[40] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[45] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((tri_pos[46] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((tri_pos[47] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((tri_pos[48] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 15, 10}));
-    EXPECT_TRUE((tri_pos[51] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((tri_pos[52] == std::vector<int> {16, 11, 10}));
-    EXPECT_TRUE((tri_pos[53] == std::vector<int> {16, 12, 10}));
-    EXPECT_TRUE((tri_pos[54] == std::vector<int> {16, 13, 10}));
-    EXPECT_TRUE((tri_pos[55] == std::vector<int> {16, 14, 10}));
-    EXPECT_TRUE((tri_pos[56] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((tri_pos[57] == std::vector<int> {17, 11, 10}));
-    EXPECT_TRUE((tri_pos[58] == std::vector<int> {17, 12, 10}));
-    EXPECT_TRUE((tri_pos[59] == std::vector<int> {17, 13, 10}));
-    EXPECT_TRUE((tri_pos[60] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((tri_pos[61] == std::vector<int> {18, 11, 10}));
-    EXPECT_TRUE((tri_pos[62] == std::vector<int> {18, 12, 10}));
-    EXPECT_TRUE((tri_pos[63] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((tri_pos[64] == std::vector<int> {19, 11, 10}));
-    EXPECT_TRUE((tri_pos[65] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 10}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 10}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 10}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 10}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 10}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 10}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 10}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 10}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 10}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 10}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 10}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 10}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 10}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 10}));
+    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 10}));
+    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 10}));
+    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 10}));
+    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 10}));
+    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 10}));
+    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 10}));
+    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 10}));
+    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 10}));
+    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 10}));
+    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 10}));
+    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 10}));
+    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 10}));
+    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 10}));
+    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 10}));
+    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 10}));
+    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 10}));
+    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 10}));
+    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 10}));
+    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 10}));
+    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 10}));
+    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 10}));
+    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 10}));
+    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 10}));
+    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 10}));
+    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 10}));
+    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 10}));
+    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 10}));
+    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 10}));
+    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 10}));
+    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 10}));
+    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 10}));
+    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 10}));
+    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 10}));
+    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 10}));
+    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 10}));
+    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
 
     // -- Testing that the input order does not influence the results (3) --
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 66);
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, delta, grid, tol);
+    EXPECT_EQ(tri_pos.size(), 76);
+    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 66);
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, delta, grid, tol);
+    EXPECT_EQ(tri_pos.size(), 76);
+    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 66);
+    EXPECT_EQ(tri_pos.size(), 76);
 
     // -- Testing for a simple triangle in the XZ plane --
     a = {0.0 + 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     b = {1.0 - 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     c = {0.0 + 1e-5, 0.0 - 1e-5, 1.0 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1352,27 +1353,27 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     EXPECT_TRUE((tri_pos[36] == std::vector<int> {20, 10, 11}));
 
     // -- Testing that the input order does not influence the results --
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1381,57 +1382,56 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // -- Testing for a simple triangle in the XYZ plane --
     a = {0.5 + 1e-5, 0.0 + 1e-5, 0.5 + 1e-5};
     b = {0.6 - 1e-5, 0.0 + 1e-5, 0.6 - 1e-5};
-    c = {0.6 - 1e-5, 0.5 - 1e-5, 0.6 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    c = {0.6 - 2e-5, 0.5 - 1e-5, 0.6 - 2e-5};
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 9);
+    EXPECT_EQ(tri_pos.size(), 10);
     // Checking cells
     EXPECT_TRUE((tri_pos[0] == std::vector<int> {15, 10, 16}));
     EXPECT_TRUE((tri_pos[1] == std::vector<int> {15, 11, 16}));
     EXPECT_TRUE((tri_pos[2] == std::vector<int> {15, 12, 16}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {16, 10, 16}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {16, 11, 16}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {16, 12, 16}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {16, 13, 16}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {16, 14, 16}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {16, 15, 16}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {15, 13, 16}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {16, 10, 16}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {16, 11, 16}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {16, 12, 16}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {16, 13, 16}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {16, 14, 16}));
+    EXPECT_TRUE((tri_pos[9] == std::vector<int> {16, 15, 16}));
 
     // -- Testing that the input order does not influence the results --
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 9);
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, delta, grid, tol);
+    EXPECT_EQ(tri_pos.size(), 10);
+    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 9);
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, delta, grid, tol);
+    EXPECT_EQ(tri_pos.size(), 10);
+    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 9);
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, delta, grid, tol);
+    EXPECT_EQ(tri_pos.size(), 10);
+    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 9);
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, delta, grid, tol);
+    EXPECT_EQ(tri_pos.size(), 10);
+    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
-    EXPECT_EQ(tri_pos.size(), 9);
+    EXPECT_EQ(tri_pos.size(), 10);
 
     // -- Testing for the edge case where the triangle is a line --
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
     c = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells
@@ -1451,8 +1451,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    delta = 0.01;
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, delta, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     // Checking the number of cells

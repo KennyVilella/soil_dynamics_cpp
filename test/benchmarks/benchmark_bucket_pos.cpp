@@ -39,7 +39,7 @@ static void BM_CalcRectanglePos(benchmark::State& state) {
     std::vector<float> d = {0.0, 0.5, 0.0};
 
     for (auto _ : state)
-        soil_simulator::CalcRectanglePos(a, b, c, d, 0.01, grid, 1.e-5);
+        soil_simulator::CalcRectanglePos(a, b, c, d, grid, 1.e-5);
 }
 BENCHMARK(BM_CalcRectanglePos)->Unit(benchmark::kMicrosecond);
 
@@ -65,7 +65,7 @@ static void BM_CalcTrianglePos(benchmark::State& state) {
     std::vector<float> c = {1.0, 0.5, 0.0};
 
     for (auto _ : state)
-        soil_simulator::CalcTrianglePos(a, b, c, 0.01, grid, 1.e-5);
+        soil_simulator::CalcTrianglePos(a, b, c, grid, 1.e-5);
 }
 BENCHMARK(BM_CalcTrianglePos)->Unit(benchmark::kMicrosecond);
 
@@ -90,7 +90,7 @@ static void BM_CalcLinePos(benchmark::State& state) {
     std::vector<float> b = {0.74, 0.97, 0.0};
 
     for (auto _ : state)
-        soil_simulator::CalcLinePos(a, b, 0.01, grid);
+        soil_simulator::CalcLinePos(a, b, grid);
 }
 BENCHMARK(BM_CalcLinePos)->Unit(benchmark::kMicrosecond);
 
@@ -102,7 +102,7 @@ static void BM_UpdateBody(benchmark::State& state) {
     std::vector<float> a = {0.0, 0.0, 0.0};
     std::vector<float> b = {1.0, 0.0, 0.0};
     std::vector<float> c = {1.0, 0.5, 0.0};
-    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, 0.01, grid, 1.e-5);
+    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, 1.e-5);
 
     for (auto _ : state)
         soil_simulator::UpdateBody(tri_pos, sim_out, grid, 1.e-5);

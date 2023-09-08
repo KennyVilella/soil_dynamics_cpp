@@ -85,13 +85,13 @@ void soil_simulator::CalcBucketPos(
 
     // Determining where each surface of the bucket is located
     auto base_pos = soil_simulator::CalcRectanglePos(
-        b_r_pos, b_l_pos, t_l_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        b_r_pos, b_l_pos, t_l_pos, t_r_pos, grid, tol);
     auto back_pos = soil_simulator::CalcRectanglePos(
-        b_r_pos, b_l_pos, j_l_pos, j_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        b_r_pos, b_l_pos, j_l_pos, j_r_pos, grid, tol);
     auto right_side_pos = soil_simulator::CalcTrianglePos(
-        j_r_pos, b_r_pos, t_r_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        j_r_pos, b_r_pos, t_r_pos, grid, tol);
     auto left_side_pos = soil_simulator::CalcTrianglePos(
-        j_l_pos, b_l_pos, t_l_pos, 0.5 * grid.cell_size_z_, grid, tol);
+        j_l_pos, b_l_pos, t_l_pos, grid, tol);
 
     // Sorting all list of cells indices where the bucket is located
     sort(base_pos.begin(), base_pos.end());
@@ -141,7 +141,7 @@ void soil_simulator::CalcBucketPos(
 ///   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
-    std::vector<float> d, float delta, Grid grid, float tol
+    std::vector<float> d, Grid grid, float tol
 ) {
     // Converting the four rectangle vertices from position to indices
     std::vector<float> a_ind(3, 0);
@@ -234,10 +234,10 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
         }
 
     // Determining the cells where the four edges of the rectangle are located
-    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
-    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
-    auto cd_pos = soil_simulator::CalcLinePos(c, d, delta, grid);
-    auto da_pos = soil_simulator::CalcLinePos(d, a, delta, grid);
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, grid);
+    auto cd_pos = soil_simulator::CalcLinePos(c, d, grid);
+    auto da_pos = soil_simulator::CalcLinePos(d, a, grid);
 
     // Concatenating all cells in rect_pos
     rect_pos.insert(rect_pos.end(), ab_pos.begin(), ab_pos.end());
@@ -374,7 +374,7 @@ soil_simulator::DecomposeVectorRectangle(
 ///   this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     std::vector<float> a, std::vector<float> b, std::vector<float> c,
-    float delta, Grid grid, float tol
+    Grid grid, float tol
 ) {
     // Converting the three triangle vertices from position to indices
     std::vector<float> a_ind(3, 0);
@@ -463,9 +463,9 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
         }
 
     // Determining the cells where the three edges of the triangle are located
-    auto ab_pos = soil_simulator::CalcLinePos(a, b, delta, grid);
-    auto bc_pos = soil_simulator::CalcLinePos(b, c, delta, grid);
-    auto ca_pos = soil_simulator::CalcLinePos(c, a, delta, grid);
+    auto ab_pos = soil_simulator::CalcLinePos(a, b, grid);
+    auto bc_pos = soil_simulator::CalcLinePos(b, c, grid);
+    auto ca_pos = soil_simulator::CalcLinePos(c, a, grid);
 
     // Concatenating all cells in tri_pos
     tri_pos.insert(tri_pos.end(), ab_pos.begin(), ab_pos.end());
@@ -574,24 +574,11 @@ soil_simulator::DecomposeVectorTriangle(
     return {c_ab, c_ac, in_triangle, n_cell};
 }
 
-/// For the sake of accuracy, the line is divided into smaller segments using a
-/// spatial increment `delta`.
+/// The algorithm implemented in this function comes from the article:
+/// "A Fast Voxel Traversal Algorithm for Ray Tracing" by J. Amanatides and
+/// A. Woo.
 ///
-/// The coordinates of each sub-point (ab_i) along the line can then be
-/// calculated as
-///
-/// \code
-///    ab_i = a + ab * i * delta / norm(ab)
-/// \endcode
-///
-/// where i is the increment number and ab = b - a.
-/// The Cartesian coordinates can then be converted into indices
-///
-/// \code
-///    ab_i_ind = ab_i / cell_size + grid_half_length + 1
-/// \endcode
-///
-/// Finally, the floating-point values are rounded to obtain the cell indices in
+/// The floating-point values are rounded to obtain the cell indices in
 /// the X, Y, Z directions.
 /// As the center of each cell is considered to be on the center of the top
 /// surface, `round` should be used for getting the cell indices in the X and Y
@@ -601,41 +588,99 @@ soil_simulator::DecomposeVectorTriangle(
 /// When the line follows a cell border, the exact location of the line becomes
 /// ambiguous. It is assumed that the caller resolves this ambiguity.
 std::vector<std::vector<int>> soil_simulator::CalcLinePos(
-    std::vector<float> a, std::vector<float> b, float delta,
-    Grid grid
+    std::vector<float> a, std::vector<float> b, Grid grid
 ) {
-    // Vector ab
-    std::vector<float> ab(3);
-    for (auto ii = 0; ii < 3; ii++)
-        ab[ii] = b[ii] - a[ii];
+    // Converting to indices
+    float x1 = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    float y1 = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    float z1 = a[2] / grid.cell_size_z_ + grid.half_length_z_;
+    float x2 = b[0] / grid.cell_size_xy_ + grid.half_length_x_;
+    float y2 = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
+    float z2 = b[2] / grid.cell_size_z_ + grid.half_length_z_;
 
-    // Creating unit vector
-    float norm_ab = std::sqrt(ab[0] * ab[0] + ab[1] * ab[1] + ab[2] * ab[2]);
-    int nn = std::max(2, static_cast<int>(round(norm_ab / delta) + 1));
-    std::vector<float> unit_vect(nn);
-    for (auto ii = 0; ii < nn; ii++)
-        unit_vect[ii] = ii * 1.0 / (nn - 1);
+    // Determining direction of line
+    int stepX = (x1 < x2) ? 1 : -1;
+    int stepY = (y1 < y2) ? 1 : -1;
+    int stepZ = (z1 < z2) ? 1 : -1;
 
-    // Setting constants used for the vectorial decomposition
-    float c_x = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
-    float c_y = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    float c_z = a[2] / grid.cell_size_z_ + grid.half_length_z_;
-    float d_x = ab[0] / grid.cell_size_xy_;
-    float d_y = ab[1] / grid.cell_size_xy_;
-    float d_z = ab[2] / grid.cell_size_z_;
+    // Spatial difference between a and b
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+    float dz = z2 - z1;
 
-    // Determining the cells where the line is located
-    std::vector<std::vector<int>> line_pos;
-    line_pos.resize(nn, std::vector<int>(3, 0));
-    for (auto ii = 0; ii < nn; ii++) {
-        line_pos[ii][0] = static_cast<int>(
-            round(c_x + d_x * unit_vect[ii]));
-        line_pos[ii][1] = static_cast<int>(
-            round(c_y + d_y * unit_vect[ii]));
-        line_pos[ii][2] = static_cast<int>(
-            std::ceil(c_z + d_z * unit_vect[ii]));
+    // Avoiding issue when line is 2D
+    if (dx == 0.0)
+        dx = 1e-10;
+    if (dy == 0.0)
+        dy = 1e-10;
+    if (dz == 0.0)
+        dz = 1e-10;
+
+    // Determining the offset to first cell boundary
+    float tMaxX;
+    float tMaxY;
+    float tMaxZ;
+    if (stepX == 1) {
+        tMaxX = round(x1) + 0.5 - x1;
+    } else {
+        tMaxX = x1 - round(x1) + 0.5;
+    }
+    if (stepY == 1) {
+        tMaxY = round(y1) + 0.5 - y1;
+    } else {
+        tMaxY = y1 - round(y1) + 0.5;
+    }
+    if (stepZ == 1) {
+        tMaxZ = std::ceil(z1) - z1;
+    } else {
+        tMaxZ = z1 - std::floor(z1);
     }
 
+    // Determining how long on the line to cross the cell
+    float tDeltaX = std::sqrt(1.0 + (dy * dy + dz * dz) / (dx * dx));
+    float tDeltaY = std::sqrt(1.0 + (dx * dx + dz * dz) / (dy * dy));
+    float tDeltaZ = std::sqrt(1.0 + (dx * dx + dy * dy) / (dz * dz));
+
+    // Determining the distance along the line until the first cell boundary
+    tMaxX *= tDeltaX;
+    tMaxY *= tDeltaY;
+    tMaxZ *= tDeltaZ;
+
+    // Calculating norm of the vector AB
+    float ab_norm = std::sqrt(dx * dx + dy * dy + dz * dz);
+
+    // Creating line_pos and adding the starting point
+    std::vector<std::vector<int>> line_pos;
+    line_pos.resize(1, std::vector<int>(3, 0));
+    line_pos[0] = std::vector<int> {
+        static_cast<int>(round(x1)),
+        static_cast<int>(round(y1)),
+        static_cast<int>(std::ceil(z1))};
+
+    // Iterating along the line until reaching the end
+    while ((tMaxX < ab_norm) || (tMaxY < ab_norm) || (tMaxZ < ab_norm)) {
+        if (tMaxX < tMaxY) {
+            if (tMaxX < tMaxZ) {
+                x1 = x1 + stepX;
+                tMaxX += tDeltaX;
+            } else {
+                z1 = z1 + stepZ;
+                tMaxZ += tDeltaZ;
+            }
+        } else {
+            if (tMaxY < tMaxZ) {
+                y1 = y1 + stepY;
+                tMaxY += tDeltaY;
+            } else {
+                z1 = z1 + stepZ;
+                tMaxZ += tDeltaZ;
+            }
+        }
+        line_pos.push_back(std::vector<int> {
+            static_cast<int>(round(x1)),
+            static_cast<int>(round(y1)),
+            static_cast<int>(std::ceil(z1))});
+    }
     return line_pos;
 }
 
