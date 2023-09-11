@@ -343,11 +343,6 @@ TEST(UnitTestUtils, CheckVolume) {
     sim_out->body_soil_[2][2][1] = 0.0;
     sim_out->body_soil_[3][2][1] = 0.15;
     init_volume =  0.4 * grid.cell_area_;
-    sim_out->body_soil_pos_.resize(4, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 2, 2};
-    sim_out->body_soil_pos_[1] = std::vector<int> {2, 2, 2};
-    sim_out->body_soil_pos_[2] = std::vector<int> {0, 1, 1};
-    sim_out->body_soil_pos_[3] = std::vector<int> {2, 2, 1};
 
     // -- Testing that no warning is sent for correct initial volume --
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid));
@@ -401,12 +396,16 @@ TEST(UnitTestUtils, CheckSoil) {
     sim_out->body_soil_[3][2][1] = 0.25;
     sim_out->body_soil_[0][2][2] = 0.1;
     sim_out->body_soil_[1][2][2] = 0.1;
-    sim_out->body_soil_pos_.resize(5, std::vector<int>(3, 0));
-    sim_out->body_soil_pos_[0] = std::vector<int> {0, 1, 1};
-    sim_out->body_soil_pos_[1] = std::vector<int> {0, 1, 2};
-    sim_out->body_soil_pos_[2] = std::vector<int> {2, 1, 2};
-    sim_out->body_soil_pos_[3] = std::vector<int> {2, 2, 1};
-    sim_out->body_soil_pos_[4] = std::vector<int> {0, 2, 2};
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 1, 1, 0.0, 0.0, 0.0, 0.0});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 1, 2, 0.0, 0.0, 0.0, 0.0});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 1, 2, 0.0, 0.0, 0.0, 0.0});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 2, 1, 0.0, 0.0, 0.0, 0.0});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 2, 2, 0.0, 0.0, 0.0, 0.0});
 
     // -- Testing that no warning is sent --
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
