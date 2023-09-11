@@ -14,16 +14,20 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/utils.hpp"
 
 /// In this function, the movement applied to the base of the soil column is
-/// calculated and the soil is moved to this new location. It is however
-/// difficult to track accurately each bucket wall. This is currently done by
-/// looking at the height difference between the previous and new soil
-/// locations, if this height difference is lower than `cell_size_xy_`, it is
-/// assumed to be the same bucket wall. Some errors may however be present and
-/// further testing is required. If no bucket wall is present, the soil is moved
-/// down to the terrain.
+/// calculated and the soil is moved to this new location. The original
+/// position of the soil column in the bucket frame is stored in the 
+/// `body_soil_pos_` member of the `SimOut` class.
+///
+/// It is difficult to track accurately each bucket wall. This is currently done
+/// by looking at the height difference between the previous and new soil
+/// locations, if this height difference is lower than twice the minimum cell
+/// size, it is assumed to be the same bucket wall.
+///
+/// If no bucket wall is present, the soil is moved down to the terrain and a
+/// warning is issued as it should normally not happen.
 ///
 /// The new positions of the soil resting on the bucket are collected into
-/// `sim_out.body_soil_pos_` and duplicates are removed.
+/// `sim_out.body_soil_pos_` along with the required information.
 void soil_simulator::UpdateBodySoil(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, float tol
@@ -44,6 +48,8 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
+    float min_cell_height_diff = 2 * std::min(
+        grid.cell_size_z_, grid.cell_size_xy_);
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
@@ -78,7 +84,7 @@ void soil_simulator::UpdateBodySoil(
             ((sim_out->body_[0][ii_n][jj_n] != 0.0) ||
             (sim_out->body_[1][ii_n][jj_n] != 0.0)) &&
             (std::abs(new_cell_pos[2] - sim_out->body_[1][ii_n][jj_n]) - tol
-                < grid.cell_size_xy_)
+                < min_cell_height_diff)
         ) {
             // First bucket layer is present
             // Moving body_soil to new location
@@ -94,7 +100,7 @@ void soil_simulator::UpdateBodySoil(
             ((sim_out->body_[2][ii_n][jj_n] != 0.0) ||
             (sim_out->body_[3][ii_n][jj_n] != 0.0)) &&
             (std::abs(new_cell_pos[2] - sim_out->body_[3][ii_n][jj_n]) - tol
-                < grid.cell_size_xy_)
+                < min_cell_height_diff)
         ) {
             // Bucket is present
             // Moving body_soil to new location
