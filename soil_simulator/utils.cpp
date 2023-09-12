@@ -139,6 +139,28 @@ std::vector<float> soil_simulator::CalcNormal(
     return normal;
 }
 
+
+std::vector<float> soil_simulator::CalcBucketFramePos(
+    int ii, int jj, float z, Grid grid, Bucket* bucket
+) {
+    // Calculating cell's position in bucket frame
+    std::vector<float> cell_pos = {
+        grid.vect_x_[ii] - bucket->pos_[0],
+        grid.vect_y_[jj] - bucket->pos_[1],
+        z - bucket->pos_[2]};
+
+    // Inversing rotation
+    std::vector<float> inv_ori = {
+        bucket->ori_[0], -bucket->ori_[1], -bucket->ori_[2],
+        -bucket->ori_[3]};
+
+    // Calculating reference position of cell in bucket frame
+    auto cell_local_pos = soil_simulator::CalcRotationQuaternion(
+        inv_ori, cell_pos);
+
+    return cell_local_pos;
+}
+
 /// The mathematical reasoning behind this implementation can be easily found
 /// in the Wiki page of Quaternion or elsewhere.
 std::vector<float> soil_simulator::CalcRotationQuaternion(
