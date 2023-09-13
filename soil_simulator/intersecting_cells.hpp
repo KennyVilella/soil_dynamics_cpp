@@ -18,6 +18,8 @@ extern std::mt19937 rng;
 ///        that intersect with the bucket or with another soil cell.
 ///
 /// \param sim_out: Class that stores simulation outputs.
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param bucket: Class that stores information related to the bucket object.
 /// \param tol: Small number used to handle numerical approximation errors.
 void MoveIntersectingCells(
     SimOut* sim_out, Grid grid, Bucket* bucket, float tol);
@@ -26,6 +28,8 @@ void MoveIntersectingCells(
 ///        intersect with another bucket layer.
 ///
 /// \param sim_out: Class that stores simulation outputs.
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param bucket: Class that stores information related to the bucket object.
 /// \param tol: Small number used to handle numerical approximation errors.
 void MoveIntersectingBodySoil(
     SimOut* sim_out, Grid grid, Bucket* bucket, float tol);
@@ -50,6 +54,7 @@ void MoveIntersectingBody(SimOut* sim_out, float tol);
 /// \param jj_n: Index of the new considered position in the Y direction.
 /// \param h_soil: Height of the soil column left to be moved. [m]
 /// \param wall_presence: Indicates whether a wall is blocking the movement.
+/// \param bucket: Class that stores information related to the bucket object.
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
 /// \return A tuple composed of the index of the new considered bucket layer,
