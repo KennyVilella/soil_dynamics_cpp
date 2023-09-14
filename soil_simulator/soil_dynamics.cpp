@@ -35,7 +35,7 @@ bool soil_simulator::SoilDynamics::step(
     soil_simulator::UpdateBodySoil(sim_out, pos, ori, grid, bucket, tol);
 
     // Moving intersecting soil cells
-    soil_simulator::MoveIntersectingCells(sim_out, tol);
+    soil_simulator::MoveIntersectingCells(sim_out, bucket, tol);
 
     // Assuming that the terrain is not at equilibrium
     sim_out->equilibrium_ = false;
@@ -56,10 +56,10 @@ bool soil_simulator::SoilDynamics::step(
             sim_out->bucket_area_[1][1], sim_out->relax_area_[1][1]);
 
         // Relaxing the terrain
-        RelaxTerrain(sim_out, grid, sim_param, tol);
+        RelaxTerrain(sim_out, grid, bucket, sim_param, tol);
 
         // Relaxing the soil resting on the bucket
-        RelaxBodySoil(sim_out, grid, sim_param, tol);
+        RelaxBodySoil(sim_out, grid, bucket, sim_param, tol);
     }
     return true;
 }

@@ -12,6 +12,7 @@ Copyright, 2023, Vilella Kenny.
 #include <vector>
 #include "soil_simulator/relax.hpp"
 #include "soil_simulator/types.hpp"
+#include "soil_simulator/utils.hpp"
 
 /// The soil stability is determined by the `repose_angle_`. If the slope formed
 /// by two neighboring soil columns exceeds the `repose_angle_`, it is
@@ -39,7 +40,7 @@ Copyright, 2023, Vilella Kenny.
 /// In case (2a), the soil will avalanche on the `terrain_`, while in case (2b),
 /// the soil will avalanche on the bucket.
 void soil_simulator::RelaxTerrain(
-    SimOut* sim_out, Grid grid, SimParam sim_param, float tol
+    SimOut* sim_out, Grid grid, Bucket* bucket, SimParam sim_param, float tol
 ) {
     // Assuming that the terrain is at equilibrium
     sim_out->equilibrium_ = true;
@@ -120,7 +121,7 @@ void soil_simulator::RelaxTerrain(
 
             // Relaxing the soil cell
             RelaxUnstableTerrainCell(
-                sim_out, status, dh_max, ii, jj, ii_c, jj_c, grid, tol);
+                sim_out, status, dh_max, ii, jj, ii_c, jj_c, grid, bucket, tol);
         }
     }
 
@@ -154,19 +155,13 @@ void soil_simulator::RelaxTerrain(
 /// (1) The soil column in the neighboring cell is low enough.
 /// (2) There is space on the top of the neighboring soil column.
 void soil_simulator::RelaxBodySoil(
-    SimOut* sim_out, Grid grid, SimParam sim_param, float tol
+    SimOut* sim_out, Grid grid, Bucket* bucket, SimParam sim_param, float tol
 ) {
     // Calculating the maximum slope allowed by the repose angle
     float slope_max = std::tan(sim_param.repose_angle_);
     // Calculating the maximum height different allowed by the repose angle
     float dh_max = grid.cell_size_xy_ * slope_max;
     dh_max = grid.cell_size_z_ * round(dh_max / grid.cell_size_z_);
-
-    // Removing duplicates in body_soil_pos
-    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
-    sim_out->body_soil_pos_.erase(unique(
-        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
-        sim_out->body_soil_pos_.end());
 
     // Randomizing body_soil_pos to reduce asymmetry
     // random_suffle is not used because it is machine dependent,
@@ -182,14 +177,14 @@ void soil_simulator::RelaxBodySoil(
         {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     // Initializing queue for new body_soil_pos
-    std::vector<std::vector<int>> *new_body_soil_pos = (
-        new std::vector<std::vector<int>>);
+    std::vector<soil_simulator::body_soil> *new_body_soil_pos = (
+        new std::vector<soil_simulator::body_soil>);
 
     // Iterating over all body_soil cells
     for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
-        int ii = sim_out->body_soil_pos_[nn][1];
-        int jj = sim_out->body_soil_pos_[nn][2];
-        int ind = sim_out->body_soil_pos_[nn][0];
+        int ii = sim_out->body_soil_pos_[nn].ii;
+        int jj = sim_out->body_soil_pos_[nn].jj;
+        int ind = sim_out->body_soil_pos_[nn].ind;
 
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
@@ -223,8 +218,8 @@ void soil_simulator::RelaxBodySoil(
 
             // Relaxing the soil cell
             RelaxUnstableBodyCell(
-                sim_out, status, new_body_soil_pos, dh_max, ii, jj, ind,
-                ii_c, jj_c, grid, tol);
+                sim_out, status, new_body_soil_pos, dh_max, nn, ii, jj, ind,
+                ii_c, jj_c, grid, bucket, tol);
         }
     }
 
@@ -593,7 +588,7 @@ int soil_simulator::CheckUnstableBodyCell(
 /// checks are present.
 void soil_simulator::RelaxUnstableTerrainCell(
     SimOut* sim_out, int status, float dh_max, int ii, int jj, int ii_c,
-    int jj_c, Grid grid, float tol
+    int jj_c, Grid grid, Bucket* bucket, float tol
 ) {
     // Converting status into a string for convenience
     std::string st = std::to_string(status);
@@ -698,8 +693,15 @@ void soil_simulator::RelaxUnstableTerrainCell(
         sim_out->body_soil_[2][ii_c][jj_c] = sim_out->body_[3][ii_c][jj_c];
         sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
 
+        // Calculating pos of cell in bucket frame
+        auto pos = soil_simulator::CalcBucketFramePos(
+            ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
+
         // Adding new bucket soil position to body_soil_pos
-        sim_out->body_soil_pos_.push_back(std::vector<int> {2, ii_c, jj_c});
+        float h_soil = h_new_c - sim_out->body_[3][ii_c][jj_c];
+        sim_out->body_soil_pos_.push_back(
+            soil_simulator::body_soil
+            {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
     } else if (st[1] == '3') {
         // Soil avalanche on the first bucket soil layer
         h_new = 0.5 * (
@@ -759,8 +761,15 @@ void soil_simulator::RelaxUnstableTerrainCell(
         sim_out->body_soil_[0][ii_c][jj_c] = sim_out->body_[1][ii_c][jj_c];
         sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
 
+        // Calculating pos of cell in bucket frame
+        auto pos = soil_simulator::CalcBucketFramePos(
+            ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
+
         // Adding new bucket soil position to body_soil_pos
-        sim_out->body_soil_pos_.push_back(std::vector<int> {0, ii_c, jj_c});
+        float h_soil = h_new_c - sim_out->body_[1][ii_c][jj_c];
+        sim_out->body_soil_pos_.push_back(
+            soil_simulator::body_soil
+            {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
     }
 }
 
@@ -774,15 +783,15 @@ void soil_simulator::RelaxUnstableTerrainCell(
 /// Note that it is assumed that the given `status` is accurate, so no extra
 /// checks are present.
 void soil_simulator::RelaxUnstableBodyCell(
-    SimOut* sim_out, int status, std::vector<std::vector<int>>* body_soil_pos,
-    float dh_max, int ii, int jj, int ind, int ii_c, int jj_c, Grid grid,
-    float tol
+    SimOut* sim_out, int status, std::vector<body_soil>* body_soil_pos,
+    float dh_max, int nn, int ii, int jj, int ind, int ii_c, int jj_c,
+    Grid grid, Bucket* bucket, float tol
 ) {
     // Converting status into a string for convenience
     std::string st = std::to_string(status);
     float h_new;
     float h_new_c;
-
+    float h_soil;
     if (st[1] == '0') {
         // No Bucket
         // Calculating new height values
@@ -791,9 +800,15 @@ void soil_simulator::RelaxUnstableBodyCell(
             sim_out->terrain_[ii_c][jj_c]);
         h_new = grid.cell_size_z_ * std::floor(
             (h_new + tol) / grid.cell_size_z_);
-        h_new_c = (
-            sim_out->body_soil_[ind+1][ii][jj] + sim_out->terrain_[ii_c][jj_c] -
-            h_new);
+        h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
+
+        // Checking amount of soil in body_soil_pos_
+        if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+            // Not enough soil in body_soil_pos_
+            h_soil = sim_out->body_soil_pos_[nn].h_soil;
+            h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+        }
+        h_new_c = sim_out->terrain_[ii_c][jj_c] + h_soil;
 
         if (st[0] == '1') {
             // First bucket layer is present
@@ -821,6 +836,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             // Soil on the bucket should partially avalanche
             sim_out->terrain_[ii_c][jj_c] = h_new_c;
             sim_out->body_soil_[ind+1][ii][jj] = h_new;
+            sim_out->body_soil_pos_[nn].h_soil -= h_soil;
         } else {
             // All soil on the bucket should avalanche
             sim_out->terrain_[ii_c][jj_c] += (
@@ -828,6 +844,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_soil_[ind][ii][jj]);
             sim_out->body_soil_[ind][ii][jj] = 0.0;
             sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+            sim_out->body_soil_pos_[nn].h_soil = 0.0;
         }
     } else if (st[0] == '1') {
         // Only the first bucket layer
@@ -838,14 +855,21 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_soil_[1][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_soil_[1][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
+
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_soil_[1][ii_c][jj_c] + h_soil;
 
             if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
                 sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
                 sim_out->body_soil_[1][ii_c][jj_c] += (
@@ -853,7 +877,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         } else if (st[1] == '4') {
             // Bucket soil is not present
             h_new = 0.5 * (
@@ -861,12 +893,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_[1][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_[1][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
 
-            // Adding new bucket soil position to body_soil_pos
-            body_soil_pos->push_back(std::vector<int> {0, ii_c, jj_c});
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_[1][ii_c][jj_c] + h_soil;
 
             if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
@@ -874,6 +909,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_[1][ii_c][jj_c]);
                 sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
                 sim_out->body_soil_[0][ii_c][jj_c] = (
@@ -884,7 +920,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         }
     } else if (st[0] == '2') {
         // Only the second bucket layer
@@ -895,22 +939,40 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_soil_[3][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_soil_[3][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
+
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_soil_[3][ii_c][jj_c] + h_soil;
 
             if (h_new_c - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
                 sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
+                // -----------------------------------
+                // Check if we can put h_soil here also in other part
+                // -----------------------------------
                 sim_out->body_soil_[3][ii_c][jj_c] += (
                     sim_out->body_soil_[ind+1][ii][jj] -
                     sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         } else if (st[1] == '2') {
             // Bucket soil is not present
             h_new = 0.5 * (
@@ -918,12 +980,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_[3][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_[3][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
 
-            // Adding new bucket soil position to body_soil_pos
-            body_soil_pos->push_back(std::vector<int> {2, ii_c, jj_c});
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_[3][ii_c][jj_c] + h_soil;
 
             if (h_new_c - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
@@ -931,6 +996,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_[3][ii_c][jj_c]);
                 sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
                 sim_out->body_soil_[2][ii_c][jj_c] = (
@@ -941,7 +1007,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         }
     } else if (st[0] == '3') {
         // Both bucket layer
@@ -952,9 +1026,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_soil_[3][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_soil_[3][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
+
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_soil_[3][ii_c][jj_c] + h_soil;
 
             if (sim_out->body_[0][ii_c][jj_c] > sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche on the bottom layer
@@ -962,9 +1042,10 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // Soil on the bucket should partially avalanche
                     if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
                         // Not enough space available
-                        sim_out->body_soil_[ind+1][ii][jj] -= (
+                        h_soil = (
                             sim_out->body_[0][ii_c][jj_c] -
                             sim_out->body_soil_[3][ii_c][jj_c]);
+                        sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
                         sim_out->body_soil_[3][ii_c][jj_c] = (
                             sim_out->body_[0][ii_c][jj_c]);
                     } else {
@@ -972,10 +1053,14 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                         sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     }
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
                     // the full avalanche
+                    // ------------------
+                    // here also h_new_c should not be needed
+                    // ------------------
                     h_new_c = (
                         sim_out->body_soil_[3][ii_c][jj_c] +
                         sim_out->body_soil_[ind+1][ii][jj] -
@@ -984,6 +1069,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             } else {
                 // Soil should avalanche on the top layer
@@ -991,6 +1077,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // Soil on the bucket should partially avalanche
                     sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
                     sim_out->body_soil_[3][ii_c][jj_c] += (
@@ -998,8 +1085,16 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[ind][ii][jj]);
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         } else if (st[1] == '2') {
             // Soil should avalanche on the second bucket layer
             h_new = 0.5 * (
@@ -1007,12 +1102,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_[3][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_[3][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
 
-            // Adding new bucket soil position to body_soil_pos
-            body_soil_pos->push_back(std::vector<int> {2, ii_c, jj_c});
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_[3][ii_c][jj_c] + h_soil;
 
             if (sim_out->body_[0][ii_c][jj_c] > sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche on the bottom layer
@@ -1020,9 +1118,10 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // Soil on the bucket should partially avalanche
                     if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
                         // Not enough space available
-                        sim_out->body_soil_[ind+1][ii][jj] -= (
+                        h_soil = (
                             sim_out->body_[0][ii_c][jj_c] -
                             sim_out->body_[3][ii_c][jj_c]);
+                        sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
                         sim_out->body_soil_[2][ii_c][jj_c] = (
                             sim_out->body_[3][ii_c][jj_c]);
                         sim_out->body_soil_[3][ii_c][jj_c] = (
@@ -1034,6 +1133,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                         sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     }
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
@@ -1048,6 +1148,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             } else {
                 // Soil should avalanche on the top layer
@@ -1057,6 +1158,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_[3][ii_c][jj_c]);
                     sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
                     sim_out->body_soil_[2][ii_c][jj_c] = (
@@ -1067,8 +1169,16 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[ind][ii][jj]);
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         } else if (st[1] == '3') {
             // Soil should avalanche on the first bucket soil layer
             h_new = 0.5 * (
@@ -1076,9 +1186,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_soil_[1][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_soil_[1][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
+
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_soil_[1][ii_c][jj_c] + h_soil;
 
             if (sim_out->body_[0][ii_c][jj_c] > sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche on the top layer
@@ -1086,6 +1202,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // Soil on the bucket should partially avalanche
                     sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
                     sim_out->body_soil_[1][ii_c][jj_c] += (
@@ -1093,6 +1210,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[ind][ii][jj]);
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             } else {
                 // Soil should avalanche on the bottom layer
@@ -1100,9 +1218,10 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // Soil on the bucket should partially avalanche
                     if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
                         // Not enough space available
-                        sim_out->body_soil_[ind+1][ii][jj] -= (
+                        h_soil = (
                             sim_out->body_[2][ii_c][jj_c] -
                             sim_out->body_soil_[1][ii_c][jj_c]);
+                        sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
                         sim_out->body_soil_[1][ii_c][jj_c] = (
                             sim_out->body_[2][ii_c][jj_c]);
                     } else {
@@ -1110,6 +1229,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                         sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     }
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
@@ -1122,8 +1242,16 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         } else if (st[1] == '4') {
             // Soil should avalanche on the first bucket layer
             h_new = 0.5 * (
@@ -1131,12 +1259,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_[1][ii_c][jj_c]);
             h_new = grid.cell_size_z_ * std::floor(
                 (h_new + tol) / grid.cell_size_z_);
-            h_new_c = (
-                sim_out->body_soil_[ind+1][ii][jj] +
-                sim_out->body_[1][ii_c][jj_c] - h_new);
+            h_soil = sim_out->body_soil_[ind+1][ii][jj] - h_new;
 
-            // Adding new bucket soil position to body_soil_pos
-            body_soil_pos->push_back(std::vector<int> {0, ii_c, jj_c});
+            // Checking amount of soil in body_soil_pos_
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // Not enough soil in body_soil_pos_
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
+            }
+            h_new_c = sim_out->body_[1][ii_c][jj_c] + h_soil;
 
             if (sim_out->body_[0][ii_c][jj_c] > sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche on the top layer
@@ -1146,6 +1277,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_[1][ii_c][jj_c]);
                     sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind+1][ii][jj] = h_new;
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
                     sim_out->body_soil_[0][ii_c][jj_c] = (
@@ -1156,6 +1288,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[ind][ii][jj]);
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             } else {
                 // Soil should avalanche on the bottom layer
@@ -1163,9 +1296,10 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // Soil on the bucket should partially avalanche
                     if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
                         // Not enough space available
-                        sim_out->body_soil_[ind+1][ii][jj] -= (
+                        h_soil = (
                             sim_out->body_[2][ii_c][jj_c] -
                             sim_out->body_[1][ii_c][jj_c]);
+                        sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
                         sim_out->body_soil_[0][ii_c][jj_c] = (
                             sim_out->body_[1][ii_c][jj_c]);
                         sim_out->body_soil_[1][ii_c][jj_c] = (
@@ -1177,6 +1311,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                         sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     }
+                    sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
@@ -1191,8 +1326,16 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+                    sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
+
+            // Adding new bucket soil position to body_soil_pos
+            body_soil_pos->push_back(soil_simulator::body_soil
+                {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
         }
     }
 }
