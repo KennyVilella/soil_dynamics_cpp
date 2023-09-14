@@ -1105,13 +1105,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
-            // Calculating pos of cell in bucket frame
-            auto pos = soil_simulator::CalcBucketFramePos(
-                ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
+            if (h_soil > tol) {
+                // Calculating pos of cell in bucket frame
+                auto pos = soil_simulator::CalcBucketFramePos(
+                    ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
 
-            // Adding new bucket soil position to body_soil_pos
-            body_soil_pos->push_back(soil_simulator::body_soil
-                {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
+                // Adding new bucket soil position to body_soil_pos
+                body_soil_pos->push_back(soil_simulator::body_soil
+                    {2, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
+            }
         } else if (st[1] == '2') {
             // Soil should avalanche on the second bucket layer
             h_new = 0.5 * (
@@ -1262,13 +1264,15 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
-            // Calculating pos of cell in bucket frame
-            auto pos = soil_simulator::CalcBucketFramePos(
-                ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
+            if (h_soil > tol) {
+                // Calculating pos of cell in bucket frame
+                auto pos = soil_simulator::CalcBucketFramePos(
+                    ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
 
-            // Adding new bucket soil position to body_soil_pos
-            body_soil_pos->push_back(soil_simulator::body_soil
-                {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
+                // Adding new bucket soil position to body_soil_pos
+                body_soil_pos->push_back(soil_simulator::body_soil
+                    {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
+            }
         } else if (st[1] == '4') {
             // Soil should avalanche on the first bucket layer
             h_new = 0.5 * (
