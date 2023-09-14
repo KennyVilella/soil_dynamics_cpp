@@ -35,7 +35,7 @@ bool soil_simulator::SoilDynamics::step(
     soil_simulator::UpdateBodySoil(sim_out, pos, ori, grid, bucket, tol);
 
     // Moving intersecting soil cells
-    soil_simulator::MoveIntersectingCells(sim_out, bucket, tol);
+    soil_simulator::MoveIntersectingCells(sim_out, grid, bucket, tol);
 
     // Assuming that the terrain is not at equilibrium
     sim_out->equilibrium_ = false;
