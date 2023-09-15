@@ -59,10 +59,8 @@ void soil_simulator::UpdateBodySoil(
         float z_b = old_body_soil_pos[nn].z_b;
         float h_soil = old_body_soil_pos[nn].h_soil;
 
-        if (
-            (old_body_soil[ind][ii][jj] == 0.0) &&
-            (old_body_soil[ind+1][ii][jj] == 0.0)) {
-            // No bucket soil at that position
+        if (h_soil < tol) {
+            // No soil tto be moved
             continue;
         }
 
@@ -70,6 +68,12 @@ void soil_simulator::UpdateBodySoil(
         std::vector<float> cell_pos = {x_b, y_b, z_b};
         auto new_cell_pos = soil_simulator::CalcRotationQuaternion(
             ori, cell_pos);
+
+        // Calculating movement made by the bucket
+        float dx = new_cell_pos[0] - cell_pos[0];
+        float dy = new_cell_pos[1] - cell_pos[1];
+
+        // Calculating new cell position in global frame
         new_cell_pos[0] += pos[0];
         new_cell_pos[1] += pos[1];
         new_cell_pos[2] += pos[2];
@@ -80,40 +84,74 @@ void soil_simulator::UpdateBodySoil(
         int jj_n = static_cast<int>(round(
             new_cell_pos[1] / grid.cell_size_xy_ + grid.half_length_y_));
 
-        if (
-            ((sim_out->body_[0][ii_n][jj_n] != 0.0) ||
-            (sim_out->body_[1][ii_n][jj_n] != 0.0)) &&
-            (std::abs(new_cell_pos[2] - sim_out->body_[1][ii_n][jj_n]) - tol
-                < min_cell_height_diff)
-        ) {
-            // First bucket layer is present
-            // Moving body_soil to new location
-            sim_out->body_soil_[1][ii_n][jj_n] += (
-                sim_out->body_[1][ii_n][jj_n] -
-                sim_out->body_soil_[0][ii_n][jj_n] + h_soil);
-            sim_out->body_soil_[0][ii_n][jj_n] = sim_out->body_[1][ii_n][jj_n];
-
-            // Adding position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
-                {0, ii_n, jj_n, x_b, y_b, z_b, h_soil});
-        } else if (
-            ((sim_out->body_[2][ii_n][jj_n] != 0.0) ||
-            (sim_out->body_[3][ii_n][jj_n] != 0.0)) &&
-            (std::abs(new_cell_pos[2] - sim_out->body_[3][ii_n][jj_n]) - tol
-                < min_cell_height_diff)
-        ) {
-            // Bucket is present
-            // Moving body_soil to new location
-            sim_out->body_soil_[3][ii_n][jj_n] += (
-                sim_out->body_[3][ii_n][jj_n] -
-                sim_out->body_soil_[2][ii_n][jj_n] + h_soil);
-            sim_out->body_soil_[2][ii_n][jj_n] = sim_out->body_[3][ii_n][jj_n];
-
-            // Adding position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
-                 {2, ii_n, jj_n, x_b, y_b, z_b, h_soil});
+        // Establishing order of exploration
+        std::vector<std::vector<int>> directions;
+        int sx = copysign(1, dx);
+        int sy = copysign(1, dy);
+        if (std::abs(dx) > std::abs(dy)) {
+            directions = {
+                {0, 0}, {sx, 0}, {sx, sy}, {0, sy}, {sx, -sy},
+                {0, -sy}, {-sx, sy}, {-sx, 0}, {-sx, -sy}};
         } else {
-            // Bucket is not present
+            directions = {
+                {0, 0}, {0, sy}, {sx, sy}, {sx, 0}, {-sx, sy},
+                {-sx, 0}, {sx, -sy}, {0, -sy}, {-sx, -sy}};
+        }
+
+        bool soil_moved = false;
+        for (auto xy = 0; xy < directions.size(); xy++) {
+            // Determining cell to investigate
+            int ii_t = ii_n + directions[xy][0];
+            int jj_t = jj_n + directions[xy][1];
+            if (
+                ((sim_out->body_[0][ii_t][jj_t] != 0.0) ||
+                (sim_out->body_[1][ii_t][jj_t] != 0.0)) &&
+                (std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]) - tol
+                    < min_cell_height_diff)
+            ) {
+                // First bucket layer is present
+                // Moving body_soil to new location
+                sim_out->body_soil_[1][ii_t][jj_t] += (
+                    sim_out->body_[1][ii_t][jj_t] -
+                    sim_out->body_soil_[0][ii_t][jj_t] + h_soil);
+                sim_out->body_soil_[0][ii_t][jj_t] = (
+                    sim_out->body_[1][ii_t][jj_t]);
+
+                // Calculating pos of cell in bucket frame
+                auto pos = soil_simulator::CalcBucketFramePos(
+                    ii_t, jj_t, sim_out->body_[1][ii_t][jj_t], grid, bucket);
+
+                // Adding position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                    {0, ii_t, jj_t, pos[0], pos[1], pos[2], h_soil});
+                soil_moved = true;
+                break;
+            } else if (
+                ((sim_out->body_[2][ii_t][jj_t] != 0.0) ||
+                (sim_out->body_[3][ii_t][jj_t] != 0.0)) &&
+                (std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]) - tol
+                    < min_cell_height_diff)
+            ) {
+                // Bucket is present
+                // Moving body_soil to new location
+                sim_out->body_soil_[3][ii_t][jj_t] += (
+                    sim_out->body_[3][ii_t][jj_t] -
+                    sim_out->body_soil_[2][ii_t][jj_t] + h_soil);
+                sim_out->body_soil_[2][ii_t][jj_t] = (
+                    sim_out->body_[3][ii_t][jj_t]);
+
+                // Calculating pos of cell in bucket frame
+                auto pos = soil_simulator::CalcBucketFramePos(
+                    ii_t, jj_t, sim_out->body_[3][ii_t][jj_t], grid, bucket);
+
+                // Adding position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                     {2, ii_t, jj_t, pos[0], pos[1], pos[2], h_soil});
+                soil_moved = true;
+                break;
+            }
+        }
+        if (!soil_moved) {
             // This should normally not happen, it is only for safety
             // Moving body_soil to terrain
             sim_out->terrain_[ii_n][jj_n] += (
