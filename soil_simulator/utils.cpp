@@ -106,10 +106,13 @@ bool soil_simulator::CheckBucketMovement(
     float max_dist = std::max(
         {j_r_dist, j_l_dist, b_r_dist, b_l_dist, t_r_dist, t_l_dist});
 
-    if (max_dist < 0.1 * grid.cell_size_xy_) {
+    // Calculating min cell size
+    float min_cell_size = std::min(grid.cell_size_xy_, grid.cell_size_z_);
+
+    if (max_dist < 0.5 * min_cell_size) {
         // Bucket has only slightly moved since last update
         return false;
-    } else if (max_dist > 2 * grid.cell_size_xy_) {
+    } else if (max_dist > 2 * min_cell_size) {
         LOG(WARNING) << "WARNING\nMovement made by the bucket is larger than "
             "two cell size.\nThe validity of the soil update cannot be ensured";
     }
