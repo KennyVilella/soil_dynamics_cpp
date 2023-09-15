@@ -163,15 +163,6 @@ void soil_simulator::RelaxBodySoil(
     float dh_max = grid.cell_size_xy_ * slope_max;
     dh_max = grid.cell_size_z_ * round(dh_max / grid.cell_size_z_);
 
-    // Randomizing body_soil_pos to reduce asymmetry
-    // random_suffle is not used because it is machine dependent,
-    // which makes unit testing difficult
-    for (int aa = sim_out->body_soil_pos_.size() - 1; aa > 0; aa--) {
-        std::uniform_int_distribution<int> dist(0, aa);
-        int bb = dist(rng);
-        std::swap(sim_out->body_soil_pos_[aa], sim_out->body_soil_pos_[bb]);
-    }
-
     // Storing all possible directions for relaxation
     std::vector<std::vector<int>> directions = {
         {1, 0}, {-1, 0}, {0, 1}, {0, -1}};
@@ -823,7 +814,6 @@ void soil_simulator::RelaxUnstableBodyCell(
         if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
             // Not enough soil in body_soil_pos_
             h_soil = sim_out->body_soil_pos_[nn].h_soil;
-            h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
         }
         h_new_c = sim_out->terrain_[ii_c][jj_c] + h_soil;
 
@@ -831,23 +821,22 @@ void soil_simulator::RelaxUnstableBodyCell(
             // First bucket layer is present
             if (h_new_c - tol > sim_out->body_[0][ii_c][jj_c]) {
                 // Not enough space for all the soil
-                h_new_c = sim_out->body_[0][ii_c][jj_c];
-                h_new = (
-                    sim_out->body_soil_[ind+1][ii][jj] -
-                    sim_out->body_[0][ii_c][jj_c] +
+                h_soil = (
+                    sim_out->body_[0][ii_c][jj_c] -
                     sim_out->terrain_[ii_c][jj_c]);
+                h_new_c = sim_out->body_[0][ii_c][jj_c];
             }
         } else if (st[0] == '2') {
             // Second bucket layer is present
             if (h_new_c - tol > sim_out->body_[2][ii_c][jj_c]) {
                 // Not enough space for all the soil
-                h_new_c = sim_out->body_[2][ii_c][jj_c];
-                h_new = (
-                    sim_out->body_soil_[ind+1][ii][jj] -
-                    sim_out->body_[2][ii_c][jj_c] +
+                h_soil = (
+                    sim_out->body_[2][ii_c][jj_c] -
                     sim_out->terrain_[ii_c][jj_c]);
+                h_new_c = sim_out->body_[2][ii_c][jj_c];
             }
         }
+        h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
 
         if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
             // Soil on the bucket should partially avalanche

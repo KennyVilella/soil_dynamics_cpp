@@ -58,6 +58,15 @@ bool soil_simulator::SoilDynamics::step(
         // Relaxing the terrain
         RelaxTerrain(sim_out, grid, bucket, sim_param, tol);
 
+        // Randomizing body_soil_pos to reduce asymmetry
+        // random_suffle is not used because it is machine dependent,
+        // which makes unit testing difficult
+        for (int aa = sim_out->body_soil_pos_.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(sim_out->body_soil_pos_[aa], sim_out->body_soil_pos_[bb]);
+        }
+
         // Relaxing the soil resting on the bucket
         RelaxBodySoil(sim_out, grid, bucket, sim_param, tol);
     }
