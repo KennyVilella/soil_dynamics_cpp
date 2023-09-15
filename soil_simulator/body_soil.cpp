@@ -48,7 +48,7 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    float min_cell_height_diff = 2 * std::min(
+    float min_cell_height_diff = 3 * std::min(
         grid.cell_size_z_, grid.cell_size_xy_);
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
@@ -143,11 +143,11 @@ void soil_simulator::UpdateBodySoil(
                 break;
             }
         }
+
         if (!soil_moved) {
             // This should normally not happen, it is only for safety
             // Moving body_soil to terrain
-            sim_out->terrain_[ii_n][jj_n] += (
-                old_body_soil[ind+1][ii][jj] - old_body_soil[ind][ii][jj]);
+            sim_out->terrain_[ii_n][jj_n] += h_soil;
             LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n "
                 "Soil is moved to the terrain to maintain mass conservation";
         }
