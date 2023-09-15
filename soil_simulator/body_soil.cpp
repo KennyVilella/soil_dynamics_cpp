@@ -15,7 +15,7 @@ Copyright, 2023, Vilella Kenny.
 
 /// In this function, the movement applied to the base of the soil column is
 /// calculated and the soil is moved to this new location. The original
-/// position of the soil column in the bucket frame is stored in the 
+/// position of the soil column in the bucket frame is stored in the
 /// `body_soil_pos_` member of the `SimOut` class.
 ///
 /// It is difficult to track accurately each bucket wall. This is currently done
@@ -94,8 +94,8 @@ void soil_simulator::UpdateBodySoil(
             sim_out->body_soil_[0][ii_n][jj_n] = sim_out->body_[1][ii_n][jj_n];
 
             // Adding position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(
-                soil_simulator::body_soil {0, ii_n, jj_n, x_b, y_b, z_b, h_soil});
+            sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                {0, ii_n, jj_n, x_b, y_b, z_b, h_soil});
         } else if (
             ((sim_out->body_[2][ii_n][jj_n] != 0.0) ||
             (sim_out->body_[3][ii_n][jj_n] != 0.0)) &&
@@ -110,8 +110,8 @@ void soil_simulator::UpdateBodySoil(
             sim_out->body_soil_[2][ii_n][jj_n] = sim_out->body_[3][ii_n][jj_n];
 
             // Adding position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(
-                soil_simulator::body_soil {2, ii_n, jj_n, x_b, y_b, z_b, h_soil});
+            sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                 {2, ii_n, jj_n, x_b, y_b, z_b, h_soil});
         } else {
             // Bucket is not present
             // This should normally not happen, it is only for safety

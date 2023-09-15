@@ -5,6 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <algorithm>
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "soil_simulator/soil_dynamics.hpp"
 #include "soil_simulator/types.hpp"
