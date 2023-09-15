@@ -3746,6 +3746,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
             EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
 
+    delete bucket;
     delete sim_out;
 }
 
@@ -10591,5 +10592,6 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    delete bucket;
     delete sim_out;
 }
