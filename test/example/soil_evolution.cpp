@@ -259,7 +259,8 @@ void soil_simulator::SoilEvolution(
 
        if (max_bucket_vel != 0.0) {
            // Bucket is moving
-           dt_i = grid.cell_size_xy_ / max_bucket_vel;
+           dt_i = std::min(grid.cell_size_xy_, grid.cell_size_z_) /
+               max_bucket_vel;
        } else {
            // No bucket movement
            dt_i = dt;
