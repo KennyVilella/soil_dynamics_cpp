@@ -117,13 +117,9 @@ void soil_simulator::UpdateBodySoil(
                 sim_out->body_soil_[0][ii_t][jj_t] = (
                     sim_out->body_[1][ii_t][jj_t]);
 
-                // Calculating pos of cell in bucket frame
-                auto pos = soil_simulator::CalcBucketFramePos(
-                    ii_t, jj_t, sim_out->body_[1][ii_t][jj_t], grid, bucket);
-
                 // Adding position to body_soil_pos
                 sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
-                    {0, ii_t, jj_t, pos[0], pos[1], pos[2], h_soil});
+                    {0, ii_t, jj_t, x_b, y_b, z_b, h_soil});
                 soil_moved = true;
                 break;
             } else if (
@@ -140,13 +136,9 @@ void soil_simulator::UpdateBodySoil(
                 sim_out->body_soil_[2][ii_t][jj_t] = (
                     sim_out->body_[3][ii_t][jj_t]);
 
-                // Calculating pos of cell in bucket frame
-                auto pos = soil_simulator::CalcBucketFramePos(
-                    ii_t, jj_t, sim_out->body_[3][ii_t][jj_t], grid, bucket);
-
                 // Adding position to body_soil_pos
                 sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
-                     {2, ii_t, jj_t, pos[0], pos[1], pos[2], h_soil});
+                     {2, ii_t, jj_t, x_b, y_b, z_b, h_soil});
                 soil_moved = true;
                 break;
             }
