@@ -176,7 +176,7 @@ void soil_simulator::RelaxBodySoil(
         int ii = sim_out->body_soil_pos_[nn].ii;
         int jj = sim_out->body_soil_pos_[nn].jj;
         int ind = sim_out->body_soil_pos_[nn].ind;
-        int h_soil = sim_out->body_soil_pos_[nn].h_soil;
+        float h_soil = sim_out->body_soil_pos_[nn].h_soil;
 
         // Checking if soil is present
         if (h_soil < tol) {
