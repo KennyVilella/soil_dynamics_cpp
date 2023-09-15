@@ -112,7 +112,7 @@ class Grid {
 
      /// Vector providing a conversion between cell's index and cell's position
      /// in the Z direction.
-     std::vector<float> vect_z_;
+     std::vector<double> vect_z_;
 
      /// \brief Create a new instance of `Grid` using the grid size in [m].
      ///
