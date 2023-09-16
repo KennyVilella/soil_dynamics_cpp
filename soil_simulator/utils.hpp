@@ -53,6 +53,17 @@ bool CheckBucketMovement(
 std::vector<float> CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c);
 
+/// \brief This function calculates the position of a considered cell in the
+///        bucket frame assuming that the bucket is in its reference psoition.
+///
+/// \param ii: Index of the considered cell in the X direction.
+/// \param jj: Index of the considered cell in the Y direction.
+/// \param z: Height of the considered position. [m]
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param bucket: Class that stores information related to the bucket object.
+///
+/// \return Cartesian coordinate of the considered position in the reference
+///         bucket frame.
 std::vector<float> CalcBucketFramePos(
     int ii, int jj, float z, Grid grid, Bucket* bucket);
 
