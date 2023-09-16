@@ -61,17 +61,17 @@ void soil_simulator::MoveIntersectingBodySoil(
 
         int ind_t;
         if (ind == 0) {
-            // First bucket soil layer
+            // Soil is on the first bucket soil layer
             ind_t = 2;
         } else {
-            // Second bucket soil layer
+            // Soil is on the second bucket soil layer
             ind_t = 0;
         }
 
         if (
             (sim_out->body_[ind_t][ii][jj] == 0.0) &&
             (sim_out->body_[ind_t+1][ii][jj] == 0.0)) {
-            // No additionnal bucket layer
+            // No additionnal bucket layer, soil cannot be intersecting
             continue;
         }
 
