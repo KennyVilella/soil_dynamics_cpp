@@ -20,14 +20,15 @@ Copyright, 2023, Vilella Kenny.
 ///
 /// It is difficult to track accurately each bucket wall. This is currently done
 /// by looking at the height difference between the previous and new soil
-/// locations, if this height difference is lower than twice the minimum cell
+/// locations, if this height difference is lower than thrice the vertical cell
 /// size, it is assumed to be the same bucket wall.
 ///
 /// If no bucket wall is present, the soil is moved down to the terrain and a
 /// warning is issued as it should normally not happen.
 ///
 /// The new positions of the soil resting on the bucket are collected into
-/// `sim_out.body_soil_pos_` along with the required information.
+/// `sim_out.body_soil_pos_` along with the required information using the
+/// `body_soil` struct.
 void soil_simulator::UpdateBodySoil(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, float tol
@@ -48,8 +49,7 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    float min_cell_height_diff = 3 * std::min(
-        grid.cell_size_z_, grid.cell_size_xy_);
+    float min_cell_height_diff = 3 * grid.cell_size_z_;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
