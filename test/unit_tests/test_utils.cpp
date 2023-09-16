@@ -303,6 +303,82 @@ TEST(UnitTestUtils, AngleToQuat) {
     EXPECT_NEAR(quat[3], 0.295169, 1e-5);
 }
 
+TEST(UnitTestUtils, CalcBucketFramePos) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.0, 0.0, -0.5};
+    std::vector<float> t_pos = {0.7, 0.0, -0.5};
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
+        o_pos, j_pos, b_pos, t_pos, 0.5);
+    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
+    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+
+    // -- Testing for simple translation (1) --
+    auto pos = soil_simulator::CalcBucketFramePos(
+        11, 11, 0.2, grid, bucket);
+    EXPECT_NEAR(pos[0], 0.1, 1e-5);
+    EXPECT_NEAR(pos[1], 0.1, 1e-5);
+    EXPECT_NEAR(pos[2], 0.2, 1e-5);
+
+    // -- Testing for simple translation (2) --
+    pos = soil_simulator::CalcBucketFramePos(
+        10, 12, -0.2, grid, bucket);
+    EXPECT_NEAR(pos[0], 0.0, 1e-5);
+    EXPECT_NEAR(pos[1], 0.2, 1e-5);
+    EXPECT_NEAR(pos[2], -0.2, 1e-5);
+
+    // -- Testing for simple translation (3) --
+    bucket->pos_ = std::vector<float> {-0.1, 0.2, 0.3};
+    pos = soil_simulator::CalcBucketFramePos(
+        10, 12, -0.2, grid, bucket);
+    EXPECT_NEAR(pos[0], 0.1, 1e-5);
+    EXPECT_NEAR(pos[1], 0.0, 1e-5);
+    EXPECT_NEAR(pos[2], -0.5, 1e-5);
+    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
+
+    // -- Testing for rotation by pi/2 around the Z axis --
+    bucket->ori_ = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    pos = soil_simulator::CalcBucketFramePos(
+        11, 12, 0.3, grid, bucket);
+    EXPECT_NEAR(pos[0], 0.2, 1e-5);
+    EXPECT_NEAR(pos[1], -0.1, 1e-5);
+    EXPECT_NEAR(pos[2], 0.3, 1e-5);
+    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+
+    // -- Testing for rotation by pi/2 around the Y axis --
+    bucket->ori_ = std::vector<float> {0.707107, 0.0, -0.707107, 0.0};
+    pos = soil_simulator::CalcBucketFramePos(
+        11, 12, 0.3, grid, bucket);
+    EXPECT_NEAR(pos[0], -0.3, 1e-5);
+    EXPECT_NEAR(pos[1], 0.2, 1e-5);
+    EXPECT_NEAR(pos[2], 0.1, 1e-5);
+    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+
+    // -- Testing for rotation by pi/2 around the X axis --
+    bucket->ori_ = std::vector<float> {0.707107, 0.707107, 0.0, 0.0};
+    pos = soil_simulator::CalcBucketFramePos(
+        11, 12, 0.3, grid, bucket);
+    EXPECT_NEAR(pos[0], 0.1, 1e-5);
+    EXPECT_NEAR(pos[1], -0.3, 1e-5);
+    EXPECT_NEAR(pos[2], 0.2, 1e-5);
+    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+
+    // -- Testing for rotation + translation  --
+    bucket->pos_ = std::vector<float> {-0.1, 0.2, 0.3};
+    bucket->ori_ = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    pos = soil_simulator::CalcBucketFramePos(
+        10, 12, -0.2, grid, bucket);
+    EXPECT_NEAR(pos[0], 0.0, 1e-5);
+    EXPECT_NEAR(pos[1], -0.1, 1e-5);
+    EXPECT_NEAR(pos[2], -0.5, 1e-5);
+    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
+    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+
+    delete bucket;
+}
+
 TEST(UnitTestUtils, CheckVolume) {
     // Setting dummy classes
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
