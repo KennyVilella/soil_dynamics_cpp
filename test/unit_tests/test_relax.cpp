@@ -4949,13 +4949,6 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
-
-
-
-
-
-
-
     // -- Testing case with no bucket and soil should partially avalanche --
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
