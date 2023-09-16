@@ -306,12 +306,11 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             sim_out->body_[ind_p+1][ii_p][jj_p]) {
             // Soil avalanche below the second bucket layer to the terrain
             // Note that all soil is going to the terrain without considering
-            // the space  available. If there is not enough space available, the
+            // the space available. If there is not enough space available, the
             // soil would intersect with the bucket and later be moved by
             // the MoveIntersectingBody function
             sim_out->terrain_[ii_n][jj_n] += h_soil;
-            h_soil = 0.0;
-            return {ind_p, ii_p, jj_p, h_soil, wall_presence};
+            return {ind_p, ii_p, jj_p, 0.0, wall_presence};
         } else if (sim_out->body_[3][ii_n][jj_n] + tol > max_h) {
             // Bucket is blocking the movement
             return {ind_p, ii_p, jj_p, h_soil, true};
@@ -350,7 +349,7 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             sim_out->body_[ind_p+1][ii_p][jj_p]) {
             // Soil avalanche below the first bucket layer to the terrain
             // Note that all soil is going to the terrain without considering
-            // the space  available. If there is not enough space available, the
+            // the space available. If there is not enough space available, the
             // soil would intersect with the bucket and later be moved by the
             // MoveIntersectingBody function
             sim_out->terrain_[ii_n][jj_n] += h_soil;
@@ -414,6 +413,10 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             }
         }
 
+        // Calculating pos of cell in bucket frame
+        auto pos = soil_simulator::CalcBucketFramePos(
+            ii_n, jj_n, sim_out->body_[ind_b_n+1][ii_n][jj_n], grid, bucket);
+
         // Only option left is that there is space for the intersecting soil
         if (bucket_soil_presence) {
             // Soil should go into the existing bucket soil layer
@@ -421,11 +424,6 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             float delta_h = (
                 sim_out->body_[ind_t_n][ii_n][jj_n] -
                 sim_out->body_soil_[ind_b_n+1][ii_n][jj_n]);
-
-            // Calculating pos of cell in bucket frame
-            auto pos = soil_simulator::CalcBucketFramePos(
-                ii_n, jj_n, sim_out->body_[ind_b_n+1][ii_n][jj_n], grid,
-                bucket);
 
             if (delta_h < h_soil) {
                 // Not enough space
@@ -460,12 +458,6 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             float delta_h = (
                 sim_out->body_[ind_t_n][ii_n][jj_n] -
                 sim_out->body_[ind_b_n+1][ii_n][jj_n]);
-
-            // Calculating pos of cell in bucket frame
-            auto pos = soil_simulator::CalcBucketFramePos(
-                ii_n, jj_n, sim_out->body_[ind_b_n+1][ii_n][jj_n], grid,
-                bucket);
-
 
             if (delta_h < h_soil) {
                 // Not enough space
