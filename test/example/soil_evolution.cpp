@@ -70,11 +70,11 @@ void soil_simulator::SoilEvolution(
 
         // Creating the trajectory
         std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-            x_i, z_i, x_min, z_min, origin_angle, 1000);
+            x_i, z_i, x_min, z_min, origin_angle, 10000);
     } else {
         // Default parabolic trajectory
         std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-            -2.0, 1.5, 0.1, 0.25, origin_angle, 1000);
+            -2.0, 1.5, 0.1, 0.25, origin_angle, 10000);
     }
 
     // Initializing bucket corner position vectors
@@ -254,7 +254,7 @@ void soil_simulator::SoilEvolution(
            std::pow(t_r_pos_plus[2] - t_r_pos_minus[2], 2)) / dt_i;
 
        // Calculating the maximum velocity of the bucket
-       float max_bucket_vel = std::max({
+       float max_bucket_vel = 1.25 * std::max({
            j_l_vel, j_r_vel, b_l_vel, b_r_vel, t_l_vel, t_r_vel});
 
        if (max_bucket_vel != 0.0) {
