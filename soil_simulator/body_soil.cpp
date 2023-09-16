@@ -69,11 +69,6 @@ void soil_simulator::UpdateBodySoil(
         auto new_cell_pos = soil_simulator::CalcRotationQuaternion(
             ori, cell_pos);
 
-        // Calculating movement made by the bucket
-        // This is not good as new_cell_pos is in the global frame
-        float dx = new_cell_pos[0] - cell_pos[0];
-        float dy = new_cell_pos[1] - cell_pos[1];
-
         // Calculating new cell position in global frame
         new_cell_pos[0] += pos[0];
         new_cell_pos[1] += pos[1];
@@ -87,9 +82,11 @@ void soil_simulator::UpdateBodySoil(
 
         // Establishing order of exploration
         std::vector<std::vector<int>> directions;
-        int sx = copysign(1, dx);
-        int sy = copysign(1, dy);
-        if (std::abs(dx) > std::abs(dy)) {
+        int sx;
+        int sy;
+        (ii_n > ii) ? sx = 1 : sx = -1;
+        (jj_n > jj) ? sy = 1 : sy = -1;
+        if (std::abs(sx) > std::abs(sy)) {
             // Main direction follows X
             directions = {
                 {0, 0}, {sx, 0}, {sx, sy}, {0, sy}, {sx, -sy},
