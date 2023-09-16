@@ -54,6 +54,7 @@ void MoveIntersectingBody(SimOut* sim_out, float tol);
 /// \param jj_n: Index of the new considered position in the Y direction.
 /// \param h_soil: Height of the soil column left to be moved. [m]
 /// \param wall_presence: Indicates whether a wall is blocking the movement.
+/// \param grid: Class that stores information related to the simulation grid.
 /// \param bucket: Class that stores information related to the bucket object.
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
