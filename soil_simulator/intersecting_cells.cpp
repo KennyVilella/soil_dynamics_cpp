@@ -100,6 +100,9 @@ void soil_simulator::MoveIntersectingBodySoil(
             continue;
         }
 
+        // Updating bucket soil
+        sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
+
         // Randomizing direction to avoid asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
@@ -143,9 +146,6 @@ void soil_simulator::MoveIntersectingBodySoil(
                 "layer could be moved\nThe extra soil has been arbitrarily "
                 "removed";
         }
-
-        // Updating bucket soil
-        sim_out->body_soil_[ind+1][ii][jj] = sim_out->body_[ind_t][ii][jj];
     }
 }
 
