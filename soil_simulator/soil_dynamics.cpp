@@ -5,6 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <algorithm>
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "soil_simulator/soil_dynamics.hpp"
 #include "soil_simulator/types.hpp"
@@ -35,7 +36,7 @@ bool soil_simulator::SoilDynamics::step(
     soil_simulator::UpdateBodySoil(sim_out, pos, ori, grid, bucket, tol);
 
     // Moving intersecting soil cells
-    soil_simulator::MoveIntersectingCells(sim_out, tol);
+    soil_simulator::MoveIntersectingCells(sim_out, grid, bucket, tol);
 
     // Assuming that the terrain is not at equilibrium
     sim_out->equilibrium_ = false;
@@ -56,10 +57,19 @@ bool soil_simulator::SoilDynamics::step(
             sim_out->bucket_area_[1][1], sim_out->relax_area_[1][1]);
 
         // Relaxing the terrain
-        RelaxTerrain(sim_out, grid, sim_param, tol);
+        RelaxTerrain(sim_out, grid, bucket, sim_param, tol);
+
+        // Randomizing body_soil_pos to reduce asymmetry
+        // random_suffle is not used because it is machine dependent,
+        // which makes unit testing difficult
+        for (int aa = sim_out->body_soil_pos_.size() - 1; aa > 0; aa--) {
+            std::uniform_int_distribution<int> dist(0, aa);
+            int bb = dist(rng);
+            std::swap(sim_out->body_soil_pos_[aa], sim_out->body_soil_pos_[bb]);
+        }
 
         // Relaxing the soil resting on the bucket
-        RelaxBodySoil(sim_out, grid, sim_param, tol);
+        RelaxBodySoil(sim_out, grid, bucket, sim_param, tol);
     }
     return true;
 }

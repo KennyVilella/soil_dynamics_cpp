@@ -12,13 +12,15 @@ Copyright, 2023, Vilella Kenny.
 #include <vector>
 #include "soil_simulator/types.hpp"
 #include "soil_simulator/intersecting_cells.hpp"
+#include "soil_simulator/utils.hpp"
 
 /// Note that `MoveIntersectingBodySoil` must be called before
 /// `MoveIntersectingBody`, otherwise some intersecting soil cells may remain.
-void soil_simulator::MoveIntersectingCells(SimOut* sim_out, float tol
+void soil_simulator::MoveIntersectingCells(
+    SimOut* sim_out, Grid grid, Bucket* bucket, float tol
 ) {
     // Moving bucket soil intersecting with the bucket
-    soil_simulator::MoveIntersectingBodySoil(sim_out, tol);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, tol);
 
     // Moving terrain intersecting with the bucket
     soil_simulator::MoveIntersectingBody(sim_out, tol);
@@ -43,7 +45,8 @@ void soil_simulator::MoveIntersectingCells(SimOut* sim_out, float tol
 ///
 /// Note that the order in which the directions are checked is randomized in
 /// order to avoid asymmetrical results.
-void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
+void soil_simulator::MoveIntersectingBodySoil(
+    SimOut* sim_out, Grid grid, Bucket* bucket, float tol
 ) {
     // Storing all possible directions
     std::vector<std::vector<int>> directions = {
@@ -52,9 +55,9 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
 
     // Iterating over bucket soil cells
     for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
-        int ind = sim_out->body_soil_pos_[nn][0];
-        int ii = sim_out->body_soil_pos_[nn][1];
-        int jj = sim_out->body_soil_pos_[nn][2];
+        int ind = sim_out->body_soil_pos_[nn].ind;
+        int ii = sim_out->body_soil_pos_[nn].ii;
+        int jj = sim_out->body_soil_pos_[nn].jj;
 
         int ind_t;
         if (ind == 0) {
@@ -82,6 +85,16 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
             h_soil = (
                 sim_out->body_soil_[ind+1][ii][jj] -
                 sim_out->body_[ind_t][ii][jj]);
+
+            // Only the intersecting soil within this body_soil_pos is moved
+            if (h_soil > sim_out->body_soil_pos_[nn].h_soil) {
+                // All the soil would be moved
+                h_soil = sim_out->body_soil_pos_[nn].h_soil;
+                sim_out->body_soil_pos_[nn].h_soil = 0.0;
+            } else {
+                // Soil would be partially moved
+                sim_out->body_soil_pos_[nn].h_soil -= h_soil;
+            }
         } else {
             // No intersection between bucket soil and bucket
             continue;
@@ -117,7 +130,7 @@ void soil_simulator::MoveIntersectingBodySoil(SimOut* sim_out, float tol
                 std::tie(ind_p, ii_p, jj_p, h_soil, wall_presence) = (
                     soil_simulator::MoveBodySoil(
                         sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
-                        wall_presence, tol));
+                        wall_presence, grid, bucket, tol));
             }
             if (h_soil < tol) {
                 // No more soil to move
@@ -271,7 +284,8 @@ void soil_simulator::MoveIntersectingBody(SimOut* sim_out, float tol
 /// intersecting soil cells, it will be resolved by `MoveIntersectingBody`.
 std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
     SimOut* sim_out, int ind_p, int ii_p, int jj_p, float max_h, int ii_n,
-    int jj_n, float h_soil, bool wall_presence, float tol
+    int jj_n, float h_soil, bool wall_presence, Grid grid, Bucket* bucket,
+    float tol
 ) {
     // Determining presence of bucket
     bool bucket_absence_1 = (
@@ -318,11 +332,16 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             sim_out->body_soil_[2][ii_n][jj_n] = sim_out->body_[3][ii_n][jj_n];
             sim_out->body_soil_[3][ii_n][jj_n] = (
                 sim_out->body_[3][ii_n][jj_n] + h_soil);
-
-            // Adding new bucket soil position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(std::vector<int> {2, ii_n, jj_n});
         }
 
+        // Calculating pos of cell in bucket frame
+        auto pos = soil_simulator::CalcBucketFramePos(
+            ii_n, jj_n, sim_out->body_[3][ii_n][jj_n], grid, bucket);
+
+        // Adding new bucket soil position to body_soil_pos
+        sim_out->body_soil_pos_.push_back(
+            soil_simulator::body_soil
+            {2, ii_n, jj_n, pos[0], pos[1], pos[2], h_soil});
         h_soil = 0.0;
     } else if (bucket_absence_3) {
         // Only the first bucket layer
@@ -356,11 +375,16 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             sim_out->body_soil_[0][ii_n][jj_n] = sim_out->body_[1][ii_n][jj_n];
             sim_out->body_soil_[1][ii_n][jj_n] = (
                 sim_out->body_[1][ii_n][jj_n] + h_soil);
-
-            // Adding new bucket soil position to body_soil_pos
-            sim_out->body_soil_pos_.push_back(std::vector<int> {0, ii_n, jj_n});
         }
 
+        // Calculating pos of cell in bucket frame
+        auto pos = soil_simulator::CalcBucketFramePos(
+            ii_n, jj_n, sim_out->body_[1][ii_n][jj_n], grid, bucket);
+
+        // Adding new bucket soil position to body_soil_pos
+        sim_out->body_soil_pos_.push_back(
+            soil_simulator::body_soil
+            {0, ii_n, jj_n, pos[0], pos[1], pos[2], h_soil});
         h_soil = 0.0;
     } else {
         // Both bucket layers are present
@@ -398,12 +422,22 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
                 sim_out->body_[ind_t_n][ii_n][jj_n] -
                 sim_out->body_soil_[ind_b_n+1][ii_n][jj_n]);
 
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_n, jj_n, sim_out->body_[ind_b_n+1][ii_n][jj_n], grid,
+                bucket);
+
             if (delta_h < h_soil) {
                 // Not enough space
                 h_soil -= delta_h;
 
                 // Adding soil to the bucket soil layer
                 sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] += delta_h;
+
+                // Adding new bucket soil position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(
+                    soil_simulator::body_soil
+                    {ind_b_n, ii_n, jj_n, pos[0], pos[1], pos[2], delta_h});
 
                 // Updating previous position
                 ii_p = ii_n;
@@ -414,6 +448,10 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
                 // Adding soil to the bucket soil layer
                 sim_out->body_soil_[ind_b_n+1][ii_n][jj_n] += h_soil;
 
+                // Adding new bucket soil position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(
+                    soil_simulator::body_soil
+                    {ind_b_n, ii_n, jj_n, pos[0], pos[1], pos[2], h_soil});
                 h_soil = 0.0;
             }
         } else {
@@ -422,6 +460,12 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             float delta_h = (
                 sim_out->body_[ind_t_n][ii_n][jj_n] -
                 sim_out->body_[ind_b_n+1][ii_n][jj_n]);
+
+            // Calculating pos of cell in bucket frame
+            auto pos = soil_simulator::CalcBucketFramePos(
+                ii_n, jj_n, sim_out->body_[ind_b_n+1][ii_n][jj_n], grid,
+                bucket);
+
 
             if (delta_h < h_soil) {
                 // Not enough space
@@ -435,7 +479,8 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
 
                 // Adding new bucket soil position to body_soil_pos
                 sim_out->body_soil_pos_.push_back(
-                    std::vector<int> {ind_b_n, ii_n, jj_n});
+                    soil_simulator::body_soil
+                    {ind_b_n, ii_n, jj_n, pos[0], pos[1], pos[2], delta_h});
 
                 // Updating previous position
                 ii_p = ii_n;
@@ -451,8 +496,8 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
 
                 // Adding new bucket soil position to body_soil_pos
                 sim_out->body_soil_pos_.push_back(
-                    std::vector<int> {ind_b_n, ii_n, jj_n});
-
+                    soil_simulator::body_soil
+                    {ind_b_n, ii_n, jj_n, pos[0], pos[1], pos[2], h_soil});
                 h_soil = 0.0;
             }
         }

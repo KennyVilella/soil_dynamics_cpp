@@ -30,7 +30,7 @@ static void BM_MoveIntersectingCells(benchmark::State& state) {
         sim_out, pos, ori, grid, bucket, sim_param, 1e-5);
 
     for (auto _ : state)
-        soil_simulator::MoveIntersectingCells(sim_out, 1.e-5);
+        soil_simulator::MoveIntersectingCells(sim_out, grid, bucket, 1.e-5);
     delete sim_out;
     delete bucket;
 }
@@ -67,6 +67,12 @@ static void BM_MoveIntersectingBodySoil(benchmark::State& state) {
 
     // Defining inputs
     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.0, 0.0, -0.5};
+    std::vector<float> t_pos = {0.7, 0.0, -0.5};
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
+        o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     for (auto ii = 19; ii < 30; ii++)
         for (auto jj = 23; jj < 41; jj++) {
@@ -87,8 +93,9 @@ static void BM_MoveIntersectingBodySoil(benchmark::State& state) {
         sim_out->body_soil_[1][ii][39] = 0.7;
 
     for (auto _ : state)
-        soil_simulator::MoveIntersectingBodySoil(sim_out, 1.e-5);
+        soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1.e-5);
     delete sim_out;
+    delete bucket;
 }
 BENCHMARK(BM_MoveIntersectingBodySoil);
 
@@ -121,6 +128,12 @@ static void BM_MoveBodySoil(benchmark::State& state) {
     // Defining inputs
     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+    std::vector<float> j_pos = {0.0, 0.0, 0.0};
+    std::vector<float> b_pos = {0.0, 0.0, -0.5};
+    std::vector<float> t_pos = {0.7, 0.0, -0.5};
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
+        o_pos, j_pos, b_pos, t_pos, 0.5);
     sim_out->body_[0][5][7] = 0.1;
     sim_out->body_[1][5][7] = 0.3;
     sim_out->body_[2][5][7] = 0.6;
@@ -138,7 +151,8 @@ static void BM_MoveBodySoil(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::MoveBodySoil(
-            sim_out, 0, 5, 7, 0.4, 5, 11, 0.5, true, 1.e-5);
+            sim_out, 0, 5, 7, 0.4, 5, 11, 0.5, true, grid, bucket, 1.e-5);
     delete sim_out;
+    delete bucket;
 }
 BENCHMARK(BM_MoveBodySoil);

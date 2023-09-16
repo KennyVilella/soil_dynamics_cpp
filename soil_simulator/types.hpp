@@ -9,6 +9,33 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
+/// \brief Store information related to the position of the bucket sol.
+struct body_soil{
+    /// Index of the bucket soil layer.
+    int ind;
+
+    /// Index of the bucket soil position in the X direction.
+    int ii;
+
+    /// Index of the bucket soil position in the Y direction.
+    int jj;
+
+    /// Cartesian coordinate in the X direction where the bucket soil avalanched
+    /// on the bucket in the bucket frame. [m]
+    float x_b;
+
+    /// Cartesian coordinate in the Y direction where the bucket soil avalanched
+    /// on the bucket in the bucket frame. [m]
+    float y_b;
+
+    /// Cartesian coordinate in the Z direction where the bucket soil avalanched
+    /// on the bucket in the bucket frame. [m]
+    float z_b;
+
+    /// Vertical extent of the soil column. [m]
+    float h_soil;
+};
+
 /// \brief Store all parameters related to the simulation grid.
 ///
 /// Convention:
@@ -85,7 +112,7 @@ class Grid {
 
      /// Vector providing a conversion between cell's index and cell's position
      /// in the Z direction.
-     std::vector<float> vect_z_;
+     std::vector<double> vect_z_;
 
      /// \brief Create a new instance of `Grid` using the grid size in [m].
      ///
@@ -335,9 +362,8 @@ class SimOut {
      /// each XY position. [m]
      std::vector<std::vector<std::vector<float>>> body_soil_;
 
-     /// Store the indices of locations where there is soil resting on
-     /// the bucket.
-     std::vector<std::vector<int>> body_soil_pos_;
+     /// Store the information related to the soil resting on the bucket.
+     std::vector<body_soil> body_soil_pos_;
 
      /// Store the 2D bounding box of the bucket with a buffer determined
      /// by the parameter `cell_buffer_` of `SimParam`.

@@ -142,6 +142,28 @@ std::vector<float> soil_simulator::CalcNormal(
     return normal;
 }
 
+
+std::vector<float> soil_simulator::CalcBucketFramePos(
+    int ii, int jj, float z, Grid grid, Bucket* bucket
+) {
+    // Calculating cell's position in bucket frame
+    std::vector<float> cell_pos = {
+        grid.vect_x_[ii] - bucket->pos_[0],
+        grid.vect_y_[jj] - bucket->pos_[1],
+        z - bucket->pos_[2]};
+
+    // Inversing rotation
+    std::vector<float> inv_ori = {
+        bucket->ori_[0], -bucket->ori_[1], -bucket->ori_[2],
+        -bucket->ori_[3]};
+
+    // Calculating reference position of cell in bucket frame
+    auto cell_local_pos = soil_simulator::CalcRotationQuaternion(
+        inv_ori, cell_pos);
+
+    return cell_local_pos;
+}
+
 /// The mathematical reasoning behind this implementation can be easily found
 /// in the Wiki page of Quaternion or elsewhere.
 std::vector<float> soil_simulator::CalcRotationQuaternion(
@@ -225,22 +247,27 @@ bool soil_simulator::CheckVolume(
 
     terrain_volume = grid.cell_area_ * terrain_volume;
 
-    // Removing duplicates in body_soil_pos
-    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
-    sim_out->body_soil_pos_.erase(unique(
-        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
-        sim_out->body_soil_pos_.end());
-
     // Calculating volume of bucket soil
     float body_soil_volume = 0.0;
-    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
-        int ii = sim_out->body_soil_pos_[nn][1];
-        int jj = sim_out->body_soil_pos_[nn][2];
-        int ind = sim_out->body_soil_pos_[nn][0];
-        body_soil_volume += (
-            sim_out->body_soil_[ind+1][ii][jj] -
-            sim_out->body_soil_[ind][ii][jj]);
-    }
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++) {
+            if (
+                (sim_out->body_soil_[0][ii][jj] != 0.0) ||
+                (sim_out->body_soil_[1][ii][jj] != 0.0)) {
+                // Bucket soil is present
+                body_soil_volume += (
+                    sim_out->body_soil_[1][ii][jj] -
+                    sim_out->body_soil_[0][ii][jj]);
+            }
+            if (
+                (sim_out->body_soil_[2][ii][jj] != 0.0) ||
+                (sim_out->body_soil_[3][ii][jj] != 0.0)) {
+                // Bucket soil is present
+                body_soil_volume += (
+                    sim_out->body_soil_[3][ii][jj] -
+                    sim_out->body_soil_[2][ii][jj]);
+            }
+        }
     body_soil_volume = grid.cell_area_ * body_soil_volume;
 
     // Calculating total volume of soil
@@ -414,14 +441,13 @@ bool soil_simulator::CheckSoil(
     // Iterating over all cells where bucket soil is located
     for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
         // Renaming for convenience
-        int ii = sim_out->body_soil_pos_[nn][1];
-        int jj = sim_out->body_soil_pos_[nn][2];
-        int ind = sim_out->body_soil_pos_[nn][0];
+        int ii = sim_out->body_soil_pos_[nn].ii;
+        int jj = sim_out->body_soil_pos_[nn].jj;
+        int ind = sim_out->body_soil_pos_[nn].ind;
         float body_min = sim_out->body_[ind][ii][jj];
         float body_max = sim_out->body_[ind+1][ii][jj];
         float body_soil_min = sim_out->body_soil_[ind][ii][jj];
         float body_soil_max = sim_out->body_soil_[ind+1][ii][jj];
-
 
         // Check that soil is actually present
         bool bucket_soil_presence = (
@@ -485,12 +511,6 @@ void soil_simulator::WriteSoil(
         "/body_soil_" + terrain_filename.substr(
             terrain_filename.find_last_of("_")+1, terrain_filename.size()));
 
-    // Removing duplicates in body_soil_pos
-    sort(sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
-    sim_out->body_soil_pos_.erase(unique(
-        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end()),
-        sim_out->body_soil_pos_.end());
-
     std::ofstream body_soil_file;
     body_soil_file.open(new_body_soil_filename);
     body_soil_file << "x,y,z\n";
@@ -500,14 +520,25 @@ void soil_simulator::WriteSoil(
         body_soil_file << grid.vect_x_[0] << "," << grid.vect_y_[0] << ","
                 << grid.vect_z_[0] << "\n";
     } else {
-        for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
-            int ii = sim_out->body_soil_pos_[nn][1];
-            int jj = sim_out->body_soil_pos_[nn][2];
-            int ind = sim_out->body_soil_pos_[nn][0];
-
-            body_soil_file << grid.vect_x_[ii] << "," << grid.vect_y_[jj] << ","
-                << sim_out->body_soil_[ind+1][ii][jj] << "\n";
-        }
+        for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+            for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++) {
+                if (
+                    (sim_out->body_soil_[0][ii][jj] != 0.0) ||
+                    (sim_out->body_soil_[1][ii][jj] != 0.0)) {
+                    // Bucket soil is present
+                    body_soil_file << grid.vect_x_[ii] << "," <<
+                        grid.vect_y_[jj] << "," <<
+                        sim_out->body_soil_[1][ii][jj] << "\n";
+                }
+                if (
+                    (sim_out->body_soil_[2][ii][jj] != 0.0) ||
+                    (sim_out->body_soil_[3][ii][jj] != 0.0)) {
+                    // Bucket soil is present
+                    body_soil_file << grid.vect_x_[ii] << "," <<
+                        grid.vect_y_[jj] << "," <<
+                        sim_out->body_soil_[3][ii][jj] << "\n";
+                }
+            }
     }
 }
 

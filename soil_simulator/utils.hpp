@@ -53,6 +53,9 @@ bool CheckBucketMovement(
 std::vector<float> CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c);
 
+std::vector<float> CalcBucketFramePos(
+    int ii, int jj, float z, Grid grid, Bucket* bucket);
+
 /// \brief This function applies a rotation `ori` to the Cartesian
 ///        coordinates `pos`.
 ///
