@@ -20,14 +20,15 @@ Copyright, 2023, Vilella Kenny.
 ///
 /// It is difficult to track accurately each bucket wall. This is currently done
 /// by looking at the height difference between the previous and new soil
-/// locations, if this height difference is lower than twice the minimum cell
+/// locations, if this height difference is lower than thrice the vertical cell
 /// size, it is assumed to be the same bucket wall.
 ///
 /// If no bucket wall is present, the soil is moved down to the terrain and a
 /// warning is issued as it should normally not happen.
 ///
 /// The new positions of the soil resting on the bucket are collected into
-/// `sim_out.body_soil_pos_` along with the required information.
+/// `sim_out.body_soil_pos_` along with the required information using the
+/// `body_soil` struct.
 void soil_simulator::UpdateBodySoil(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, float tol
@@ -48,8 +49,7 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    float min_cell_height_diff = 3 * std::min(
-        grid.cell_size_z_, grid.cell_size_xy_);
+    float min_cell_height_diff = 3 * grid.cell_size_z_;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
@@ -60,7 +60,7 @@ void soil_simulator::UpdateBodySoil(
         float h_soil = old_body_soil_pos[nn].h_soil;
 
         if (h_soil < tol) {
-            // No soil tto be moved
+            // No soil to be moved
             continue;
         }
 
@@ -68,10 +68,6 @@ void soil_simulator::UpdateBodySoil(
         std::vector<float> cell_pos = {x_b, y_b, z_b};
         auto new_cell_pos = soil_simulator::CalcRotationQuaternion(
             ori, cell_pos);
-
-        // Calculating movement made by the bucket
-        float dx = new_cell_pos[0] - cell_pos[0];
-        float dy = new_cell_pos[1] - cell_pos[1];
 
         // Calculating new cell position in global frame
         new_cell_pos[0] += pos[0];
@@ -86,13 +82,17 @@ void soil_simulator::UpdateBodySoil(
 
         // Establishing order of exploration
         std::vector<std::vector<int>> directions;
-        int sx = copysign(1, dx);
-        int sy = copysign(1, dy);
-        if (std::abs(dx) > std::abs(dy)) {
+        int sx;
+        int sy;
+        (ii_n > ii) ? sx = 1 : sx = -1;
+        (jj_n > jj) ? sy = 1 : sy = -1;
+        if (std::abs(sx) > std::abs(sy)) {
+            // Main direction follows X
             directions = {
                 {0, 0}, {sx, 0}, {sx, sy}, {0, sy}, {sx, -sy},
                 {0, -sy}, {-sx, sy}, {-sx, 0}, {-sx, -sy}};
         } else {
+            // Main direction follows Y
             directions = {
                 {0, 0}, {0, sy}, {sx, sy}, {sx, 0}, {-sx, sy},
                 {-sx, 0}, {sx, -sy}, {0, -sy}, {-sx, -sy}};
@@ -110,7 +110,8 @@ void soil_simulator::UpdateBodySoil(
                     < min_cell_height_diff)
             ) {
                 // First bucket layer is present
-                // Moving body_soil to new location
+                // Moving body_soil to new location, this implementation works
+                // regardless of the presence of body_soil
                 sim_out->body_soil_[1][ii_t][jj_t] += (
                     sim_out->body_[1][ii_t][jj_t] -
                     sim_out->body_soil_[0][ii_t][jj_t] + h_soil);
@@ -128,8 +129,9 @@ void soil_simulator::UpdateBodySoil(
                 (std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]) - tol
                     < min_cell_height_diff)
             ) {
-                // Bucket is present
-                // Moving body_soil to new location
+                // Second bucket layer is present
+                // Moving body_soil to new location, this implementation works
+                // regardless of the presence of body_soil
                 sim_out->body_soil_[3][ii_t][jj_t] += (
                     sim_out->body_[3][ii_t][jj_t] -
                     sim_out->body_soil_[2][ii_t][jj_t] + h_soil);

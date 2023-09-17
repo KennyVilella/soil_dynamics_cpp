@@ -7739,7 +7739,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     sim_out->body_soil_[3][10][15] = -0.5;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.4});
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});

@@ -9,7 +9,7 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
-/// \brief Store information related to the position of the bucket sol.
+/// \brief Store information related to the position of the bucket soil.
 struct body_soil{
     /// Index of the bucket soil layer.
     int ind;
@@ -20,16 +20,16 @@ struct body_soil{
     /// Index of the bucket soil position in the Y direction.
     int jj;
 
-    /// Cartesian coordinate in the X direction where the bucket soil avalanched
-    /// on the bucket in the bucket frame. [m]
+    /// Cartesian coordinate in the X direction of the bucket soil in the
+    /// reference bucket frame. [m]
     float x_b;
 
-    /// Cartesian coordinate in the Y direction where the bucket soil avalanched
-    /// on the bucket in the bucket frame. [m]
+    /// Cartesian coordinate in the Y direction of the bucket soil in the
+    /// reference bucket frame. [m]
     float y_b;
 
-    /// Cartesian coordinate in the Z direction where the bucket soil avalanched
-    /// on the bucket in the bucket frame. [m]
+    /// Cartesian coordinate in the Z direction of the bucket soil in the
+    /// reference bucket frame. [m]
     float z_b;
 
     /// Vertical extent of the soil column. [m]

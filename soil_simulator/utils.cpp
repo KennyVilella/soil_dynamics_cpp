@@ -142,7 +142,6 @@ std::vector<float> soil_simulator::CalcNormal(
     return normal;
 }
 
-
 std::vector<float> soil_simulator::CalcBucketFramePos(
     int ii, int jj, float z, Grid grid, Bucket* bucket
 ) {

@@ -781,7 +781,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
             ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
 
         // Adding new bucket soil position to body_soil_pos
-        float h_soil = h_new_c - sim_out->body_[1][ii_c][jj_c];
+        h_soil = h_new_c - sim_out->body_[1][ii_c][jj_c];
         sim_out->body_soil_pos_.push_back(
             soil_simulator::body_soil
             {0, ii_c, jj_c, pos[0], pos[1], pos[2], h_soil});
@@ -852,9 +852,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             sim_out->body_soil_pos_[nn].h_soil -= h_soil;
         } else {
             // All soil on the bucket should avalanche
-            sim_out->terrain_[ii_c][jj_c] += (
-                sim_out->body_soil_[ind+1][ii][jj] -
-                sim_out->body_soil_[ind][ii][jj]);
+            sim_out->terrain_[ii_c][jj_c] += h_soil;
             sim_out->body_soil_[ind][ii][jj] = 0.0;
             sim_out->body_soil_[ind+1][ii][jj] = 0.0;
             sim_out->body_soil_pos_[nn].h_soil = 0.0;
@@ -876,22 +874,19 @@ void soil_simulator::RelaxUnstableBodyCell(
                 h_soil = sim_out->body_soil_pos_[nn].h_soil;
                 h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
             }
-            h_new_c = sim_out->body_soil_[1][ii_c][jj_c] + h_soil;
 
             if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
-                sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
                 sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
-                sim_out->body_soil_[1][ii_c][jj_c] += (
-                    sim_out->body_soil_[ind+1][ii][jj] -
-                    sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                 sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            sim_out->body_soil_[1][ii_c][jj_c] += h_soil;
+
             // Calculating pos of cell in bucket frame
             auto pos = soil_simulator::CalcBucketFramePos(
                 ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
@@ -914,27 +909,21 @@ void soil_simulator::RelaxUnstableBodyCell(
                 h_soil = sim_out->body_soil_pos_[nn].h_soil;
                 h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
             }
-            h_new_c = sim_out->body_[1][ii_c][jj_c] + h_soil;
 
+            sim_out->body_soil_[0][ii_c][jj_c] = sim_out->body_[1][ii_c][jj_c];
             if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
-                sim_out->body_soil_[0][ii_c][jj_c] = (
-                    sim_out->body_[1][ii_c][jj_c]);
-                sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
                 sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
-                sim_out->body_soil_[0][ii_c][jj_c] = (
-                    sim_out->body_[1][ii_c][jj_c]);
-                sim_out->body_soil_[1][ii_c][jj_c] = (
-                    sim_out->body_[1][ii_c][jj_c] +
-                    sim_out->body_soil_[ind+1][ii][jj] -
-                    sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                 sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            sim_out->body_soil_[1][ii_c][jj_c] = (
+                    sim_out->body_[1][ii_c][jj_c] + h_soil);
+
             // Calculating pos of cell in bucket frame
             auto pos = soil_simulator::CalcBucketFramePos(
                 ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
@@ -960,25 +949,19 @@ void soil_simulator::RelaxUnstableBodyCell(
                 h_soil = sim_out->body_soil_pos_[nn].h_soil;
                 h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
             }
-            h_new_c = sim_out->body_soil_[3][ii_c][jj_c] + h_soil;
 
-            if (h_new_c - tol > sim_out->body_soil_[ind][ii][jj]) {
+            if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
-                sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
                 sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
-                // -----------------------------------
-                // Check if we can put h_soil here also in other part
-                // -----------------------------------
-                sim_out->body_soil_[3][ii_c][jj_c] += (
-                    sim_out->body_soil_[ind+1][ii][jj] -
-                    sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                 sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            sim_out->body_soil_[3][ii_c][jj_c] += h_soil;
+
             // Calculating pos of cell in bucket frame
             auto pos = soil_simulator::CalcBucketFramePos(
                 ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
@@ -1001,27 +984,21 @@ void soil_simulator::RelaxUnstableBodyCell(
                 h_soil = sim_out->body_soil_pos_[nn].h_soil;
                 h_new = sim_out->body_soil_[ind+1][ii][jj] - h_soil;
             }
-            h_new_c = sim_out->body_[3][ii_c][jj_c] + h_soil;
 
-            if (h_new_c - tol > sim_out->body_soil_[ind][ii][jj]) {
+            sim_out->body_soil_[2][ii_c][jj_c] = sim_out->body_[3][ii_c][jj_c];
+            if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                 // Soil on the bucket should partially avalanche
-                sim_out->body_soil_[2][ii_c][jj_c] = (
-                    sim_out->body_[3][ii_c][jj_c]);
-                sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                 sim_out->body_soil_[ind+1][ii][jj] = h_new;
                 sim_out->body_soil_pos_[nn].h_soil -= h_soil;
             } else {
                 // All soil on the bucket should avalanche
-                sim_out->body_soil_[2][ii_c][jj_c] = (
-                    sim_out->body_[3][ii_c][jj_c]);
-                sim_out->body_soil_[3][ii_c][jj_c] = (
-                    sim_out->body_[3][ii_c][jj_c] +
-                    sim_out->body_soil_[ind+1][ii][jj] -
-                    sim_out->body_soil_[ind][ii][jj]);
                 sim_out->body_soil_[ind][ii][jj] = 0.0;
                 sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                 sim_out->body_soil_pos_[nn].h_soil = 0.0;
             }
+            sim_out->body_soil_[3][ii_c][jj_c] = (
+                sim_out->body_[3][ii_c][jj_c] + h_soil);
+
             // Calculating pos of cell in bucket frame
             auto pos = soil_simulator::CalcBucketFramePos(
                 ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
@@ -1071,15 +1048,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
                     // the full avalanche
-                    // ------------------
-                    // here also h_new_c should not be needed
-                    // ------------------
-                    h_new_c = (
-                        sim_out->body_soil_[3][ii_c][jj_c] +
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
-
-                    sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
+                    sim_out->body_soil_[3][ii_c][jj_c] += h_soil;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
@@ -1093,9 +1062,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
-                    sim_out->body_soil_[3][ii_c][jj_c] += (
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
+                    sim_out->body_soil_[3][ii_c][jj_c] += h_soil;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
@@ -1127,6 +1094,8 @@ void soil_simulator::RelaxUnstableBodyCell(
             }
             h_new_c = sim_out->body_[3][ii_c][jj_c] + h_soil;
 
+
+            sim_out->body_soil_[2][ii_c][jj_c] = sim_out->body_[3][ii_c][jj_c];
             if (sim_out->body_[0][ii_c][jj_c] > sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche on the bottom layer
                 if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
@@ -1137,14 +1106,10 @@ void soil_simulator::RelaxUnstableBodyCell(
                             sim_out->body_[0][ii_c][jj_c] -
                             sim_out->body_[3][ii_c][jj_c]);
                         sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
-                        sim_out->body_soil_[2][ii_c][jj_c] = (
-                            sim_out->body_[3][ii_c][jj_c]);
                         sim_out->body_soil_[3][ii_c][jj_c] = (
                             sim_out->body_[0][ii_c][jj_c]);
                     } else {
                         // Enough space for the partial avalanche
-                        sim_out->body_soil_[2][ii_c][jj_c] = (
-                            sim_out->body_[3][ii_c][jj_c]);
                         sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                         sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     }
@@ -1153,13 +1118,6 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
                     // the full avalanche
-                    h_new_c = (
-                        sim_out->body_[3][ii_c][jj_c] +
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
-
-                    sim_out->body_soil_[2][ii_c][jj_c] = (
-                        sim_out->body_[3][ii_c][jj_c]);
                     sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
@@ -1167,26 +1125,19 @@ void soil_simulator::RelaxUnstableBodyCell(
                 }
             } else {
                 // Soil should avalanche on the top layer
+                sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                 if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                     // Soil on the bucket should partially avalanche
-                    sim_out->body_soil_[2][ii_c][jj_c] = (
-                        sim_out->body_[3][ii_c][jj_c]);
-                    sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
-                    sim_out->body_soil_[2][ii_c][jj_c] = (
-                        sim_out->body_[3][ii_c][jj_c]);
-                    sim_out->body_soil_[3][ii_c][jj_c] = (
-                        sim_out->body_[3][ii_c][jj_c] +
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
+
             // Calculating pos of cell in bucket frame
             auto pos = soil_simulator::CalcBucketFramePos(
                 ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, bucket);
@@ -1220,9 +1171,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
-                    sim_out->body_soil_[1][ii_c][jj_c] += (
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
+                    sim_out->body_soil_[1][ii_c][jj_c] += h_soil;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
@@ -1249,12 +1198,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     // All soil on the bucket may avalanche
                     // By construction, it must have enough space for
                     // the full avalanche
-                    h_new_c = (
-                        sim_out->body_soil_[1][ii_c][jj_c] +
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
-
-                    sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
+                    sim_out->body_soil_[1][ii_c][jj_c] += h_soil;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
@@ -1286,23 +1230,16 @@ void soil_simulator::RelaxUnstableBodyCell(
             }
             h_new_c = sim_out->body_[1][ii_c][jj_c] + h_soil;
 
+            sim_out->body_soil_[0][ii_c][jj_c] = sim_out->body_[1][ii_c][jj_c];
             if (sim_out->body_[0][ii_c][jj_c] > sim_out->body_[2][ii_c][jj_c]) {
                 // Soil should avalanche on the top layer
+                sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                 if (h_new - tol > sim_out->body_soil_[ind][ii][jj]) {
                     // Soil on the bucket should partially avalanche
-                    sim_out->body_soil_[0][ii_c][jj_c] = (
-                        sim_out->body_[1][ii_c][jj_c]);
-                    sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     sim_out->body_soil_pos_[nn].h_soil -= h_soil;
                 } else {
                     // All soil on the bucket should avalanche
-                    sim_out->body_soil_[0][ii_c][jj_c] = (
-                        sim_out->body_[1][ii_c][jj_c]);
-                    sim_out->body_soil_[1][ii_c][jj_c] = (
-                        sim_out->body_[1][ii_c][jj_c] +
-                        sim_out->body_soil_[ind+1][ii][jj] -
-                        sim_out->body_soil_[ind][ii][jj]);
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
@@ -1317,14 +1254,10 @@ void soil_simulator::RelaxUnstableBodyCell(
                             sim_out->body_[2][ii_c][jj_c] -
                             sim_out->body_[1][ii_c][jj_c]);
                         sim_out->body_soil_[ind+1][ii][jj] -= h_soil;
-                        sim_out->body_soil_[0][ii_c][jj_c] = (
-                            sim_out->body_[1][ii_c][jj_c]);
                         sim_out->body_soil_[1][ii_c][jj_c] = (
                             sim_out->body_[2][ii_c][jj_c]);
                     } else {
                         // Enough space for the partial avalanche
-                        sim_out->body_soil_[0][ii_c][jj_c] = (
-                            sim_out->body_[1][ii_c][jj_c]);
                         sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                         sim_out->body_soil_[ind+1][ii][jj] = h_new;
                     }
@@ -1338,14 +1271,13 @@ void soil_simulator::RelaxUnstableBodyCell(
                         sim_out->body_soil_[ind+1][ii][jj] -
                         sim_out->body_soil_[ind][ii][jj]);
 
-                    sim_out->body_soil_[0][ii_c][jj_c] = (
-                        sim_out->body_[1][ii_c][jj_c]);
                     sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
                     sim_out->body_soil_[ind][ii][jj] = 0.0;
                     sim_out->body_soil_[ind+1][ii][jj] = 0.0;
                     sim_out->body_soil_pos_[nn].h_soil = 0.0;
                 }
             }
+
             // Calculating pos of cell in bucket frame
             auto pos = soil_simulator::CalcBucketFramePos(
                 ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, bucket);
