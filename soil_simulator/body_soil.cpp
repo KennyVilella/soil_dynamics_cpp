@@ -19,9 +19,8 @@ Copyright, 2023, Vilella Kenny.
 /// `body_soil_pos_` member of the `SimOut` class.
 ///
 /// It is difficult to track accurately each bucket wall. This is currently done
-/// by looking at the height difference between the previous and new soil
-/// locations, if this height difference is lower than thrice the vertical cell
-/// size, it is assumed to be the same bucket wall.
+/// by choosing the closest bucket layer. It may potentially lead to an
+/// incorrect choice.
 ///
 /// If no bucket wall is present, the soil is moved down to the terrain and a
 /// warning is issued as it should normally not happen.
@@ -49,7 +48,6 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    float min_cell_height_diff = 3 * grid.cell_size_z_;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
@@ -103,12 +101,32 @@ void soil_simulator::UpdateBodySoil(
             // Determining cell to investigate
             int ii_t = ii_n + directions[xy][0];
             int jj_t = jj_n + directions[xy][1];
-            if (
-                ((sim_out->body_[0][ii_t][jj_t] != 0.0) ||
-                (sim_out->body_[1][ii_t][jj_t] != 0.0)) &&
-                (std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]) - tol
-                    < min_cell_height_diff)
-            ) {
+
+            // Detecting presence of bucket
+            bool bucket_presence_1 = (
+                (sim_out->body_[0][ii_t][jj_t] != 0.0) ||
+                (sim_out->body_[1][ii_t][jj_t] != 0.0));
+            bool bucket_presence_3 = (
+                (sim_out->body_[2][ii_t][jj_t] != 0.0) ||
+                (sim_out->body_[3][ii_t][jj_t] != 0.0));
+
+            if (bucket_presence_1 && bucket_presence_3) {
+                // Both bucket layers are present
+                // Determining the closest bucket layer
+                float dist_1 = (
+                    std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]));
+                float dist_2 = (
+                    std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]));
+                if (dist_1 < dist_2) {
+                    // First bucket layer is closer
+                    bucket_presence_3 = false;
+                } else {
+                    // Second bucket layer is closer
+                    bucket_presence_1 = false;
+                }
+            }
+
+            if (bucket_presence_1) {
                 // First bucket layer is present
                 // Moving body_soil to new location, this implementation works
                 // regardless of the presence of body_soil
@@ -123,12 +141,7 @@ void soil_simulator::UpdateBodySoil(
                     {0, ii_t, jj_t, x_b, y_b, z_b, h_soil});
                 soil_moved = true;
                 break;
-            } else if (
-                ((sim_out->body_[2][ii_t][jj_t] != 0.0) ||
-                (sim_out->body_[3][ii_t][jj_t] != 0.0)) &&
-                (std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]) - tol
-                    < min_cell_height_diff)
-            ) {
+            } else if (bucket_presence_3) {
                 // Second bucket layer is present
                 // Moving body_soil to new location, this implementation works
                 // regardless of the presence of body_soil
