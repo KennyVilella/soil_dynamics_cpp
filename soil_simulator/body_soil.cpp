@@ -48,6 +48,7 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
+    float min_cell_height_diff = 3 * grid.cell_size_z_;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
@@ -97,6 +98,10 @@ void soil_simulator::UpdateBodySoil(
         }
 
         bool soil_moved = false;
+        int ii_s;
+        int jj_s;
+        int ind_s;
+        float dist_s = 2 * grid.half_length_z_;
         for (auto xy = 0; xy < directions.size(); xy++) {
             // Determining cell to investigate
             int ii_t = ii_n + directions[xy][0];
@@ -110,61 +115,80 @@ void soil_simulator::UpdateBodySoil(
                 (sim_out->body_[2][ii_t][jj_t] != 0.0) ||
                 (sim_out->body_[3][ii_t][jj_t] != 0.0));
 
-            if (bucket_presence_1 && bucket_presence_3) {
-                // Both bucket layers are present
-                // Determining the closest bucket layer
-                float dist_1 = (
-                    std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]));
-                float dist_2 = (
-                    std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]));
-                if (dist_1 < dist_2) {
-                    // First bucket layer is closer
-                    bucket_presence_3 = false;
-                } else {
-                    // Second bucket layer is closer
-                    bucket_presence_1 = false;
-                }
-            }
-
             if (bucket_presence_1) {
                 // First bucket layer is present
-                // Moving body_soil to new location, this implementation works
-                // regardless of the presence of body_soil
-                sim_out->body_soil_[1][ii_t][jj_t] += (
-                    sim_out->body_[1][ii_t][jj_t] -
-                    sim_out->body_soil_[0][ii_t][jj_t] + h_soil);
-                sim_out->body_soil_[0][ii_t][jj_t] = (
-                    sim_out->body_[1][ii_t][jj_t]);
+                float dist = (
+                    std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]));
+                if (dist < min_cell_height_diff - tol) {
+                    // Moving body_soil to new location, this implementation works
+                    // regardless of the presence of body_soil
+                    sim_out->body_soil_[1][ii_t][jj_t] += (
+                        sim_out->body_[1][ii_t][jj_t] -
+                        sim_out->body_soil_[0][ii_t][jj_t] + h_soil);
+                    sim_out->body_soil_[0][ii_t][jj_t] = (
+                        sim_out->body_[1][ii_t][jj_t]);
 
-                // Adding position to body_soil_pos
-                sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
-                    {0, ii_t, jj_t, x_b, y_b, z_b, h_soil});
-                soil_moved = true;
-                break;
-            } else if (bucket_presence_3) {
+                    // Adding position to body_soil_pos
+                    sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                        {0, ii_t, jj_t, x_b, y_b, z_b, h_soil});
+                    soil_moved = true;
+                    break;
+                } else if (dist < dist_s) {
+                    // Updating new default location
+                    dist_s = dist;
+                    ii_s = ii_t;
+                    jj_s = jj_t;
+                    ind_s = 1;
+                }
+            }
+            if (bucket_presence_3) {
                 // Second bucket layer is present
-                // Moving body_soil to new location, this implementation works
-                // regardless of the presence of body_soil
-                sim_out->body_soil_[3][ii_t][jj_t] += (
-                    sim_out->body_[3][ii_t][jj_t] -
-                    sim_out->body_soil_[2][ii_t][jj_t] + h_soil);
-                sim_out->body_soil_[2][ii_t][jj_t] = (
-                    sim_out->body_[3][ii_t][jj_t]);
+                float dist = (
+                    std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]));
+                if (dist < min_cell_height_diff - tol) {
+                    // Moving body_soil to new location, this implementation works
+                    // regardless of the presence of body_soil
+                    sim_out->body_soil_[3][ii_t][jj_t] += (
+                        sim_out->body_[3][ii_t][jj_t] -
+                        sim_out->body_soil_[2][ii_t][jj_t] + h_soil);
+                    sim_out->body_soil_[2][ii_t][jj_t] = (
+                        sim_out->body_[3][ii_t][jj_t]);
 
-                // Adding position to body_soil_pos
-                sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
-                     {2, ii_t, jj_t, x_b, y_b, z_b, h_soil});
-                soil_moved = true;
-                break;
+                    // Adding position to body_soil_pos
+                    sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                         {2, ii_t, jj_t, x_b, y_b, z_b, h_soil});
+                    soil_moved = true;
+                    break;
+                } else if (dist < dist_s) {
+                    // Updating new default location
+                    dist_s = dist;
+                    ii_s = ii_t;
+                    jj_s = jj_t;
+                    ind_s = 3;
+                }
             }
         }
 
         if (!soil_moved) {
-            // This should normally not happen, it is only for safety
-            // Moving body_soil to terrain
-            sim_out->terrain_[ii_n][jj_n] += h_soil;
-            LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n "
-                "Soil is moved to the terrain to maintain mass conservation";
+            if (dist_s != 2 * grid.half_length_z_) {
+                // Moving body_soil to closest location, this implementation works
+                // regardless of the presence of body_soil
+                sim_out->body_soil_[ind_s][ii_s][jj_s] += (
+                    sim_out->body_[ind_s][ii_s][jj_s] -
+                    sim_out->body_soil_[ind_s-1][ii_s][jj_s] + h_soil);
+                sim_out->body_soil_[ind_s-1][ii_s][jj_s] = (
+                    sim_out->body_[ind_s][ii_s][jj_s]);
+
+                // Adding position to body_soil_pos
+                sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+                     {ind_s-1, ii_s, jj_s, x_b, y_b, z_b, h_soil});
+            } else {
+                // This should normally not happen, it is only for safety
+                // Moving body_soil to terrain
+                sim_out->terrain_[ii_n][jj_n] += h_soil;
+                LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n "
+                    "Soil is moved to the terrain to maintain mass conservation";
+            }
         }
     }
 
