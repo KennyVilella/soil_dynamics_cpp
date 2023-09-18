@@ -48,7 +48,7 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    float min_cell_height_diff = 3 * grid.cell_size_z_;
+    float min_cell_height_diff = grid.cell_size_z_;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
@@ -97,11 +97,14 @@ void soil_simulator::UpdateBodySoil(
                 {-sx, 0}, {sx, -sy}, {0, -sy}, {-sx, -sy}};
         }
 
+        // Declaring variables used to store the closest location
         bool soil_moved = false;
         int ii_s;
         int jj_s;
         int ind_s;
         float dist_s = 2 * grid.half_length_z_;
+
+        // Starting loop over neighbours
         for (auto xy = 0; xy < directions.size(); xy++) {
             // Determining cell to investigate
             int ii_t = ii_n + directions[xy][0];
