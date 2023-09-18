@@ -125,8 +125,8 @@ void soil_simulator::UpdateBodySoil(
                 float dist = (
                     std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]));
                 if (dist < min_cell_height_diff - tol) {
-                    // Moving body_soil to new location, this implementation works
-                    // regardless of the presence of body_soil
+                    // Moving body_soil to new location, this implementation
+                    // works regardless of the presence of body_soil
                     sim_out->body_soil_[1][ii_t][jj_t] += (
                         sim_out->body_[1][ii_t][jj_t] -
                         sim_out->body_soil_[0][ii_t][jj_t] + h_soil);
@@ -151,8 +151,8 @@ void soil_simulator::UpdateBodySoil(
                 float dist = (
                     std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]));
                 if (dist < min_cell_height_diff - tol) {
-                    // Moving body_soil to new location, this implementation works
-                    // regardless of the presence of body_soil
+                    // Moving body_soil to new location, this implementation
+                    // works regardless of the presence of body_soil
                     sim_out->body_soil_[3][ii_t][jj_t] += (
                         sim_out->body_[3][ii_t][jj_t] -
                         sim_out->body_soil_[2][ii_t][jj_t] + h_soil);
@@ -176,8 +176,8 @@ void soil_simulator::UpdateBodySoil(
 
         if (!soil_moved) {
             if (dist_s != 2 * grid.half_length_z_) {
-                // Moving body_soil to closest location, this implementation works
-                // regardless of the presence of body_soil
+                // Moving body_soil to closest location, this implementation
+                // works regardless of the presence of body_soil
                 sim_out->body_soil_[ind_s][ii_s][jj_s] += (
                     sim_out->body_[ind_s][ii_s][jj_s] -
                     sim_out->body_soil_[ind_s-1][ii_s][jj_s] + h_soil);
@@ -192,7 +192,7 @@ void soil_simulator::UpdateBodySoil(
                 // Moving body_soil to terrain
                 sim_out->terrain_[ii_n][jj_n] += h_soil;
                 LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n "
-                    "Soil is moved to the terrain to maintain mass conservation";
+                   "Soil is moved to the terrain to maintain mass conservation";
             }
         }
     }
