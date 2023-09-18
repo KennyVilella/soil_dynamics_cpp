@@ -434,6 +434,24 @@ TEST(UnitTestUtils, CheckVolume) {
     // -- Testing that warning is sent for incorrect initial volume --
     EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
 
+    // -- Testing that warning is sent for incorrect body_soil_pos_ --
+    sim_out->body_soil_pos_[0].h_soil = 0.0;
+    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+    sim_out->body_soil_pos_[0].h_soil = 0.1;
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 2, 2, 0., 0., 0., 0.05});
+    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+
+    // -- Testing that no warning is sent for correct body_soil_pos_ --
+    sim_out->body_soil_[1][2][2] = 0.05;
+    init_volume += 0.05 * grid.cell_area_;
+    EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+
+    // -- Testing that warning is sent for non-existing body_soil_ --
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 5, 5, 0., 0., 0., 0.05});
+    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+
     delete sim_out;
 }
 
