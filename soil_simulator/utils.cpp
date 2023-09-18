@@ -265,6 +265,7 @@ bool soil_simulator::CheckVolume(
                 // in body_soil
                 LOG(WARNING) << "WARNING\nVolume of soil in body_soil_pos_ " <<
                     "is not consistent with the amount of soil in body_soil\n";
+                return false;
             }
         }
     }

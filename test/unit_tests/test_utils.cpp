@@ -418,6 +418,14 @@ TEST(UnitTestUtils, CheckVolume) {
     sim_out->body_soil_[1][1][1] = 0.08;
     sim_out->body_soil_[2][2][1] = 0.0;
     sim_out->body_soil_[3][2][1] = 0.15;
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 2, 2, 0., 0., 0., 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 2, 2, 0., 0., 0., 0.07});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 1, 1, 0., 0., 0., 0.08});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 2, 1, 0., 0., 0., 0.15});
     init_volume =  0.4 * grid.cell_area_;
 
     // -- Testing that no warning is sent for correct initial volume --
