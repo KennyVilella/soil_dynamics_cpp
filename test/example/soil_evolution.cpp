@@ -47,7 +47,7 @@ void soil_simulator::SoilEvolution(
         o_pos_init, j_pos_init, b_pos_init, t_pos_init, bucket_width);
 
     // Initalizing the simulation parameter
-    soil_simulator::SimParam sim_param(0.85, 10, 4);
+    soil_simulator::SimParam sim_param(0.85, 3, 4);
 
     // Initalizing the simulation outputs class
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
