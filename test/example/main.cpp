@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     FLAGS_logtostderr = 1;
 
     // Launching a simulation
-    soil_simulator::SoilEvolution(true, false, true, true, false);
+    soil_simulator::SoilEvolution(false, true, true, true, false);
 
     return 0;
 }
