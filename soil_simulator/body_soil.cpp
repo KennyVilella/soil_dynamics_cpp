@@ -19,8 +19,10 @@ Copyright, 2023, Vilella Kenny.
 /// `body_soil_pos_` member of the `SimOut` class.
 ///
 /// It is difficult to track accurately each bucket wall. This is currently done
-/// by choosing the closest bucket layer. It may potentially lead to an
-/// incorrect choice.
+/// by choosing the bucket layer whose height difference is lower than a cell
+/// height. If no bucket layer satisfies this condition, then it is moved to the
+/// location with the lowest height difference. Note that tt may still
+/// potentially lead to an incorrect choice.
 ///
 /// If no bucket wall is present, the soil is moved down to the terrain and a
 /// warning is issued as it should normally not happen.
