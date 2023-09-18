@@ -60,10 +60,14 @@ void soil_simulator::UpdateBodySoil(
         float z_b = old_body_soil_pos[nn].z_b;
         float h_soil = old_body_soil_pos[nn].h_soil;
 
-        if (h_soil < tol) {
+        if (h_soil < 0.9 * grid.cell_size_z_) {
             // No soil to be moved
             continue;
         }
+
+        // Converting h_soil to a multiple of cell_size_z to deal with
+        // accumulating floating errors
+        h_soil = grid.cell_size_z_ * round(h_soil / grid.cell_size_z_);
 
         // Calculating new cell position
         std::vector<float> cell_pos = {x_b, y_b, z_b};
