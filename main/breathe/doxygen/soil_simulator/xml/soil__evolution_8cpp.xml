@@ -165,11 +165,11 @@
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Creating<sp/>the<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tie(pos,<sp/>ori)<sp/>=<sp/>soil_simulator::CalcTrajectory(</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_i,<sp/>z_i,<sp/>x_min,<sp/>z_min,<sp/>origin_angle,<sp/>1000);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x_i,<sp/>z_i,<sp/>x_min,<sp/>z_min,<sp/>origin_angle,<sp/>10000);</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Default<sp/>parabolic<sp/>trajectory</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tie(pos,<sp/>ori)<sp/>=<sp/>soil_simulator::CalcTrajectory(</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-2.0,<sp/>1.5,<sp/>0.1,<sp/>0.25,<sp/>origin_angle,<sp/>1000);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-2.0,<sp/>1.5,<sp/>0.1,<sp/>0.25,<sp/>origin_angle,<sp/>10000);</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initializing<sp/>bucket<sp/>corner<sp/>position<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
@@ -349,7 +349,7 @@
 <codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::pow(t_r_pos_plus[2]<sp/>-<sp/>t_r_pos_minus[2],<sp/>2))<sp/>/<sp/>dt_i;</highlight></codeline>
 <codeline lineno="255"><highlight class="normal"></highlight></codeline>
 <codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>maximum<sp/>velocity<sp/>of<sp/>the<sp/>bucket</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_bucket_vel<sp/>=<sp/>std::max({</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_bucket_vel<sp/>=<sp/>1.25<sp/>*<sp/>std::max({</highlight></codeline>
 <codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_l_vel,<sp/>j_r_vel,<sp/>b_l_vel,<sp/>b_r_vel,<sp/>t_l_vel,<sp/>t_r_vel});</highlight></codeline>
 <codeline lineno="259"><highlight class="normal"></highlight></codeline>
 <codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(max_bucket_vel<sp/>!=<sp/>0.0)<sp/>{</highlight></codeline>
