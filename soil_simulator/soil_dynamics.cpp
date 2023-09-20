@@ -78,7 +78,7 @@ void soil_simulator::SoilDynamics::check(
     SimOut* sim_out, float init_volume, Grid grid, float tol
 ) {
     // Checking mass conservation
-    soil_simulator::CheckVolume(sim_out, init_volume, grid);
+    soil_simulator::CheckVolume(sim_out, init_volume, grid, tol);
 
     // Checking consistency of simulation outputs
     soil_simulator::CheckSoil(sim_out, tol);
