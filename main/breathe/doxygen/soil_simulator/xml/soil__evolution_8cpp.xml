@@ -142,7 +142,7 @@
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>o_pos_init,<sp/>j_pos_init,<sp/>b_pos_init,<sp/>t_pos_init,<sp/>bucket_width);</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulation<sp/>parameter</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::SimParam<sp/>sim_param(0.85,<sp/>10,<sp/>4);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::SimParam<sp/>sim_param(0.85,<sp/>3,<sp/>4);</highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initalizing<sp/>the<sp/>simulation<sp/>outputs<sp/>class</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::SimOut<sp/>*sim_out<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>soil_simulator::SimOut(grid);</highlight></codeline>
