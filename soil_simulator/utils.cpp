@@ -236,8 +236,40 @@ std::vector<float> soil_simulator::MultiplyQuaternion(
 
 /// The initial volume of soil (`init_volume`) has to be provided.
 bool soil_simulator::CheckVolume(
-    SimOut* sim_out, float init_volume, Grid grid
+    SimOut* sim_out, float init_volume, Grid grid, float tol
 ) {
+    // Copying body_soil location
+    auto old_body_soil = sim_out->body_soil_;
+
+    // Iterating over all XY positions where body_soil is present
+    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
+        int ind = sim_out->body_soil_pos_[nn].ind;
+        int ii = sim_out->body_soil_pos_[nn].ii;
+        int jj = sim_out->body_soil_pos_[nn].jj;
+        float h_soil = sim_out->body_soil_pos_[nn].h_soil;
+
+        // Removing soil from old_body_soil
+        old_body_soil[ind+1][ii][jj] -= h_soil;
+    }
+
+    // Checking that volume of soil in body_soil_pos_ corresponds to soil
+    // in body_soil
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++) {
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++) {
+            float dh_1 = std::abs(
+                old_body_soil[0][ii][jj] - old_body_soil[1][ii][jj]);
+            float dh_2 = std::abs(
+                old_body_soil[2][ii][jj] - old_body_soil[3][ii][jj]);
+            if ((dh_1 > tol) || (dh_2 > tol)) {
+                // Soil in body_soil_pos_ does not correspond to amount of soil
+                // in body_soil
+                LOG(WARNING) << "WARNING\nVolume of soil in body_soil_pos_ " <<
+                    "is not consistent with the amount of soil in body_soil\n";
+                return false;
+            }
+        }
+    }
+
     // Calculating volume of soil in the terrain
     float terrain_volume = 0.0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
