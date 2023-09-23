@@ -675,3 +675,76 @@ void soil_simulator::WriteBucket(
                 <<  j_l_pos[2] << "\n";
     bucket_file.close();
 }
+
+/// This function implements 2D Simplex noise. A lot of material can be found
+/// online concerning this implementation so that the details would not be
+/// explicited here.
+float soil_simulator::simplex_noise(
+    float x, float y, std::vector<int> perm_table
+) {
+    float grad_0, grad_1, grad_2;
+
+    // Applying coordinates skewing
+    float s = (x + y) * (std::sqrt(3) - 1) / 2;
+    int xi = std::floor(x + s);
+    int yi = std::floor(y + s);
+
+    // Reversing skewing
+    s = (xi + yi) * (3.0 - std::sqrt(3.0)) / 6.0;
+    float x0 = x - (xi - s);
+    float y0 = y - (yi - s);
+
+    int i1, j1;
+    if (x0 > y0) {
+        // Setting the lower triangle
+        i1 = 1;
+        j1 = 0;
+    } else {
+        // Setting the upper triangle
+        i1 = 0;
+        j1 = 1;
+    }
+
+    // Calculating coordinates of two other corners
+    float x1 = x0 - i1 + (3 - std::sqrt(3)) / 6;
+    float y1 = y0 - j1 + (3 - std::sqrt(3)) / 6;
+    float x2 = x0 - 1.0 + 2.0 * (3 - std::sqrt(3)) / 6;
+    float y2 = y0 - 1.0 + 2.0 * (3 - std::sqrt(3)) / 6;
+
+    // Setting directions corners
+    std::vector<std::vector<int>> directions = {
+        {1, 0}, {-1, 0}, {0, 1}, {0, -1},
+        {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+    // Calculating the contribution from the first corner
+    float t0 = 0.5 - x0 * x0 - y0 * y0;
+    if (t0 < 0.0) {
+        grad_0 = 0.0;
+    } else {
+        t0 *= t0;
+        int ii = perm_table[xi + perm_table[yi]] & 7;
+        grad_0 = t0 * t0 * (x0 * directions[ii][0] + y0 * directions[ii][1]);
+    }
+
+    // Calculating the contribution from the second corner
+    float t1 = 0.5 - x1 * x1 - y1 * y1;
+    if (t1 < 0.0) {
+        grad_1 = 0.0;
+    } else {
+        t1 *= t1;
+        int ii = perm_table[xi + i1 + perm_table[yi + j1]] & 7;
+        grad_1 = t1 * t1 * (x1 * directions[ii][0] + y1 * directions[ii][1]);
+    }
+
+    // Calculating the contribution from the third corner
+    float t2 = 0.5 - x2 * x2 - y2 * y2;
+    if (t2 < 0.0) {
+        grad_2 = 0.0;
+    } else {
+        t2 *= t2;
+        int ii = perm_table[xi + 1 + perm_table[yi + 1]] & 7;
+        grad_2 = t2 * t2 * (x2 * directions[ii][0] + y2 * directions[ii][1]);
+    }
+
+    return grad_0 + grad_1 + grad_2;
+}
