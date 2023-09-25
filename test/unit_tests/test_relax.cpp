@@ -5007,6 +5007,39 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    // -- Testing case with no bucket, soil should fully avalanche but not --
+    // -- enough soil in body_soil_pos_                                    --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.2;
+    sim_out->terrain_[10][15] = -0.2;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 40, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
+    EXPECT_EQ(body_soil_pos->size(), 0);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
     // -- Testing case with first bucket layer and soil should partially --
     // -- avalanche on the terrain                                       --
     sim_out->terrain_[10][14] = -0.2;
@@ -5209,6 +5242,55 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    // -- Testing case with first bucket layer and soil should fully --
+    // -- avalanche on it, but not enough soil in body_soil_pos_     --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.2;
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.3;
+    sim_out->body_[1][10][15] = -0.2;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 14, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
     // -- Testing case where there is the first bucket layer with bucket --
     // -- soil and soil should partially avalanche on it                 --
     sim_out->terrain_[10][14] = -0.2;
@@ -5296,6 +5378,61 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
+    // -- Testing case where there is the first bucket layer with bucket  --
+    // -- soil and soil should fully avalanche on it, but not enough soil --
+    // -- in body_soil_pos_                                               --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.2;
+    sim_out->body_soil_[0][10][14] = 0.2;
+    sim_out->body_soil_[1][10][14] = 0.4;
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.3;
+    sim_out->body_[1][10][15] = -0.2;
+    sim_out->body_soil_[0][10][15] = -0.2;
+    sim_out->body_soil_[1][10][15] = -0.1;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 13, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
@@ -5522,6 +5659,55 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    // -- Testing case with second bucket layer and soil should fully --
+    // -- avalanche on it, but not enough soil in body_soil_pos_      --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.1;
+    sim_out->body_soil_[0][10][14] = 0.1;
+    sim_out->body_soil_[1][10][14] = 0.3;
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.3;
+    sim_out->body_[3][10][15] = -0.2;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 22, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
     // -- Testing case where there is the second bucket layer with bucket --
     // -- soil and soil should partially avalanche on it                  --
     sim_out->terrain_[10][14] = -0.2;
@@ -5624,6 +5810,61 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    // -- Testing case where there is the second bucket layer with bucket --
+    // -- soil and soil should fully avalanche on it, but not enough soil --
+    // -- in body_soil_pos_                                               --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.1;
+    sim_out->body_soil_[0][10][14] = 0.1;
+    sim_out->body_soil_[1][10][14] = 0.3;
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[2][10][15] = -0.3;
+    sim_out->body_[3][10][15] = -0.2;
+    sim_out->body_soil_[2][10][15] = -0.2;
+    sim_out->body_soil_[3][10][15] = -0.1;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 21, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
     // -- Testing case with two bucket layers, first layer being lower --
     // -- and soil should partially avalanche on it                    --
     sim_out->terrain_[10][14] = -0.2;
@@ -5707,6 +5948,60 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
     EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
+    // -- Testing case with two bucket layers, first layer being lower  --
+    // -- and soil should fully avalanche on it, but not enough soil in --
+    // -- body_soil_pos_                                                --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.2;
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.3;
+    sim_out->body_[1][10][15] = -0.2;
+    sim_out->body_[2][10][15] = 0.1;
+    sim_out->body_[3][10][15] = 0.3;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
@@ -5982,6 +6277,73 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
     EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
+    // -- Testing case where there are two bucket layers with bucket soil    --
+    // -- first layer being lower and soil should fully avalanche on it, but --
+    // -- not enough soil in body_soil_pos_                                  --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.1;
+    sim_out->body_soil_[0][10][14] = 0.1;
+    sim_out->body_soil_[1][10][14] = 0.3;
+    sim_out->terrain_[10][15] = -0.3;
+    sim_out->body_[0][10][15] = -0.3;
+    sim_out->body_[1][10][15] = -0.2;
+    sim_out->body_[2][10][15] = 0.2;
+    sim_out->body_[3][10][15] = 0.3;
+    sim_out->body_soil_[0][10][15] = -0.2;
+    sim_out->body_soil_[1][10][15] = -0.1;
+    sim_out->body_soil_[2][10][15] = 0.3;
+    sim_out->body_soil_[3][10][15] = 0.5;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
@@ -6293,6 +6655,60 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    // -- Testing case with two bucket layers, second layer being lower --
+    // -- and soil should fully avalanche on it, but not enough soil in --
+    // -- body_soil_pos_                                                --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.1;
+    sim_out->body_soil_[0][10][14] = 0.1;
+    sim_out->body_soil_[1][10][14] = 0.3;
+    sim_out->terrain_[10][15] = -0.2;
+    sim_out->body_[0][10][15] = 0.2;
+    sim_out->body_[1][10][15] = 0.4;
+    sim_out->body_[2][10][15] = -0.2;
+    sim_out->body_[3][10][15] = 0.0;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 32, body_soil_pos, 0.0, 1, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
     // -- Testing case with two bucket layers, second layer being lower     --
     // -- and soil should partially avalanche on it but there is not enough --
     // -- space for all the soil                                            --
@@ -6551,6 +6967,73 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
     EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_EQ(body_soil_pos->size(), 1);
+    sim_out->terrain_[10][14] = 0.0;
+    sim_out->terrain_[10][15] = 0.0;
+    sim_out->body_[0][10][14] = 0.0;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
+    // -- Testing case where there are two bucket layers with bucket soil     --
+    // -- the second layer being lower and soil should fully avalanche on it, --
+    // -- but not enough soil in body_soil_pos_                               --
+    sim_out->terrain_[10][14] = -0.2;
+    sim_out->body_[0][10][14] = -0.2;
+    sim_out->body_[1][10][14] = 0.0;
+    sim_out->body_soil_[0][10][14] = 0.0;
+    sim_out->body_soil_[1][10][14] = 0.2;
+    sim_out->terrain_[10][15] = -0.4;
+    sim_out->body_[0][10][15] = 0.1;
+    sim_out->body_[1][10][15] = 0.3;
+    sim_out->body_[2][10][15] = -0.4;
+    sim_out->body_[3][10][15] = -0.3;
+    sim_out->body_soil_[0][10][15] = 0.3;
+    sim_out->body_soil_[1][10][15] = 0.8;
+    sim_out->body_soil_[2][10][15] = -0.3;
+    sim_out->body_soil_[3][10][15] = -0.2;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    soil_simulator::RelaxUnstableBodyCell(
+        sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
+        1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][14], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][14], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
+    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
+    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
+    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     sim_out->terrain_[10][14] = 0.0;
     sim_out->terrain_[10][15] = 0.0;
