@@ -722,7 +722,7 @@ float soil_simulator::simplex_noise(
         grad_0 = 0.0;
     } else {
         t0 *= t0;
-        int ii = perm_table[xi + perm_table[yi]] & 7;
+        int ii = perm_table[xi + perm_table[yi] & 255] & 7;
         grad_0 = t0 * t0 * (x0 * directions[ii][0] + y0 * directions[ii][1]);
     }
 
@@ -732,7 +732,7 @@ float soil_simulator::simplex_noise(
         grad_1 = 0.0;
     } else {
         t1 *= t1;
-        int ii = perm_table[xi + i1 + perm_table[yi + j1]] & 7;
+        int ii = perm_table[xi + i1 + perm_table[yi + j1] & 255] & 7;
         grad_1 = t1 * t1 * (x1 * directions[ii][0] + y1 * directions[ii][1]);
     }
 
@@ -742,7 +742,7 @@ float soil_simulator::simplex_noise(
         grad_2 = 0.0;
     } else {
         t2 *= t2;
-        int ii = perm_table[xi + 1 + perm_table[yi + 1]] & 7;
+        int ii = perm_table[xi + 1 + perm_table[yi + 1] & 255] & 7;
         grad_2 = t2 * t2 * (x2 * directions[ii][0] + y2 * directions[ii][1]);
     }
 
