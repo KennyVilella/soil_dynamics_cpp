@@ -52,7 +52,7 @@ void soil_simulator::UpdateBodySoil(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
     // Iterating over all XY positions where body_soil is present
-    float min_cell_height_diff = grid.cell_size_z_;
+    float min_cell_height_diff = grid.cell_size_z_ + tol;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
         int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
@@ -75,6 +75,8 @@ void soil_simulator::UpdateBodySoil(
         std::vector<float> cell_pos = {x_b, y_b, z_b};
         auto new_cell_pos = soil_simulator::CalcRotationQuaternion(
             ori, cell_pos);
+        auto old_cell_pos = soil_simulator::CalcRotationQuaternion(
+            bucket->ori_, cell_pos);
 
         // Calculating new cell position in global frame
         new_cell_pos[0] += pos[0];
@@ -89,11 +91,11 @@ void soil_simulator::UpdateBodySoil(
 
         // Establishing order of exploration
         std::vector<std::vector<int>> directions;
-        int sx;
-        int sy;
-        (ii_n > ii) ? sx = 1 : sx = -1;
-        (jj_n > jj) ? sy = 1 : sy = -1;
-        if (std::abs(sx) > std::abs(sy)) {
+        float dx = new_cell_pos[0] - old_cell_pos[0];
+        float dy = new_cell_pos[1] - old_cell_pos[1];
+        int sx = copysign(1, dx);
+        int sy = copysign(1, dy);
+        if (std::abs(dx) > std::abs(dy)) {
             // Main direction follows X
             directions = {
                 {0, 0}, {sx, 0}, {sx, sy}, {0, sy}, {sx, -sy},
@@ -130,7 +132,7 @@ void soil_simulator::UpdateBodySoil(
                 // First bucket layer is present
                 float dist = (
                     std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]));
-                if (dist < min_cell_height_diff - tol) {
+                if (dist < min_cell_height_diff) {
                     // Moving body_soil to new location, this implementation
                     // works regardless of the presence of body_soil
                     sim_out->body_soil_[1][ii_t][jj_t] += (
@@ -156,7 +158,7 @@ void soil_simulator::UpdateBodySoil(
                 // Second bucket layer is present
                 float dist = (
                     std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]));
-                if (dist < min_cell_height_diff - tol) {
+                if (dist < min_cell_height_diff) {
                     // Moving body_soil to new location, this implementation
                     // works regardless of the presence of body_soil
                     sim_out->body_soil_[3][ii_t][jj_t] += (
