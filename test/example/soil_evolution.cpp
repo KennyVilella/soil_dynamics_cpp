@@ -282,6 +282,9 @@ void soil_simulator::SoilEvolution(
     ori_vec.push_back(soil_simulator::AngleToQuat(
         {ori[nn][0], ori[nn][1], ori[nn][2]}));
 
+    // Initializing the terrain
+    sim.init(sim_out, grid, 32.0);
+
     float init_volume = 0.0;
     if (check_outputs) {
         for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
