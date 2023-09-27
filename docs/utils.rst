@@ -52,6 +52,15 @@ Lastly, the function `CalcBucketFramePos` calculates the position of a given cel
 To do so, the inverse of the bucket orientation is applied to the position.
 This is used to keep the position where the soil has initially landed on the bucket.
 
+Terrain initialization
+----------------------
+
+The function `SimplexNoise` provides a way to initialize terrain with realistic random shapes.
+The implementation follows the Simplex noise algorithm that is standard for this type of problem.
+The produced terrain has only slight height variations as the purpose of the terrain initialization is not to reproduce all the diversity of construction site but only to provide simple terrain for testing the simulator.
+
+Note that it is straightforward to change the terrain initialization implementation to a more advanced algorithm if needed.
+
 Determine whether soil should be updated
 ----------------------------------------
 
