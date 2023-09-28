@@ -790,8 +790,32 @@ void soil_simulator::IncludeNewBodyPos(
         sim_out->body_[3][ii][jj] = max_h;
     } else {
         // New position is not overlapping with the two existing positions
-        // This should not happen and indicates a problem in the workflow
-        throw std::runtime_error("Try to update body, but given position does"
-            "not overlap with two existing ones");
+        // This may be due to an edge case, in that case we try to fix the issue
+        // Calculating distance to the two bucket layers
+        float dist_0b = std::abs(sim_out->body_[0][ii][jj] - max_h);
+        float dist_0t = std::abs(min_h - sim_out->body_[1][ii][jj]);
+        float dist_2b = std::abs(sim_out->body_[2][ii][jj] - max_h);
+        float dist_2t = std::abs(min_h - sim_out->body_[3][ii][jj]);
+
+        // Checking what bucket layer is closer
+        if (std::min(dist_0b, dist_0t) < std::min(dist_2b, dist_2t)) {
+            // Merging with first bucket layer
+            if (dist_0b < dist_0t) {
+                // Merging down
+                sim_out->body_[0][ii][jj] = min_h;
+            } else {
+                // Merging up
+                sim_out->body_[1][ii][jj] = max_h;
+            }
+        } else {
+            // Merging with second bucket layer
+            if (dist_2b < dist_2t) {
+                // Merging down
+                sim_out->body_[2][ii][jj] = min_h;
+            } else {
+                // Merging up
+                sim_out->body_[3][ii][jj] = max_h;
+            }
+        }
     }
 }
