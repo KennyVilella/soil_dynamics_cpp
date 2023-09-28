@@ -156,10 +156,10 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
     c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
     d_ind[1] = d[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
-    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
-    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
-    d_ind[2] = d[2] / grid.cell_size_z_ + grid.half_length_z_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    d_ind[2] = d[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Calculating the bounding box of the rectangle
     int area_min_x = static_cast<int>(std::floor(
@@ -210,7 +210,7 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
             if (in_rectangle[ii_s][jj_s] == true) {
                 // Cell is inside the rectangle area
                 // Calculating the height index of the rectangle at this corner
-                int kk = static_cast<int>(std::ceil(
+                int kk = static_cast<int>(std::floor(
                     a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
                     c_ad[ii_s][jj_s] * ad_ind[2]));
 
@@ -386,9 +386,9 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     a_ind[1] = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
     b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
     c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
-    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
-    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Calculating the bounding box of the triangle
     int area_min_x = static_cast<int>(std::floor(
@@ -439,7 +439,7 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
             if (in_triangle[ii_s][jj_s] == true) {
                 // Cell is inside the triangle area
                 // Calculating the height index of the triangle at this corner
-                int kk = static_cast<int>(std::ceil(
+                int kk = static_cast<int>(std::floor(
                     a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
                     c_ac[ii_s][jj_s] * ac_ind[2]));
 
@@ -593,10 +593,10 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     // Converting to indices
     float x1 = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
     float y1 = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    float z1 = a[2] / grid.cell_size_z_ + grid.half_length_z_;
+    float z1 = a[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
     float x2 = b[0] / grid.cell_size_xy_ + grid.half_length_x_;
     float y2 = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    float z2 = b[2] / grid.cell_size_z_ + grid.half_length_z_;
+    float z2 = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Determining direction of line
     int stepX = (x1 < x2) ? 1 : -1;
@@ -655,7 +655,7 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     line_pos[0] = std::vector<int> {
         static_cast<int>(round(x1)),
         static_cast<int>(round(y1)),
-        static_cast<int>(std::ceil(z1))};
+        static_cast<int>(std::floor(z1))};
 
     // Iterating along the line until reaching the end
     while ((tMaxX < ab_norm) || (tMaxY < ab_norm) || (tMaxZ < ab_norm)) {
@@ -679,7 +679,7 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
         line_pos.push_back(std::vector<int> {
             static_cast<int>(round(x1)),
             static_cast<int>(round(y1)),
-            static_cast<int>(std::ceil(z1))});
+            static_cast<int>(std::floor(z1))});
     }
     return line_pos;
 }
