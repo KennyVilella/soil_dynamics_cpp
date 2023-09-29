@@ -68,7 +68,7 @@ soil_simulator::Grid::Grid(
     for (auto ii = 1 ; ii < vect_y_.size() ; ii++)
         vect_y_[ii] = vect_y_[ii-1] + cell_size_xy;
 
-    vect_z_[0] = -grid_size_z;
+    vect_z_[0] = -grid_size_z + cell_size_z;
     for (auto ii = 1 ; ii < vect_z_.size() ; ii++)
         vect_z_[ii] = vect_z_[ii-1] + cell_size_z;
 }
