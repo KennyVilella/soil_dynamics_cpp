@@ -1564,10 +1564,12 @@ TEST(UnitTestBucketPos, IncludeNewBodyPos) {
     EXPECT_NEAR(sim_out->body_[2][5][5], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[3][5][5], 0.0, 1.e-5);
 
-    // -- Testing that incorrect request throws an error --
-    EXPECT_THROW(
-        soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 3.0, 3.1, 1e-5),
-        std::runtime_error);
+    // -- Testing to add a third bucket layers --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 3.0, 3.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 0.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 3.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.6, 1.e-5);
 
     delete sim_out;
 }
@@ -1644,12 +1646,14 @@ TEST(UnitTestBucketPos, UpdateBody) {
     EXPECT_NEAR(sim_out->body_[2][6][6], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[3][6][6], 0.0, 1.e-5);
 
-    // -- Testing that incorrect request throws an error --
+    // -- Testing merging of layer when three bucket layers are present --
     std::vector<std::vector<int>> area_pos_4(1);
     area_pos_4[0] = std::vector<int> {10, 10, 13};
-    EXPECT_THROW(
-        soil_simulator::UpdateBody(area_pos_4, sim_out, grid, 1e-5),
-        std::runtime_error);
+    soil_simulator::UpdateBody(area_pos_4, sim_out, grid, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][10][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][10][10], 0.4, 1.e-5);
 
     delete sim_out;
 }
