@@ -15,6 +15,49 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/relax.hpp"
 #include "soil_simulator/utils.hpp"
 
+void soil_simulator::SoilDynamics::init(
+    SimOut* sim_out, Grid grid, float amp_noise
+) {
+    // Generating a random permutation table
+    std::vector<int> perm_table(256);
+    // Filling table
+    for (auto ii = 0; ii < 256; ii++)
+        perm_table[ii] = ii;
+    // Randomizing table
+    // random_suffle is not used because it is machine dependent,
+    // which makes unit testing difficult
+    for (auto aa = 255; aa > 0; aa--) {
+        std::uniform_int_distribution<int> dist(0, aa);
+        int bb = dist(rng);
+        std::swap(perm_table[aa], perm_table[bb]);
+    }
+
+    // Generating initial terrain using Simplex noise
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++) {
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++) {
+            // Setting grid position rescaled to [0, 1]
+            float x = (
+                (grid.vect_x_[0] - grid.vect_x_[ii]) / (2 * grid.vect_x_[0]));
+            float y = (
+                (grid.vect_y_[0] - grid.vect_y_[jj]) / (2 * grid.vect_y_[0]));
+
+            // Calculating Simplex noise using several frequencies
+            float noise_value = amp_noise * (
+                0.5 * soil_simulator::simplex_noise(1*x, 1*y, perm_table) +
+                0.25 * soil_simulator::simplex_noise(2*x, 2*y, perm_table) +
+                0.125 * soil_simulator::simplex_noise(4*x, 4*y, perm_table) +
+                0.0625 * soil_simulator::simplex_noise(8*x, 8*y, perm_table));
+
+            // Rounding noise_value to grid values
+            noise_value = (
+                grid.cell_size_z_ * round(noise_value / grid.cell_size_z_));
+
+            // Setting terrain with noise
+            sim_out->terrain_[ii][jj] = noise_value;
+        }
+    }
+}
+
 bool soil_simulator::SoilDynamics::step(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
     Grid grid, Bucket* bucket, SimParam sim_param, float tol
