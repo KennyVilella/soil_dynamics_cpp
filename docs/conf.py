@@ -4,7 +4,7 @@ import sys
 # Importing path
 _filedir = os.path.dirname(__file__)
 _rootdir = os.path.abspath(os.path.join(_filedir, ".."))
-_srcdir = os.path.abspath(os.path.join(_filedir, "../src"))
+_srcdir = os.path.abspath(os.path.join(_filedir, "../soil_simulator"))
 sys.path.insert(0, _rootdir)
 sys.path.insert(0, _srcdir)
 
@@ -20,20 +20,20 @@ extensions = [
 
 breathe_projects_source = {
     "soil_simulator" : ("../", 
-        ["src/soil_dynamics.hpp",
-        "src/soil_dynamics.cpp",
-        "src/types.hpp",
-        "src/types.cpp",
-        "src/bucket_pos.hpp",
-        "src/bucket_pos.cpp",
-        "src/body_soil.hpp",
-        "src/body_soil.cpp",
-        "src/intersecting_cells.hpp",
-        "src/intersecting_cells.cpp",
-        "src/relax.hpp",
-        "src/relax.cpp",
-        "src/utils.hpp",
-        "src/utils.cpp",
+        ["soil_simulator/soil_dynamics.hpp",
+        "soil_simulator/soil_dynamics.cpp",
+        "soil_simulator/types.hpp",
+        "soil_simulator/types.cpp",
+        "soil_simulator/bucket_pos.hpp",
+        "soil_simulator/bucket_pos.cpp",
+        "soil_simulator/body_soil.hpp",
+        "soil_simulator/body_soil.cpp",
+        "soil_simulator/intersecting_cells.hpp",
+        "soil_simulator/intersecting_cells.cpp",
+        "soil_simulator/relax.hpp",
+        "soil_simulator/relax.cpp",
+        "soil_simulator/utils.hpp",
+        "soil_simulator/utils.cpp",
         "test/example/soil_evolution.hpp",
         "test/example/soil_evolution.cpp"])
 }
