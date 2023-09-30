@@ -18,7 +18,7 @@ extern std::mt19937 rng;
 class SoilDynamics {
  public:
      /// \brief Initialize the simulator.
-     void init();
+     void init(SimOut* sim_out, Grid grid, float amp_noise);
 
      /// \brief Step the simulation.
      ///

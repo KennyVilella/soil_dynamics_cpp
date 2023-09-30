@@ -6222,6 +6222,105 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 
+    // -- Testing when several layers of soil is present at a given location --
+    soil_simulator::rng.seed(1234);
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.3;
+    sim_out->body_[2][10][15] = 0.8;
+    sim_out->body_[3][10][15] = 0.9;
+    sim_out->body_soil_[0][10][15] = 0.3;
+    sim_out->body_soil_[1][10][15] = 1.2;
+    sim_out->body_soil_[2][10][15] = 0.9;
+    sim_out->body_soil_[3][10][15] = 1.7;
+    sim_out->body_[0][11][15] = 0.1;
+    sim_out->body_[1][11][15] = 0.2;
+    sim_out->body_soil_[0][11][15] = 0.2;
+    sim_out->body_soil_[1][11][15] = 0.4;
+    sim_out->body_[0][11][16] = 0.0;
+    sim_out->body_[1][11][16] = 0.1;
+    sim_out->body_[0][11][14] = 0.0;
+    sim_out->body_[1][11][14] = 0.1;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.9, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.8});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.4});
+    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.2});
+    posB = soil_simulator::CalcBucketFramePos(11, 16, 0.1, grid, bucket);
+    posC = soil_simulator::CalcBucketFramePos(11, 14, 0.1, grid, bucket);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.9, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 1.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][11][16], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][11][16], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][11][14], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][11][14], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[11][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[12][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_[6].ind, 0);
+    EXPECT_EQ(sim_out->body_soil_pos_[6].ii, 11);
+    EXPECT_EQ(sim_out->body_soil_pos_[6].jj, 15);
+    EXPECT_NEAR(sim_out->body_soil_pos_[6].x_b, posA[0], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[6].y_b, posA[1], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[6].z_b, posA[2], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[6].h_soil, 0.2, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_[7].ind, 0);
+    EXPECT_EQ(sim_out->body_soil_pos_[7].ii, 11);
+    EXPECT_EQ(sim_out->body_soil_pos_[7].jj, 16);
+    EXPECT_NEAR(sim_out->body_soil_pos_[7].x_b, posB[0], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[7].y_b, posB[1], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[7].z_b, posB[2], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[7].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_[8].ind, 0);
+    EXPECT_EQ(sim_out->body_soil_pos_[8].ii, 11);
+    EXPECT_EQ(sim_out->body_soil_pos_[8].jj, 14);
+    EXPECT_NEAR(sim_out->body_soil_pos_[8].x_b, posC[0], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[8].y_b, posC[1], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[8].z_b, posC[2], 1.e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[8].h_soil, 0.1, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 9);
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.0;
+    sim_out->body_[2][10][15] = 0.0;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_[0][11][14] = 0.0;
+    sim_out->body_[1][11][14] = 0.0;
+    sim_out->body_[0][11][15] = 0.0;
+    sim_out->body_[1][11][15] = 0.0;
+    sim_out->body_[0][11][16] = 0.0;
+    sim_out->body_[1][11][16] = 0.0;
+    sim_out->body_soil_[0][10][15] = 0.0;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][11][14] = 0.0;
+    sim_out->body_soil_[1][11][14] = 0.0;
+    sim_out->body_soil_[0][11][15] = 0.0;
+    sim_out->body_soil_[1][11][15] = 0.0;
+    sim_out->body_soil_[0][11][16] = 0.0;
+    sim_out->body_soil_[1][11][16] = 0.0;
+    for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
+        for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
+            EXPECT_NEAR(sim_out->terrain_[ii][jj], 0.0, 1e-5);
+    sim_out->body_soil_pos_.erase(
+        sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
+
     // -- Testing when there is nothing to move --
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;

@@ -156,10 +156,10 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
     c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
     d_ind[1] = d[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
-    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
-    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
-    d_ind[2] = d[2] / grid.cell_size_z_ + grid.half_length_z_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    d_ind[2] = d[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Calculating the bounding box of the rectangle
     int area_min_x = static_cast<int>(std::floor(
@@ -386,9 +386,9 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     a_ind[1] = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
     b_ind[1] = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
     c_ind[1] = c[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_;
-    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_;
-    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_;
+    a_ind[2] = a[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    b_ind[2] = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
+    c_ind[2] = c[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Calculating the bounding box of the triangle
     int area_min_x = static_cast<int>(std::floor(
@@ -593,10 +593,10 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     // Converting to indices
     float x1 = a[0] / grid.cell_size_xy_ + grid.half_length_x_;
     float y1 = a[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    float z1 = a[2] / grid.cell_size_z_ + grid.half_length_z_;
+    float z1 = a[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
     float x2 = b[0] / grid.cell_size_xy_ + grid.half_length_x_;
     float y2 = b[1] / grid.cell_size_xy_ + grid.half_length_y_;
-    float z2 = b[2] / grid.cell_size_z_ + grid.half_length_z_;
+    float z2 = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Determining direction of line
     int stepX = (x1 < x2) ? 1 : -1;
@@ -790,8 +790,32 @@ void soil_simulator::IncludeNewBodyPos(
         sim_out->body_[3][ii][jj] = max_h;
     } else {
         // New position is not overlapping with the two existing positions
-        // This should not happen and indicates a problem in the workflow
-        throw std::runtime_error("Try to update body, but given position does"
-            "not overlap with two existing ones");
+        // This may be due to an edge case, in that case we try to fix the issue
+        // Calculating distance to the two bucket layers
+        float dist_0b = std::abs(sim_out->body_[0][ii][jj] - max_h);
+        float dist_0t = std::abs(min_h - sim_out->body_[1][ii][jj]);
+        float dist_2b = std::abs(sim_out->body_[2][ii][jj] - max_h);
+        float dist_2t = std::abs(min_h - sim_out->body_[3][ii][jj]);
+
+        // Checking what bucket layer is closer
+        if (std::min(dist_0b, dist_0t) < std::min(dist_2b, dist_2t)) {
+            // Merging with first bucket layer
+            if (dist_0b < dist_0t) {
+                // Merging down
+                sim_out->body_[0][ii][jj] = min_h;
+            } else {
+                // Merging up
+                sim_out->body_[1][ii][jj] = max_h;
+            }
+        } else {
+            // Merging with second bucket layer
+            if (dist_2b < dist_2t) {
+                // Merging down
+                sim_out->body_[2][ii][jj] = min_h;
+            } else {
+                // Merging up
+                sim_out->body_[3][ii][jj] = max_h;
+            }
+        }
     }
 }
