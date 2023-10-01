@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classsoil__simulator_1_1_bucket" kind="class" language="C++" prot="public">
+    <compoundname>soil_simulator::Bucket</compoundname>
+    <includes refid="types_8hpp" local="no">types.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a6d2a5e7b19d8ec29b700f2d0b2ded393" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::j_pos_init_</definition>
+        <argsstring></argsstring>
+        <name>j_pos_init_</name>
+        <briefdescription>
+<para>Cartesian coordinates of the bucket joint in its reference pose. [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="209" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a1f09a690072731b1a2ade43fae38e440" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::b_pos_init_</definition>
+        <argsstring></argsstring>
+        <name>b_pos_init_</name>
+        <briefdescription>
+<para>Cartesian coordinates of the bucket base in its reference pose. [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="212" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a4196b7b5cec05e159e3db453a45abb0d" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::t_pos_init_</definition>
+        <argsstring></argsstring>
+        <name>t_pos_init_</name>
+        <briefdescription>
+<para>Cartesian coordinates of the bucket teeth in its reference pose. [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="215" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1ada6ec30903927b006cab61c07e15a263" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float soil_simulator::Bucket::width_</definition>
+        <argsstring></argsstring>
+        <name>width_</name>
+        <briefdescription>
+<para>Width of the bucket. [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="218" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1ad8997213c92e4f0c8aef5326a75f64c8" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::pos_</definition>
+        <argsstring></argsstring>
+        <name>pos_</name>
+        <briefdescription>
+<para>Cartesian coordinates of the bucket origin. [m]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="221" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a4da542d0e026b878da691b6eef390977" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::ori_</definition>
+        <argsstring></argsstring>
+        <name>ori_</name>
+        <briefdescription>
+<para>Orientation of the bucket. [Quaternion]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="224" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>soil_simulator::Bucket::Bucket</definition>
+        <argsstring>(std::vector&lt; float &gt; o_pos_init={0.0, 0.0, 0.0}, std::vector&lt; float &gt; j_pos_init={0.0, 0.0, 0.0}, std::vector&lt; float &gt; b_pos_init={0.0, 0.0, -0.5}, std::vector&lt; float &gt; t_pos_init={0.7, 0.0, -0.5}, float width=0.5)</argsstring>
+        <name>Bucket</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>o_pos_init</declname>
+          <defval>{0.0, 0.0, 0.0}</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>j_pos_init</declname>
+          <defval>{0.0, 0.0, 0.0}</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>b_pos_init</declname>
+          <defval>{0.0, 0.0, -0.5}</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>t_pos_init</declname>
+          <defval>{0.7, 0.0, -0.5}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>width</declname>
+          <defval>0.5</defval>
+        </param>
+        <briefdescription>
+<para>Create a new instance of <computeroutput><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></computeroutput> using the reference positions of the bucket origin, joint, base, and teeth as well as the bucket width. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The position of the bucket joint, base, and teeth are given relative to the position of the bucket origin.</para>
+<para>Requirements:<itemizedlist>
+<listitem><para>All provided Cartesian coordinates should be a vector of size 3.</para>
+</listitem><listitem><para>The bucket joint, base and teeth should have strictly different location.</para>
+</listitem><listitem><para>The bucket width should be greater than zero.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>o_pos_init</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the bucket origin in its reference pose. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>j_pos_init</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the bucket joint in its reference pose. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b_pos_init</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the bucket base in its reference pose. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t_pos_init</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the bucket teeth in its reference pose. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Width of the bucket. [m] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="248" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp" bodystart="76" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>soil_simulator::Bucket::~Bucket</definition>
+        <argsstring>()</argsstring>
+        <name>~Bucket</name>
+        <briefdescription>
+<para>Destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="256" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="256" bodyend="256"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Store all parameters related to a bucket object. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Convention:<itemizedlist>
+<listitem><para>The bucket is approximated as a triangular prism <verbatim>               A ____________________ D
+              /.                     /|
+             / .                    / |
+            /  .                   /  |
+           /   .                  /   |
+          /    .                 /    |
+         /     .                /     |
+        /      .               /      |
+       /       C . . . . . .  / . . . F
+      /      .               /        ̸
+     /     .                /       ̸
+    /    .                 /      ̸
+   /   .                  /     ̸
+  /  .                   /    ̸
+ / .                    /   ̸
+B ____________________ E
+</verbatim></para>
+</listitem><listitem><para>The middle of the segment AD is referred to as the bucket joint.</para>
+</listitem><listitem><para>The middle of the segment CF is referred to as the bucket base.</para>
+</listitem><listitem><para>The middle of the segment BE is referred to as the bucket teeth.</para>
+</listitem><listitem><para>The surface ABED is open and referred to as the bucket front.</para>
+</listitem><listitem><para>The surface BCFE is a bucket wall and referred to as the bucket base.</para>
+</listitem><listitem><para>The surface ACFD is a bucket wall and referred to as the bucket back.</para>
+</listitem><listitem><para>The surface ABC is a bucket wall and referred to as the bucket right side.</para>
+</listitem><listitem><para>The surface DEF is a bucket wall and referred to as the bucket left side.</para>
+</listitem><listitem><para>The bucket has a constant width, denoted as</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting><codeline><highlight class="normal">AD<sp/>=<sp/>BE<sp/>=<sp/>CF<sp/>=<sp/>`width_`.</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>The center of rotation of the bucket is assumed to be at the bucket origin (not shown in the figure) and the bucket vertices are given relative to this origin.</para>
+</listitem><listitem><para>The provided coordinates are assumed to be the reference pose of the bucket, from which the bucket pose is calculated throughout the code.</para>
+</listitem></itemizedlist>
+</para>
+<para>Usage: <programlisting><codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>o_pos<sp/>=<sp/>{0.0,<sp/>0.0,<sp/>0.0};</highlight></codeline>
+<codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>j_pos<sp/>=<sp/>{0.0,<sp/>0.0,<sp/>0.0};</highlight></codeline>
+<codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>b_pos<sp/>=<sp/>{0.0,<sp/>0.0,<sp/>-0.5};</highlight></codeline>
+<codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>t_pos<sp/>=<sp/>{1.0,<sp/>0.0,<sp/>-0.5};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">soil_simulator::Bucket<sp/>bucket(o_pos,<sp/>j_pos,<sp/>b_pos,<sp/>t_pos,<sp/>0.5);</highlight></codeline>
+</programlisting></para>
+<para>This would create a bucket ABCDEF with its center of rotation at the bucket joint and with:<itemizedlist>
+<listitem><para><computeroutput>A = [0.0, -0.25, 0.0]</computeroutput></para>
+</listitem><listitem><para><computeroutput>B = [1.0, -0.25, -0.5]</computeroutput></para>
+</listitem><listitem><para><computeroutput>C = [0.0, -0.25, -0.5]</computeroutput></para>
+</listitem><listitem><para><computeroutput>D = [0.0, 0.25, 0.0]</computeroutput>,</para>
+</listitem><listitem><para><computeroutput>E = [1.0, 0.25, -0.5]</computeroutput></para>
+</listitem><listitem><para><computeroutput>F = [0.0, 0.25, -0.5]</computeroutput> </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="206" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="206" bodyend="257"/>
+    <listofallmembers>
+      <member refid="classsoil__simulator_1_1_bucket_1a1f09a690072731b1a2ade43fae38e440" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>b_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>Bucket</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1a6d2a5e7b19d8ec29b700f2d0b2ded393" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>j_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1a4da542d0e026b878da691b6eef390977" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>ori_</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1ad8997213c92e4f0c8aef5326a75f64c8" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>pos_</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1a4196b7b5cec05e159e3db453a45abb0d" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>t_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1ada6ec30903927b006cab61c07e15a263" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>width_</name></member>
+      <member refid="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>~Bucket</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

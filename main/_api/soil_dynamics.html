@@ -95,10 +95,80 @@
              
   <section id="soil-dynamics-doxygen-documentation">
 <h1>soil_dynamics: Doxygen documentation<a class="headerlink" href="#soil-dynamics-doxygen-documentation" title="Permalink to this heading"></a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>autodoxygenfile: Cannot find file “soil_dynamics.hpp </p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414soil_simulator">
+<span id="_CPPv314soil_simulator"></span><span id="_CPPv214soil_simulator"></span><span id="soil_simulator"></span><span class="target" id="namespacesoil__simulator"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">soil_simulator</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator3rngE">
+<span id="_CPPv3N14soil_simulator3rngE"></span><span id="_CPPv2N14soil_simulator3rngE"></span><span id="soil_simulator::rng__std::mt19937"></span><span class="target" id="soil__dynamics_8hpp_1abb83f81ddb27ef2a1d88a7993c3f4634"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mt19937</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rng</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator3rngE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
 </div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamicsE">
+<span id="_CPPv3N14soil_simulator12SoilDynamicsE"></span><span id="_CPPv2N14soil_simulator12SoilDynamicsE"></span><span id="soil_simulator::SoilDynamics"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SoilDynamics</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamicsE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;soil_dynamics.hpp&gt;</em></div>
+<p>Simulation class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics4initEP6SimOut4Gridf">
+<span id="_CPPv3N14soil_simulator12SoilDynamics4initEP6SimOut4Gridf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics4initEP6SimOut4Gridf"></span><span id="soil_simulator::SoilDynamics::init__SimOutP.Grid.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1a3c911bf55837590aa62997a53f380d49"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">amp_noise</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics4initEP6SimOut4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Initialize the simulator. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics4stepEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucket8SimParamf">
+<span id="_CPPv3N14soil_simulator12SoilDynamics4stepEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucket8SimParamf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics4stepEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucket8SimParamf"></span><span id="soil_simulator::SoilDynamics::step__SimOutP.std::vector:float:.std::vector:float:.Grid.BucketP.SimParam.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1a6ceb9b7184272c995b91a9aa2b697b56"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">step</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator8SimParamE" title="soil_simulator::SimParam"><span class="n"><span class="pre">SimParam</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sim_param</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics4stepEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP6Bucket8SimParamf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Step the simulation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>pos</strong> – Cartesian coordinates of the bucket origin. [m] </p></li>
+<li><p><strong>ori</strong> – Orientation of the bucket. [Quaternion] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>bucket</strong> – Class that stores information related to the bucket object. </p></li>
+<li><p><strong>sim_param</strong> – Class that stores information related to the simulation. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A boolean indicating whether soil update has been done. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics5checkEP6SimOutf4Gridf">
+<span id="_CPPv3N14soil_simulator12SoilDynamics5checkEP6SimOutf4Gridf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics5checkEP6SimOutf4Gridf"></span><span id="soil_simulator::SoilDynamics::check__SimOutP.float.Grid.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1ac74563070fa12a0cb5bda7f0a3519e2d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics5checkEP6SimOutf4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check the validity of the simulation outputs. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>init_volume</strong> – Initial volume of soil in the terrain. [m^3] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics12WriteOutputsEP6SimOut4GridP6Bucket">
+<span id="_CPPv3N14soil_simulator12SoilDynamics12WriteOutputsEP6SimOut4GridP6Bucket"></span><span id="_CPPv2N14soil_simulator12SoilDynamics12WriteOutputsEP6SimOut4GridP6Bucket"></span><span id="soil_simulator::SoilDynamics::WriteOutputs__SimOutP.Grid.BucketP"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WriteOutputs</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics12WriteOutputsEP6SimOut4GridP6Bucket" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Write the simulation outputs into files. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="types_8cpp" kind="file" language="C++">
+    <compoundname>types.cpp</compoundname>
+    <includes local="no">math.h</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">stdexcept</includes>
+    <includes local="no">iostream</includes>
+    <includes refid="types_8hpp" local="yes">soil_simulator/types.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp</label>
+        <link refid="types_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stdexcept</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+      <node id="2">
+        <label>math.h</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>soil_simulator/types.hpp</label>
+        <link refid="types_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>implements<sp/>the<sp/>constructor<sp/>for<sp/>the<sp/>classes<sp/>used<sp/>by<sp/>the<sp/>simulator<sp/>to</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">hold<sp/>the<sp/>data.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">Checks<sp/>are<sp/>conducted<sp/>to<sp/>verify<sp/>the<sp/>integrity<sp/>and<sp/>validity<sp/>of<sp/>the<sp/>data.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"></highlight></codeline>
+<codeline lineno="6"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><ref refid="classsoil__simulator_1_1_grid_1ae3e1b134689b7fad49f44b8c67d1f88c" kindref="member">soil_simulator::Grid::Grid</ref>(</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>grid_size_x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>grid_size_y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>grid_size_z,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cell_size_xy,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cell_size_z</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cell_size_z<sp/>&lt;=<sp/>0.0)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_size_z<sp/>should<sp/>be<sp/>greater<sp/>than<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cell_size_xy<sp/>&lt;=<sp/>0.0)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_size_xy<sp/>should<sp/>be<sp/>greater<sp/>than<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grid_size_x<sp/>&lt;=<sp/>0.0)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;grid_size_x<sp/>should<sp/>be<sp/>greater<sp/>than<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grid_size_y<sp/>&lt;=<sp/>0.0)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;grid_size_y<sp/>should<sp/>be<sp/>greater<sp/>than<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grid_size_z<sp/>&lt;=<sp/>0.0)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;grid_size_z<sp/>should<sp/>be<sp/>greater<sp/>than<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cell_size_z<sp/>&gt;<sp/>cell_size_xy)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_size_z<sp/>should<sp/>be<sp/>lower<sp/>than<sp/>or<sp/>equal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;to<sp/>cell_size_xy&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grid_size_x<sp/>&lt;<sp/>cell_size_xy)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_size_xy<sp/>should<sp/>be<sp/>lower<sp/>than<sp/>or<sp/>equal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>to<sp/>grid_size_x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grid_size_y<sp/>&lt;<sp/>cell_size_xy)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_size_xy<sp/>should<sp/>be<sp/>lower<sp/>than<sp/>or<sp/>equal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>to<sp/>grid_size_y&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grid_size_z<sp/>&lt;<sp/>cell_size_z)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_size_z<sp/>should<sp/>be<sp/>lower<sp/>than<sp/>or<sp/>equal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>to<sp/>grid_size_z&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a5663932e54b3e41f14adaeebcdb9e139" kindref="member">cell_size_xy_</ref><sp/>=<sp/>cell_size_xy;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a47d9e59d5995afc80fd8f1f1927d2aea" kindref="member">cell_size_z_</ref><sp/>=<sp/>cell_size_z;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a888c3184351f1fac958c6108fc989dbf" kindref="member">half_length_x_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(round(grid_size_x<sp/>/<sp/>cell_size_xy));</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1ad98714e5e8133ed9e20a52793c6b0d99" kindref="member">half_length_y_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(round(grid_size_y<sp/>/<sp/>cell_size_xy));</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a2ff925798bf0d22bd313c4a466deb486" kindref="member">half_length_z_</ref><sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(round(grid_size_z<sp/>/<sp/>cell_size_z));</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1aeb43259801dfac354c295236bc615d8a" kindref="member">cell_area_</ref><sp/>=<sp/>cell_size_xy<sp/>*<sp/>cell_size_xy;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1ace5348e134c0a9ef0da8b4d3b56399ae" kindref="member">cell_volume_</ref><sp/>=<sp/><ref refid="classsoil__simulator_1_1_grid_1aeb43259801dfac354c295236bc615d8a" kindref="member">cell_area_</ref><sp/>*<sp/>cell_size_z;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01" kindref="member">vect_x_</ref>.resize(2<sp/>*<sp/><ref refid="classsoil__simulator_1_1_grid_1a888c3184351f1fac958c6108fc989dbf" kindref="member">half_length_x_</ref><sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb" kindref="member">vect_y_</ref>.resize(2<sp/>*<sp/><ref refid="classsoil__simulator_1_1_grid_1ad98714e5e8133ed9e20a52793c6b0d99" kindref="member">half_length_y_</ref><sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a9829e01bc6807080b6f14b4cc3eeb79b" kindref="member">vect_z_</ref>.resize(2<sp/>*<sp/><ref refid="classsoil__simulator_1_1_grid_1a2ff925798bf0d22bd313c4a466deb486" kindref="member">half_length_z_</ref><sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01" kindref="member">vect_x_</ref>[0]<sp/>=<sp/>-grid_size_x;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>1<sp/>;<sp/>ii<sp/>&lt;<sp/><ref refid="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01" kindref="member">vect_x_</ref>.size()<sp/>;<sp/>ii++)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01" kindref="member">vect_x_</ref>[ii]<sp/>=<sp/><ref refid="classsoil__simulator_1_1_grid_1aa502d4399245c0907050207d122b9b01" kindref="member">vect_x_</ref>[ii-1]<sp/>+<sp/>cell_size_xy;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb" kindref="member">vect_y_</ref>[0]<sp/>=<sp/>-grid_size_y;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>1<sp/>;<sp/>ii<sp/>&lt;<sp/><ref refid="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb" kindref="member">vect_y_</ref>.size()<sp/>;<sp/>ii++)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb" kindref="member">vect_y_</ref>[ii]<sp/>=<sp/><ref refid="classsoil__simulator_1_1_grid_1a4cccece619aa01dec8055c176335d9bb" kindref="member">vect_y_</ref>[ii-1]<sp/>+<sp/>cell_size_xy;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a9829e01bc6807080b6f14b4cc3eeb79b" kindref="member">vect_z_</ref>[0]<sp/>=<sp/>-grid_size_z<sp/>+<sp/>cell_size_z;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>1<sp/>;<sp/>ii<sp/>&lt;<sp/><ref refid="classsoil__simulator_1_1_grid_1a9829e01bc6807080b6f14b4cc3eeb79b" kindref="member">vect_z_</ref>.size()<sp/>;<sp/>ii++)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classsoil__simulator_1_1_grid_1a9829e01bc6807080b6f14b4cc3eeb79b" kindref="member">vect_z_</ref>[ii]<sp/>=<sp/><ref refid="classsoil__simulator_1_1_grid_1a9829e01bc6807080b6f14b4cc3eeb79b" kindref="member">vect_z_</ref>[ii-1]<sp/>+<sp/>cell_size_z;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><ref refid="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f" kindref="member">soil_simulator::Bucket::Bucket</ref>(</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>o_pos_init,<sp/>std::vector&lt;float&gt;<sp/>j_pos_init,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>b_pos_init,<sp/>std::vector&lt;float&gt;<sp/>t_pos_init,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>width</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(o_pos_init.size()<sp/>!=<sp/>3)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;o_pos_init<sp/>should<sp/>be<sp/>a<sp/>vector<sp/>of<sp/>size<sp/>3&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(j_pos_init.size()<sp/>!=<sp/>3)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;j_pos_init<sp/>should<sp/>be<sp/>a<sp/>vector<sp/>of<sp/>size<sp/>3&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(b_pos_init.size()<sp/>!=<sp/>3)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;b_pos_init<sp/>should<sp/>be<sp/>a<sp/>vector<sp/>of<sp/>size<sp/>3&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t_pos_init.size()<sp/>!=<sp/>3)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;t_pos_init<sp/>should<sp/>be<sp/>a<sp/>vector<sp/>of<sp/>size<sp/>3&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(j_pos_init<sp/>==<sp/>b_pos_init)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;j_pos_init<sp/>should<sp/>not<sp/>be<sp/>equal<sp/>to<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;b_pos_init&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(j_pos_init<sp/>==<sp/>t_pos_init)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;j_pos_init<sp/>should<sp/>not<sp/>be<sp/>equal<sp/>to<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;t_pos_init&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(b_pos_init<sp/>==<sp/>t_pos_init)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;b_pos_init<sp/>should<sp/>not<sp/>be<sp/>equal<sp/>to<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;t_pos_init&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(width<sp/>&lt;=<sp/>0.0)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;width<sp/>should<sp/>be<sp/>greater<sp/>than<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>width_<sp/>=<sp/>width;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>pos_.resize(3);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0<sp/>;<sp/>ii<sp/>&lt;<sp/>3<sp/>;<sp/>ii++)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pos_[ii]<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>ori_.resize(4);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0<sp/>;<sp/>ii<sp/>&lt;<sp/>4<sp/>;<sp/>ii++)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ori_[ii]<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>j_pos_init_.resize(3);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>b_pos_init_.resize(3);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>t_pos_init_.resize(3);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0<sp/>;<sp/>ii<sp/>&lt;<sp/>3<sp/>;<sp/>ii++)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_pos_init_[ii]<sp/>=<sp/>j_pos_init[ii]<sp/>-<sp/>o_pos_init[ii];</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b_pos_init_[ii]<sp/>=<sp/>b_pos_init[ii]<sp/>-<sp/>o_pos_init[ii];</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t_pos_init_[ii]<sp/>=<sp/>t_pos_init[ii]<sp/>-<sp/>o_pos_init[ii];</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><ref refid="classsoil__simulator_1_1_sim_param_1a89fc5dd30ae2ca8e9b08102bdcf46222" kindref="member">soil_simulator::SimParam::SimParam</ref>(</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>repose_angle,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>max_iterations,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cell_buffer</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((repose_angle<sp/>&gt;<sp/>std::numbers::pi<sp/>/<sp/>2)<sp/>||<sp/>(repose_angle<sp/>&lt;<sp/>0.0))</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;repose_angle<sp/>should<sp/>be<sp/>betweem<sp/>0.0<sp/>and&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>pi/2&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(max_iterations<sp/>&lt;<sp/>0.0)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;max_iterations<sp/>should<sp/>be<sp/>greater<sp/>or<sp/>equal&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>to<sp/>zero&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cell_buffer<sp/>&lt;<sp/>2.0)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;cell_buffer<sp/>should<sp/>be<sp/>greater<sp/>or<sp/>equal<sp/>to<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;2&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>repose_angle_<sp/>=<sp/>repose_angle;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>max_iterations_<sp/>=<sp/>max_iterations;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>cell_buffer_<sp/>=<sp/>cell_buffer;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><ref refid="classsoil__simulator_1_1_sim_out_1a2711b29d69da1484d9feb6820e6178d1" kindref="member">soil_simulator::SimOut::SimOut</ref>(</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>Grid<sp/>grid</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>equilibrium_<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>terrain_.resize(</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2*grid.half_length_x_+1,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;(2*grid.half_length_y_+1,<sp/>0.0));</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>body_.resize(</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;(2*grid.half_length_x_+1,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;(2*grid.half_length_y_+1,<sp/>0.0)));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>body_soil_.resize(</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;(2*grid.half_length_x_+1,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;(2*grid.half_length_y_+1,<sp/>0.0)));</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[0][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[0][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[0][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[1][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[1][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[1][0]<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[0][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_x_;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[0][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_x_;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[0][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_x_;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_area_[1][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_y_;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>relax_area_[1][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_y_;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>impact_area_[1][1]<sp/>=<sp/>2<sp/>*<sp/>grid.half_length_y_;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp"/>
+  </compounddef>
+</doxygen>

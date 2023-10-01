@@ -94,10 +94,245 @@
              
   <section id="utils-doxygen-documentation">
 <h1>utils: Doxygen documentation<a class="headerlink" href="#utils-doxygen-documentation" title="Permalink to this heading"></a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>autodoxygenfile: Cannot find file “utils.hpp </p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414soil_simulator">
+<span id="_CPPv314soil_simulator"></span><span id="_CPPv214soil_simulator"></span><span id="soil_simulator"></span><span class="target" id="namespacesoil__simulator"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">soil_simulator</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator19CalcBucketCornerPosENSt6vectorIfEENSt6vectorIfEEP6Bucket">
+<span id="_CPPv3N14soil_simulator19CalcBucketCornerPosENSt6vectorIfEENSt6vectorIfEEP6Bucket"></span><span id="_CPPv2N14soil_simulator19CalcBucketCornerPosENSt6vectorIfEENSt6vectorIfEEP6Bucket"></span><span id="soil_simulator::CalcBucketCornerPos__std::vector:float:.std::vector:float:.BucketP"></span><span class="target" id="utils_8hpp_1af26d56d155025002d38e6d374beacfec"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalcBucketCornerPos</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator19CalcBucketCornerPosENSt6vectorIfEENSt6vectorIfEEP6Bucket" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function calculates the global position of the six corners of the bucket. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> – Cartesian coordinates of the bucket origin. [m] </p></li>
+<li><p><strong>ori</strong> – Orientation of the bucket. [Quaternion] </p></li>
+<li><p><strong>bucket</strong> – Class that stores information related to the bucket object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple composed of six vectors giving the Cartesian coordinates of the bucket corners in that order: right side of the bucket joint, left side of the bucket joint, right side of the bucket base, left side of the bucket base, right side of the bucket teeth, left side of the bucket teeth. [m] </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator19CheckBucketMovementENSt6vectorIfEENSt6vectorIfEE4GridP6Bucket">
+<span id="_CPPv3N14soil_simulator19CheckBucketMovementENSt6vectorIfEENSt6vectorIfEE4GridP6Bucket"></span><span id="_CPPv2N14soil_simulator19CheckBucketMovementENSt6vectorIfEENSt6vectorIfEE4GridP6Bucket"></span><span id="soil_simulator::CheckBucketMovement__std::vector:float:.std::vector:float:.Grid.BucketP"></span><span class="target" id="utils_8hpp_1a719e3f148c96d8fc742518fdcf677134"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckBucketMovement</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator19CheckBucketMovementENSt6vectorIfEENSt6vectorIfEE4GridP6Bucket" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function calculates how far the bucket has traveled since the last soil update and checks whether it is necessary to update the soil. </p>
+<p>
+This function calculates the maximum distance traveled by any part of the bucket since the last soil update. The position of the bucket during the last soil update is stored in the <code class="docutils literal notranslate"><span class="pre">bucket</span></code> class.</p>
+<p>If the maximum distance traveled is lower than 10% of the cell size, the function returns <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise it returns <code class="docutils literal notranslate"><span class="pre">true</span></code>. Note that if the distance traveled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> – Cartesian coordinates of the bucket origin. [m] </p></li>
+<li><p><strong>ori</strong> – Orientation of the bucket. [Quaternion] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>bucket</strong> – Class that stores information related to the bucket object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A boolean indicating whether the soil should be updated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator10CalcNormalENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE">
+<span id="_CPPv3N14soil_simulator10CalcNormalENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE"></span><span id="_CPPv2N14soil_simulator10CalcNormalENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE"></span><span id="soil_simulator::CalcNormal__std::vector:float:.std::vector:float:.std::vector:float:"></span><span class="target" id="utils_8hpp_1a0647bb972b73b90dffefed418fe8afc6"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalcNormal</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator10CalcNormalENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function calculates the unit normal vector of a plane formed by three points using the right-hand rule. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – Cartesian coordinates of the first point of the plane. [m] </p></li>
+<li><p><strong>b</strong> – Cartesian coordinates of the second point of the plane. [m] </p></li>
+<li><p><strong>c</strong> – Cartesian coordinates of the third point of the plane. [m]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unit normal vector of the provided plane. [m] </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator18CalcBucketFramePosEiif4GridP6Bucket">
+<span id="_CPPv3N14soil_simulator18CalcBucketFramePosEiif4GridP6Bucket"></span><span id="_CPPv2N14soil_simulator18CalcBucketFramePosEiif4GridP6Bucket"></span><span id="soil_simulator::CalcBucketFramePos__i.i.float.Grid.BucketP"></span><span class="target" id="utils_8hpp_1a2b67044f66ec84680ee1047adcb77e3d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalcBucketFramePos</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ii</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">jj</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator18CalcBucketFramePosEiif4GridP6Bucket" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function calculates the position of a considered cell in the bucket frame assuming that the bucket is in its reference psoition. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ii</strong> – Index of the considered cell in the X direction. </p></li>
+<li><p><strong>jj</strong> – Index of the considered cell in the Y direction. </p></li>
+<li><p><strong>z</strong> – Height of the considered position. [m] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>bucket</strong> – Class that stores information related to the bucket object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cartesian coordinate of the considered position in the reference bucket frame. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator22CalcRotationQuaternionENSt6vectorIfEENSt6vectorIfEE">
+<span id="_CPPv3N14soil_simulator22CalcRotationQuaternionENSt6vectorIfEENSt6vectorIfEE"></span><span id="_CPPv2N14soil_simulator22CalcRotationQuaternionENSt6vectorIfEENSt6vectorIfEE"></span><span id="soil_simulator::CalcRotationQuaternion__std::vector:float:.std::vector:float:"></span><span class="target" id="utils_8hpp_1a1f96f36b03ea5e7fd7acf8774a346350"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalcRotationQuaternion</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator22CalcRotationQuaternionENSt6vectorIfEENSt6vectorIfEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function applies a rotation <code class="docutils literal notranslate"><span class="pre">ori</span></code> to the Cartesian coordinates <code class="docutils literal notranslate"><span class="pre">pos</span></code>. </p>
+<p>The Quaternion convention is used for 3D rotation.</p>
+<p>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ori</strong> – Orientation of the bucket. [Quaternion] </p></li>
+<li><p><strong>pos</strong> – Cartesian coordinates of one point of the bucket in its reference pose relative to the bucket origin. [m]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotated Cartesian coordinates of the input <code class="docutils literal notranslate"><span class="pre">pos</span></code> relative to the bucket origin. [m]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11AngleToQuatENSt6vectorIfEE">
+<span id="_CPPv3N14soil_simulator11AngleToQuatENSt6vectorIfEE"></span><span id="_CPPv2N14soil_simulator11AngleToQuatENSt6vectorIfEE"></span><span id="soil_simulator::AngleToQuat__std::vector:float:"></span><span class="target" id="utils_8hpp_1acd568e6b041aae700f5e1b915c8d90e7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AngleToQuat</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11AngleToQuatENSt6vectorIfEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function converts Euler angles following the ZYX convention to a quaternion. </p>
+<p>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere.</p>
+<p>Note that this function only works if the Euler angles follow the ZYX convention. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ori</strong> – Orientation of the bucket. [Euler angles, ZYX sequence]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Orientation of the bucket. [Quaternion]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE">
+<span id="_CPPv3N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE"></span><span id="_CPPv2N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE"></span><span id="soil_simulator::MultiplyQuaternion__std::vector:float:.std::vector:float:"></span><span class="target" id="utils_8hpp_1a65d6a37c7717cf60059c53d09e684532"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MultiplyQuaternion</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q1</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">q2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator18MultiplyQuaternionENSt6vectorIfEENSt6vectorIfEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function calculates the product of two Quaternions. </p>
+<p>
+The mathematical reasoning behind this implementation can be easily found in the Wiki page of Quaternion or elsewhere. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> – First quaternion. [Quaternion] </p></li>
+<li><p><strong>q2</strong> – Second quaternion. [Quaternion]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Product of the two inputs quaternions. [Quaternion]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Gridf">
+<span id="_CPPv3N14soil_simulator11CheckVolumeEP6SimOutf4Gridf"></span><span id="_CPPv2N14soil_simulator11CheckVolumeEP6SimOutf4Gridf"></span><span id="soil_simulator::CheckVolume__SimOutP.float.Grid.float"></span><span class="target" id="utils_8hpp_1a4b6389c0d38e8888d00b412dc5c4c8a3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckVolume</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function checks that the volume of soil is conserved and that the content of <code class="docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> and <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> is consistent. </p>
+<p>The initial volume of soil (<code class="docutils literal notranslate"><span class="pre">init_volume</span></code>) has to be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>init_volume</strong> – Initial volume of soil in the terrain. [m^3] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean indicating whether soil is conserved or not. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator9CheckSoilEP6SimOutf">
+<span id="_CPPv3N14soil_simulator9CheckSoilEP6SimOutf"></span><span id="_CPPv2N14soil_simulator9CheckSoilEP6SimOutf"></span><span id="soil_simulator::CheckSoil__SimOutP.float"></span><span class="target" id="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckSoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator9CheckSoilEP6SimOutf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function checks that all the simulation outputs follow the conventions of the simulator. </p>
+<p>
+The conventions that are checked by this function include:<ul class="simple">
+<li><p>The terrain should not overlap with the bucket.</p></li>
+<li><p>The bucket should be properly defined, with its maximum height higher than its minimum height.</p></li>
+<li><p>The bucket soil should be properly defined, with its maximum height higher than its minimum height.</p></li>
+<li><p>The two bucket layers should not overlap or touch each other.</p></li>
+<li><p>One bucket layer should not overlap with all bucket soil layer.</p></li>
+<li><p>The bucket should not overlap with the corresponding bucket soil layer.</p></li>
+<li><p>The bucket soil layer should be resting on the corresponding bucket layer.</p></li>
+<li><p>The bucket should be present when there is bucket soil. </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean indicating whether the simulation outputs are consistent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator9WriteSoilEP6SimOut4Grid">
+<span id="_CPPv3N14soil_simulator9WriteSoilEP6SimOut4Grid"></span><span id="_CPPv2N14soil_simulator9WriteSoilEP6SimOut4Grid"></span><span id="soil_simulator::WriteSoil__SimOutP.Grid"></span><span class="target" id="utils_8hpp_1a3a1312acf11adcd75455909ec81fceb7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WriteSoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator9WriteSoilEP6SimOut4Grid" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function writes the terrain and the bucket soil into a csv located in the <code class="docutils literal notranslate"><span class="pre">results</span></code> directory. </p>
+<p><code class="docutils literal notranslate"><span class="pre">terrain</span></code> and <code class="docutils literal notranslate"><a class="reference internal" href="types.html#structsoil__simulator_1_1body__soil"><span class="std std-ref"><span class="pre">body_soil</span></span></a></code> are saved into files named <code class="docutils literal notranslate"><span class="pre">terrain</span></code> and <code class="docutils literal notranslate"><a class="reference internal" href="types.html#structsoil__simulator_1_1body__soil"><span class="std std-ref"><span class="pre">body_soil</span></span></a></code>, respectively, followed by the file number. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11WriteBucketEP6Bucket">
+<span id="_CPPv3N14soil_simulator11WriteBucketEP6Bucket"></span><span id="_CPPv2N14soil_simulator11WriteBucketEP6Bucket"></span><span id="soil_simulator::WriteBucket__BucketP"></span><span class="target" id="utils_8hpp_1a2d9951b9f38d874e35c6a4c31abf1873"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WriteBucket</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6BucketE" title="soil_simulator::Bucket"><span class="n"><span class="pre">Bucket</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bucket</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11WriteBucketEP6Bucket" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function writes the position of all bucket faces into a csv located in the <code class="docutils literal notranslate"><span class="pre">results</span></code> directory. </p>
+<p>
+The bucket corners are saved into a file named <code class="docutils literal notranslate"><span class="pre">bucket</span></code> followed by the file number. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bucket</strong> – Class that stores information related to the bucket object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator13simplex_noiseEffNSt6vectorIiEE">
+<span id="_CPPv3N14soil_simulator13simplex_noiseEffNSt6vectorIiEE"></span><span id="_CPPv2N14soil_simulator13simplex_noiseEffNSt6vectorIiEE"></span><span id="soil_simulator::simplex_noise__float.float.std::vector:i:"></span><span class="target" id="utils_8hpp_1a49474b2c040ba18a18540424f4a72819"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simplex_noise</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">perm_table</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator13simplex_noiseEffNSt6vectorIiEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function creates simplex noise for more realistic terrain generation. </p>
+<p>
+This function implements 2D Simplex noise. A lot of material can be found online concerning this implementation so that the details would not be explicited here. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Rescaled Cartesian coordinate in the X direction. </p></li>
+<li><p><strong>y</strong> – Rescaled Cartesian coordinate in the Y direction. </p></li>
+<li><p><strong>perm_table</strong> – Pre-calculated permutation table to generate pseudo-random noise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>float: Simplex noise.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 </section>
 
 
