@@ -68,4 +68,19 @@ cmake --build <path_to_repository>/build --target benchmarks
 ./<path_to_repository>/build/test/benchmarks/benchmarks
 ```
 
+## Visualizing results
+
+The example script provides options to write the results into CSV files.
+The following options can be enabled to write the results at each time-step:
+- `WriteBucket`: Write the bucket corners.
+- `WriteSoil`: Write the terrain and the soil resting on the bucket.
+
+[ParaView][] can be used to visualize the results.
+To do so, follow these steps in Paraview
+- File -> Load state -> select the file `paraview_state.pvsm` in the `test/example` folder.
+- In the pop-up window, select appropiately the three group of files to visualize.
+Note that some warnings/errors may appear when visualizing.
+
+
 [docs-main]: https://kennyvilella.github.io/soil_dynamics_cpp/
+[ParaView]: https://www.paraview.org
