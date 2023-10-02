@@ -40,6 +40,8 @@ breathe_projects_source = {
 
 templates_path = ["_templates"]
 html_theme = "sphinx_rtd_theme"
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # Whitelist pattern for tags and branches used for multi-versioning
 smv_tag_whitelist = r"^v\d+\.\d+\.\d+$"
