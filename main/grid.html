@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Bucket" href="bucket.html" />
+    <link rel="next" title="Documentation for the excavator bucket" href="bucket.html" />
     <link rel="prev" title="Types" href="types.html" /> 
 </head>
 
@@ -91,20 +91,20 @@
 <span id="grid"></span><h1>Documentation for the simulation grid<a class="headerlink" href="#documentation-for-the-simulation-grid" title="Permalink to this heading"></a></h1>
 <p>The simulation takes place on a rectangular 3D grid made of rectangular prism cells.
 An illustration of the 3D grid is given below along with the representation of a grid element.</p>
-<p>![Simulation grid](_asset/grid.png)</p>
-<p>The grid is created by the <cite>Grid</cite> class by providing the maximum size in the XYZ directions (<cite>grid_size_x</cite>, <cite>grid_size_y</cite>, and <cite>grid_size_z</cite>, respectively) and the size of a grid element (<cite>cell_size_xy</cite> and <cite>cell_size_z</cite>).</p>
+<img alt="_images/grid.png" src="_images/grid.png" />
+<p>The grid is created by the <code class="code docutils literal notranslate"><span class="pre">Grid</span></code> class by providing the maximum size in the XYZ directions (<code class="code docutils literal notranslate"><span class="pre">grid_size_x</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_y</span></code>, and <code class="code docutils literal notranslate"><span class="pre">grid_size_z</span></code>, respectively) and the size of a grid element (<code class="code docutils literal notranslate"><span class="pre">cell_size_xy</span></code> and <code class="code docutils literal notranslate"><span class="pre">cell_size_z</span></code>).</p>
 <section id="grid-elements">
 <h2>Grid elements<a class="headerlink" href="#grid-elements" title="Permalink to this heading"></a></h2>
-<p>The grid elements have equal size in the X and Y direction (<cite>cell_size_xy_</cite>), while their height (<cite>cell_size_z_</cite>) should be lower or equal than their lateral extent.
+<p>The grid elements have equal size in the X and Y direction (<code class="code docutils literal notranslate"><span class="pre">cell_size_xy_</span></code>), while their height (<code class="code docutils literal notranslate"><span class="pre">cell_size_z_</span></code>) should be lower or equal than their lateral extent.
 By convention, the origin of each cell is assumed to be in the center of their top surface (red point in the illustration).
 This is particularly important when associating 3D positions to cell indices.</p>
 </section>
 <section id="grid-geometry">
 <h2>Grid geometry<a class="headerlink" href="#grid-geometry" title="Permalink to this heading"></a></h2>
 <p>The extent of the grid in meter is:
-- [-<cite>grid_size_x</cite>, <cite>grid_size_x</cite>] in the X direction, corresponding to <cite>2 * half_length_x_ + 1</cite> grid elements.
-- [-<cite>grid_size_y</cite>, <cite>grid_size_y</cite>] in the Y direction, corresponding to <cite>2 * half_length_y_ + 1</cite> grid elements.
-- [-<cite>grid_size_z</cite>, <cite>grid_size_z</cite>] in the Z direction, corresponding to <cite>2 * half_length_z_ + 1</cite> grid elements.
+- [<code class="code docutils literal notranslate"><span class="pre">-grid_size_x</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_x</span></code>] in the X direction, corresponding to <code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">half_length_x_</span> <span class="pre">+</span> <span class="pre">1</span></code> grid elements.
+- [<code class="code docutils literal notranslate"><span class="pre">-grid_size_y</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_y</span></code>] in the Y direction, corresponding to <code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">half_length_y_</span> <span class="pre">+</span> <span class="pre">1</span></code> grid elements.
+- [<code class="code docutils literal notranslate"><span class="pre">-grid_size_z</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_z</span></code>] in the Z direction, corresponding to <code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">half_length_z_</span> <span class="pre">+</span> <span class="pre">1</span></code> grid elements.
 The grid is therefore centered in 0.
 Note that the the right-hand rule is used so that the Z direction is pointing upward.</p>
 </section>
@@ -115,7 +115,7 @@ Note that the the right-hand rule is used so that the Z direction is pointing up
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="types.html" class="btn btn-neutral float-left" title="Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="bucket.html" class="btn btn-neutral float-right" title="Bucket" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="bucket.html" class="btn btn-neutral float-right" title="Documentation for the excavator bucket" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
