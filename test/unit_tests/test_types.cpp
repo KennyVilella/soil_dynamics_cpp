@@ -25,7 +25,7 @@ TEST(UnitTestTypes, Grid) {
     for (auto ii = 0 ; ii < grid.vect_y_.size() ; ii++)
         EXPECT_NEAR(grid.vect_y_[ii], -4.0 + ii * 0.05, 1e-5);
     for (auto ii = 0 ; ii < grid.vect_z_.size() ; ii++)
-        EXPECT_NEAR(grid.vect_z_[ii], -4.0 + ii * 0.01, 1e-5);
+        EXPECT_NEAR(grid.vect_z_[ii], -4.0 + (ii + 1) * 0.01, 1e-5);
 
     // -- Testing that exceptions are properly sent --
     EXPECT_THROW(

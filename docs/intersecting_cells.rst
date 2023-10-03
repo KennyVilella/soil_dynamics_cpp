@@ -117,4 +117,3 @@ Concluding remarks
 
 When the simulator would have the ability to handle multiple buckets, it may be necessary to handle the movement of soil resting on a bucket that intersects with a different bucket separately.
 Additionally, the case where a different bucket blocks the movement of soil to the terrain would need to be addressed.
-
