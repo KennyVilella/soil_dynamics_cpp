@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intersecting cells &mdash; soil_simulator  documentation</title>
+  <title>Documentation for the movement of intersecting soil cells &mdash; soil_simulator  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -53,7 +53,26 @@
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bucket.html">Bucket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Intersecting cells</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intersecting cells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introductory-remarks">Introductory remarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#movement-of-soil-cells-on-the-bucket-intersecting-with-the-bucket">Movement of soil cells on the bucket intersecting with the bucket</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-description">General description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description-of-the-different-cases">Description of the different cases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#no-bucket-is-present">No bucket is present</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#one-bucket-layer">One bucket layer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#two-bucket-layers">Two bucket layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#movement-of-soil-cells-on-the-terrain-intersecting-with-the-bucket">Movement of soil cells on the terrain intersecting with the bucket</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">General description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Description of the different cases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#concluding-remarks">Concluding remarks</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="relax.html">Relax</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
@@ -73,7 +92,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Intersecting cells</li>
+      <li class="breadcrumb-item active">Documentation for the movement of intersecting soil cells</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/intersecting_cells.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -83,8 +102,100 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="intersecting-cells">
-<span id="id1"></span><h1>Intersecting cells<a class="headerlink" href="#intersecting-cells" title="Permalink to this heading"></a></h1>
+  <section id="documentation-for-the-movement-of-intersecting-soil-cells">
+<span id="intersecting-cells"></span><h1>Documentation for the movement of intersecting soil cells<a class="headerlink" href="#documentation-for-the-movement-of-intersecting-soil-cells" title="Permalink to this heading"></a></h1>
+<section id="introductory-remarks">
+<h2>Introductory remarks<a class="headerlink" href="#introductory-remarks" title="Permalink to this heading"></a></h2>
+<p>After updating the position of the bucket and the soil resting on the bucket, it is possible that some soil cells are located in the same position as a bucket wall, while it is obviously physically impossible to have both soil and the bucket at the same position.
+These soil cells are referred to as intersecting cells in the simulator.</p>
+<p>The third task of the simulator is to move these soil cells following a set of rules to ensure a physically valid simulation.
+This is done by the <code class="code docutils literal notranslate"><span class="pre">MoveIntersectingCells</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">intersecting_cells.cpp</span></code> file.
+The process involves two main steps: moving intersecting cells resting on the bucket and moving intersecting cells from the terrain.
+The order of these steps is crucial, as the movement of intersecting cells resting on the bucket can create new intersecting cells in the terrain.</p>
+</section>
+<section id="movement-of-soil-cells-on-the-bucket-intersecting-with-the-bucket">
+<h2>Movement of soil cells on the bucket intersecting with the bucket<a class="headerlink" href="#movement-of-soil-cells-on-the-bucket-intersecting-with-the-bucket" title="Permalink to this heading"></a></h2>
+<section id="general-description">
+<h3>General description<a class="headerlink" href="#general-description" title="Permalink to this heading"></a></h3>
+<p>This step focuses on relocating intersecting soil cells that are resting on the bucket.
+The process involves selecting randomly one of the eight directions surrounding the intersecting cells and investigating whether the soil can be moved in that direction.
+The algorithm explores positions incrementally farther from the intersecting cells until all the soil has been moved or a bucket wall blocks the movement.
+If a bucket wall blocks the movement, another direction is selected for investigation.
+In rare cases where not all soil can be moved after exploring all eight directions, a warning is issued, and the excess soil simply disappears.
+However, this edge case should not occur in normal scenarios.</p>
+<p>Note:</p>
+<ul class="simple">
+<li><p>The investigated directions are randomized in order to avoid asymmetrical results.</p></li>
+<li><p>There are necessarily two bucket layers where the intersecting soil cells are located.</p></li>
+</ul>
+</section>
+<section id="description-of-the-different-cases">
+<h3>Description of the different cases<a class="headerlink" href="#description-of-the-different-cases" title="Permalink to this heading"></a></h3>
+<section id="no-bucket-is-present">
+<h4>No bucket is present<a class="headerlink" href="#no-bucket-is-present" title="Permalink to this heading"></a></h4>
+<p>In this case, the intersecting soil cells are simply moved to the terrain.</p>
+</section>
+<section id="one-bucket-layer">
+<h4>One bucket layer<a class="headerlink" href="#one-bucket-layer" title="Permalink to this heading"></a></h4>
+<p>Three different cases are possible, as illustrated in the vertical slice diagram below:</p>
+<img alt="_images/intersecting_cells_1.png" src="_images/intersecting_cells_1.png" />
+<p>(a) In this case, there is an open space below the bucket layer, and the remaining intersecting soil cells are moved to the terrain.
+This movement is independent of the available space below the bucket.
+If there is insufficient space, the soil is still moved, and the newly created intersecting soil cells will be addressed in the subsequent step.</p>
+<p>(b) In this case, the remaining intersecting soil cells are moved to the top of the bucket layer.
+This movement is independent of whether soil is present on this bucket layer.</p>
+<p>(c) In this case, the bucket layer in the new position extends over the two bucket layers from the previous position, creating a wall that prevents soil movement.
+The exploration in this direction is therefore halted.</p>
+<p>Note that in this case the investigation of the considered direction will necessarily stop, either because of the presence of a bucket wall or because all the soil could be moved.
+That also means that the previous position has necessarily two bucket layers.</p>
+</section>
+<section id="two-bucket-layers">
+<h4>Two bucket layers<a class="headerlink" href="#two-bucket-layers" title="Permalink to this heading"></a></h4>
+<p>Four different cases are possible, as illustrated in the vertical slice diagram below:</p>
+<img alt="_images/intersecting_cells_2.png" src="_images/intersecting_cells_2.png" />
+<p>(a) In this case, the soil fully fills the space between the two bucket layers in the new position.
+No soil is moved to this position, but the exploration in this direction can continue.</p>
+<p>(b) In this case, some space is available between the two bucket layers.
+The intersecting cells are moved to the available space, and the exploration in this direction continues.</p>
+<p>(c) In this case, the combination of the bucket soil and the bottom bucket layer in the new position extends over the two bucket layers from the previous position.
+The intersecting cells are still moved to the available space, and the exploration in this direction continues.</p>
+<p>(d) In this case, enough space is available between the two bucket layers to accommodate all the intersecting soil cells.
+The remaining intersecting cells are moved to this position.</p>
+</section>
+</section>
+</section>
+<section id="movement-of-soil-cells-on-the-terrain-intersecting-with-the-bucket">
+<h2>Movement of soil cells on the terrain intersecting with the bucket<a class="headerlink" href="#movement-of-soil-cells-on-the-terrain-intersecting-with-the-bucket" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>General description<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>This step focuses on relocating intersecting soil cells that are present in the terrain and intersect with the bucket.
+The algorithm investigates the eight cells surrounding the intersecting cells in a randomized order to determine if soil can be moved to those positions.
+If there is insufficient space for all the soil, the algorithm incrementally explores the eight directions farther from the intersecting soil column until all the soil has been relocated.</p>
+<p>Note:</p>
+<ul class="simple">
+<li><p>The investigated directions are randomized in order to avoid asymmetrical results.</p></li>
+<li><p>Soil is necessarily moved to the terrain.
+The digging is therefore a two-step process.
+Intersecting cells are first moved to the terrain just outside the bucket, then avalanche on the bucket during the relaxation step.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Description of the different cases<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>Three different cases are possible, as illustrated in the vertical slice diagram below:</p>
+<img alt="_images/intersecting_cells_3.png" src="_images/intersecting_cells_3.png" />
+<p>(a) In this case, no bucket is present in the new position, and all the soil is moved to that position.
+This is done regardless of whether the bucket is buried deep underground.</p>
+<p>(b) In this case, no space is available below the bucket.
+No movement is made.</p>
+<p>(c) In this case, some space is available below the bucket.
+Soil is moved to that position to fill the gap.</p>
+</section>
+</section>
+<section id="concluding-remarks">
+<h2>Concluding remarks<a class="headerlink" href="#concluding-remarks" title="Permalink to this heading"></a></h2>
+<p>When the simulator would have the ability to handle multiple buckets, it may be necessary to handle the movement of soil resting on a bucket that intersects with a different bucket separately.
+Additionally, the case where a different bucket blocks the movement of soil to the terrain would need to be addressed.</p>
+</section>
 </section>
 
 
