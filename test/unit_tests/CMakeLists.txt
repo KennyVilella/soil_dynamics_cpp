@@ -17,6 +17,8 @@ target_sources(unit_tests
         ${CMAKE_CURRENT_SOURCE_DIR}/test_body_soil.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_intersecting_cells.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/test_relax.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/utility.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/utility.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/types.hpp
