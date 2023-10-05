@@ -24,4 +24,3 @@ void ResetValueAndTest(
     std::vector<std::vector<int>> body_soil_pos);
 
 }  // namespace test_soil_simulator
-

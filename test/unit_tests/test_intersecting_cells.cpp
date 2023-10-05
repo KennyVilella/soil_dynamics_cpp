@@ -24,9 +24,8 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     auto pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.7, grid, bucket);
     auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
 
-    // Setting lambda function to set initial state
-    auto SetInitState = [&]() 
-    {
+    // Creating a lambda function to set the initial state
+    auto SetInitState = [&]() {
         sim_out->body_[0][10][15] = 0.3;
         sim_out->body_[1][10][15] = 0.7;
         sim_out->body_[2][10][15] = -0.2;
@@ -3732,7 +3731,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
         {2, 12, 15}};
     test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, 
+        sim_out, {}, body_pos,
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
     // -- Testing when there are two bucket layers and the soil is partially  --
@@ -4170,9 +4169,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {2, 16, 15}, {0, 17, 15}, {2, 17, 15}, {0, 18, 15}, {2, 18, 15},
         {0, 19, 15}, {2, 19, 15}, {0, 20, 15}, {2, 20, 15}};
     body_soil_pos = {
-        {0, 9, 15}, {2, 9, 15}, {2, 10, 15}, {0, 11, 15}, {2, 12, 15}, {2, 13, 15},
-        {2, 14, 15}, {0, 15, 15}, {0, 16, 15}, {2, 17, 15}, {0, 18, 15},
-        {2, 19, 15}, {0, 20, 15}};
+        {0, 9, 15}, {2, 9, 15}, {2, 10, 15}, {0, 11, 15}, {2, 12, 15},
+        {2, 13, 15}, {2, 14, 15}, {0, 15, 15}, {0, 16, 15}, {2, 17, 15},
+        {0, 18, 15}, {2, 19, 15}, {0, 20, 15}};
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
@@ -4969,7 +4968,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     soil_simulator::MoveIntersectingBody(sim_out, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[12][17], 0.2, 1e-5);
     // Resetting values
-    body_pos = { 
+    body_pos = {
         {0, 10, 16}, {0, 10, 17}, {0, 10, 18}, {0, 11, 16}, {0, 11, 17},
         {0, 11, 18}, {0, 12, 16}, {0, 12, 18}};
     test_soil_simulator::ResetValueAndTest(

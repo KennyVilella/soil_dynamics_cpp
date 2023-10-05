@@ -38,7 +38,7 @@ void test_soil_simulator::ResetValueAndTest(
         sim_out->body_soil_[ind+1][ii][jj] = 0.0;
     }
 
-    // Checking that everything is resetted
+    // Checking that everything is properly reset
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
             for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {

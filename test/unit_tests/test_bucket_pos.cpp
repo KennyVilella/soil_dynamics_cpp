@@ -1692,7 +1692,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
-    // Checking that other cells have not been modified
+    // Resetting values
     std::vector<std::vector<int>> body_pos = {
         {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
         {0, 15, 10}};
@@ -1721,7 +1721,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
-    // Checking that other cells have not been modified
+    // Resetting values
     body_pos = {
         {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12},
         {0, 11, 8}, {0, 11, 9}, {0, 11, 10}, {0, 11, 11}, {0, 11, 12},
@@ -1762,7 +1762,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
-    // Checking that other cells have not been modified
+    // Resetting values
     body_pos = {
         {0, 5, 8}, {0, 5, 9}, {0, 5, 10}, {0, 5, 11}, {0, 5, 12},
         {0, 6, 8}, {0, 6, 9}, {0, 6, 10}, {0, 6, 11}, {0, 6, 12},
