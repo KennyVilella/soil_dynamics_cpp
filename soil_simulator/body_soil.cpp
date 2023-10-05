@@ -82,12 +82,9 @@ void soil_simulator::UpdateBodySoil(
         new_cell_pos[0] += pos[0];
         new_cell_pos[1] += pos[1];
         new_cell_pos[2] += pos[2];
-
-        // Calculating new cell indices
-        int ii_n = static_cast<int>(round(
-            new_cell_pos[0] / grid.cell_size_xy_ + grid.half_length_x_));
-        int jj_n = static_cast<int>(round(
-            new_cell_pos[1] / grid.cell_size_xy_ + grid.half_length_y_));
+        old_cell_pos[0] += bucket->pos_[0];
+        old_cell_pos[1] += bucket->pos_[1];
+        old_cell_pos[2] += bucket->pos_[2];
 
         // Establishing order of exploration
         std::vector<std::vector<int>> directions;
@@ -106,6 +103,12 @@ void soil_simulator::UpdateBodySoil(
                 {0, 0}, {0, sy}, {sx, sy}, {sx, 0}, {-sx, sy},
                 {-sx, 0}, {sx, -sy}, {0, -sy}, {-sx, -sy}};
         }
+
+        // Calculating new cell indices
+        int ii_n = static_cast<int>(round(
+            new_cell_pos[0] / grid.cell_size_xy_ + grid.half_length_x_));
+        int jj_n = static_cast<int>(round(
+            new_cell_pos[1] / grid.cell_size_xy_ + grid.half_length_y_));
 
         // Declaring variables used to store the closest location
         bool soil_moved = false;
