@@ -945,13 +945,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1015,13 +1010,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1067,13 +1057,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1137,13 +1122,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1195,13 +1175,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.3, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 15, posA, 0.3);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1222,13 +1197,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 15, posA, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1257,13 +1227,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1296,13 +1261,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.9, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1335,13 +1295,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1374,13 +1329,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1433,13 +1383,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.3, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 15, posA, 0.3);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1460,13 +1405,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1495,13 +1435,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.6, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1534,13 +1469,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.3, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.3);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1573,13 +1503,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1613,13 +1538,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1726,13 +1646,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1813,20 +1728,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1900,13 +1805,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -1986,13 +1886,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2073,13 +1968,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 15, posA, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2113,20 +2003,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 15, posA, 0.2);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2196,13 +2076,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2240,20 +2115,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.2);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2320,13 +2185,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2364,20 +2224,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2459,13 +2309,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2507,20 +2352,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2574,13 +2409,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 15, posA, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2614,20 +2444,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 15, posA, 0.2);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2697,13 +2517,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2741,20 +2556,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.2);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2822,27 +2627,12 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.2);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2880,20 +2670,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2975,13 +2755,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -3023,20 +2798,10 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->relax_area_[0][1], 15);
     EXPECT_EQ(sim_out->relax_area_[1][0], 10);
     EXPECT_EQ(sim_out->relax_area_[1][1], 20);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posB[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posB[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posB[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posB, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -4551,13 +4316,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -4589,13 +4349,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -4629,13 +4384,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -4672,13 +4422,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -4715,13 +4460,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -4761,13 +4501,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
@@ -4803,13 +4538,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -4843,13 +4573,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -4886,13 +4611,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -4928,13 +4648,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.3, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -4968,13 +4683,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.4, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.4, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5008,13 +4718,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.3, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.3);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5059,13 +4764,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5110,13 +4810,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5164,13 +4859,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -5217,13 +4907,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.3, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.3);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5269,13 +4954,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5321,13 +5001,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5361,13 +5036,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5401,13 +5071,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.2, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5444,13 +5109,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -5486,13 +5146,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.2, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5526,13 +5181,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.6, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5566,13 +5216,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.4, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5617,13 +5262,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5668,13 +5308,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5722,13 +5357,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
@@ -5775,13 +5405,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5827,13 +5452,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -5879,13 +5499,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -6015,13 +5630,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.3, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.3);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -6067,13 +5677,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.6, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 2);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -6115,13 +5720,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.4, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.7, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -6167,13 +5767,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.4, 1e-5);
-    EXPECT_EQ((*body_soil_pos)[0].ind, 0);
-    EXPECT_EQ((*body_soil_pos)[0].ii, 10);
-    EXPECT_EQ((*body_soil_pos)[0].jj, 15);
-    EXPECT_NEAR((*body_soil_pos)[0].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR((*body_soil_pos)[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        (*body_soil_pos)[0], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.7, 1.e-5);
     EXPECT_EQ(body_soil_pos->size(), 1);
     // Resetting values
@@ -6384,13 +5979,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -6420,13 +6010,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -6458,20 +6043,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -6506,13 +6081,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -6546,13 +6116,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -6588,20 +6153,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[4], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
@@ -6710,13 +6265,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -6746,13 +6296,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -6784,20 +6329,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -6832,13 +6367,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -6872,13 +6402,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -6914,20 +6439,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[4], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
@@ -6960,13 +6475,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -6998,13 +6508,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -7038,20 +6543,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -7084,13 +6579,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -7122,13 +6612,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -7164,13 +6649,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7206,13 +6686,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7250,20 +6725,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[4], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
@@ -7303,13 +6768,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7348,13 +6808,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7394,13 +6849,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7440,13 +6890,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7482,13 +6927,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7524,13 +6964,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -7573,13 +7008,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -7622,13 +7052,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -7672,13 +7097,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -7722,13 +7142,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -7761,13 +7176,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.4, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -7811,13 +7221,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.4, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -7892,13 +7297,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -7930,13 +7330,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -7970,20 +7365,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -8016,13 +7401,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -8054,13 +7434,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -8096,13 +7471,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8138,13 +7508,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8182,20 +7547,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[4].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[4].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[4], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
@@ -8235,13 +7590,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8280,13 +7630,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8326,13 +7671,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8372,13 +7712,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.3, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8414,13 +7749,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8456,13 +7786,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8505,13 +7830,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.1, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -8554,13 +7874,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -8604,13 +7919,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.3, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -8654,13 +7964,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.6, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -8693,13 +7998,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.5, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
@@ -8743,13 +8043,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -8832,13 +8127,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.2, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.2);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.5, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8882,13 +8172,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
@@ -8928,13 +8213,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[2].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[2].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -8978,13 +8258,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[3].jj, 15);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].x_b, posA[0], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].y_b, posA[1], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].z_b, posA[2], 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 10, 15, posA, 0.1);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.6, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     // Resetting values
