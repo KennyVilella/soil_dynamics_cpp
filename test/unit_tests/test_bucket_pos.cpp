@@ -5,6 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
 #include "soil_simulator/bucket_pos.hpp"
+#include "test/unit_tests/utility.hpp"
 
 TEST(UnitTestBucketPos, CalcLinePos) {
     // Note that this function does not account for the case where the line
@@ -1691,14 +1692,12 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
-    // Checking that other cells have not been modified
-    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
-            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
-                if (!(((ii == 0) || (ii == 1)) &&
-                    (kk == 10) && (jj < 16) && (jj > 9)))
-                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
-            }
+    // Resetting values
+    std::vector<std::vector<int>> body_pos = {
+        {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
+        {0, 15, 10}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {});
 
     // -- Testing for a bucket in the XY plane --
     b_pos = {0.5, 0.0, -0.01};
@@ -1722,6 +1721,16 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    // Resetting values
+    body_pos = {
+        {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12},
+        {0, 11, 8}, {0, 11, 9}, {0, 11, 10}, {0, 11, 11}, {0, 11, 12},
+        {0, 12, 8}, {0, 12, 9}, {0, 12, 10}, {0, 12, 11}, {0, 12, 12},
+        {0, 13, 8}, {0, 13, 9}, {0, 13, 10}, {0, 13, 11}, {0, 13, 12},
+        {0, 14, 8}, {0, 14, 9}, {0, 14, 10}, {0, 14, 11}, {0, 14, 12},
+        {0, 15, 8}, {0, 15, 9}, {0, 15, 10}, {0, 15, 11}, {0, 15, 12}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {});
 
     // -- Testing for a bucket in a dummy position --
     b_pos = {0.0, 0.0, -0.5};
@@ -1753,13 +1762,16 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
-    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
-            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
-                if (!(((ii == 0) || (ii == 1)) &&
-                    (jj < 11) && (jj > 4) && (kk < 13) && (kk > 7)))
-                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
-            }
+    // Resetting values
+    body_pos = {
+        {0, 5, 8}, {0, 5, 9}, {0, 5, 10}, {0, 5, 11}, {0, 5, 12},
+        {0, 6, 8}, {0, 6, 9}, {0, 6, 10}, {0, 6, 11}, {0, 6, 12},
+        {0, 7, 8}, {0, 7, 9}, {0, 7, 10}, {0, 7, 11}, {0, 7, 12},
+        {0, 8, 8}, {0, 8, 9}, {0, 8, 10}, {0, 8, 11}, {0, 8, 12},
+        {0, 9, 8}, {0, 9, 9}, {0, 9, 10}, {0, 9, 11}, {0, 9, 12},
+        {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {});
 
     delete bucket;
     delete sim_out;
