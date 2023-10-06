@@ -34,7 +34,7 @@ void ResetValueAndTest(
 ///             reference bucket frame. [m]
 /// \param h_soil: Expected height of the soil column. [m]
 void CheckBodySoilPos(
-    soil_simulator::body_soil body_soil_pos, int ind, int, ii, int jj,
+    soil_simulator::body_soil body_soil_pos, int ind, int ii, int jj,
     std::vector<float> pos, float h_soil);
 
 }  // namespace test_soil_simulator

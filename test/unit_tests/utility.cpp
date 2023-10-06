@@ -55,7 +55,7 @@ void test_soil_simulator::ResetValueAndTest(
 }
 
 void test_soil_simulator::CheckBodySoilPos(
-    soil_simulator::body_soil body_soil_pos, int ind, int, ii, int jj,
+    soil_simulator::body_soil body_soil_pos, int ind, int ii, int jj,
     std::vector<float> pos, float h_soil
 ) {
     // Checking the body soil position
