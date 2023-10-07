@@ -33,13 +33,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -59,13 +54,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -85,13 +75,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][11][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][11][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -111,13 +96,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][11][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][11][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -137,13 +117,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][11], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][11], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 11);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.1, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0., 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 11, {0.1, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -163,13 +138,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][11], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][11], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 11);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.1, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 11, {0.1, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -189,13 +159,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][12][11], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][12][11], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 12);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 11);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.1, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 12, 11, {0.1, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -230,25 +195,15 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 10, 0.1, 0.0, 0.0, 0.1});
     sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 12, 10, 0.2, 0.0, 0.0, 0.2});
+        soil_simulator::body_soil {1, 12, 10, 0.2, 0.0, 0.0, 0.2});
     soil_simulator::UpdateBodySoil(
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][10], 0.4, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.1, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, 0.2, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 10, {0.1, 0.0, 0.0}, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 10, {0.2, 0.0, 0.0}, 0.2);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -272,20 +227,10 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][10], 0.4, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.1, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, 0.2, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 10, {0.1, 0.0, 0.0}, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 0, 10, 10, {0.2, 0.0, 0.0}, 0.2);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -309,20 +254,10 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[2][10][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[3][10][10], 0.4, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.1, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ind, 2);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[1].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].x_b, 0.2, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 2, 10, 10, {0.1, 0.0, 0.0}, 0.1);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[1], 2, 10, 10, {0.2, 0.0, 0.0}, 0.2);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -361,13 +296,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].x_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].y_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].z_b, 0.0, 1.e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.1, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
@@ -388,9 +318,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Testing for second direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -405,9 +334,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][12][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][12][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 12);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 12, 10, {0.0, 0.0, 0.0}, 0.1);
     // Testing for third direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -422,9 +350,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][12][11], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][12][11], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 12);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 11);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 12, 11, {0.0, 0.0, 0.0}, 0.1);
     // Testing for fouth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -439,9 +366,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][11], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][11], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 11);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 11, {0.0, 0.0, 0.0}, 0.1);
     // Testing for fifth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -456,9 +382,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][12][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][12][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 12);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 12, 9, {0.0, 0.0, 0.0}, 0.1);
     // Testing for sixth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -473,9 +398,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 9, {0.0, 0.0, 0.0}, 0.1);
     // Testing for seventh direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -490,9 +414,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][11], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][11], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 11);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 11, {0.0, 0.0, 0.0}, 0.1);
     // Testing for eighth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -507,9 +430,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 10, {0.0, 0.0, 0.0}, 0.1);
     // Testing for ninth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -524,9 +446,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 9, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -552,9 +473,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 9, {0.0, 0.0, 0.0}, 0.1);
     // Testing for second direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -569,9 +489,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][8], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][8], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 8);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 8, {0.0, 0.0, 0.0}, 0.1);
     // Testing for third direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -586,9 +505,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][9][8], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][9][8], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 9);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 8);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 9, 8, {0.0, 0.0, 0.0}, 0.1);
     // Testing for fouth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -603,9 +521,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][9][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][9][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 9);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 9, 9, {0.0, 0.0, 0.0}, 0.1);
     // Testing for fifth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -620,9 +537,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][8], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][8], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 8);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 8, {0.0, 0.0, 0.0}, 0.1);
     // Testing for sixth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -637,9 +553,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 9, {0.0, 0.0, 0.0}, 0.1);
     // Testing for seventh direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -654,9 +569,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][9][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][9][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 9);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 9, 10, {0.0, 0.0, 0.0}, 0.1);
     // Testing for eighth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -671,9 +585,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 10, {0.0, 0.0, 0.0}, 0.1);
     // Testing for ninth direction
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -688,9 +601,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][10], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][10], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 10);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -718,9 +630,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][9], 0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][9], 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 10);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 10, 9, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
@@ -748,9 +659,8 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][9], -0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][11][9], 0.0, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ind, 0);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].ii, 11);
-    EXPECT_EQ(sim_out->body_soil_pos_[0].jj, 9);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[0], 0, 11, 9, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};

@@ -53,3 +53,17 @@ void test_soil_simulator::ResetValueAndTest(
     sim_out->body_soil_pos_.erase(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 }
+
+void test_soil_simulator::CheckBodySoilPos(
+    soil_simulator::body_soil body_soil_pos, int ind, int ii, int jj,
+    std::vector<float> pos, float h_soil
+) {
+    // Checking the body soil position
+    EXPECT_EQ(body_soil_pos.ind, ind);
+    EXPECT_EQ(body_soil_pos.ii, ii);
+    EXPECT_EQ(body_soil_pos.jj, jj);
+    EXPECT_NEAR(body_soil_pos.x_b, pos[0], 1.e-5);
+    EXPECT_NEAR(body_soil_pos.y_b, pos[1], 1.e-5);
+    EXPECT_NEAR(body_soil_pos.z_b, pos[2], 1.e-5);
+    EXPECT_NEAR(body_soil_pos.h_soil, h_soil, 1.e-5);
+}
