@@ -52,7 +52,6 @@ The position of the bucket wall is determined using a three-steps process:
   By iterating over all the cells, the algorithm ensures that the height of the bucket is calculated at the 4 corners of each cell within the projection of the bucket wall into the horizontal plane.
   This is crucial because the minimum and maximum height of a plane intersecting laterally a cell is occurring necessarily at one of the cell's corner.
 * An issue of this algorithm is that it does not handle the case where the bucket wall is either not fully intersecting the cell or intersecting vertically the cell.
-
   Those cases are handled separately by identifying all the cells where the edges of the bucket wall are located.
 
 The algorithm to identify all the cells that lie on the edge of a bucket wall follow the implementations proposed by Amanatides and Woo in the article "A Fast Voxel Traversal Algorithm for Ray Tracing".
