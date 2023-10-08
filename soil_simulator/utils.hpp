@@ -128,6 +128,17 @@ void WriteSoil(SimOut* sim_out, Grid grid);
 /// \brief This function writes the position of all bucket faces into a csv
 ///        located in the `results` directory.
 ///
-/// bucket: Class that stores information related to the bucket object.
+/// \param bucket: Class that stores information related to the bucket object.
 void WriteBucket(Bucket* bucket);
+
+/// \brief This function creates simplex noise for more realistic terrain
+///        generation.
+///
+/// \param x: Rescaled Cartesian coordinate in the X direction.
+/// \param y: Rescaled Cartesian coordinate in the Y direction.
+/// \param perm_table: Pre-calculated permutation table to generate
+///                    pseudo-random noise.
+///
+/// \return float: Simplex noise.
+float simplex_noise(float x, float y, std::vector<int> perm_table);
 }  // namespace soil_simulator

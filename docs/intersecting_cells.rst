@@ -10,7 +10,7 @@ After updating the position of the bucket and the soil resting on the bucket, it
 These soil cells are referred to as intersecting cells in the simulator.
 
 The third task of the simulator is to move these soil cells following a set of rules to ensure a physically valid simulation.
-This is done by the `MoveIntersectingCells` function in the `intersecting_cells.cpp` file.
+This is done by the :code:`MoveIntersectingCells` function in the :code:`intersecting_cells.cpp` file.
 The process involves two main steps: moving intersecting cells resting on the bucket and moving intersecting cells from the terrain.
 The order of these steps is crucial, as the movement of intersecting cells resting on the bucket can create new intersecting cells in the terrain.
 
@@ -28,8 +28,9 @@ In rare cases where not all soil can be moved after exploring all eight directio
 However, this edge case should not occur in normal scenarios.
 
 Note:
-- The investigated directions are randomized in order to avoid asymmetrical results.
-- There are necessarily two bucket layers where the intersecting soil cells are located.
+
+* The investigated directions are randomized in order to avoid asymmetrical results.
+* There are necessarily two bucket layers where the intersecting soil cells are located.
 
 Description of the different cases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -44,7 +45,7 @@ One bucket layer
 
 Three different cases are possible, as illustrated in the vertical slice diagram below:
 
-![Intersecting bucket soil cells](assets/intersecting_cells_1.png)
+.. image:: _asset/intersecting_cells_1.png
 
 (a) In this case, there is an open space below the bucket layer, and the remaining intersecting soil cells are moved to the terrain.
 This movement is independent of the available space below the bucket.
@@ -64,7 +65,7 @@ Two bucket layers
 
 Four different cases are possible, as illustrated in the vertical slice diagram below:
 
-![Intersecting bucket soil cells](assets/intersecting_cells_2.png)
+.. image:: _asset/intersecting_cells_2.png
 
 (a) In this case, the soil fully fills the space between the two bucket layers in the new position.
 No soil is moved to this position, but the exploration in this direction can continue.
@@ -89,8 +90,9 @@ The algorithm investigates the eight cells surrounding the intersecting cells in
 If there is insufficient space for all the soil, the algorithm incrementally explores the eight directions farther from the intersecting soil column until all the soil has been relocated.
 
 Note:
-- The investigated directions are randomized in order to avoid asymmetrical results.
-- Soil is necessarily moved to the terrain.
+
+* The investigated directions are randomized in order to avoid asymmetrical results.
+* Soil is necessarily moved to the terrain.
   The digging is therefore a two-step process.
   Intersecting cells are first moved to the terrain just outside the bucket, then avalanche on the bucket during the relaxation step.
 
@@ -99,18 +101,19 @@ Description of the different cases
 
 Three different cases are possible, as illustrated in the vertical slice diagram below:
 
-![Intersecting terrain soil cells](assets/intersecting_cells_3.png)
+.. image:: _asset/intersecting_cells_3.png
 
 (a) In this case, no bucket is present in the new position, and all the soil is moved to that position.
 This is done regardless of whether the bucket is buried deep underground.
 
-(b) In this case, no space is available below the bucket, so no movement is made.
+(b) In this case, no space is available below the bucket.
+No movement is made.
 
-(c) In this case, some space is available below the bucket, and soil is moved to that position to fill the gap.
+(c) In this case, some space is available below the bucket.
+Soil is moved to that position to fill the gap.
 
 Concluding remarks
 ------------------
 
 When the simulator would have the ability to handle multiple buckets, it may be necessary to handle the movement of soil resting on a bucket that intersects with a different bucket separately.
 Additionally, the case where a different bucket blocks the movement of soil to the terrain would need to be addressed.
-

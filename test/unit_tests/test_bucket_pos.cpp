@@ -5,6 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include "gtest/gtest.h"
 #include "soil_simulator/bucket_pos.hpp"
+#include "test/unit_tests/utility.hpp"
 
 TEST(UnitTestBucketPos, CalcLinePos) {
     // Note that this function does not account for the case where the line
@@ -21,17 +22,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
         a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 9}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 9}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 10, 9}));
+    EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 9}));
+    EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 9}));
 
     // -- Testing that the rounding is done properly --
     a = {0.04 + 1e-5,  0.04 - 1e-5, -0.09 + 1e-5};
@@ -39,17 +40,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos = soil_simulator::CalcLinePos(a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 10}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 9}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 9}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {18, 10, 9}));
+    EXPECT_TRUE((line_pos[9] == std::vector<int> {19, 10, 9}));
+    EXPECT_TRUE((line_pos[10] == std::vector<int> {20, 10, 9}));
 
     // -- Testing for a line following the Y axis --
     a = {0.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
@@ -57,17 +58,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos = soil_simulator::CalcLinePos(a, b, grid);
 
     EXPECT_EQ(line_pos.size(), 11);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {10, 16, 10}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {10, 17, 10}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {10, 18, 10}));
-    EXPECT_TRUE((line_pos[9] == std::vector<int> {10, 19, 10}));
-    EXPECT_TRUE((line_pos[10] == std::vector<int> {10, 20, 10}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {10, 16, 9}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {10, 17, 9}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {10, 18, 9}));
+    EXPECT_TRUE((line_pos[9] == std::vector<int> {10, 19, 9}));
+    EXPECT_TRUE((line_pos[10] == std::vector<int> {10, 20, 9}));
 
     // -- Testing for an arbitrary line (results obtained manually) --
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
@@ -76,15 +77,15 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {14, 17, 10}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {15, 17, 10}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 18, 10}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 18, 10}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 19, 10}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 19, 10}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {17, 20, 10}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {13, 16, 9}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {14, 16, 9}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {14, 17, 9}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {15, 17, 9}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 18, 9}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 18, 9}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 19, 9}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 19, 9}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {17, 20, 9}));
 
     // -- Testing for an arbitrary line in the XZ plane --
     a = {0.34 + 1e-8, 0.0 - 1e-8, 0.56 + 1e-8};
@@ -93,15 +94,15 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 9);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {13, 10, 16}));
-    EXPECT_TRUE((line_pos[1] == std::vector<int> {14, 10, 16}));
-    EXPECT_TRUE((line_pos[2] == std::vector<int> {14, 10, 17}));
-    EXPECT_TRUE((line_pos[3] == std::vector<int> {15, 10, 17}));
-    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 10, 18}));
-    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 10, 18}));
-    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 19}));
-    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 19}));
-    EXPECT_TRUE((line_pos[8] == std::vector<int> {17, 10, 20}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {13, 10, 15}));
+    EXPECT_TRUE((line_pos[1] == std::vector<int> {14, 10, 15}));
+    EXPECT_TRUE((line_pos[2] == std::vector<int> {14, 10, 16}));
+    EXPECT_TRUE((line_pos[3] == std::vector<int> {15, 10, 16}));
+    EXPECT_TRUE((line_pos[4] == std::vector<int> {15, 10, 17}));
+    EXPECT_TRUE((line_pos[5] == std::vector<int> {16, 10, 17}));
+    EXPECT_TRUE((line_pos[6] == std::vector<int> {16, 10, 18}));
+    EXPECT_TRUE((line_pos[7] == std::vector<int> {17, 10, 18}));
+    EXPECT_TRUE((line_pos[8] == std::vector<int> {17, 10, 19}));
 
     // -- Testing for the edge case where the line is a point --
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
@@ -110,7 +111,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 15}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 14}));
 
     // -- Testing for the edge case where the line is a point --
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
@@ -119,7 +120,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
 
     EXPECT_EQ(line_pos.size(), 1);
-    EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 16}));
+    EXPECT_TRUE((line_pos[0] == std::vector<int> {15, 15, 15}));
 }
 
 TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
@@ -625,42 +626,42 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((rect_pos[9] == std::vector<int> {11, 13, 10}));
-    EXPECT_TRUE((rect_pos[10] == std::vector<int> {11, 14, 10}));
-    EXPECT_TRUE((rect_pos[11] == std::vector<int> {11, 15, 10}));
-    EXPECT_TRUE((rect_pos[12] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((rect_pos[13] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((rect_pos[14] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((rect_pos[15] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((rect_pos[16] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((rect_pos[17] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((rect_pos[18] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((rect_pos[19] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((rect_pos[20] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((rect_pos[21] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((rect_pos[22] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((rect_pos[23] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((rect_pos[24] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((rect_pos[25] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((rect_pos[26] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((rect_pos[27] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((rect_pos[28] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((rect_pos[29] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((rect_pos[30] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((rect_pos[31] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((rect_pos[32] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((rect_pos[33] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((rect_pos[34] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((rect_pos[9] == std::vector<int> {11, 13, 9}));
+    EXPECT_TRUE((rect_pos[10] == std::vector<int> {11, 14, 9}));
+    EXPECT_TRUE((rect_pos[11] == std::vector<int> {11, 15, 9}));
+    EXPECT_TRUE((rect_pos[12] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((rect_pos[13] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((rect_pos[14] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((rect_pos[15] == std::vector<int> {12, 13, 9}));
+    EXPECT_TRUE((rect_pos[16] == std::vector<int> {12, 14, 9}));
+    EXPECT_TRUE((rect_pos[17] == std::vector<int> {12, 15, 9}));
+    EXPECT_TRUE((rect_pos[18] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((rect_pos[19] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((rect_pos[20] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((rect_pos[21] == std::vector<int> {13, 13, 9}));
+    EXPECT_TRUE((rect_pos[22] == std::vector<int> {13, 14, 9}));
+    EXPECT_TRUE((rect_pos[23] == std::vector<int> {13, 15, 9}));
+    EXPECT_TRUE((rect_pos[24] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((rect_pos[25] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((rect_pos[26] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((rect_pos[27] == std::vector<int> {14, 13, 9}));
+    EXPECT_TRUE((rect_pos[28] == std::vector<int> {14, 14, 9}));
+    EXPECT_TRUE((rect_pos[29] == std::vector<int> {14, 15, 9}));
+    EXPECT_TRUE((rect_pos[30] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((rect_pos[31] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((rect_pos[32] == std::vector<int> {15, 12, 9}));
+    EXPECT_TRUE((rect_pos[33] == std::vector<int> {15, 13, 9}));
+    EXPECT_TRUE((rect_pos[34] == std::vector<int> {15, 14, 9}));
+    EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 9}));
 
     // -- Testing that the input order does not influence the results (1) --
     rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
@@ -669,42 +670,42 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((rect_pos[9] == std::vector<int> {11, 13, 10}));
-    EXPECT_TRUE((rect_pos[10] == std::vector<int> {11, 14, 10}));
-    EXPECT_TRUE((rect_pos[11] == std::vector<int> {11, 15, 10}));
-    EXPECT_TRUE((rect_pos[12] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((rect_pos[13] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((rect_pos[14] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((rect_pos[15] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((rect_pos[16] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((rect_pos[17] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((rect_pos[18] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((rect_pos[19] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((rect_pos[20] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((rect_pos[21] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((rect_pos[22] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((rect_pos[23] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((rect_pos[24] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((rect_pos[25] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((rect_pos[26] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((rect_pos[27] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((rect_pos[28] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((rect_pos[29] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((rect_pos[30] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((rect_pos[31] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((rect_pos[32] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((rect_pos[33] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((rect_pos[34] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((rect_pos[9] == std::vector<int> {11, 13, 9}));
+    EXPECT_TRUE((rect_pos[10] == std::vector<int> {11, 14, 9}));
+    EXPECT_TRUE((rect_pos[11] == std::vector<int> {11, 15, 9}));
+    EXPECT_TRUE((rect_pos[12] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((rect_pos[13] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((rect_pos[14] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((rect_pos[15] == std::vector<int> {12, 13, 9}));
+    EXPECT_TRUE((rect_pos[16] == std::vector<int> {12, 14, 9}));
+    EXPECT_TRUE((rect_pos[17] == std::vector<int> {12, 15, 9}));
+    EXPECT_TRUE((rect_pos[18] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((rect_pos[19] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((rect_pos[20] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((rect_pos[21] == std::vector<int> {13, 13, 9}));
+    EXPECT_TRUE((rect_pos[22] == std::vector<int> {13, 14, 9}));
+    EXPECT_TRUE((rect_pos[23] == std::vector<int> {13, 15, 9}));
+    EXPECT_TRUE((rect_pos[24] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((rect_pos[25] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((rect_pos[26] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((rect_pos[27] == std::vector<int> {14, 13, 9}));
+    EXPECT_TRUE((rect_pos[28] == std::vector<int> {14, 14, 9}));
+    EXPECT_TRUE((rect_pos[29] == std::vector<int> {14, 15, 9}));
+    EXPECT_TRUE((rect_pos[30] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((rect_pos[31] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((rect_pos[32] == std::vector<int> {15, 12, 9}));
+    EXPECT_TRUE((rect_pos[33] == std::vector<int> {15, 13, 9}));
+    EXPECT_TRUE((rect_pos[34] == std::vector<int> {15, 14, 9}));
+    EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 9}));
 
     // -- Testing that the input order does not influence the results (2) --
     rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
@@ -713,42 +714,42 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 36);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((rect_pos[9] == std::vector<int> {11, 13, 10}));
-    EXPECT_TRUE((rect_pos[10] == std::vector<int> {11, 14, 10}));
-    EXPECT_TRUE((rect_pos[11] == std::vector<int> {11, 15, 10}));
-    EXPECT_TRUE((rect_pos[12] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((rect_pos[13] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((rect_pos[14] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((rect_pos[15] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((rect_pos[16] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((rect_pos[17] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((rect_pos[18] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((rect_pos[19] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((rect_pos[20] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((rect_pos[21] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((rect_pos[22] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((rect_pos[23] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((rect_pos[24] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((rect_pos[25] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((rect_pos[26] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((rect_pos[27] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((rect_pos[28] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((rect_pos[29] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((rect_pos[30] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((rect_pos[31] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((rect_pos[32] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((rect_pos[33] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((rect_pos[34] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 10}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((rect_pos[9] == std::vector<int> {11, 13, 9}));
+    EXPECT_TRUE((rect_pos[10] == std::vector<int> {11, 14, 9}));
+    EXPECT_TRUE((rect_pos[11] == std::vector<int> {11, 15, 9}));
+    EXPECT_TRUE((rect_pos[12] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((rect_pos[13] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((rect_pos[14] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((rect_pos[15] == std::vector<int> {12, 13, 9}));
+    EXPECT_TRUE((rect_pos[16] == std::vector<int> {12, 14, 9}));
+    EXPECT_TRUE((rect_pos[17] == std::vector<int> {12, 15, 9}));
+    EXPECT_TRUE((rect_pos[18] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((rect_pos[19] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((rect_pos[20] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((rect_pos[21] == std::vector<int> {13, 13, 9}));
+    EXPECT_TRUE((rect_pos[22] == std::vector<int> {13, 14, 9}));
+    EXPECT_TRUE((rect_pos[23] == std::vector<int> {13, 15, 9}));
+    EXPECT_TRUE((rect_pos[24] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((rect_pos[25] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((rect_pos[26] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((rect_pos[27] == std::vector<int> {14, 13, 9}));
+    EXPECT_TRUE((rect_pos[28] == std::vector<int> {14, 14, 9}));
+    EXPECT_TRUE((rect_pos[29] == std::vector<int> {14, 15, 9}));
+    EXPECT_TRUE((rect_pos[30] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((rect_pos[31] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((rect_pos[32] == std::vector<int> {15, 12, 9}));
+    EXPECT_TRUE((rect_pos[33] == std::vector<int> {15, 13, 9}));
+    EXPECT_TRUE((rect_pos[34] == std::vector<int> {15, 14, 9}));
+    EXPECT_TRUE((rect_pos[35] == std::vector<int> {15, 15, 9}));
 
     // -- Testing that the input order does not influence the results (3) --
     rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
@@ -788,24 +789,24 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((rect_pos[9] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((rect_pos[10] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((rect_pos[11] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((rect_pos[12] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((rect_pos[13] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((rect_pos[14] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((rect_pos[15] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((rect_pos[16] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 12, 10}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((rect_pos[9] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((rect_pos[10] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((rect_pos[11] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((rect_pos[12] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((rect_pos[13] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((rect_pos[14] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((rect_pos[15] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((rect_pos[16] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 12, 9}));
 
     // -- Testing that the input order does not influence the results --
     rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
@@ -855,24 +856,24 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 18);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 11}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 10, 12}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 10, 13}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 10, 14}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 10, 15}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {11, 10, 11}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 15}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {12, 10, 11}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {12, 10, 15}));
-    EXPECT_TRUE((rect_pos[9] == std::vector<int> {13, 10, 11}));
-    EXPECT_TRUE((rect_pos[10] == std::vector<int> {13, 10, 15}));
-    EXPECT_TRUE((rect_pos[11] == std::vector<int> {14, 10, 11}));
-    EXPECT_TRUE((rect_pos[12] == std::vector<int> {14, 10, 15}));
-    EXPECT_TRUE((rect_pos[13] == std::vector<int> {15, 10, 11}));
-    EXPECT_TRUE((rect_pos[14] == std::vector<int> {15, 10, 12}));
-    EXPECT_TRUE((rect_pos[15] == std::vector<int> {15, 10, 13}));
-    EXPECT_TRUE((rect_pos[16] == std::vector<int> {15, 10, 14}));
-    EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 10, 15}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {10, 10, 10}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {10, 10, 11}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {10, 10, 12}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {10, 10, 13}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {10, 10, 14}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {11, 10, 10}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {11, 10, 14}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {12, 10, 14}));
+    EXPECT_TRUE((rect_pos[9] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((rect_pos[10] == std::vector<int> {13, 10, 14}));
+    EXPECT_TRUE((rect_pos[11] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((rect_pos[12] == std::vector<int> {14, 10, 14}));
+    EXPECT_TRUE((rect_pos[13] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((rect_pos[14] == std::vector<int> {15, 10, 11}));
+    EXPECT_TRUE((rect_pos[15] == std::vector<int> {15, 10, 12}));
+    EXPECT_TRUE((rect_pos[16] == std::vector<int> {15, 10, 13}));
+    EXPECT_TRUE((rect_pos[17] == std::vector<int> {15, 10, 14}));
 
     // -- Testing that the input order does not influence the results --
     rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
@@ -922,18 +923,18 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 12);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 10, 16}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {15, 11, 16}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {15, 12, 16}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {15, 13, 16}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {15, 14, 16}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {15, 15, 16}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {16, 10, 16}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {16, 11, 16}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {16, 12, 16}));
-    EXPECT_TRUE((rect_pos[9] == std::vector<int> {16, 13, 16}));
-    EXPECT_TRUE((rect_pos[10] == std::vector<int> {16, 14, 16}));
-    EXPECT_TRUE((rect_pos[11] == std::vector<int> {16, 15, 16}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 10, 15}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {15, 11, 15}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {15, 12, 15}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {15, 13, 15}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {15, 14, 15}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {15, 15, 15}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {16, 10, 15}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {16, 11, 15}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {16, 12, 15}));
+    EXPECT_TRUE((rect_pos[9] == std::vector<int> {16, 13, 15}));
+    EXPECT_TRUE((rect_pos[10] == std::vector<int> {16, 14, 15}));
+    EXPECT_TRUE((rect_pos[11] == std::vector<int> {16, 15, 15}));
 
     // -- Testing that the input order does not influence the results --
     rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
@@ -983,15 +984,15 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 9);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((rect_pos[1] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((rect_pos[2] == std::vector<int> {14, 17, 10}));
-    EXPECT_TRUE((rect_pos[3] == std::vector<int> {15, 17, 10}));
-    EXPECT_TRUE((rect_pos[4] == std::vector<int> {15, 18, 10}));
-    EXPECT_TRUE((rect_pos[5] == std::vector<int> {16, 18, 10}));
-    EXPECT_TRUE((rect_pos[6] == std::vector<int> {16, 19, 10}));
-    EXPECT_TRUE((rect_pos[7] == std::vector<int> {17, 19, 10}));
-    EXPECT_TRUE((rect_pos[8] == std::vector<int> {17, 20, 10}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {13, 16, 9}));
+    EXPECT_TRUE((rect_pos[1] == std::vector<int> {14, 16, 9}));
+    EXPECT_TRUE((rect_pos[2] == std::vector<int> {14, 17, 9}));
+    EXPECT_TRUE((rect_pos[3] == std::vector<int> {15, 17, 9}));
+    EXPECT_TRUE((rect_pos[4] == std::vector<int> {15, 18, 9}));
+    EXPECT_TRUE((rect_pos[5] == std::vector<int> {16, 18, 9}));
+    EXPECT_TRUE((rect_pos[6] == std::vector<int> {16, 19, 9}));
+    EXPECT_TRUE((rect_pos[7] == std::vector<int> {17, 19, 9}));
+    EXPECT_TRUE((rect_pos[8] == std::vector<int> {17, 20, 9}));
 
     // -- Testing for the edge case where the rectangle is a point --
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
@@ -1004,7 +1005,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 1);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 15, 15}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 15, 14}));
 
     // -- Testing for edge case of a point on the edge of a cell --
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
@@ -1017,7 +1018,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Checking the number of cells
     EXPECT_EQ(rect_pos.size(), 1);
     // Checking cells
-    EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 15, 15}));
+    EXPECT_TRUE((rect_pos[0] == std::vector<int> {15, 15, 14}));
 }
 
 TEST(UnitTestBucketPos, CalcTrianglePos) {
@@ -1042,82 +1043,82 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 76);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 16, 10}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 17, 10}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 18, 10}));
-    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 19, 10}));
-    EXPECT_TRUE((tri_pos[10] == std::vector<int> {10, 20, 10}));
-    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((tri_pos[13] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((tri_pos[14] == std::vector<int> {11, 13, 10}));
-    EXPECT_TRUE((tri_pos[15] == std::vector<int> {11, 14, 10}));
-    EXPECT_TRUE((tri_pos[16] == std::vector<int> {11, 15, 10}));
-    EXPECT_TRUE((tri_pos[17] == std::vector<int> {11, 16, 10}));
-    EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 10}));
-    EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 10}));
-    EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 10}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 10}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 10}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 10}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 10}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 10}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 10}));
-    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 10}));
-    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 10}));
-    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 10}));
-    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 10}));
-    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 10}));
-    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 10}));
-    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 10}));
-    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 10}));
-    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 10}));
-    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 10}));
-    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 10}));
-    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 10}));
-    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 10}));
-    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 10}));
-    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 10}));
-    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 10}));
-    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 10}));
-    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 10}));
-    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 10}));
-    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 16, 9}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 17, 9}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 18, 9}));
+    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 19, 9}));
+    EXPECT_TRUE((tri_pos[10] == std::vector<int> {10, 20, 9}));
+    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((tri_pos[13] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((tri_pos[14] == std::vector<int> {11, 13, 9}));
+    EXPECT_TRUE((tri_pos[15] == std::vector<int> {11, 14, 9}));
+    EXPECT_TRUE((tri_pos[16] == std::vector<int> {11, 15, 9}));
+    EXPECT_TRUE((tri_pos[17] == std::vector<int> {11, 16, 9}));
+    EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 9}));
+    EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 9}));
+    EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 9}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 9}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 9}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 9}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 9}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 9}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 9}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 9}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 9}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 9}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 9}));
+    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 9}));
+    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 9}));
+    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 9}));
+    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 9}));
+    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 9}));
+    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 9}));
+    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 9}));
+    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 9}));
+    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 9}));
+    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 9}));
+    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 9}));
+    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 9}));
+    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 9}));
+    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 9}));
+    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 9}));
+    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 9}));
+    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 9}));
+    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 9}));
+    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 9}));
+    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 9}));
+    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 9}));
+    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 9}));
+    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 9}));
+    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 9}));
+    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 9}));
+    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 9}));
+    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 9}));
+    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 9}));
+    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 9}));
+    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 9}));
+    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 9}));
+    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 9}));
+    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 9}));
+    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 9}));
 
     // -- Testing that the input order does not influence the results (1) --
     tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
@@ -1126,82 +1127,82 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 76);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 16, 10}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 17, 10}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 18, 10}));
-    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 19, 10}));
-    EXPECT_TRUE((tri_pos[10] == std::vector<int> {10, 20, 10}));
-    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((tri_pos[13] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((tri_pos[14] == std::vector<int> {11, 13, 10}));
-    EXPECT_TRUE((tri_pos[15] == std::vector<int> {11, 14, 10}));
-    EXPECT_TRUE((tri_pos[16] == std::vector<int> {11, 15, 10}));
-    EXPECT_TRUE((tri_pos[17] == std::vector<int> {11, 16, 10}));
-    EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 10}));
-    EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 10}));
-    EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 10}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 10}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 10}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 10}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 10}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 10}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 10}));
-    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 10}));
-    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 10}));
-    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 10}));
-    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 10}));
-    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 10}));
-    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 10}));
-    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 10}));
-    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 10}));
-    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 10}));
-    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 10}));
-    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 10}));
-    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 10}));
-    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 10}));
-    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 10}));
-    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 10}));
-    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 10}));
-    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 10}));
-    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 10}));
-    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 10}));
-    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 16, 9}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 17, 9}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 18, 9}));
+    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 19, 9}));
+    EXPECT_TRUE((tri_pos[10] == std::vector<int> {10, 20, 9}));
+    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((tri_pos[13] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((tri_pos[14] == std::vector<int> {11, 13, 9}));
+    EXPECT_TRUE((tri_pos[15] == std::vector<int> {11, 14, 9}));
+    EXPECT_TRUE((tri_pos[16] == std::vector<int> {11, 15, 9}));
+    EXPECT_TRUE((tri_pos[17] == std::vector<int> {11, 16, 9}));
+    EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 9}));
+    EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 9}));
+    EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 9}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 9}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 9}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 9}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 9}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 9}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 9}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 9}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 9}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 9}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 9}));
+    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 9}));
+    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 9}));
+    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 9}));
+    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 9}));
+    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 9}));
+    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 9}));
+    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 9}));
+    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 9}));
+    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 9}));
+    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 9}));
+    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 9}));
+    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 9}));
+    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 9}));
+    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 9}));
+    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 9}));
+    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 9}));
+    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 9}));
+    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 9}));
+    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 9}));
+    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 9}));
+    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 9}));
+    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 9}));
+    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 9}));
+    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 9}));
+    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 9}));
+    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 9}));
+    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 9}));
+    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 9}));
+    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 9}));
+    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 9}));
+    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 9}));
+    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 9}));
+    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 9}));
+    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 9}));
 
     // -- Testing that the input order does not influence the results (2) --
     tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
@@ -1210,82 +1211,82 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 76);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
-    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 10}));
-    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 12, 10}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 13, 10}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 14, 10}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 15, 10}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 16, 10}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 17, 10}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 18, 10}));
-    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 19, 10}));
-    EXPECT_TRUE((tri_pos[10] == std::vector<int> {10, 20, 10}));
-    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 10}));
-    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 11, 10}));
-    EXPECT_TRUE((tri_pos[13] == std::vector<int> {11, 12, 10}));
-    EXPECT_TRUE((tri_pos[14] == std::vector<int> {11, 13, 10}));
-    EXPECT_TRUE((tri_pos[15] == std::vector<int> {11, 14, 10}));
-    EXPECT_TRUE((tri_pos[16] == std::vector<int> {11, 15, 10}));
-    EXPECT_TRUE((tri_pos[17] == std::vector<int> {11, 16, 10}));
-    EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 10}));
-    EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 10}));
-    EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 10}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 10}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 10}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 10}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 10}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 10}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 10}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 10}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 10}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 10}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 10}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 10}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 10}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 10}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 10}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 10}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 10}));
-    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 10}));
-    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 10}));
-    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 10}));
-    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 10}));
-    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 10}));
-    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 10}));
-    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 10}));
-    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 10}));
-    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 10}));
-    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 10}));
-    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 10}));
-    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 10}));
-    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 10}));
-    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 10}));
-    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 10}));
-    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 10}));
-    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 10}));
-    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 10}));
-    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 10}));
-    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 10}));
-    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 10}));
-    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 10}));
-    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 10}));
-    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 10}));
-    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 10}));
-    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 10}));
-    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 10}));
-    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 10}));
-    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 10}));
-    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 10}));
-    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 10}));
-    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 10}));
-    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 10}));
-    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 10}));
-    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 10}));
-    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 10}));
-    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 10}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 9}));
+    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 11, 9}));
+    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 12, 9}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 13, 9}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 14, 9}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 15, 9}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 16, 9}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 17, 9}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 18, 9}));
+    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 19, 9}));
+    EXPECT_TRUE((tri_pos[10] == std::vector<int> {10, 20, 9}));
+    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 9}));
+    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 11, 9}));
+    EXPECT_TRUE((tri_pos[13] == std::vector<int> {11, 12, 9}));
+    EXPECT_TRUE((tri_pos[14] == std::vector<int> {11, 13, 9}));
+    EXPECT_TRUE((tri_pos[15] == std::vector<int> {11, 14, 9}));
+    EXPECT_TRUE((tri_pos[16] == std::vector<int> {11, 15, 9}));
+    EXPECT_TRUE((tri_pos[17] == std::vector<int> {11, 16, 9}));
+    EXPECT_TRUE((tri_pos[18] == std::vector<int> {11, 17, 9}));
+    EXPECT_TRUE((tri_pos[19] == std::vector<int> {11, 18, 9}));
+    EXPECT_TRUE((tri_pos[20] == std::vector<int> {11, 19, 9}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {11, 20, 9}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {12, 10, 9}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {12, 11, 9}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {12, 12, 9}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {12, 13, 9}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {12, 14, 9}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {12, 15, 9}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {12, 16, 9}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {12, 17, 9}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {12, 18, 9}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {12, 19, 9}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {13, 10, 9}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {13, 11, 9}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {13, 12, 9}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {13, 13, 9}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {13, 14, 9}));
+    EXPECT_TRUE((tri_pos[37] == std::vector<int> {13, 15, 9}));
+    EXPECT_TRUE((tri_pos[38] == std::vector<int> {13, 16, 9}));
+    EXPECT_TRUE((tri_pos[39] == std::vector<int> {13, 17, 9}));
+    EXPECT_TRUE((tri_pos[40] == std::vector<int> {13, 18, 9}));
+    EXPECT_TRUE((tri_pos[41] == std::vector<int> {14, 10, 9}));
+    EXPECT_TRUE((tri_pos[42] == std::vector<int> {14, 11, 9}));
+    EXPECT_TRUE((tri_pos[43] == std::vector<int> {14, 12, 9}));
+    EXPECT_TRUE((tri_pos[44] == std::vector<int> {14, 13, 9}));
+    EXPECT_TRUE((tri_pos[45] == std::vector<int> {14, 14, 9}));
+    EXPECT_TRUE((tri_pos[46] == std::vector<int> {14, 15, 9}));
+    EXPECT_TRUE((tri_pos[47] == std::vector<int> {14, 16, 9}));
+    EXPECT_TRUE((tri_pos[48] == std::vector<int> {14, 17, 9}));
+    EXPECT_TRUE((tri_pos[49] == std::vector<int> {15, 10, 9}));
+    EXPECT_TRUE((tri_pos[50] == std::vector<int> {15, 11, 9}));
+    EXPECT_TRUE((tri_pos[51] == std::vector<int> {15, 12, 9}));
+    EXPECT_TRUE((tri_pos[52] == std::vector<int> {15, 13, 9}));
+    EXPECT_TRUE((tri_pos[53] == std::vector<int> {15, 14, 9}));
+    EXPECT_TRUE((tri_pos[54] == std::vector<int> {15, 15, 9}));
+    EXPECT_TRUE((tri_pos[55] == std::vector<int> {15, 16, 9}));
+    EXPECT_TRUE((tri_pos[56] == std::vector<int> {16, 10, 9}));
+    EXPECT_TRUE((tri_pos[57] == std::vector<int> {16, 11, 9}));
+    EXPECT_TRUE((tri_pos[58] == std::vector<int> {16, 12, 9}));
+    EXPECT_TRUE((tri_pos[59] == std::vector<int> {16, 13, 9}));
+    EXPECT_TRUE((tri_pos[60] == std::vector<int> {16, 14, 9}));
+    EXPECT_TRUE((tri_pos[61] == std::vector<int> {16, 15, 9}));
+    EXPECT_TRUE((tri_pos[62] == std::vector<int> {17, 10, 9}));
+    EXPECT_TRUE((tri_pos[63] == std::vector<int> {17, 11, 9}));
+    EXPECT_TRUE((tri_pos[64] == std::vector<int> {17, 12, 9}));
+    EXPECT_TRUE((tri_pos[65] == std::vector<int> {17, 13, 9}));
+    EXPECT_TRUE((tri_pos[66] == std::vector<int> {17, 14, 9}));
+    EXPECT_TRUE((tri_pos[67] == std::vector<int> {18, 10, 9}));
+    EXPECT_TRUE((tri_pos[68] == std::vector<int> {18, 11, 9}));
+    EXPECT_TRUE((tri_pos[69] == std::vector<int> {18, 12, 9}));
+    EXPECT_TRUE((tri_pos[70] == std::vector<int> {18, 13, 9}));
+    EXPECT_TRUE((tri_pos[71] == std::vector<int> {19, 10, 9}));
+    EXPECT_TRUE((tri_pos[72] == std::vector<int> {19, 11, 9}));
+    EXPECT_TRUE((tri_pos[73] == std::vector<int> {19, 12, 9}));
+    EXPECT_TRUE((tri_pos[74] == std::vector<int> {20, 10, 9}));
+    EXPECT_TRUE((tri_pos[75] == std::vector<int> {20, 11, 9}));
 
     // -- Testing that the input order does not influence the results (3) --
     tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
@@ -1314,43 +1315,43 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 37);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 11}));
-    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 10, 12}));
-    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 10, 13}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 10, 14}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 10, 15}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 10, 16}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 10, 17}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 10, 18}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 10, 19}));
-    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 10, 20}));
-    EXPECT_TRUE((tri_pos[10] == std::vector<int> {11, 10, 11}));
-    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 19}));
-    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 10, 20}));
-    EXPECT_TRUE((tri_pos[13] == std::vector<int> {12, 10, 11}));
-    EXPECT_TRUE((tri_pos[14] == std::vector<int> {12, 10, 18}));
-    EXPECT_TRUE((tri_pos[15] == std::vector<int> {12, 10, 19}));
-    EXPECT_TRUE((tri_pos[16] == std::vector<int> {13, 10, 11}));
-    EXPECT_TRUE((tri_pos[17] == std::vector<int> {13, 10, 17}));
-    EXPECT_TRUE((tri_pos[18] == std::vector<int> {13, 10, 18}));
-    EXPECT_TRUE((tri_pos[19] == std::vector<int> {14, 10, 11}));
-    EXPECT_TRUE((tri_pos[20] == std::vector<int> {14, 10, 16}));
-    EXPECT_TRUE((tri_pos[21] == std::vector<int> {14, 10, 17}));
-    EXPECT_TRUE((tri_pos[22] == std::vector<int> {15, 10, 11}));
-    EXPECT_TRUE((tri_pos[23] == std::vector<int> {15, 10, 15}));
-    EXPECT_TRUE((tri_pos[24] == std::vector<int> {15, 10, 16}));
-    EXPECT_TRUE((tri_pos[25] == std::vector<int> {16, 10, 11}));
-    EXPECT_TRUE((tri_pos[26] == std::vector<int> {16, 10, 14}));
-    EXPECT_TRUE((tri_pos[27] == std::vector<int> {16, 10, 15}));
-    EXPECT_TRUE((tri_pos[28] == std::vector<int> {17, 10, 11}));
-    EXPECT_TRUE((tri_pos[29] == std::vector<int> {17, 10, 13}));
-    EXPECT_TRUE((tri_pos[30] == std::vector<int> {17, 10, 14}));
-    EXPECT_TRUE((tri_pos[31] == std::vector<int> {18, 10, 11}));
-    EXPECT_TRUE((tri_pos[32] == std::vector<int> {18, 10, 12}));
-    EXPECT_TRUE((tri_pos[33] == std::vector<int> {18, 10, 13}));
-    EXPECT_TRUE((tri_pos[34] == std::vector<int> {19, 10, 11}));
-    EXPECT_TRUE((tri_pos[35] == std::vector<int> {19, 10, 12}));
-    EXPECT_TRUE((tri_pos[36] == std::vector<int> {20, 10, 11}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {10, 10, 10}));
+    EXPECT_TRUE((tri_pos[1] == std::vector<int> {10, 10, 11}));
+    EXPECT_TRUE((tri_pos[2] == std::vector<int> {10, 10, 12}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {10, 10, 13}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {10, 10, 14}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {10, 10, 15}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {10, 10, 16}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {10, 10, 17}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {10, 10, 18}));
+    EXPECT_TRUE((tri_pos[9] == std::vector<int> {10, 10, 19}));
+    EXPECT_TRUE((tri_pos[10] == std::vector<int> {11, 10, 10}));
+    EXPECT_TRUE((tri_pos[11] == std::vector<int> {11, 10, 18}));
+    EXPECT_TRUE((tri_pos[12] == std::vector<int> {11, 10, 19}));
+    EXPECT_TRUE((tri_pos[13] == std::vector<int> {12, 10, 10}));
+    EXPECT_TRUE((tri_pos[14] == std::vector<int> {12, 10, 17}));
+    EXPECT_TRUE((tri_pos[15] == std::vector<int> {12, 10, 18}));
+    EXPECT_TRUE((tri_pos[16] == std::vector<int> {13, 10, 10}));
+    EXPECT_TRUE((tri_pos[17] == std::vector<int> {13, 10, 16}));
+    EXPECT_TRUE((tri_pos[18] == std::vector<int> {13, 10, 17}));
+    EXPECT_TRUE((tri_pos[19] == std::vector<int> {14, 10, 10}));
+    EXPECT_TRUE((tri_pos[20] == std::vector<int> {14, 10, 15}));
+    EXPECT_TRUE((tri_pos[21] == std::vector<int> {14, 10, 16}));
+    EXPECT_TRUE((tri_pos[22] == std::vector<int> {15, 10, 10}));
+    EXPECT_TRUE((tri_pos[23] == std::vector<int> {15, 10, 14}));
+    EXPECT_TRUE((tri_pos[24] == std::vector<int> {15, 10, 15}));
+    EXPECT_TRUE((tri_pos[25] == std::vector<int> {16, 10, 10}));
+    EXPECT_TRUE((tri_pos[26] == std::vector<int> {16, 10, 13}));
+    EXPECT_TRUE((tri_pos[27] == std::vector<int> {16, 10, 14}));
+    EXPECT_TRUE((tri_pos[28] == std::vector<int> {17, 10, 10}));
+    EXPECT_TRUE((tri_pos[29] == std::vector<int> {17, 10, 12}));
+    EXPECT_TRUE((tri_pos[30] == std::vector<int> {17, 10, 13}));
+    EXPECT_TRUE((tri_pos[31] == std::vector<int> {18, 10, 10}));
+    EXPECT_TRUE((tri_pos[32] == std::vector<int> {18, 10, 11}));
+    EXPECT_TRUE((tri_pos[33] == std::vector<int> {18, 10, 12}));
+    EXPECT_TRUE((tri_pos[34] == std::vector<int> {19, 10, 10}));
+    EXPECT_TRUE((tri_pos[35] == std::vector<int> {19, 10, 11}));
+    EXPECT_TRUE((tri_pos[36] == std::vector<int> {20, 10, 10}));
 
     // -- Testing that the input order does not influence the results --
     tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
@@ -1389,16 +1390,16 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 10);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {15, 10, 16}));
-    EXPECT_TRUE((tri_pos[1] == std::vector<int> {15, 11, 16}));
-    EXPECT_TRUE((tri_pos[2] == std::vector<int> {15, 12, 16}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {15, 13, 16}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {16, 10, 16}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {16, 11, 16}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {16, 12, 16}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {16, 13, 16}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {16, 14, 16}));
-    EXPECT_TRUE((tri_pos[9] == std::vector<int> {16, 15, 16}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {15, 10, 15}));
+    EXPECT_TRUE((tri_pos[1] == std::vector<int> {15, 11, 15}));
+    EXPECT_TRUE((tri_pos[2] == std::vector<int> {15, 12, 15}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {15, 13, 15}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {16, 10, 15}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {16, 11, 15}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {16, 12, 15}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {16, 13, 15}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {16, 14, 15}));
+    EXPECT_TRUE((tri_pos[9] == std::vector<int> {16, 15, 15}));
 
     // -- Testing that the input order does not influence the results --
     tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
@@ -1437,15 +1438,15 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 9);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {13, 16, 10}));
-    EXPECT_TRUE((tri_pos[1] == std::vector<int> {14, 16, 10}));
-    EXPECT_TRUE((tri_pos[2] == std::vector<int> {14, 17, 10}));
-    EXPECT_TRUE((tri_pos[3] == std::vector<int> {15, 17, 10}));
-    EXPECT_TRUE((tri_pos[4] == std::vector<int> {15, 18, 10}));
-    EXPECT_TRUE((tri_pos[5] == std::vector<int> {16, 18, 10}));
-    EXPECT_TRUE((tri_pos[6] == std::vector<int> {16, 19, 10}));
-    EXPECT_TRUE((tri_pos[7] == std::vector<int> {17, 19, 10}));
-    EXPECT_TRUE((tri_pos[8] == std::vector<int> {17, 20, 10}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {13, 16, 9}));
+    EXPECT_TRUE((tri_pos[1] == std::vector<int> {14, 16, 9}));
+    EXPECT_TRUE((tri_pos[2] == std::vector<int> {14, 17, 9}));
+    EXPECT_TRUE((tri_pos[3] == std::vector<int> {15, 17, 9}));
+    EXPECT_TRUE((tri_pos[4] == std::vector<int> {15, 18, 9}));
+    EXPECT_TRUE((tri_pos[5] == std::vector<int> {16, 18, 9}));
+    EXPECT_TRUE((tri_pos[6] == std::vector<int> {16, 19, 9}));
+    EXPECT_TRUE((tri_pos[7] == std::vector<int> {17, 19, 9}));
+    EXPECT_TRUE((tri_pos[8] == std::vector<int> {17, 20, 9}));
 
     // -- Testing for the edge case where the triangle is a point --
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
@@ -1457,7 +1458,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Checking the number of cells
     EXPECT_EQ(tri_pos.size(), 1);
     // Checking cells
-    EXPECT_TRUE((tri_pos[0] == std::vector<int> {15, 15, 15}));
+    EXPECT_TRUE((tri_pos[0] == std::vector<int> {15, 15, 14}));
 }
 
 TEST(UnitTestBucketPos, IncludeNewBodyPos) {
@@ -1564,10 +1565,12 @@ TEST(UnitTestBucketPos, IncludeNewBodyPos) {
     EXPECT_NEAR(sim_out->body_[2][5][5], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[3][5][5], 0.0, 1.e-5);
 
-    // -- Testing that incorrect request throws an error --
-    EXPECT_THROW(
-        soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 3.0, 3.1, 1e-5),
-        std::runtime_error);
+    // -- Testing to add a third bucket layers --
+    soil_simulator::IncludeNewBodyPos(sim_out, 6, 9, 3.0, 3.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][6][9], 0.7, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][6][9], 3.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][6][9], -0.4, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][6][9], 0.6, 1.e-5);
 
     delete sim_out;
 }
@@ -1579,15 +1582,15 @@ TEST(UnitTestBucketPos, UpdateBody) {
 
     // -- Testing for a first bucket wall --
     std::vector<std::vector<int>> area_pos(9);
-    area_pos[0] = std::vector<int> {5, 5, 10};
-    area_pos[1] = std::vector<int> {5, 5, 14};
-    area_pos[2] = std::vector<int> {6, 6, 16};
-    area_pos[3] = std::vector<int> {7, 11, 10};
-    area_pos[4] = std::vector<int> {7, 11, 11};
-    area_pos[5] = std::vector<int> {7, 12, 11};
-    area_pos[6] = std::vector<int> {7, 12, 12};
-    area_pos[7] = std::vector<int> {7, 13, 10};
-    area_pos[8] = std::vector<int> {10, 10, 10};
+    area_pos[0] = std::vector<int> {5, 5, 9};
+    area_pos[1] = std::vector<int> {5, 5, 13};
+    area_pos[2] = std::vector<int> {6, 6, 15};
+    area_pos[3] = std::vector<int> {7, 11, 9};
+    area_pos[4] = std::vector<int> {7, 11, 10};
+    area_pos[5] = std::vector<int> {7, 12, 10};
+    area_pos[6] = std::vector<int> {7, 12, 11};
+    area_pos[7] = std::vector<int> {7, 13, 9};
+    area_pos[8] = std::vector<int> {10, 10, 9};
     soil_simulator::UpdateBody(area_pos, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][5][5], -0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][5][5], 0.4, 1.e-5);
@@ -1604,16 +1607,16 @@ TEST(UnitTestBucketPos, UpdateBody) {
 
     // -- Testing for a second bucket wall --
     std::vector<std::vector<int>> area_pos_2(10);
-    area_pos_2[0] = std::vector<int> {4, 4, 10};
-    area_pos_2[1] = std::vector<int> {5, 5, 14};
-    area_pos_2[2] = std::vector<int> {6, 6, 9};
-    area_pos_2[3] = std::vector<int> {7, 11, 11};
-    area_pos_2[4] = std::vector<int> {7, 11, 14};
-    area_pos_2[5] = std::vector<int> {7, 12, 8};
-    area_pos_2[6] = std::vector<int> {7, 12, 11};
-    area_pos_2[7] = std::vector<int> {7, 13, 8};
-    area_pos_2[8] = std::vector<int> {7, 13, 13};
-    area_pos_2[9] = std::vector<int> {10, 10, 12};
+    area_pos_2[0] = std::vector<int> {4, 4, 9};
+    area_pos_2[1] = std::vector<int> {5, 5, 13};
+    area_pos_2[2] = std::vector<int> {6, 6, 8};
+    area_pos_2[3] = std::vector<int> {7, 11, 10};
+    area_pos_2[4] = std::vector<int> {7, 11, 13};
+    area_pos_2[5] = std::vector<int> {7, 12, 7};
+    area_pos_2[6] = std::vector<int> {7, 12, 10};
+    area_pos_2[7] = std::vector<int> {7, 13, 7};
+    area_pos_2[8] = std::vector<int> {7, 13, 12};
+    area_pos_2[9] = std::vector<int> {10, 10, 11};
     soil_simulator::UpdateBody(area_pos_2, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][4][4], -0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][4][4], 0.0, 1.e-5);
@@ -1636,20 +1639,22 @@ TEST(UnitTestBucketPos, UpdateBody) {
 
     // -- Testing for a third bucket wall --
     std::vector<std::vector<int>> area_pos_3(2);
-    area_pos_3[0] = std::vector<int> {6, 6, 7};
-    area_pos_3[1] = std::vector<int> {6, 6, 18};
+    area_pos_3[0] = std::vector<int> {6, 6, 6};
+    area_pos_3[1] = std::vector<int> {6, 6, 17};
     soil_simulator::UpdateBody(area_pos_3, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][6][6], -0.4, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][6][6], 0.8, 1.e-5);
     EXPECT_NEAR(sim_out->body_[2][6][6], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[3][6][6], 0.0, 1.e-5);
 
-    // -- Testing that incorrect request throws an error --
+    // -- Testing merging of layer when three bucket layers are present --
     std::vector<std::vector<int>> area_pos_4(1);
-    area_pos_4[0] = std::vector<int> {10, 10, 14};
-    EXPECT_THROW(
-        soil_simulator::UpdateBody(area_pos_4, sim_out, grid, 1e-5),
-        std::runtime_error);
+    area_pos_4[0] = std::vector<int> {10, 10, 13};
+    soil_simulator::UpdateBody(area_pos_4, sim_out, grid, 1e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.0, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[2][10][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[3][10][10], 0.4, 1.e-5);
 
     delete sim_out;
 }
@@ -1687,14 +1692,12 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
-    // Checking that other cells have not been modified
-    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
-            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
-                if (!(((ii == 0) || (ii == 1)) &&
-                    (kk == 10) && (jj < 16) && (jj > 9)))
-                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
-            }
+    // Resetting values
+    std::vector<std::vector<int>> body_pos = {
+        {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
+        {0, 15, 10}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {});
 
     // -- Testing for a bucket in the XY plane --
     b_pos = {0.5, 0.0, -0.01};
@@ -1718,6 +1721,16 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    // Resetting values
+    body_pos = {
+        {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12},
+        {0, 11, 8}, {0, 11, 9}, {0, 11, 10}, {0, 11, 11}, {0, 11, 12},
+        {0, 12, 8}, {0, 12, 9}, {0, 12, 10}, {0, 12, 11}, {0, 12, 12},
+        {0, 13, 8}, {0, 13, 9}, {0, 13, 10}, {0, 13, 11}, {0, 13, 12},
+        {0, 14, 8}, {0, 14, 9}, {0, 14, 10}, {0, 14, 11}, {0, 14, 12},
+        {0, 15, 8}, {0, 15, 9}, {0, 15, 10}, {0, 15, 11}, {0, 15, 12}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {});
 
     // -- Testing for a bucket in a dummy position --
     b_pos = {0.0, 0.0, -0.5};
@@ -1749,13 +1762,16 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
-    for (auto ii = 0; ii < sim_out->body_.size(); ii++)
-        for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
-            for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++) {
-                if (!(((ii == 0) || (ii == 1)) &&
-                    (jj < 11) && (jj > 4) && (kk < 13) && (kk > 7)))
-                    EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
-            }
+    // Resetting values
+    body_pos = {
+        {0, 5, 8}, {0, 5, 9}, {0, 5, 10}, {0, 5, 11}, {0, 5, 12},
+        {0, 6, 8}, {0, 6, 9}, {0, 6, 10}, {0, 6, 11}, {0, 6, 12},
+        {0, 7, 8}, {0, 7, 9}, {0, 7, 10}, {0, 7, 11}, {0, 7, 12},
+        {0, 8, 8}, {0, 8, 9}, {0, 8, 10}, {0, 8, 11}, {0, 8, 12},
+        {0, 9, 8}, {0, 9, 9}, {0, 9, 10}, {0, 9, 11}, {0, 9, 12},
+        {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {});
 
     delete bucket;
     delete sim_out;
