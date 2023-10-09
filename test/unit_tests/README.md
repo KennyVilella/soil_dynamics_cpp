@@ -67,7 +67,7 @@ Unit tests for the `SimOut` class and its constructor.
 
 ## `test_utils.cpp`
 
-This file implements unit tests for the classes in the `utils.cpp` file.
+This file implements unit tests for the functions in the `utils.cpp` file.
 It should be tested before the main functionalities of the simulator since the utility functions are used throughout the simulator.
 
 ### `CalcBucketCornerPos`
@@ -190,6 +190,140 @@ At the end of each unit test, the environment is set to a proper setup and it is
 | UT-CS-12  | Testing when the `body_soil_` on the bottom layer is intersecting with the top `body_` layer. |
 
 ## `test_bucket_pos.cpp`
+
+This file implements unit tests for the functions in the `bucket_pos.cpp` file.
+
+### `CalcLinePos`
+
+Unit tests for the `CalcLinePos` function.
+Note that the `CalcLinePos` function does not account well for the case where the line follows a cell border.
+It is therefore necessary to solve this potential ambiguity before calling the function.
+As a result, a small increment (`1e-5`) is added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
+
+| Test name | Description of the unit test                                                          |
+| --------- | ------------------------------------------------------------------------------------- |
+| BP-CL-1   | Testing with a line following the X axis.                                             |
+| BP-CL-2   | Testing that rounding is done properly with a line following the X axis.              |
+| BP-CL-3   | Testing with a line following the Y axis.                                             |
+| BP-CL-4   | Testing with an arbitrary line in the XY plane. Results were obtained with a drawing. |
+| BP-CL-5   | Testing with an arbitrary line in the XZ plane. Results were obtained with a drawing. |
+| BP-CL-6   | Testing the edge case where the line is a point.                                      |
+
+### `DecomposeVectorRectangle`
+
+Unit tests for the `DecomposeVectorRectangle` function.
+Note that the `DecomposeVectorRectangle` function does not account for the case where the rectangle follows a cell border.
+It is therefore necessary to solve this potential ambiguity before calling the function.
+As a result, a small increment (`1e-12`) is sometimes added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
+
+| Test name | Description of the unit test                                                        |
+| --------- | ----------------------------------------------------------------------------------- |
+| BP-DVR-1  | Testing with a simple rectangle in the XY plane.                                    |
+| BP-DVR-2  | Testing hat rounding is done properly with a simple rectangle in the XY plane.      |
+| BP-DVR-3  | Testing with a simple rectangle in the XY plane on a cell border.                   |
+| BP-DVR-4  | Testing with an arbitrary rectangle. Results were obtained with a drawing.          |
+| BP-DVR-5  | Testing the edge case where the rectangle is a line. No decomposition can be made.  |
+| BP-DVR-5  | Testing the edge case where the rectangle is a point. No decomposition can be made. |
+
+### `DecomposeVectorTriangle`
+
+Unit tests for the `DecomposeVectorTriangle` function.
+Note that the `DecomposeVectorTriangle` function does not account for the case where the triangle follows a cell border. 
+It is therefore necessary to solve this potential ambiguity before calling the function.
+
+| Test name | Description of the unit test                                                       |
+| --------- | ---------------------------------------------------------------------------------- |
+| BP-DVT-1  | Testing with a simple triangle in the XY plane.                                    |
+| BP-DVT-2  | Testing hat rounding is done properly with a simple triangle in the XY plane.      |
+| BP-DVT-3  | Testing with an arbitrary triangle. Results were obtained with a drawing.          |
+| BP-DVT-4  | Testing the edge case where the triangle is a line. No decomposition can be made.  |
+| BP-DVT-5  | Testing the edge case where the triangle is a point. No decomposition can be made. |
+
+### `CalcRectanglePos`
+
+Unit tests for the `CalcRectanglePos` function.
+Note that the `CalcRectanglePos` function does not account for the case where the rectangle follows a cell border.
+It is therefore necessary to solve this potential ambiguity before calling the function.
+As a result, a small increment (`1e-5`) is added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
+
+For each case (except edge cases), some tests are present to check that the results do not depend on the order where the rectangle vertices are given to the function.
+For the first case (unit test 1 to 4), the full results are checked for three different orders and only the size of the outputs are checked for the five remaining possible orders.
+For other cases, only the size of the output is checked for the seven remaining possible orders.
+
+| Test name | Description of the unit test                                                    |
+| --------- | ------------------------------------------------------------------------------- |
+| BP-CR-1   | Testing with a simple rectangle in the XY plane.                                |
+| BP-CR-2   | Testing with a simple rectangle in the XY plane in a different input order.     |
+| BP-CR-3   | Testing with a simple rectangle in the XY plane in a different input order.     |
+| BP-CR-4   | Testing with a simple rectangle in the XY plane for the remaining input orders. |
+| BP-CR-5   | Testing with a simple rectangle in the XY plane on a cell border.               |
+| BP-CR-6   | Testing with a simple rectangle in the XZ plane.                                |
+| BP-CR-7   | Testing with an arbitrary rectangle. Results were obtained with a drawing.     |
+| BP-CR-8   | Testing the edge case where the rectangle is a line.                            |
+| BP-CR-9   | Testing the edge case where the rectangle is a point.                           |
+| BP-CR-10  | Testing the edge case where the rectangle is a point on the edge of a cell.     |
+
+### `CalcTrianglePos`
+
+Unit tests for the `CalcTrianglePos` function.
+Note that the `CalcTrianglePos` function does not account for the case where the triangle follows a cell border.
+It is therefore necessary to solve this potential ambiguity before calling the function.
+As a result, a small increment (`1e-5`) is added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
+
+For each case (except edge cases), some tests are present to check that the results do not depend on the order where the triangle vertices are given to the function.
+For the first case (unit test 1 to 4), the full results are checked for three different orders and only the size of the outputs are checked for the three remaining possible orders.
+For other cases, only the size of the output is checked for the five remaining possible orders.
+
+| Test name | Description of the unit test                                                   |
+| --------- | ------------------------------------------------------------------------------ |
+| BP-CT-1   | Testing with a simple triangle in the XY plane.                                |
+| BP-CT-2   | Testing with a simple triangle in the XY plane in a different input order.     |
+| BP-CT-3   | Testing with a simple triangle in the XY plane in a different input order.     |
+| BP-CT-4   | Testing with a simple triangle in the XY plane for the remaining input orders. |
+| BP-CT-5   | Testing with a simple triangle in the XZ plane.                                |
+| BP-CT-6   | Testing with an arbitrary triangle. Results were obtained with a drawing.      |
+| BP-CT-7   | Testing the edge case where the triangle is a line.                            |
+| BP-CT-8   | Testing the edge case where the triangle is a point.                           |
+
+### `IncludeNewBodyPos`
+
+Unit tests for the `IncludeNewBodyPos` function.
+
+| Test name | Description of the unit test                                                                       |
+| --------- | -------------------------------------------------------------------------------------------------- |
+| BP-INB-1  | Testing to add a new body position where there is no existing position.                            |
+| BP-INB-2  | Testing to add a new body position distinct from the existing position on the first bucket layer.  |
+| BP-INB-3  | Testing to add a new body position distinct from the existing position on the second bucket layer. |
+| BP-INB-4  | Testing to add a new body position overlapping with the top of an existing position on the second bucket layer. |
+| BP-INB-5  | Testing to add a new body position overlapping with the bottom of an existing position on the second bucket layer. |
+| BP-INB-6  | Testing to add a new body position overlapping with the top of an existing position on the first bucket layer. |
+| BP-INB-7  | Testing to add a new body position overlapping with the bottom of an existing position on the first bucket layer. |
+| BP-INB-8  | Testing to add a new body position fully overlapping with an existing position on the second bucket layer. |
+| BP-INB-9  | Testing to add a new body position overlapping with the two existing positions.            |
+| BP-INB-10 | Testing to add a new body position within an existing position on the first bucket layer.  |
+| BP-INB-11 | Testing to add a new body position within an existing position on the second bucket layer. |
+| BP-INB-12 | Testing to add a new body position distinct from the two existing positions.               |
+
+### `UpdateBody`
+
+Unit tests for the `UpdateBody` function.
+
+| Test name | Description of the unit test                                          |
+| --------- | --------------------------------------------------------------------- |
+| BP-UB-1   | Testing to add an arbitrary body wall. The case where a new body position is added is tested. |
+| BP-UB-2   | Testing to add a second arbitrary body wall. Multiple cases are tested including the addition of a second body position, the addition of a body position overlapping with the top or bottom of an existing position. |
+| BP-UB-3   | Testing to add a third arbitrary body wall. The case where two body positions are merged into one is tested. |
+| BP-UB-4   | Testing to add a fourth arbitrary body wall. The case where a new body position is added distinct from the two existing positions is tested. |
+
+### `CalcBucketPos`
+
+Unit tests for the `CalcBucketPos` function.
+
+| Test name | Description of the unit test                                           |
+| --------- | ---------------------------------------------------------------------- |
+| BP-CB-1   | Testing for a simple flat bucket in the XZ plane.                      |
+| BP-CB-2   | Testing for a simple flat bucket in the XY plane.                      |
+| BP-CB-3   | Testing for an arbitrary bucket. Results were obtained with a drawing. |
 
 ## `test_body_soil.cpp`
 
