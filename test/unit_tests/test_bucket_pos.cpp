@@ -1502,7 +1502,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     soil_simulator::SimParam sim_param(0.785, 4, 4);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
 
-    // -- Testing for a bucket in the XZ plane --
+    // Test: BP-CB-1
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
     std::vector<float> j_pos = {0.0, 0.0, 0.0};
     std::vector<float> b_pos = {0.5, 0.01, 0.0};
@@ -1536,7 +1536,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, {});
 
-    // -- Testing for a bucket in the XY plane --
+    // Test: BP-CB-2
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
@@ -1569,7 +1569,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, {});
 
-    // -- Testing for a bucket in a dummy position --
+    // Test: BP-CB-3
     b_pos = {0.0, 0.0, -0.5};
     t_pos = {0.5, 0.0, -0.5};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
