@@ -17,7 +17,6 @@ It should be tested first as mostly all functions in the simulator rely on these
 
 Unit tests for the `Grid` class and its constructor.
 
-| ------- | ----------------------------------------------------------------- |
 | ID      | Description of the unit test                                      |
 | ------- | ----------------------------------------------------------------- |
 | TY-G-1  | Testing that all members of the `Grid` class are present and      |
@@ -40,7 +39,6 @@ Unit tests for the `Grid` class and its constructor.
 | TY-G-9  | Testing that an exception is raised when `grid_size_y < size_xy`. |
 | ------- | ----------------------------------------------------------------- |
 | TY-G-10 | Testing that an exception is raised when `grid_size_z < size_z`.  |
-| ------- | ----------------------------------------------------------------- |
 
 ### `Bucket`
 
