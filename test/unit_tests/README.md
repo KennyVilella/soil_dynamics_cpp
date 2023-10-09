@@ -6,7 +6,7 @@ The description for all unit tests are given below separated by files and functi
 The order in which the unit tests appear in this file is consistent with the order in which they are run, and this order is selected such as the fucntionalities of the simulator are tested step by step.
 This helps to identify more precisely the location of potential bugs.
 
-Note that an ID is associated with each unit test in order to make their identification easier.
+Note that a custom name is associated with each unit test in order to make their identification easier.
 
 ## `test_types.cpp`
 
@@ -85,7 +85,7 @@ Unit tests for the `CalcBucketCornerPos` function.
 
 Unit tests for the `CheckBucketMovement` function.
 
-| Test ID  | Description of the unit test                                                    |
+| Test name | Description of the unit test                                                    |
 | -------- | ------------------------------------------------------------------------------- |
 | UT-CBM-1 | Testing for a one cell translation following the X axis.                        |
 | UT-CBM-2 | Testing for an arbitrary translation.                                           |
