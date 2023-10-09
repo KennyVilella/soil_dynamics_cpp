@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Types &mdash; soil_simulator  documentation</title>
+  <title>Documentation for the implemented types &mdash; soil_simulator  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -49,7 +49,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introductory-remarks">Introductory remarks</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bucket.html">Bucket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
@@ -73,7 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Types</li>
+      <li class="breadcrumb-item active">Documentation for the implemented types</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/types.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -83,8 +86,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="types">
-<span id="id1"></span><h1>Types<a class="headerlink" href="#types" title="Permalink to this heading"></a></h1>
+  <section id="documentation-for-the-implemented-types">
+<span id="types"></span><h1>Documentation for the implemented types<a class="headerlink" href="#documentation-for-the-implemented-types" title="Permalink to this heading"></a></h1>
+<section id="introductory-remarks">
+<h2>Introductory remarks<a class="headerlink" href="#introductory-remarks" title="Permalink to this heading"></a></h2>
+<p>The simulator relies on class and struct to organize and manage the various parameters and properties.
+These new types are implemented in the <code class="code docutils literal notranslate"><span class="pre">types.cpp</span></code> file and are designed to provide a clear and efficient way of passing input arguments to the simulator’s public functions.</p>
+<p>To ensure the integrity and validity of the input parameters, the classes are constructed using constructors that perform appropriate checks.
+This guarantees that the simulator operates under the assumption of correct and consistent input data.
+If incorrect parameters are provided, the user will be alerted through appropriate warnings or error messages.</p>
+<p>The current implementation includes four distinct classes:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">Grid</span></code>: Aggregates all the properties related to the simulation grid.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Bucket</span></code>: Aggregates all the properties associated with the bucket.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">SimParam</span></code>: Aggregates the general parameters and settings for the simulation.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">SimOut</span></code>: Aggregates and manages the output data generated during the simulation.</p></li>
+</ul>
+<p>These classes play a crucial role in organizing and encapsulating the various aspects of the simulator, providing a convenient and structured way to work with the simulation inputs and outputs.</p>
+<p>In addition to these classes, the <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> struct is used to store information related to the soil resting on the bucket.
+This is used to populate the field <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> of the <code class="code docutils literal notranslate"><span class="pre">SimOut</span></code> class.</p>
+</section>
 </section>
 
 
