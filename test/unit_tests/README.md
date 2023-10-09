@@ -85,7 +85,7 @@ Unit tests for the `CalcBucketCornerPos` function.
 
 Unit tests for the `CheckBucketMovement` function.
 
-| ID       | Description of the unit test                                                    |
+| Test ID  | Description of the unit test                                                    |
 | -------- | ------------------------------------------------------------------------------- |
 | UT-CBM-1 | Testing for a one cell translation following the X axis.                        |
 | UT-CBM-2 | Testing for an arbitrary translation.                                           |
@@ -176,7 +176,7 @@ At the end of each unit test, the environment is set to a proper setup and it is
 
 | ID       | Description of the unit test                                          |
 | -------- | --------------------------------------------------------------------- |
-| UT-CS-1  | Testing when everything is at sero.                                   |
+| UT-CS-1  | Testing when everything is at zero.                                   |
 | UT-CS-2  | Testing for an arbitrary `terrain_` setup.                            |
 | UT-CS-3  | Testing for an arbitrary `terrain_` and `body_` setup.                |
 | UT-CS-4  | Testing for an arbitrary `terrain_`, `body_`, and `body_soil_` setup. |
