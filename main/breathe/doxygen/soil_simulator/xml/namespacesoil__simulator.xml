@@ -2127,7 +2127,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
 <simplesect kind="return"><para>A boolean indicating whether the soil should be updated.</para>
 </simplesect>
 This function calculates the maximum distance traveled by any part of the bucket since the last soil update. The position of the bucket during the last soil update is stored in the <computeroutput>bucket</computeroutput> class.</para>
-<para>If the maximum distance traveled is lower than 10% of the cell size, the function returns <computeroutput>false</computeroutput> otherwise it returns <computeroutput>true</computeroutput>. Note that if the distance traveled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </para>
+<para>If the maximum distance traveled is lower than 50% of the cell size, the function returns <computeroutput>false</computeroutput> otherwise it returns <computeroutput>true</computeroutput>. Note that if the distance traveled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>

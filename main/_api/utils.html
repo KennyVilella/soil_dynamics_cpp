@@ -124,7 +124,7 @@
 <dd><p>This function calculates how far the bucket has traveled since the last soil update and checks whether it is necessary to update the soil. </p>
 <p>
 This function calculates the maximum distance traveled by any part of the bucket since the last soil update. The position of the bucket during the last soil update is stored in the <code class="docutils literal notranslate"><span class="pre">bucket</span></code> class.</p>
-<p>If the maximum distance traveled is lower than 10% of the cell size, the function returns <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise it returns <code class="docutils literal notranslate"><span class="pre">true</span></code>. Note that if the distance traveled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </p>
+<p>If the maximum distance traveled is lower than 50% of the cell size, the function returns <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise it returns <code class="docutils literal notranslate"><span class="pre">true</span></code>. Note that if the distance traveled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
