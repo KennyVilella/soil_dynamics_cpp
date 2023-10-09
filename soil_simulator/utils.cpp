@@ -61,7 +61,7 @@ soil_simulator::CalcBucketCornerPos(
 /// bucket since the last soil update. The position of the bucket during the
 /// last soil update is stored in the `bucket` class.
 ///
-/// If the maximum distance traveled is lower than 10% of the cell size,
+/// If the maximum distance traveled is lower than 50% of the cell size,
 /// the function returns `false` otherwise it returns `true`.
 /// Note that if the distance traveled exceeds twice the cell size, a warning is
 /// issued to indicate a potential problem with the soil update.
