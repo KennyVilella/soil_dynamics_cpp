@@ -17,58 +17,34 @@ It should be tested first as mostly all functions in the simulator rely on these
 
 Unit tests for the `Grid` class and its constructor.
 
-| ID      | Description of the unit test                                      |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-1  | Testing that all members of the `Grid` class are present and      |
-|         | properly initialized.                                             |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-2  | Testing that an exception is raised when `size_z <= 0.0`.         |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-3  | Testing that an exception is raised when `size_xy <= 0.0`.        |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-4  | Testing that an exception is raised when `grid_size_x <= 0.0`.    |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-5  | Testing that an exception is raised when `grid_size_y <= 0.0`.    |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-6  | Testing that an exception is raised when `grid_size_z <= 0.0`.    |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-7  | Testing that an exception is raised when `size_z > size_xy`.      |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-8  | Testing that an exception is raised when `grid_size_x < size_xy`. |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-9  | Testing that an exception is raised when `grid_size_y < size_xy`. |
-| ------- | ----------------------------------------------------------------- |
-| TY-G-10 | Testing that an exception is raised when `grid_size_z < size_z`.  |
+| ID      | Description of the unit test                                                       |
+| ------- | ---------------------------------------------------------------------------------- |
+| TY-G-1  | Testing that all members of the `Grid` class are present and properly initialized. |
+| TY-G-2  | Testing that an exception is raised when `size_z <= 0.0`.                          |
+| TY-G-3  | Testing that an exception is raised when `size_xy <= 0.0`.                         |
+| TY-G-4  | Testing that an exception is raised when `grid_size_x <= 0.0`.                     |
+| TY-G-5  | Testing that an exception is raised when `grid_size_y <= 0.0`.                     |
+| TY-G-6  | Testing that an exception is raised when `grid_size_z <= 0.0`.                     |
+| TY-G-7  | Testing that an exception is raised when `size_z > size_xy`.                       |
+| TY-G-8  | Testing that an exception is raised when `grid_size_x < size_xy`.                  |
+| TY-G-9  | Testing that an exception is raised when `grid_size_y < size_xy`.                  |
+| TY-G-10 | Testing that an exception is raised when `grid_size_z < size_z`.                   |
 
 ### `Bucket`
 
 Unit tests for the `Bucket` class and its constructor.
 
-| ------ | ------------------------------------------------------------------ |
-| ID     | Description of the unit test                                       |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-1 | Testing that all members of the `Bucket` class are present and     |
-|        | properly initialized.                                              |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-2 | Testing that an exception is raised when size of `o_pos` is not 3. |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-3 | Testing that an exception is raised when size of `j_pos` is not 3. |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-4 | Testing that an exception is raised when size of `b_pos` is not 3. |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-5 | Testing that an exception is raised when size of `t_pos` is not 3. |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-6 | Testing that an exception is raised when `j_pos` and `b_pos` are   |
-|        | the same.                                                          |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-7 | Testing that an exception is raised when `j_pos` and `t_pos` are   |
-|        | the same.                                                          |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-8 | Testing that an exception is raised when `b_pos` and `t_pos` are   |
-|        | the same.                                                          |
-| ------ | ------------------------------------------------------------------ |
-| TY-B-9 | Testing that an exception is raised when `bucket_width <= 0.0`.    |
-| ------ | ------------------------------------------------------------------ |
+| ID     | Description of the unit test                                                         |
+| ------ | ------------------------------------------------------------------------------------ |
+| TY-B-1 | Testing that all members of the `Bucket` class are present and properly initialized. |
+| TY-B-2 | Testing that an exception is raised when size of `o_pos` is not 3.                   |
+| TY-B-3 | Testing that an exception is raised when size of `j_pos` is not 3.                   |
+| TY-B-4 | Testing that an exception is raised when size of `b_pos` is not 3.                   |
+| TY-B-5 | Testing that an exception is raised when size of `t_pos` is not 3.                   |
+| TY-B-6 | Testing that an exception is raised when `j_pos` and `b_pos` are the same.           |
+| TY-B-7 | Testing that an exception is raised when `j_pos` and `t_pos` are the same.           |
+| TY-B-8 | Testing that an exception is raised when `b_pos` and `t_pos` are the same.           |
+| TY-B-9 | Testing that an exception is raised when `bucket_width <= 0.0`.                      |
 
 ### `SimParam`
 
