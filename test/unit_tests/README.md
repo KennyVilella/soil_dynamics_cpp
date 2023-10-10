@@ -419,6 +419,7 @@ As a result, the same unit test can appear in several rows.
   </tr>
   <tr>
     <td>Test name</td><td>Bottom layer</td><td>Soil</td><td>Top layer</td><td>Soil</td><td>Bottom layer</td><td>Soil</td><td>Top layer</td><td>Soil</td><td>Avalanche</td><td>Enough space</td><td>Blocked</td>
+    <td>IC-MIBS-1</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td> &check;</td>
   </tr>
 </table>
 
