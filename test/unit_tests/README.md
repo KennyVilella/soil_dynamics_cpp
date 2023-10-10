@@ -408,10 +408,10 @@ As for the `MoveBodySoil` function, a simple table is used to describe the confi
 However, for the `MoveIntersectingBodySoil` function, several movements can be investigated within a single unit test.
 As a result, the same unit test can appear in several rows.
 
-|           | Previous location | | | | New location | | | | | | |
-| --------- | --------------- | ------- | ------------ | ------- | --------------- | ------- | ------------ | ------- | ------------ | ------------ | ------- |
-| Test name | Layer at bottom | Soil    | Layer at top | Soil    | Layer at bottom | Soil    | Layer at top | Soil    | Avalanche    | Enough space | Blocked |
-| IC-MIBS-1 | &cross;         | &cross; | &cross;      | &cross; | &cross;         | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
+|           | Previous | location | | | New location | | | | | | |
+| --------- | ------------ | ------- | ------------ | ------- | ------------ | ------- | ------------ | ------- | ------------ | ------------ | ------- |
+| Test name | Bottom layer | Soil    | Top layer    | Soil    | Bottom layer | Soil    | Top layer    | Soil    | Avalanche    | Enough space | Blocked |
+| IC-MIBS-1 | &cross;      | &cross; | &cross;      | &cross; | &cross;      | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
 
 
 ### `LocateIntersectingCells`
