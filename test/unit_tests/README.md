@@ -410,7 +410,7 @@ As a result, the same unit test can appear in several rows.
 
 <table>
   <tr>
-    <td> </td><td colspan="2">Body layer(s) at previous location</td><td colspan="4">Body layer(s) at new location</td><td colspan="3">Configuration</td>
+    <td> </td><td colspan="2">Previous location</td><td colspan="4">New location</td><td colspan="3">Configuration</td>
   </tr>
   <tr><td>Test name</td><td>Bottom layer</td><td>Soil</td><td>Bottom layer</td><td>Soil</td><td>Top layer</td><td>Soil</td><td>Avalanche</td><td>Enough space</td><td>Blocked</td></tr>
   <tr><td>IC-MIBS-1</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td> &check;</td></tr>
