@@ -413,14 +413,14 @@ As a result, the same unit test can appear in several rows.
 | Test name | Bottom layer | Soil    | Top layer    | Soil    | Bottom layer | Soil    | Top layer    | Soil    | Avalanche    | Enough space | Blocked |
 | IC-MIBS-1 | &cross;      | &cross; | &cross;      | &cross; | &cross;      | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
 
-<h6><table>
+<table>
   <tr>
-    <td> </td><td colspan="4">Previous location</td><td colspan="4">New location</td><td> </td><td> </td><td> </td>
+    <td> </td><td colspan="4">Body layer(s) at previous location</td><td colspan="4">Body layer(s) at new location</td><td> </td><td> </td><td> </td>
   </tr>
-  <tr><td>Test name</td><td>Bottom layer</td><td>Soil</td><td>Top layer</td><td>Soil</td><td>Bottom layer</td><td>Soil</td><td>Top layer</td><td>Soil</td><td>Avalanche</td><td>Enough space</td><td>Blocked</td></tr>
-  <tr><td>IC-MIBS-1</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td> &check;</td></tr>
+  <tr><td>Test name</td><td>Bottom</td><td>Soil</td><td>Top</td><td>Soil</td><td>Bottom</td><td>Soil</td><td>Top</td><td>Soil</td><td>Avalanche</td><td>Enough space</td><td>Wall</td></tr>
+  <tr><td>IC-MIBS-1</td><td>Second</td><td>&cross;</td><td>Second</td><td>&check;</td><td>Second</td><td>&cross;</td><td>Second</td><td>&check;</td><td>Second layer</td><td>&check;</td><td> &check;</td></tr>
 
-</table></h6>
+</table><
 
 ### `LocateIntersectingCells`
 
