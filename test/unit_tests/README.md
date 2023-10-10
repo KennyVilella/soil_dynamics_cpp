@@ -358,4 +358,27 @@ The tests are separated into two categories:
 
 ## `test_intersecting_cells.cpp`
 
+This file implements unit tests for the function in the `intersecting_cells.cpp` file.
+
+### `MoveBodySoil`
+
+Unit tests for the `MoveBodySoil` function.
+For all the unit tests, the same initial state is considered.
+This initial state corresponds to two body layers with soil, where the soil resting on the second body layer (bottom) intersects with the first (top) body layer.
+
+The tested function moves the intersecting soil to a different location.
+The purpose of these tests is to check all possible movements depending on the configuration where the soil should be moved.
+The description of the unit tests can therefore be done with a simple table describing the configuration at the new soil location.
+
+| Test name | Layer at bottom | Soil | Layer at top | Soil | Avalanche | Enough space for all soil | Blocked |
+| --------- | --------------- | ---- | ------------ | ---- | --------- | ------------------------- | ------- |
+| IC-MBS-1  | &cross;         | &cross; | &cross; | &cross; | terrain  | &check; | &cross; | 
+
+
+### `MoveIntersectingBodySoil`
+
+### `LocateIntersectingCells`
+
+### `MoveIntersectingBody`
+
 ## `test_relax.cpp`
