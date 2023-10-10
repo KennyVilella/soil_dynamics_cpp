@@ -370,10 +370,33 @@ The tested function moves the intersecting soil to a different location.
 The purpose of these tests is to check all possible movements depending on the configuration where the soil should be moved.
 The description of the unit tests can therefore be done with a simple table describing the configuration at the new soil location.
 
-| Test name | Layer at bottom | Soil | Layer at top | Soil | Avalanche | Enough space for all soil | Blocked |
-| --------- | --------------- | ---- | ------------ | ---- | --------- | ------------------------- | ------- |
-| IC-MBS-1  | &cross;         | &cross; | &cross; | &cross; | terrain  | &check; | &cross; | 
+| Test name | Layer at bottom | Soil    | Layer at top | Soil    | Avalanche    | Enough space | Blocked |
+| --------- | --------------- | ------- | ------------ | ------- | ------------ | ------------ | ------- |
+| IC-MBS-1  | &cross;         | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
+| IC-MBS-2  | First layer     | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
+| IC-MBS-3  | First layer     | &cross; | &cross;      | &cross; | &cross;      | &cross;      | &check; |
+| IC-MBS-4  | First layer     | &cross; | &cross;      | &cross; | First layer  | &check;      | &cross; |
+| IC-MBS-5  | First layer     | &check; | &cross;      | &cross; | First layer  | &check;      | &cross; |
+| IC-MBS-6  | Second layer    | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
+| IC-MBS-7  | Second layer    | &check; | &cross;      | &cross; | &cross;      | &cross;      | &check; |
+| IC-MBS-8  | Second layer    | &cross; | &cross;      | &cross; | Second layer | &check;      | &cross; |
+| IC-MBS-9  | Second layer    | &check; | &cross;      | &cross; | Second layer | &check;      | &cross; |
+| IC-MBS-10 | First layer     | &check; | Second layer | &cross; | &cross;      | &cross;      | &cross; |
+| IC-MBS-11 | Second layer    | &check; | First layer  | &cross; | &cross;      | &cross;      | &cross; |
+| IC-MBS-12 | First layer     | &cross; | Second layer | &cross; | First layer  | &check;      | &cross; |
+| IC-MBS-13 | Second layer    | &cross; | First layer  | &cross; | Second layer | &check;      | &cross; |
+| IC-MBS-14 | First layer     | &check; | Second layer | &cross; | First layer  | &check;      | &cross; |
+| IC-MBS-15 | Second layer    | &check; | First layer  | &cross; | Second layer | &check;      | &cross; |
+| IC-MBS-16 | First layer     | &cross; | Second layer | &cross; | First layer  | &cross;      | &cross; |
+| IC-MBS-17 | Second layer    | &cross; | First layer  | &cross; | Second layer | &cross;      | &cross; |
+| IC-MBS-18 | First layer     | &check; | Second layer | &cross; | First layer  | &cross;      | &cross; |
+| IC-MBS-19 | Second layer    | &check; | First layer  | &cross; | Second layer | &cross;      | &cross; |
 
+Below a short description for some cases:
+
+* When "Blocked" is &check;, a wall is blocking the movement.
+* When "Avalanche", "Enough space" and "Blocked" are &cross;, the soil is fully filling the space between the two body layers. Soil cannot avalanche but the investigation in this direction can pursue.
+* When "Avalanche" is &check; and "Enough space" is &cross;, the soil can partially avalanche.
 
 ### `MoveIntersectingBodySoil`
 
