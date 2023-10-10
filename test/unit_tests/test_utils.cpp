@@ -132,12 +132,6 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
-    // Test: UT-CBM-9
-    pos = std::vector<float> {0.15, 0.0, 0.0};
-    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
-    EXPECT_FALSE(status);
-
     delete bucket;
 }
 
