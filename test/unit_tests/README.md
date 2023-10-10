@@ -400,6 +400,20 @@ Below a short description for some cases:
 
 ### `MoveIntersectingBodySoil`
 
+Unit tests for the `MoveIntersectingBodySoil` function.
+
+The tested function moves all the intersecting soil following a set of rules.
+The purpose of these tests is to check all possible movements depending on the configuration of the intersecting soil and its surrounding cells.
+As for the `MoveBodySoil` function, a simple table is used to describe the configuration investigated.
+However, for the `MoveIntersectingBodySoil` function, several movements can be investigated within a single unit test.
+As a result, the same unit test can appear in several rows.
+
+| Test name | Previous location                               |||| Avalanche    | Enough space | Blocked |
+| Test name | Layer at bottom | Soil    | Layer at top | Soil    | Avalanche    | Enough space | Blocked |
+| --------- | --------------- | ------- | ------------ | ------- | ------------ | ------------ | ------- |
+| IC-MIBS-1  | &cross;         | &cross; | &cross;      | &cross; | terrain      | &check;      | &cross; |
+
+
 ### `LocateIntersectingCells`
 
 ### `MoveIntersectingBody`
