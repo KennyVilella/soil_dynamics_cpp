@@ -406,21 +406,201 @@ The tested function moves all the intersecting soil following a set of rules.
 The purpose of these tests is to check all possible movements depending on the configuration of the intersecting soil and its surrounding cells.
 As for the `MoveBodySoil` function, a simple table is used to describe the configuration investigated.
 However, for the `MoveIntersectingBodySoil` function, several movements can be investigated within a single unit test.
-As a result, the same unit test can appear in several rows.
+By convention, multiples rows are present within a unit test when several movements in the same direction are made, while when a new direction is investigated, thetest name of the unit test is repeated in the first column.
 
-
+By construction, in the previous location, there are necessarily two body layers and soil must be present on the bottom layer, while the presence of soil on the top layer has no impact on the algorithm.
+As a result, for the previous location, only the identity of the bottom layer is provided.
 
 <table>
   <tr>
     <td> </td><td>Previous location</td><td colspan="4">New location</td><td colspan="3">Configuration</td>
   </tr>
   <tr><td>Test name</td><td>Bottom layer</td><td>Bottom layer</td><td>Soil</td><td>Top layer</td><td>Soil</td><td>Avalanche</td><td>Enough space</td><td>Blocked</td></tr>
-  <tr><td>IC-MIBS-1</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td> &check;</td></tr>
-
+  <tr><td>IC-MIBS-1</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-2</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-3</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-4</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-5</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-6</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-7</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-8</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-9</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-10</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-11</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-12</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-13</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-14</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-15</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-16</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-17</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-18</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-19</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-20</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-21</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-22</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-23</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-24</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-25</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-26</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-27</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-28</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-29</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-30</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-31</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-32</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-33</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-34</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-35</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-36</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-37</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-38</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-39</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-40</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-41</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-42</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-43</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-44</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-45</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-46</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-47</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-48</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-49</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-49</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-49</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-49</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-49</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-50</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-51</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-52</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-52</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-52</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-52</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>IC-MIBS-52</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-53</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-54</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-55</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-56</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-57</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-58</td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>First layer</td><td>First layer</td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-59</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>          </td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
 </table>
+
+In addition to these basic unit tests, a few extra edge cases are checked.
+
+| Test name  | Description of the unit test                                                                     |
+| ---------- | ------------------------------------------------------------------------------------------------ |
+| IC-MIBS-60 | Testing when a lot of soil is present in the first bucket layer but soil is still avalanching.   |
+| IC-MIBS-61 | Testing when a lot of soil is present in the second bucket layer but soil is still avalanching.  |
+| IC-MIBS-62 | Testing when the bucket is totally underground but the soil is still avalanching on the terrain. |
+| IC-MIBS-63 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
+| IC-MIBS-64 | Testing when there is no intersecting cell                                                       |
+| IC-MIBS-65 | Testing the randomness of the investigated direction for the soil movement.                      |
 
 ### `LocateIntersectingCells`
 
+Unit test for the `LocateIntersectingCells` function.
+
+Currently, all the tests are done simultaneously.
+In the future, the tests will be separated and described in this section.
+
 ### `MoveIntersectingBody`
+
+Unit tests for the `MoveIntersectingBody` function.
+
+| Test name | Description of the unit test                                                             |
+| --------- | ---------------------------------------------------------------------------------------- |
+| IC-MIB-1  | Testing for a single intersecting cell in the -X direction.                              |
+| IC-MIB-2  | Testing for a single intersecting cell in the +X direction.                              |
+| IC-MIB-3  | Testing for a single intersecting cell in the -Y direction.                              |
+| IC-MIB-4  | Testing for a single intersecting cell in the +Y direction.                              |
+| IC-MIB-5  | Testing for a single intersecting cell in the -X-Y direction.                            |
+| IC-MIB-6  | Testing for a single intersecting cell in the +X-Y direction.                            |
+| IC-MIB-7  | Testing for a single intersecting cell in the -X+Y direction.                            |
+| IC-MIB-8  | Testing for a single intersecting cell in the +X+Y direction.                            |
+| IC-MIB-9  | Testing for a single intersecting cell with the second bucket layer.                     |
+| IC-MIB-10 | Testing for a single intersecting cells with various bucket layers.                      |
+| IC-MIB-11 | Testing for a single intersecting cell with all the bucket under the terrain.            |
+| IC-MIB-12 | Testing for a single intersecting cell under a large bucket.                             |
+| IC-MIB-13 | Testing when soil is moved in several steps. All the soil is fitting under the bucket.   |
+| IC-MIB-14 | Testing when soil is moved in several steps. Some soil going outside the bucket.         |
+| IC-MIB-15 | Testing when soil is moved in several steps. Soil is perfectly fitting under the bucket. |
+| IC-MIB-16 | Testing when there is no intersecting cell.                                              |
+| IC-MIB-17 | Testing the randomness of the investigated direction for the soil movement.              |
 
 ## `test_relax.cpp`

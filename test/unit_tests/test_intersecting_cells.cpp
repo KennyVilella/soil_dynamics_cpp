@@ -40,7 +40,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
             {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.9});
     };
 
-    // -- Testing when soil is avalanching on the terrain --
+    // Test: IC-MBS-1
     SetInitState();
     auto [ind, ii, jj, h_soil, wall_presence] = soil_simulator::MoveBodySoil(
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
@@ -53,7 +53,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {{5, 7}}, {{0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching below the first bucket layer --
+    // Test: IC-MBS-2
     SetInitState();
     sim_out->body_[0][5][7] = 0.1;
     sim_out->body_[1][5][7] = 0.2;
@@ -68,7 +68,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {{5, 7}}, {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when the first bucket layer is blocking the movement --
+    // Test: IC-MBS-3
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.3;
@@ -82,14 +82,32 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when there is a lot of soil on first bucket layer --
-    // -- Soil is avalanching on first bucket layer                 --
+    // Test: IC-MBS-4
+    SetInitState();
+    sim_out->body_[0][5][7] = 0.0;
+    sim_out->body_[1][5][7] = 0.2;
+    auto posA = soil_simulator::CalcBucketFramePos(5, 7, 0.2, grid, bucket);
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 0, 5, 7, posA, 0.6);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
+    // Resetting values
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: IC-MBS-5
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.1;
     sim_out->body_soil_[0][5][7] = 0.1;
     sim_out->body_soil_[1][5][7] = 0.4;
-    auto posA = soil_simulator::CalcBucketFramePos(5, 7, 0.1, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 5, 7, posA[0], posA[1], posA[2], 0.3});
     std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
@@ -106,49 +124,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is fully avalanching on first bucket layer --
-    SetInitState();
-    sim_out->body_[0][5][7] = 0.0;
-    sim_out->body_[1][5][7] = 0.2;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.2, grid, bucket);
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[2], 0, 5, 7, posA, 0.6);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when soil is fully avalanching on first bucket soil layer --
-    SetInitState();
-    sim_out->body_[0][5][7] = 0.0;
-    sim_out->body_[1][5][7] = 0.1;
-    sim_out->body_soil_[0][5][7] = 0.1;
-    sim_out->body_soil_[1][5][7] = 0.2;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 5, 7, posA[0], posA[1], posA[2], 0.1});
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 0, 5, 7, posA, 0.6);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when soil is avalanching below the second bucket layer --
+    // Test: IC-MBS-6
     SetInitState();
     sim_out->body_[2][5][7] = 0.3;
     sim_out->body_[3][5][7] = 0.6;
@@ -163,7 +139,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {{5, 7}}, {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when the second bucket layer is blocking the movement --
+    // Test: IC-MBS-7
     SetInitState();
     sim_out->body_[2][5][7] = 0.0;
     sim_out->body_[3][5][7] = 0.6;
@@ -184,8 +160,26 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when there is a lot of soil on second bucket layer --
-    // -- but soil is still avalanching on it                        --
+    // Test: IC-MBS-8
+    SetInitState();
+    sim_out->body_[2][5][7] = -0.2;
+    sim_out->body_[3][5][7] = 0.0;
+    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.0, grid, bucket);
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
+        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
+    EXPECT_EQ(wall_presence, false);
+    EXPECT_NEAR(h_soil, 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[2], 2, 5, 7, posA, 0.6);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
+    // Resetting values
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
+        {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: IC-MBS-9
     SetInitState();
     sim_out->body_[2][5][7] = -0.2;
     sim_out->body_[3][5][7] = 0.0;
@@ -208,49 +202,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is fully avalanching on second bucket layer --
-    SetInitState();
-    sim_out->body_[2][5][7] = -0.2;
-    sim_out->body_[3][5][7] = 0.0;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.0, grid, bucket);
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[2], 2, 5, 7, posA, 0.6);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when soil is fully avalanching on second bucket soil layer --
-    SetInitState();
-    sim_out->body_[2][5][7] = -0.2;
-    sim_out->body_[3][5][7] = 0.0;
-    sim_out->body_soil_[2][5][7] = 0.0;
-    sim_out->body_soil_[3][5][7] = 0.2;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 5, 7, posA[0], posA[1], posA[2], 0.2});
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.8, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.6);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when two bucket layers and soil fully filling the space (1) --
+    // Test: IC-MBS-10
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.1;
@@ -276,7 +228,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil fully filling the space (2) --
+    // Test: IC-MBS-11
     SetInitState();
     sim_out->body_[0][5][7] = 0.6;
     sim_out->body_[1][5][7] = 0.7;
@@ -302,8 +254,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is fully avalanching --
-    // -- on bucket (1)                                                --
+    // Test: IC-MBS-12
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.2;
@@ -324,8 +275,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is fully avalanching --
-    // -- on bucket (2)                                                --
+    // Test: IC-MBS-13
     SetInitState();
     sim_out->body_[0][5][7] = 0.8;
     sim_out->body_[1][5][7] = 0.9;
@@ -346,8 +296,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is fully avalanching --
-    // -- on bucket soil (1)                                           --
+    // Test: IC-MBS-14
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.1;
@@ -372,8 +321,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is fully avalanching --
-    // -- on bucket soil (2)                                           --
+    // Test: IC-MBS-15
     SetInitState();
     sim_out->body_[0][5][7] = 0.8;
     sim_out->body_[1][5][7] = 0.9;
@@ -398,60 +346,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is fully avalanching --
-    // -- on bucket soil (3)                                           --
-    SetInitState();
-    sim_out->body_[0][5][7] = 0.0;
-    sim_out->body_[1][5][7] = 0.2;
-    sim_out->body_[2][5][7] = 0.9;
-    sim_out->body_[3][5][7] = 1.;
-    sim_out->body_soil_[0][5][7] = 0.2;
-    sim_out->body_soil_[1][5][7] = 0.3;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 5, 7, posA[0], posA[1], posA[2], 0.1});
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.9, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 0, 5, 7, posA, 0.6);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when two bucket layers and soil is fully avalanching --
-    // -- on bucket soil (4)                                           --
-    SetInitState();
-    sim_out->body_[0][5][7] = 0.9;
-    sim_out->body_[1][5][7] = 1.0;
-    sim_out->body_[2][5][7] = 0.0;
-    sim_out->body_[3][5][7] = 0.1;
-    sim_out->body_soil_[2][5][7] = 0.1;
-    sim_out->body_soil_[3][5][7] = 0.6;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 5, 7, posA[0], posA[1], posA[2], 0.5});
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.1, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.7, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.1);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when two bucket layers and soil is partially avalanching --
-    // -- on bucket (1)                                                    --
+    // Test: IC-MBS-16
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.1;
@@ -475,8 +370,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is partially avalanching --
-    // -- on bucket (2)                                                    --
+    // Test: IC-MBS-17
     SetInitState();
     sim_out->body_[0][5][7] = 0.3;
     sim_out->body_[1][5][7] = 0.9;
@@ -500,8 +394,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is partially avalanching --
-    // -- on bucket soil (1)                                               --
+    // Test: IC-MBS-18
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.1;
@@ -529,8 +422,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is partially avalanching --
-    // -- on bucket soil (2)                                               --
+    // Test: IC-MBS-19
     SetInitState();
     sim_out->body_[0][5][7] = 0.6;
     sim_out->body_[1][5][7] = 0.9;
@@ -558,64 +450,6 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
         {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when two bucket layers and soil is partially avalanching --
-    // -- on bucket soil (3)                                               --
-    SetInitState();
-    sim_out->body_[0][5][7] = 0.0;
-    sim_out->body_[1][5][7] = 0.2;
-    sim_out->body_[2][5][7] = 0.4;
-    sim_out->body_[3][5][7] = 0.5;
-    sim_out->body_soil_[0][5][7] = 0.2;
-    sim_out->body_soil_[1][5][7] = 0.3;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 5, 7, posA[0], posA[1], posA[2], 0.1});
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.3, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.2, 1e-5);
-    EXPECT_EQ(ind, 0);
-    EXPECT_EQ(ii, 5);
-    EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.4, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 0, 5, 7, posA, 0.1);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when two bucket layers and soil is partially avalanching --
-    // -- on bucket soil (4)                                               --
-    SetInitState();
-    sim_out->body_[0][5][7] = 0.7;
-    sim_out->body_[1][5][7] = 0.8;
-    sim_out->body_[2][5][7] = 0.0;
-    sim_out->body_[3][5][7] = 0.1;
-    sim_out->body_soil_[2][5][7] = 0.1;
-    sim_out->body_soil_[3][5][7] = 0.6;
-    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 5, 7, posA[0], posA[1], posA[2], 0.5});
-    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
-        sim_out, 2, 10, 15, 0.3, 5, 7, 0.3, false, grid, bucket, 1e-5);
-    EXPECT_EQ(wall_presence, false);
-    EXPECT_NEAR(h_soil, 0.2, 1e-5);
-    EXPECT_EQ(ind, 2);
-    EXPECT_EQ(ii, 5);
-    EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.7, 1e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.1);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
-        {{2, 5, 7}, {0, 10, 15}, {2, 10, 15}});
-
     delete bucket;
     delete sim_out;
 }
@@ -632,9 +466,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-
-    // -- Testing when soil is avalanching on the terrain (1) --
-    // -- First bucket layer at bottom                        --
+    
+    // Test: IC-MIBS-1
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -663,8 +496,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching on the terrain (2) --
-    // -- Second bucket layer at bottom                       --
+    // Test: IC-MIBS-2
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -693,37 +525,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching on the terrain (3) --
-    // -- Bucket undergroumd                                  --
-    soil_simulator::rng.seed(1234);
-    sim_out->body_[0][10][15] = -0.6;
-    sim_out->body_[1][10][15] = -0.5;
-    sim_out->body_[2][10][15] = -0.3;
-    sim_out->body_[3][10][15] = 0.0;
-    sim_out->body_soil_[0][10][15] = -0.5;
-    sim_out->body_soil_[1][10][15] = 0.0;
-    sim_out->body_soil_[2][10][15] = 0.0;
-    sim_out->body_soil_[3][10][15] = 0.1;
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when soil is avalanching below the first bucket layer (1) --
+    // Test: IC-MIBS-3
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -754,38 +556,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching below the first bucket layer (2) --
-    soil_simulator::rng.seed(1234);
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.3;
-    sim_out->body_[2][10][15] = 0.5;
-    sim_out->body_[3][10][15] = 0.6;
-    sim_out->body_soil_[0][10][15] = 0.3;
-    sim_out->body_soil_[1][10][15] = 0.8;
-    sim_out->body_soil_[2][10][15] = 0.6;
-    sim_out->body_soil_[3][10][15] = 0.7;
-    sim_out->body_[0][11][15] = 0.4;
-    sim_out->body_[1][11][15] = 0.5;
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when soil is avalanching below the first bucket layer (3) --
+    // Test: IC-MIBS-4
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -816,8 +587,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching below the first bucket layer --
-    // -- despite the lack of available space                           --
+    // Test: IC-MIBS-5
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -856,7 +626,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when soil is avalanching below the second bucket layer (1) --
+    // Test: IC-MIBS-6
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -887,38 +657,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching below the second bucket layer (2) --
-    soil_simulator::rng.seed(1234);
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.3;
-    sim_out->body_[2][10][15] = 0.5;
-    sim_out->body_[3][10][15] = 0.6;
-    sim_out->body_soil_[0][10][15] = 0.3;
-    sim_out->body_soil_[1][10][15] = 0.8;
-    sim_out->body_soil_[2][10][15] = 0.6;
-    sim_out->body_soil_[3][10][15] = 0.7;
-    sim_out->body_[2][11][15] = 0.4;
-    sim_out->body_[3][11][15] = 0.5;
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing when soil is avalanching below the second bucket layer (3) --
+    // Test: IC-MIBS-7
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -949,8 +688,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is avalanching below the second bucket layer --
-    // -- despite the lack of available space                            --
+    // Test: IC-MIBS-8
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -982,7 +720,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing when soil is fully avalanching on first bucket layer (1) --
+    // Test: IC-MIBS-9
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1017,7 +755,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on first bucket layer (2) --
+    // Test: IC-MIBS-10
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1052,7 +790,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on second bucket layer (1) --
+    // Test: IC-MIBS-11
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1087,7 +825,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on second bucket layer (2) --
+    // Test: IC-MIBS-12
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1122,8 +860,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on first bucket soil --
-    // -- layer (1)                                                   --
+    // Test: IC-MIBS-13
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1162,8 +899,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on first bucket soil --
-    // -- layer (2)                                                   --
+    // Test: IC-MIBS-14
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1202,8 +938,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on second bucket soil --
-    // -- layer (1)                                                    --
+    // Test: IC-MIBS-15
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1242,8 +977,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when soil is fully avalanching on the second bucket soil --
-    // -- layer (2)                                                        --
+    // Test: IC-MIBS-16
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1282,8 +1016,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the first bucket layer (1)                  --
+    // Test: IC-MIBS-17
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1320,8 +1053,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the first bucket layer (2)                  --
+    // Test: IC-MIBS-18
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1358,8 +1090,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the second bucket layer (1)                 --
+    // Test: IC-MIBS-19
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1396,8 +1127,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the second bucket layer (2)                 --
+    // Test: IC-MIBS-20
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1434,8 +1164,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the first bucket soil layer (1)             --
+    // Test: IC-MIBS-21
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1476,8 +1205,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the first bucket soil layer (2)             --
+    // Test: IC-MIBS-22
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1518,8 +1246,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the second bucket soil layer (1)            --
+    // Test: IC-MIBS-23
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1560,8 +1287,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is fully --
-    // -- avalanching on the second bucket soil layer (2)            --
+    // Test: IC-MIBS-24
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1602,8 +1328,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially    --
-    // -- avalanching on the first bucket layer and then on the terrain (1) --
+    // Test: IC-MIBS-25
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1642,8 +1367,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially    --
-    // -- avalanching on the first bucket layer and then on the terrain (2) --
+    // Test: IC-MIBS-26
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1682,8 +1406,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially     --
-    // -- avalanching on the second bucket layer and then on the terrain (1) --
+    // Test: IC-MIBS-27
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1722,8 +1445,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially     --
-    // -- avalanching on the second bucket layer and then on the terrain (2) --
+    // Test: IC-MIBS-28
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1762,8 +1484,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially --
-    // -- avalanching on first bucket soil layer and then on terrain (1) --
+    // Test: IC-MIBS-29
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1806,8 +1527,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially --
-    // -- avalanching on first bucket soil layer and then on terrain (2) --
+    // Test: IC-MIBS-30
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1850,8 +1570,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially  --
-    // -- avalanching on second bucket soil layer and then on terrain (1) --
+    // Test: IC-MIBS-31
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1894,8 +1613,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and soil is partially  --
-    // -- avalanching on second bucket soil layer and then on terrain (2) --
+    // Test: IC-MIBS-32
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -1938,9 +1656,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the first bucket soil layer, then the soil is       --
-    // -- avalanching on the terrain below the first bucket layer            --
+    // Test: IC-MIBS-33
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -1999,9 +1715,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket soil layer, then the soil is      --
-    // -- avalanching on the terrain below the first bucket layer            --
+    // Test: IC-MIBS-34
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2060,9 +1774,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the first  --
-    // -- bucket layer is blocking the movement, then the soil is avalanching --
-    // -- on the terrain below the second bucket layer                        --
+    // Test: IC-MIBS-35
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2119,9 +1831,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the second --
-    // -- bucket layer is blocking the movement, then the soil is avalanching --
-    // -- on the terrain below the second bucket layer                        --
+    // Test: IC-MIBS-36
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2178,9 +1888,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then the soil is avalanching --
-    // -- on the terrain below the first bucket layer                         --
+    // Test: IC-MIBS-37
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2239,9 +1947,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket layer, then the soil is           --
-    // -- avalanching on the terrain below the first bucket layer            --
+    // Test: IC-MIBS-38
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2300,9 +2006,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then the soil is avalanching --
-    // -- on the terrain below the second bucket layer                        --
+    // Test: IC-MIBS-39
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2361,9 +2065,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket layer, then the soil is           --
-    // -- avalanching on the terrain below the second bucket layer           --
+    // Test: IC-MIBS-40
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2422,89 +2124,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there is a lot of soil on the first bucket layer but --
-    // -- soil is still avalanching on it                                   --
-    soil_simulator::rng.seed(1234);
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.3;
-    sim_out->body_[2][10][15] = 0.5;
-    sim_out->body_[3][10][15] = 0.6;
-    sim_out->body_soil_[0][10][15] = 0.3;
-    sim_out->body_soil_[1][10][15] = 0.8;
-    sim_out->body_soil_[2][10][15] = 0.6;
-    sim_out->body_soil_[3][10][15] = 0.7;
-    sim_out->body_[0][11][15] = 0.0;
-    sim_out->body_[1][11][15] = 0.2;
-    sim_out->body_soil_[0][11][15] = 0.2;
-    sim_out->body_soil_[1][11][15] = 0.8;
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.6});
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 1.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
-
-    // -- Testing when there is a lot of soil on the second bucket layer but --
-    // -- soil is still avalanching on it                                    --
-    soil_simulator::rng.seed(1234);
-    sim_out->body_[0][10][15] = 0.0;
-    sim_out->body_[1][10][15] = 0.3;
-    sim_out->body_[2][10][15] = 0.5;
-    sim_out->body_[3][10][15] = 0.6;
-    sim_out->body_soil_[0][10][15] = 0.3;
-    sim_out->body_soil_[1][10][15] = 0.8;
-    sim_out->body_soil_[2][10][15] = 0.6;
-    sim_out->body_soil_[3][10][15] = 0.7;
-    sim_out->body_[2][11][15] = 0.0;
-    sim_out->body_[3][11][15] = 0.2;
-    sim_out->body_soil_[2][11][15] = 0.2;
-    sim_out->body_soil_[3][11][15] = 0.5;
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.3});
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    test_soil_simulator::CheckBodySoilPos(
-        sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    // Resetting values
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // -- Testing when there are two bucket layers and the soil on the first  --
-    // -- bucket layer is blocking the movement, then the soil is avalanching --
-    // -- on the first bucket layer                                           --
+    // Test: IC-MIBS-41
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2562,9 +2182,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the second --
-    // -- bucket layer is blocking the movement, then the soil is avalanching --
-    // -- on the first bucket layer                                           --
+    // Test: IC-MIBS-42
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2618,9 +2236,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the first  --
-    // -- bucket layer is blocking the movement, then the soil is avalanching --
-    // -- on the second bucket layer                                          --
+    // Test: IC-MIBS-43
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2678,9 +2294,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the second --
-    // -- bucket layer is blocking the movement, then the soil is avalanching --
-    // -- on the second bucket layer                                          --
+    // Test: IC-MIBS-44
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2734,9 +2348,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then the soil is avalanching --
-    // -- on the first bucket layer                                           --
+    // Test: IC-MIBS-45
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2796,9 +2408,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket layer, then the soil is           --
-    // -- avalanching on the first bucket layer                              --
+    // Test: IC-MIBS-46
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2854,9 +2464,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then the soil is avalanching --
-    // -- on the second bucket layer                                          --
+    // Test: IC-MIBS-47
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2912,9 +2520,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket layer, then the soil is           --
-    // -- avalanching on the second bucket layer                             --
+    // Test: IC-MIBS-48
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -2974,19 +2580,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then the first bucket layer  --
-    // -- is blocking the movement. New direction, two bucket layers and the  --
-    // -- soil is partially avalanching on the second bucket layer, then the  --
-    // -- first bucket layer is blocking the movement. New direction, two     --
-    // -- bucket layers and the soil is partially avalanching on the first    --
-    // -- bucket layer, then the second bucket layer is blocking the          --
-    // -- movement. New direction two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket layer, then the second bucket      --
-    // -- layer is blocking the movement. New direction, two bucket layers    --
-    // -- and  the soil on the first bucket layer is blocking the movement,   --
-    // -- then two bucket layers and the soil is fully avalanching on the     --
-    // -- second bucket layer                                                 --
+    // Test: IC-MIBS-49
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3101,9 +2695,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and the soil on the first  --
-    // -- bucket layer is blocking the movement, then the soil is fully       --
-    // -- avalanching on the second bucket soil layer                         --
+    // Test: IC-MIBS-50
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3154,9 +2746,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the second --
-    // -- bucket layer is blocking the movement, then the soil is fully       --
-    // -- avalanching on the second bucket soil layer                         --
+    // Test: IC-MIBS-51
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3207,19 +2797,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil on the first  --
-    // -- bucket layer is blocking the movement, then the first bucket layer  --
-    // -- is blocking the movement. New direction, two bucket layers and the  --
-    // -- soil on the second bucket layer is blocking the movement, then the  --
-    // -- first bucket layer is blocking the movement. New direction, two     --
-    // -- bucket layers and the soil on the first bucket layer is blocking    --
-    // -- the movement, then the second bucket layer is blocking the movement --
-    // --  New direction, two bucket layers and the soil on the second bucket --
-    // -- layer is blocking the movement, then the second bucket layer is     --
-    // -- blocking the movement. New direction, two bucket layers and the     --
-    // -- soil on the first bucket layer is blocking the movement, then two   --
-    // -- bucket layers and the soil is fully avalanching on the first bucket --
-    // -- layer                                                               --
+    // Test: IC-MIBS-52
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3326,9 +2904,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and the soil on the second --
-    // -- bucket layer is blocking the movement, then two bucket layers and   --
-    // -- the soil is fully avalanching on the second bucket layer            --
+    // Test: IC-MIBS-53
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3379,21 +2955,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, body_pos,
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then two bucket layers and   --
-    // -- soil is partially avalanching on the first bucket layer that is     --
-    // -- higher, then two bucket layers and soil is partially avalanching    --
-    // -- on the first bucket layer that is higher, then two bucket layers    --
-    // -- and soil is partially avalanching on the first bucket layer, then   --
-    // -- two bucket layers and soil is partially avalanching on the first    --
-    // -- bucket layer, then two bucket layers and soil is partially          --
-    // -- avalanching on the second bucket layer that is higher, then two     --
-    // -- bucket layers and soil is partially avalanching on the second       --
-    // -- bucket layer that is higher, then two bucket layers and soil is     --
-    // -- partially avalanching on the first bucket layer that is higher,     --
-    // -- then two bucket layers and soil is partially avalanching on the     --
-    // -- second bucket layer, then two bucket layers and the soil is fully   --
-    // -- avalanching on the first bucket layer                               --
+    // Test: IC-MIBS-54
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3536,22 +3098,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and soil is partially      --
-    // -- avalanching on the second bucket layer, then two bucket layers and  --
-    // -- soil is partially avalanching on the first bucket layer, then two   --
-    // -- bucket layers and soil is partially avalanching on the second       --
-    // -- bucket layer, then two bucket layers and soil is partially          --
-    // -- avalanching on the second bucket layer, then two bucket layers and  --
-    // -- soil is partially avalanching on the second bucket layer that is    --
-    // -- higher, then two bucket layers and soil is partially avalanching    --
-    // -- on the first bucket layer, then two bucket layers and soil is       --
-    // -- partially avalanching on the first bucket layer that is higher,     --
-    // -- then two bucket layers and soil is partially avalanching on the     --
-    // -- second bucket layer, then two bucket layers and soil is partially   --
-    // -- avalanching on the first bucket layer that is higher, then two      --
-    // -- bucket layers and soil is partially avalanching on the second       --
-    // -- bucket layer that is higher, then two bucket layers and the soil is --
-    // -- fully avalanching on the first bucket layer                         --
+    // Test: IC-MIBS-55
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][9][15] = 0.0;
     sim_out->body_[1][9][15] = 0.3;
@@ -3623,7 +3170,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(9, 15, 0.6, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 9, 15, pos0[0], pos0[1], pos0[2], 2.7});
-    sim_out->body_soil_pos_.push_back(
+    sim_out->body_soilpos_.push_back(
         soil_simulator::body_soil {2, 9, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
@@ -3715,15 +3262,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and the soil on the first --
-    // -- bucket layer is blocking the movement, then two bucket layers and  --
-    // -- the soil on the first bucket layer is blocking the movement, then  --
-    // -- two bucket layers and the soil on the second bucket layer is       --
-    // -- blocking the movement, then two bucket layers and the soil on the  --
-    // -- second bucket layer is blocking the movement, then two bucket      --
-    // -- layers and the soil on the first bucket layer is blocking the      --
-    // -- movement, then two bucket layers and the soil is fully avalanching --
-    // -- on the first bucket layer                                          --
+    // Test: IC-MIBS-56
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3825,15 +3364,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the first bucket layer, then two bucket layers and  --
-    // -- the soil is partially avalanching on the first bucket layer, then  --
-    // -- two bucket layers and the soil is partially avalanching on the     --
-    // -- second bucket layer, then two bucket layers and the soil is        --
-    // -- partially avalanching on the second bucket layer, then two bucket  --
-    // -- layers and the soil is partially avalanching on the first bucket   --
-    // -- layer, then two bucket layers and the soil is fully avalanching on --
-    // -- the second bucket layer                                            --
+    // Test: IC-MIBS-57
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -3937,20 +3468,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and the soil is partially  --
-    // -- avalanching on the first bucket layer, then two bucket layers and   --
-    // -- the soil on the first bucket layer is blocking the movement, then   --
-    // -- two bucket layers and the soil is partially avalanching on the      --
-    // -- first bucket layer, then two bucket layers and the soil on the      --
-    // -- second bucket layer is blocking the movement, then two bucket       --
-    // -- layers and the soil is partially avalanching on the second bucket   --
-    // -- layer, then two bucket layers and the soil on the first bucket      --
-    // --layer is blocking the movement, then two bucket layers and the soil  --
-    // -- is partially avalanching on the second bucket layer, then two       --
-    // -- bucket layers and the soil on the second bucket layer is blocking   --
-    // -- the movement, then two bucket layers and the soil is partially      --
-    // -- avalanching on the first bucket layer, then two bucket layers and   --
-    // -- the soil is fully avalanching on the first bucket layer             --
+    // Test: IC-MIBS-58
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -4109,9 +3627,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, body_soil_pos);
 
-    // -- Testing when there are two bucket layers and the soil is partially --
-    // -- avalanching on the second bucket layer, then two bucket layers and --
-    // -- the soil is fully avalanching on the second bucket layer           --
+    // Test: IC-MIBS-59
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -4164,7 +3680,114 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, body_pos,
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // -- Testing when several layers of soil is present at a given location --
+    // Test: IC-MIBS-60
+    soil_simulator::rng.seed(1234);
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.3;
+    sim_out->body_[2][10][15] = 0.5;
+    sim_out->body_[3][10][15] = 0.6;
+    sim_out->body_soil_[0][10][15] = 0.3;
+    sim_out->body_soil_[1][10][15] = 0.8;
+    sim_out->body_soil_[2][10][15] = 0.6;
+    sim_out->body_soil_[3][10][15] = 0.7;
+    sim_out->body_[0][11][15] = 0.0;
+    sim_out->body_[1][11][15] = 0.2;
+    sim_out->body_soil_[0][11][15] = 0.2;
+    sim_out->body_soil_[1][11][15] = 0.8;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.6});
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 1.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
+    // Resetting values
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
+
+    // Test: IC-MIBS-61
+    soil_simulator::rng.seed(1234);
+    sim_out->body_[0][10][15] = 0.0;
+    sim_out->body_[1][10][15] = 0.3;
+    sim_out->body_[2][10][15] = 0.5;
+    sim_out->body_[3][10][15] = 0.6;
+    sim_out->body_soil_[0][10][15] = 0.3;
+    sim_out->body_soil_[1][10][15] = 0.8;
+    sim_out->body_soil_[2][10][15] = 0.6;
+    sim_out->body_soil_[3][10][15] = 0.7;
+    sim_out->body_[2][11][15] = 0.0;
+    sim_out->body_[3][11][15] = 0.2;
+    sim_out->body_soil_[2][11][15] = 0.2;
+    sim_out->body_soil_[3][11][15] = 0.5;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.3});
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.8, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    test_soil_simulator::CheckBodySoilPos(
+        sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
+    // Resetting values
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
+        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
+
+    // Test: IC-MIBS-62
+    soil_simulator::rng.seed(1234);
+    sim_out->body_[0][10][15] = -0.6;
+    sim_out->body_[1][10][15] = -0.5;
+    sim_out->body_[2][10][15] = -0.3;
+    sim_out->body_[3][10][15] = 0.0;
+    sim_out->body_soil_[0][10][15] = -0.5;
+    sim_out->body_soil_[1][10][15] = 0.0;
+    sim_out->body_soil_[2][10][15] = 0.0;
+    sim_out->body_soil_[3][10][15] = 0.1;
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
+    // Resetting values
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {{11, 15}}, {{0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 15}, {2, 10, 15}});
+
+    // Test: IC-MIBS-63
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -4226,7 +3849,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 14}, {0, 11, 15}, {0, 11, 16}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 14}, {0, 11, 15}, {0, 11, 16}});
 
-    // -- Testing when there is nothing to move --
+    // Test: IC-MIBS-64
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.5;
     sim_out->body_[1][10][15] = 0.6;
@@ -4262,7 +3885,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}},
         {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
 
-    // -- Testing randomness of movement --
+    // Test: IC-MIBS-65
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.3;
@@ -4303,11 +3926,6 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{9, 16}}, {{0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
-
-    // -- Testing that warning is properly sent when soil cannot be moved --
-    // TBD: It is not straightforward to have proper warning system
-    // This should be improved in the implementation in order to be able to
-    // test it
 
     delete bucket;
     delete sim_out;
@@ -4384,7 +4002,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     sim_out->bucket_area_[1][0] = 1;
     sim_out->bucket_area_[1][1] = 20;
 
-    // -- Testing for a single intersecting cells in the -X direction --
+    // Test: IC-MIB-1
     for (auto ii = 11; ii < 13; ii++)
         for (auto jj = 16; jj < 19; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4404,7 +4022,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 17}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the +X direction --
+    // Test: IC-MIB-2
     for (auto ii = 10; ii < 12; ii++)
         for (auto jj = 16; jj < 19; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4424,7 +4042,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{12, 17}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the -Y direction --
+    // Test: IC-MIB-3
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 17; jj < 19; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4444,7 +4062,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{11, 16}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the +Y direction --
+    // Test: IC-MIB-4
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 16; jj < 18; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4464,7 +4082,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{11, 18}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the -X-Y direction --
+    // Test: IC-MIB-5
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 17; jj < 19; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4484,7 +4102,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 16}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the +X-Y direction --
+    // Test: IC-MIB-6
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 17; jj < 19; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4504,7 +4122,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{12, 16}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the -X+Y direction --
+    // Test: IC-MIB-7
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 16; jj < 18; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4524,7 +4142,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 18}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the +X+Y direction --
+    // Test: IC-MIB-8
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 16; jj < 18; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4544,7 +4162,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{12, 18}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells in the second bucket layer --
+    // Test: IC-MIB-9
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 16; jj < 18; jj++) {
             sim_out->body_[2][ii][jj] = 0.0;
@@ -4564,7 +4182,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 18}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells with various bucket layer --
+    // Test: IC-MIB-10
     sim_out->body_[2][10][16] = 0.0;
     sim_out->body_[3][10][16] = 0.5;
     sim_out->body_[2][10][17] = 0.0;
@@ -4595,7 +4213,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 18}}, body_pos, {});
 
-    // -- Testing for single intersecting cells with all bucket under terrain --
+    // Test: IC-MIB-11
     for (auto ii = 10; ii < 13; ii++)
         for (auto jj = 16; jj < 18; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4620,7 +4238,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{12, 18}, {11, 17}}, body_pos, {});
 
-    // -- Testing for a single intersecting cells under a large bucket --
+    // Test: IC-MIB-12
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4643,8 +4261,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{8, 17}, {11, 17}}, body_pos, {});
 
-    // -- Testing when soil is moved by small amount (1) --
-    // Soil is fitting under the bucket
+    // Test: IC-MIB-13
     soil_simulator::rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
@@ -4695,8 +4312,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
         {{11, 17}, {10, 17}, {8, 17}, {12, 17}, {13, 17}, {13, 19}, {14, 20}},
         body_pos, {});
 
-    // -- Testing when soil is moved by small amount (2) --
-    // Soil is going out of the bucket
+    // Test: IC-MIB-14
     soil_simulator::rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
@@ -4749,8 +4365,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, terrain_pos, body_pos, {});
 
-    // -- Testing when soil is moved by small amount (3) --
-    // Soil is just fitting under the bucket
+    // Test: IC-MIB-15
     soil_simulator::rng.seed(1234);
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
@@ -4801,7 +4416,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
         {{11, 17}, {10, 17}, {8, 17}, {12, 17}, {13, 17}, {13, 19}, {14, 20}},
         body_pos, {});
 
-    // -- Testing when there is nothing to move --
+    // Test: IC-MIB-16
     for (auto ii = 8; ii < 15; ii++)
         for (auto jj = 14; jj < 21; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
@@ -4823,7 +4438,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, {});
 
-    // -- Testing randomness of movement --
+    // Test: IC-MIB-17
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][11][17] = -0.4;
     sim_out->body_[1][11][17] = 0.6;
