@@ -25,4 +25,4 @@ The extent of the grid in meter is:
 - [:code:`-grid_size_y`, :code:`grid_size_y`] in the Y direction, corresponding to :code:`2 * half_length_y_ + 1` grid elements.
 - [:code:`-grid_size_z`, :code:`grid_size_z`] in the Z direction, corresponding to :code:`2 * half_length_z_ + 1` grid elements.
 The grid is therefore centered in 0.
-Note that the the right-hand rule is used so that the Z direction is pointing upward.
+Note that the right-hand rule is used with the Z direction pointing upward.
