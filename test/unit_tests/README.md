@@ -623,8 +623,8 @@ The purpose of these tests is to check all possible configurations.
 The description of the unit tests can therefore be done with a simple table describing the configuration at the specified location.
 
 | Test name | Bottom layer | Soil    | Until top | Stable  | Top layer    | Soil    | Stable  | Avalanche    |
-| --------- | ------------ | ------- | --------- |-------- | ------------ | ------- | ------- | Second layer |
-| RE-CUT-1  | &cross;      | &cross; | &cross;   | &cross; | Second layer | &check; | &check; |              |
+| --------- | ------------ | ------- | --------- |-------- | ------------ | ------- | ------- | ------------ |
+| RE-CUT-1  | &cross;      | &cross; | &cross;   | &cross; | Second layer | &check; | &check; | Second layer |
 
 
 ### `RelaxUnstableTerrainCell`
