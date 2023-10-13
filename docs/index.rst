@@ -5,9 +5,6 @@ Documentation for soil_dynamics_cpp
 
     A Julia version of this simulator is available `here`_.
 
-Introduction
-------------
-
 This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of an excavator bucket.
 While excavator buckets have complex shapes to efficiently dig soil, here, for the sake of performance, the bucket is approximated as a simple triangular prism, which is a good representation for its overall shape.
 A detailed description of the model used for the bucket is available on the `Bucket <bucket.html>`_ page of this documentation.
