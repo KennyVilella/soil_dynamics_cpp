@@ -8205,8 +8205,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][14], -0.7, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][14], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], -0.1, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[2][10][15], -0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.0, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.7, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     // Resetting values
