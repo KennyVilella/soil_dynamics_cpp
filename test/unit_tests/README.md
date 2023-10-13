@@ -858,7 +858,7 @@ The description of the unit tests can therefore be done with a simple table desc
 For all the unit tests, the initial position has soil on the first bucket layer.
 The configuration of the inital position should not impact the result of this function.
 
-| Test name | Bottom layer | Soil    | Until top | Top layer    | Soil    | Avalanche    | Enough soil | Enough space | Partial/Full |
+| Test name | Bottom layer | Soil    | Until top | Top layer    | Soil    | Avalanche    | Enough soil | Enough space | Status       |
 | --------- | ------------ | ------- | --------- | ------------ | ------- | ------------ | ----------- | ------------ | ------------ |
 | RE-RUB-1  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
 | RE-RUB-2  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
