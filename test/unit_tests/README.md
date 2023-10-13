@@ -793,6 +793,94 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 ### `CheckUnstableBodyCell`
 
+Unit test for the `CheckUnstableBodyCell` function.
+
+The tested function checks the configuration in a specified location and return a status code following the situation.
+The purpose of these tests is to check all possible configurations.
+The description of the unit tests can therefore be done with a simple table describing the configuration at the specified location.
+
+For all the unit tests, the initial position has soil on the first bucket layer.
+The configuration of the inital position should not impact the result of this function.
+
+| Test name | Bottom layer | Soil    | Until top | Accessible | Top layer    | Soil    | Accessible | Avalanche    |
+| --------- | ------------ | ------- | --------- |----------- | ------------ | ------- | ---------- | ------------ |
+| RE-CUB-1  | &cross;      | &cross; | &cross;   | &cross;    | &cross;      | &cross; | &cross;    | terrain      |
+| RE-CUB-2  | First layer  | &cross; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | terrain      |
+| RE-CUB-3  | First layer  | &check; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | terrain      |
+| RE-CUB-4  | First layer  | &cross; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | First layer  |
+| RE-CUB-5  | First layer  | &check; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | First layer  |
+| RE-CUB-6  | Second layer | &cross; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | terrain      |
+| RE-CUB-7  | Second layer | &check; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | terrain      |
+| RE-CUB-8  | Second layer | &cross; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | Second layer |
+| RE-CUB-9  | Second layer | &check; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | Second layer |
+| RE-CUB-10 | First layer  | &cross; | &cross;   | &check;    | Second layer | &cross; | &cross;    | First layer  |
+| RE-CUB-11 | First layer  | &check; | &cross;   | &check;    | Second layer | &cross; | &cross;    | First layer  | 
+| RE-CUB-12 | First layer  | &cross; | &cross;   | &check;    | Second layer | &check; | &cross;    | First layer  |
+| RE-CUB-13 | First layer  | &check; | &cross;   | &check;    | Second layer | &check; | &cross;    | First layer  |
+| RE-CUB-14 | First layer  | &cross; | &cross;   | &cross;    | Second layer | &cross; | &check;    | Second layer |
+| RE-CUB-15 | First layer  | &check; | &check;   | &cross;    | Second layer | &cross; | &check;    | Second layer |
+| RE-CUB-16 | First layer  | &cross; | &cross;   | &cross;    | Second layer | &check; | &check;    | Second layer |
+| RE-CUB-17 | First layer  | &check; | &check;   | &cross;    | Second layer | &check; | &check;    | Second layer |
+| RE-CUB-18 | Second layer | &cross; | &cross;   | &check;    | First layer  | &cross; | &cross;    | Second layer |
+| RE-CUB-19 | Second layer | &check; | &cross;   | &check;    | First layer  | &cross; | &cross;    | Second layer | 
+| RE-CUB-20 | Second layer | &cross; | &cross;   | &check;    | First layer  | &check; | &cross;    | Second layer |
+| RE-CUB-21 | Second layer | &check; | &cross;   | &check;    | First layer  | &check; | &cross;    | Second layer |
+| RE-CUB-22 | Second layer | &cross; | &cross;   | &cross;    | First layer  | &cross; | &check;    | First layer  |
+| RE-CUB-23 | Second layer | &check; | &check;   | &cross;    | First layer  | &cross; | &check;    | First layer  |
+| RE-CUB-24 | Second layer | &cross; | &cross;   | &cross;    | First layer  | &check; | &check;    | First layer  |
+| RE-CUB-25 | Second layer | &check; | &check;   | &cross;    | First layer  | &check; | &check;    | First layer  |
+| RE-CUB-26 | Second layer | &check; | &check;   | &check;    | First layer  | &cross; | &cross;    | &cross;      |
+| RE-CUB-27 | Second layer | &check; | &check;   | &check;    | First layer  | &check; | &check;    | &cross;      |
+| RE-CUB-28 | First layer  | &check; | &check;   | &check;    | Second layer | &cross; | &cross;    | &cross;      |
+| RE-CUB-29 | First layer  | &check; | &check;   | &check;    | Second layer | &check; | &check;    | &cross;      |
+| RE-CUB-30 | Second layer | &check; | &check;   | &check;    | First layer  | &cross; | &check;    | First layer  |
+| RE-CUB-31 | Second layer | &check; | &check;   | &check;    | First layer  | &check; | &check;    | First layer  |
+| RE-CUB-32 | First layer  | &check; | &check;   | &check;    | Second layer | &cross; | &check;    | Second layer |
+| RE-CUB-33 | First layer  | &check; | &check;   | &check;    | Second layer | &check; | &check;    | Second layer |
+| RE-CUB-34 | &cross;      | &cross; | &cross;   | &cross;    | &cross;      | &cross; | &cross;    | &cross;      |
+| RE-CUB-35 | First layer  | &cross; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | &cross;      |
+| RE-CUB-36 | First layer  | &check; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | &cross;      |
+| RE-CUB-37 | Second layer | &cross; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | &cross;      |
+| RE-CUB-38 | Second layer | &check; | &cross;   | &check;    | &cross;      | &cross; | &cross;    | &cross;      |
+| RE-CUB-39 | Second layer | &check; | &cross;   | &cross;    | First layer  | &cross; | &check;    | &cross;      |
+| RE-CUB-40 | Second layer | &check; | &check;   | &check;    | First layer  | &cross; | &cross;    | &cross;      |
+| RE-CUB-41 | First layer  | &cross; | &cross;   | &cross;    | Second layer | &check; | &check;    | &cross;      |
+| RE-CUB-42 | First layer  | &cross; | &cross;   | &check;    | Second layer | &cross; | &check;    | &cross;      |
+
 ### `RelaxUnstableBodyCell`
 
+Unit test for the `RelaxUnstableBodyCell` function.
+
+The tested function moves the soil following the status code provided assuming that it corresponds to the actual configuration.
+The purpose of these tests is to check all possible configurations.
+The description of the unit tests can therefore be done with a simple table describing the configuration.
+
+For all the unit tests, the initial position has soil on the first bucket layer.
+The configuration of the inital position should not impact the result of this function.
+
+| Test name | Bottom layer | Soil    | Until top | Top layer    | Soil    | Avalanche    | Enough soil | Enough space | Partial/Full |
+| --------- | ------------ | ------- | --------- | ------------ | ------- | ------------ | ----------- | ------------ | ------------ |
+| RE-RUB-1  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
+| RE-RUB-2  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
+| RE-RUB-3  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Full         |
+| RE-RUB-4  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
+| RE-RUB-5  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
+| RE-RUB-6  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Partial      |
+| RE-RUB-7  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-8  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-9  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &cross;     | &check;      | Full         |
+| RE-RUB-10 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-11 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-12 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &cross;     | &check;      | Full         |
+| RE-RUB-13 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
+| RE-RUB-14 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
+| RE-RUB-15 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-16 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-17 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Full         |
+| RE-RUB-18 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-19 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-20 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Full         |
+
+
 ### `RelaxBodySoil`
+
