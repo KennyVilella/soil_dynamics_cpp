@@ -20,7 +20,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
-    // -- Testing for a simple lateral translation from (10, 10) to (11, 10) --
+    // Test: BS-UBS-1
     auto pos = std::vector<float> {grid.cell_size_xy_, 0.0, 0.0};
     auto ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     sim_out->body_[0][11][10] = 0.0;
@@ -41,7 +41,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 11, 10}}, {{0, 11, 10}});
 
-    // -- Testing for a simple lateral translation (2) --
+    // Test: BS-UBS-2
     pos = std::vector<float> {grid.cell_size_xy_, 0.0, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     sim_out->body_[0][11][10] = 0.0;
@@ -62,7 +62,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 11, 10}}, {{0, 11, 10}});
 
-    // -- Testing for a simple lateral translation (3) --
+    // Test: BS-UBS-3
     pos = std::vector<float> {grid.cell_size_xy_, 0.0, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     sim_out->body_[2][11][10] = 0.0;
@@ -83,7 +83,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{2, 11, 10}}, {{2, 11, 10}});
 
-    // -- Testing for a simple lateral translation (4) --
+    // Test: BS-UBS-4
     pos = std::vector<float> {grid.cell_size_xy_, 0.0, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     sim_out->body_[2][11][10] = 0.0;
@@ -104,7 +104,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{2, 11, 10}}, {{2, 11, 10}});
 
-    // -- Testing for a simple rotation from (11, 10) to (10, 11) --
+    // Test: BS-UBS-5
     pos = std::vector<float> {0.0, 0.0, 0.0};
     ori = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
     sim_out->body_[0][10][11] = 0.0;
@@ -125,7 +125,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 10, 11}}, {{0, 10, 11}});
 
-    // -- Testing for a simple rotation from (11, 10) to (11, 11) --
+    // Test: BS-UBS-6
     pos = std::vector<float> {0.0, 0.0, 0.0};
     ori = std::vector<float> {0.92388, 0.0, 0.0, -0.382683};
     sim_out->body_[0][11][11] = 0.0;
@@ -146,7 +146,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 11, 11}}, {{0, 11, 11}});
 
-    // -- Testing for a rotation + translation from (11, 10) to (12, 11) --
+    // Test: BS-UBS-7
     pos = std::vector<float> {grid.cell_size_xy_, 0.0, 0.0};
     ori = std::vector<float> {0.92388, 0.0, 0.0, -0.382683};
     sim_out->body_[0][12][11] = 0.0;
@@ -167,7 +167,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 12, 11}}, {{0, 12, 11}});
 
-    // -- Testing for a large transformation --
+    // Test: BS-UBS-8
     pos = std::vector<float> {0.0, 0.0, 0.0};
     ori = std::vector<float> {0.0, 0.0, 1.0, 0.0};
     sim_out->body_soil_[0][11][10] = 0.1;
@@ -183,7 +183,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{9, 10}}, {}, {});
 
-    // -- Testing when two body_soil move to the same position (1) --
+    // Test: BS-UBS-9
     pos = std::vector<float> {0.0, 0.0, 0.0};
     ori = std::vector<float> {0.707107, 0.0, 0.707107, 0.0};
     sim_out->body_[0][10][10] = 0.0;
@@ -210,7 +210,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
-    // -- Testing when two body_soil move to the same position (2) --
+    // Test: BS-UBS-10
     pos = std::vector<float> {0.0, 0.0, 0.0};
     ori = std::vector<float> {0.707107, 0.0, 0.707107, 0.0};
     sim_out->body_[0][10][10] = 0.0;
@@ -237,7 +237,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
-    // -- Testing when two body_soil move to the same position (3) --
+    // Test: BS-UBS-11
     pos = std::vector<float> {0.0, 0.0, 0.0};
     ori = std::vector<float> {0.707107, 0.0, 0.707107, 0.0};
     sim_out->body_[2][10][10] = 0.0;
@@ -269,7 +269,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     // become obsolete when the implementation change                         //
     // ---------------------------------------------------------------------- //
 
-    // -- Testing that soil disappears if lower than a cell_size_z --
+    // Test: BS-UBS-12
     sim_out->body_[0][10][10] = 0.0;
     sim_out->body_[1][10][10] = 0.1;
     sim_out->body_soil_[0][10][10] = 0.1;
@@ -285,7 +285,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
-    // -- Testing that h_soil is properly rounded --
+    // Test: BS-UBS-13
     sim_out->body_[0][10][10] = 0.0;
     sim_out->body_[1][10][10] = 0.1;
     sim_out->body_soil_[0][10][10] = 0.1;
@@ -302,7 +302,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
-    // -- Testing that order where directions are checked is correct (1) --
+    // Test: BS-UBS-14
     pos = std::vector<float> {grid.cell_size_xy_, 0.01, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     for (auto ii = 10; ii < 13; ii++)
@@ -310,10 +310,10 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
             sim_out->body_[0][ii][jj] = 0.0;
             sim_out->body_[1][ii][jj] = 0.1;
         }
-    sim_out->body_soil_[2][10][10] = 0.1;
-    sim_out->body_soil_[3][10][10] = 0.2;
+    sim_out->body_soil_[0][10][10] = 0.1;
+    sim_out->body_soil_[1][10][10] = 0.2;
     sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 10, 0.0, 0.0, 0.0, 0.1});
+        soil_simulator::body_soil {0, 10, 10, 0.0, 0.0, 0.0, 0.1});
     soil_simulator::UpdateBodySoil(
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][10], 0.1, 1.e-5);
@@ -457,7 +457,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, {{0, 10, 9}});
 
-    // -- Testing that order where directions are checked is correct (2) --
+    // Test: BS-UBS-15
     pos = std::vector<float> {-0.01, -grid.cell_size_xy_, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     for (auto ii = 9; ii < 12; ii++)
@@ -465,10 +465,10 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
             sim_out->body_[0][ii][jj] = 0.0;
             sim_out->body_[1][ii][jj] = 0.1;
         }
-    sim_out->body_soil_[2][10][10] = 0.1;
-    sim_out->body_soil_[3][10][10] = 0.2;
+    sim_out->body_soil_[0][10][10] = 0.1;
+    sim_out->body_soil_[1][10][10] = 0.2;
     sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 10, 0.0, 0.0, 0.0, 0.1});
+        soil_simulator::body_soil {0, 10, 10, 0.0, 0.0, 0.0, 0.1});
     soil_simulator::UpdateBodySoil(
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][9], 0.1, 1.e-5);
@@ -612,7 +612,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, {{0, 11, 10}});
 
-    // -- Testing that soil is moved if close enough (1) --
+    // Test: BS-UBS-16
     pos = std::vector<float> {grid.cell_size_xy_, 0.01, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     for (auto ii = 10; ii < 13; ii++)
@@ -620,12 +620,12 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
             sim_out->body_[0][ii][jj] = 0.2;
             sim_out->body_[1][ii][jj] = 0.3;
         }
-    sim_out->body_soil_[2][10][10] = 0.1;
-    sim_out->body_soil_[3][10][10] = 0.2;
+    sim_out->body_soil_[0][10][10] = 0.1;
+    sim_out->body_soil_[1][10][10] = 0.2;
     sim_out->body_[0][10][9] = 0.0;
     sim_out->body_[1][10][9] = 0.1;
     sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 10, 0.0, 0.0, 0.0, 0.1});
+        soil_simulator::body_soil {0, 10, 10, 0.0, 0.0, 0.0, 0.1});
     soil_simulator::UpdateBodySoil(
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][9], 0.1, 1.e-5);
@@ -641,7 +641,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {}, body_pos, {{0, 10, 9}});
 
-    // -- Testing that soil is moved if close enough (2) --
+    // Test: BS-UBS-17
     pos = std::vector<float> {grid.cell_size_xy_, 0.01, 0.0};
     ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
     for (auto ii = 10; ii < 13; ii++)
@@ -649,12 +649,12 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
             sim_out->body_[0][ii][jj] = 0.2;
             sim_out->body_[1][ii][jj] = 0.3;
         }
-    sim_out->body_soil_[2][10][10] = 0.1;
-    sim_out->body_soil_[3][10][10] = 0.2;
+    sim_out->body_soil_[0][10][10] = 0.1;
+    sim_out->body_soil_[0][10][10] = 0.2;
     sim_out->body_[0][11][9] = -0.2;
     sim_out->body_[1][11][9] = -0.1;
     sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 10, 0.0, 0.0, 0.0, 0.1});
+        soil_simulator::body_soil {0, 10, 10, 0.0, 0.0, 0.0, 0.1});
     soil_simulator::UpdateBodySoil(
         sim_out, pos, ori, grid, bucket, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][11][9], -0.1, 1.e-5);
