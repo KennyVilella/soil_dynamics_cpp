@@ -820,7 +820,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-    
+
     // Test: RE-RUT-1
     sim_out->terrain_[10][14] = 0.4;
     sim_out->terrain_[10][15] = 0.1;
@@ -2719,7 +2719,7 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     int status;
-    
+
     // Test: RE-CUB-1
     sim_out->terrain_[10][15] = -0.2;
     sim_out->terrain_[10][14] = -0.2;
@@ -3575,7 +3575,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         new std::vector<soil_simulator::body_soil>);
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-    
+
     // Test: RE-RUB-1
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;

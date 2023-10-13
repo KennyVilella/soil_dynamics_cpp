@@ -466,7 +466,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-    
+
     // Test: IC-MIBS-1
     soil_simulator::rng.seed(1234);
     sim_out->body_[0][10][15] = 0.0;
@@ -3170,7 +3170,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(9, 15, 0.6, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 9, 15, pos0[0], pos0[1], pos0[2], 2.7});
-    sim_out->body_soilpos_.push_back(
+    sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 9, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(

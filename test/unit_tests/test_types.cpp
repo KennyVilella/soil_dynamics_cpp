@@ -64,7 +64,7 @@ TEST(UnitTestTypes, Grid) {
         std::invalid_argument);
     EXPECT_THROW(
         soil_simulator::Grid grid(4.0, 4.0, -4.0, 0.05, 0.01),
-        std::invalid_argument); 
+        std::invalid_argument);
 
     // Test: TY-G-7
     EXPECT_THROW(
@@ -181,7 +181,7 @@ TEST(UnitTestTypes, SimParam) {
     EXPECT_NO_THROW(soil_simulator::SimParam sim_param(0.85, 0.0, 4));
     EXPECT_THROW(
         soil_simulator::SimParam sim_param(0.85, -5, 4),
-        std::invalid_argument); 
+        std::invalid_argument);
 
     // Test: TY-SP-4
     EXPECT_THROW(
