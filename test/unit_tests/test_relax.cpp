@@ -4254,9 +4254,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower --
-    // -- and soil should partially avalanche on it                    --
+    // Test: RE-RUB-21
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4290,9 +4288,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower --
-    // -- and soil should fully avalanche on it                        --
+    // Test: RE-RUB-22
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4326,10 +4322,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower  --
-    // -- and soil should fully avalanche on it, but not enough soil in --
-    // -- body_soil_pos_                                                --
+    // Test: RE-RUB-23
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4366,10 +4359,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case whith two bucket layers, first layer being lower     --
-    // -- and soil should partially avalanche on it but there is not enough --
-    // -- space for all the soil                                            --
+    // Test: RE-RUB-24
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4403,9 +4393,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower   --
-    // -- and soil should partially avalanche on the second bucket layer --
+    // Test: RE-RUB-25
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4439,9 +4427,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower --
-    // -- and soil should fully avalanche on the second bucket layer   --
+    // Test: RE-RUB-26
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.5;
@@ -4475,9 +4461,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil   --
-    // -- first layer being lower and soil should partially avalanche on it --
+    // Test: RE-RUB-27
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4522,9 +4506,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil should fully avalanche on it   --
+    // Test: RE-RUB-28
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4569,10 +4551,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- first layer being lower and soil should fully avalanche on it, but --
-    // -- not enough soil in body_soil_pos_                                  --
+    // Test: RE-RUB-29
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4620,10 +4599,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil   --
-    // -- first layer being lower and soil should partially avalanche on it --
-    // -- but there is not enough space for all the soil                    --
+    // Test: RE-RUB-30
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4668,10 +4644,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- first layer being lower and soil should partially avalanche on the --
-    // -- second bucket layer                                                --
+    // Test: RE-RUB-31
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4716,10 +4689,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil should fully avalanche on the  --
-    // -- second bucket layer                                             --
+    // Test: RE-RUB-32
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.7;
@@ -4764,9 +4734,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower --
-    // -- and soil should partially avalanche on it                     --
+    // Test: RE-RUB-33
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -4800,9 +4768,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower --
-    // -- and soil should fully avalanche on it                         --
+    // Test: RE-RUB-34
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4836,10 +4802,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower --
-    // -- and soil should fully avalanche on it, but not enough soil in --
-    // -- body_soil_pos_                                                --
+    // Test: RE-RUB-35
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4876,10 +4839,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower     --
-    // -- and soil should partially avalanche on it but there is not enough --
-    // -- space for all the soil                                            --
+    // Test: RE-RUB-36
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4913,9 +4873,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower --
-    // -- and soil should partially avalanche on the first bucket layer --
+    // Test: RE-RUB-37
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -4949,9 +4907,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower --
-    // -- and soil should fully avalanche on the first bucket layer     --
+    // Test: RE-RUB-38
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.6;
@@ -4985,9 +4941,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- second layer being lower and soil should partially avalanche on it --
+    // Test: RE-RUB-39
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.6;
@@ -5032,9 +4986,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- the second layer being lower and soil should fully avalanche on it --
+    // Test: RE-RUB-40
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5079,10 +5031,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil     --
-    // -- the second layer being lower and soil should fully avalanche on it, --
-    // -- but not enough soil in body_soil_pos_                               --
+    // Test: RE-RUB-41
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5130,10 +5079,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- second layer being lower and soil should partially avalanche on it --
-    // -- but there is not enough space for all the soil                     --
+    // Test: RE-RUB-42
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5178,10 +5124,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil     --
-    // -- second layer being lower and soil should partially avalanche on the --
-    // -- first bucket layer                                                  --
+    // Test: RE-RUB-43
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.1;
@@ -5226,10 +5169,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil     --
-    // -- the second layer being lower and soil should fully avalanche on the --
-    // -- first bucket layer                                                  --
+    // Test: RE-RUB-44
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.6;
@@ -5274,10 +5214,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil   --
-    // -- first layer being lower and soil should partially avalanche on it --
-    // -- but there is no space at all                                      --
+    // Test: RE-RUB-45
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5319,10 +5256,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- second layer being lower and soil should partially avalanche on it --
-    // -- but there is no space at all                                       --
+    // Test: RE-RUB-46
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5364,10 +5298,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower    --
-    // -- and soil fully cover the space between the two layers, the soil --
-    // -- can partially avalanche to the second bucket layer              --
+    // Test: RE-RUB-47
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5408,10 +5339,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, first layer being lower    --
-    // -- and soil fully cover the space between the two layers, the soil --
-    // -- can partially avalanche to the second bucket soil layer         --
+    // Test: RE-RUB-48
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5456,10 +5384,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower   --
-    // -- and soil fully cover the space between the two layers, the soil --
-    // -- can partially avalanche to the first bucket layer               --
+    // Test: RE-RUB-49
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5500,10 +5425,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-    // Test: RE-RUB-
-    // -- Testing case with two bucket layers, second layer being lower   --
-    // -- and soil fully cover the space between the two layers, the soil --
-    // -- can partially avalanche to the first bucket soil layer          --
+    // Test: RE-RUB-50
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5548,10 +5470,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
     body_soil_pos->erase(body_soil_pos->begin(), body_soil_pos->end());
 
-
-    // Test: RE-RUB-
-    // -- Testing case with second bucket layer and soil should partially     --
-    // -- avalanche on the terrain but there is not enough space for all soil --
+    // Test: RE-RUB-51
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
     sim_out->body_[1][10][14] = 0.0;
@@ -5585,7 +5504,6 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-
     delete bucket;
     delete sim_out;
     delete body_soil_pos;
@@ -5609,7 +5527,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
-    // -- Testing case with no bucket and soil should partially avalanche --
+    // Test: RE-RBS-1
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.3;
     sim_out->body_[0][10][14] = -0.3;
@@ -5631,7 +5549,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
 
-    // -- Testing case with no bucket and soil should fully avalanche --
+    // Test: RE-RBS-2
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.3;
     sim_out->body_[0][10][14] = -0.3;
@@ -5653,8 +5571,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
 
-    // -- Testing case with no bucket and soil should fully avalanche, --
-    // -- soil should avalanche in several steps                       --
+    // Test: RE-RBS-3
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.3;
     sim_out->body_[0][10][14] = -0.3;
@@ -5679,8 +5596,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
 
-    // -- Testing case with first bucket layer and soil should partially --
-    // -- avalanche on the terrain                                       --
+    // Test: RE-RBS-4
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5705,8 +5621,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with first bucket layer and soil should fully --
-    // -- avalanche on the terrain                                   --
+    // Test: RE-RBS-5
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5740,8 +5655,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with first bucket layer and soil should partially      --
-    // -- avalanche on the terrain but there is not enough space for all soil --
+    // Test: RE-RBS-6
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5766,8 +5680,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with first bucket layer and soil should partially --
-    // -- avalanche on it                                                --
+    // Test: RE-RBS-7
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5797,8 +5710,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with first bucket layer and soil should fully --
-    // -- avalanche on it                                            --
+    // Test: RE-RBS-8
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5828,8 +5740,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with first bucket layer and soil should fully --
-    // -- avalanche on it in several steps                           --
+    // Test: RE-RBS-9
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5864,8 +5775,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case where there is the first bucket layer with bucket soil --
-    // -- and soil should partially avalanche on it                           --
+    // Test: RE-RBS-10
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5899,8 +5809,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case where there is the first bucket layer with bucket soil --
-    // -- and soil should fully avalanche on it                               --
+    // Test: RE-RBS-11
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5934,8 +5843,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case where there is the first bucket layer with bucket soil --
-    // -- and soil should fully avalanche on it in several steps              --
+    // Test: RE-RBS-12
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -5974,8 +5882,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with second bucket layer and soil should partially --
-    // -- avalanche on the terrain                                        --
+    // Test: RE-RBS-13
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6000,8 +5907,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with second bucket layer and soil should fully --
-    // -- avalanche on the terrain                                    --
+    // Test: RE-RBS-14
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6026,8 +5932,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with second bucket layer and soil should partially     --
-    // -- avalanche on the terrain but there is not enough space for all soil --
+    // Test: RE-RBS-15
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6052,8 +5957,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with second bucket layer and soil should partially --
-    // -- avalanche on it                                                 --
+    // Test: RE-RBS-16
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6083,8 +5987,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with second bucket layer and soil should fully --
-    // -- avalanche on it                                             --
+    // Test: RE-RBS-17
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6114,8 +6017,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with second bucket layer and soil should fully --
-    // -- avalanche on it in several steps                            --
+    // Test: RE-RBS-18
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6150,8 +6052,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and soil should partially avalanche on it                  --
+    // Test: RE-RBS-19
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6185,8 +6086,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and soil should fully avalanche on it                      --
+    // Test: RE-RBS-20
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6220,8 +6120,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and soil should fully avalanche on it in several steps     --
+    // Test: RE-RBS-21
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6260,8 +6159,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should partially avalanche on it                            --
+    // Test: RE-RBS-22
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6293,8 +6191,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should fully avalanche on it                                --
+    // Test: RE-RBS-23
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6326,8 +6223,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should fully avalanche on it in several steps               --
+    // Test: RE-RBS-24
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6364,8 +6260,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should partially avalanche on the second bucket layer       --
+    // Test: RE-RBS-25
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6397,8 +6292,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should fully avalanche on the second bucket layer           --
+    // Test: RE-RBS-26
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6430,8 +6324,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer with soil being --
-    // -- lower and soil should partially avalanche on it                  --
+    // Test: RE-RBS-27
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6467,8 +6360,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer with soil being --
-    // -- lower and soil should fully avalanche on it                      --
+    // Test: RE-RBS-28
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6504,8 +6396,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer with soil being --
-    // -- lower and soil should fully avalanche on it in several steps     --
+    // Test: RE-RBS-29
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6546,8 +6437,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer with soil being --
-    // -- lower and soil should partially avalanche on second bucket layer --
+    // Test: RE-RBS-30
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6586,8 +6476,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer with soil being --
-    // -- lower and soil should fully avalanche on the second bucket layer --
+    // Test: RE-RBS-31
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6626,9 +6515,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should partially avalanche on it, while the second layer is --
-    // -- with bucket soil                                                 --
+    // Test: RE-RBS-32
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6667,9 +6554,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should fully avalanche on it, while the second layer is     --
-    // -- with bucket soil                                                 --
+    // Test: RE-RBS-33
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6708,8 +6593,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should partially avalanche on second bucket layer with soil --
+    // Test: RE-RBS-34
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.3;
     sim_out->body_[0][10][14] = -0.3;
@@ -6745,8 +6629,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should fully avalanche on the second bucket layer with soil --
+    // Test: RE-RBS-35
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.3;
     sim_out->body_[0][10][14] = -0.3;
@@ -6782,8 +6665,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil   --
-    // -- first layer being lower and soil should partially avalanche on it --
+    // Test: RE-RBS-36
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6826,8 +6708,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil should fully avalanche on it   --
+    // Test: RE-RBS-37
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6870,9 +6751,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil should partially avalanche on  --
-    // -- the second bucket layer                                         --
+    // Test: RE-RBS-38
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6915,9 +6794,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil should fully avalanche on      --
-    // -- the second bucket layer                                         --
+    // Test: RE-RBS-39
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6960,9 +6837,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil should partially avalanche on it but there is not enough    --
-    // -- space for all the soil                                           --
+    // Test: RE-RBS-40
     soil_simulator::rng.seed(1236);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -6994,9 +6869,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil should partially avalanche on  --
-    // -- it but there is not enough space for all the soil               --
+    // Test: RE-RBS-41
     soil_simulator::rng.seed(1236);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7039,9 +6912,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil   --
-    // -- first layer being lower and soil should partially avalanche on it --
-    // -- but there is no space at all                                      --
+    // Test: RE-RBS-42
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7082,8 +6953,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should partially avalanche on it                             --
+    // Test: RE-RBS-43
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7115,8 +6985,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should fully avalanche on it                                 --
+    // Test: RE-RBS-44
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7148,8 +7017,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should fully avalanche on it in several steps                --
+    // Test: RE-RBS-45
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7186,8 +7054,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should partially avalanche on the first bucket layer         --
+    // Test: RE-RBS-46
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7219,8 +7086,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should fully avalanche on the first bucket layer             --
+    // Test: RE-RBS-47
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7252,8 +7118,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer with soil being --
-    // -- lower and soil should partially avalanche on it                   --
+    // Test: RE-RBS-48
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7289,8 +7154,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer with soil being --
-    // -- lower and soil should fully avalanche on it                       --
+    // Test: RE-RBS-49
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7326,8 +7190,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer with soil being --
-    // -- lower and soil should fully avalanche on it in several steps      --
+    // Test: RE-RBS-50
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7368,8 +7231,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer with soil being   --
-    // -- lower and soil should partially avalanche on the first bucket layer --
+    // Test: RE-RBS-51
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7408,8 +7270,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer with soil being --
-    // -- lower and soil should fully avalanche on the first bucket layer   --
+    // Test: RE-RBS-52
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7448,9 +7309,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should partially avalanche on it, while the first layer is   --
-    // -- with bucket soil                                                  --
+    // Test: RE-RBS-53
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7489,9 +7348,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should fully avalanche on it, while the first layer is with  --
-    // -- bucket soil                                                       --
+    // Test: RE-RBS-54
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7530,8 +7387,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and   --
-    // -- soil should partially avalanche on the first bucket layer with soil --
+    // Test: RE-RBS-55
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7567,8 +7423,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil should fully avalanche on the first bucket layer with soil   --
+    // Test: RE-RBS-56
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7604,8 +7459,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil    --
-    // -- second layer being lower and soil should partially avalanche on it --
+    // Test: RE-RBS-57
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7648,8 +7502,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- second layer being lower and soil should fully avalanche on it  --
+    // Test: RE-RBS-58
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7692,9 +7545,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil  --
-    // -- the second layer being lower and soil should partially avalanche --
-    // -- on the first bucket layer                                        --
+    // Test: RE-RBS-59
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7737,9 +7588,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- second layer being lower and soil should fully avalanche on the --
-    // -- first bucket layer                                              --
+    // Test: RE-RBS-60
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.4;
     sim_out->body_[0][10][14] = -0.4;
@@ -7782,9 +7631,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and   --
-    // -- soil should partially avalanche on it but there is not enough space --
-    // -- for all the soil                                                    --
+    // Test: RE-RBS-61
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -7816,9 +7663,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- second layer being lower and soil should partially avalanche on --
-    // -- it but there is not enough space for all the soil               --
+    // Test: RE-RBS-62
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -7861,9 +7706,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- second layer being lower and soil should partially avalanche on --
-    // -- it but there is no space at all                                 --
+    // Test: RE-RBS-63
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -7904,9 +7747,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil fully cover the space between the two layers, the soil can  --
-    // -- partially avalanche to the second bucket layer                   --
+    // Test: RE-RBS-64
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -7945,9 +7786,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil fully cover the space between the two layers, the soil can  --
-    // -- partially avalanche to the second bucket soil layer              --
+    // Test: RE-RBS-65
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -7990,9 +7829,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil fully cover the space between the two layers, the soil can   --
-    // -- partially avalanche to the first bucket layer                     --
+    // Test: RE-RBS-66
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8031,9 +7868,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil fully cover the space between the two layers, the soil can   --
-    // -- partially avalanche to the first bucket soil layer                --
+    // Test: RE-RBS-67
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8076,7 +7911,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with no bucket and soil is not unstable --
+    // Test: RE-RBS-68
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8096,7 +7931,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     test_soil_simulator::ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
 
-    // -- Testing case with first bucket layer and soil is not unstable --
+    // Test: RE-RBS-69
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8121,8 +7956,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with first bucket layer with bucket soil and soil --
-    // -- is not unstable                                                --
+    // Test: RE-RBS-70
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8154,7 +7988,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case with second bucket layer and soil is not unstable --
+    // Test: RE-RBS-71
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8179,8 +8013,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case where there is the second bucket layer with bucket --
-    // -- soil and soil is not unstable                                   --
+    // Test: RE-RBS-72
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8212,8 +8045,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, first layer being lower and --
-    // -- soil is not unstable                                             --
+    // Test: RE-RBS-73
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8240,8 +8072,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with two bucket layers, first layer with bucket soil --
-    // -- being lower and soil is not unstable                              --
+    // Test: RE-RBS-74
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8275,8 +8106,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- first layer being lower and soil is not unstable                --
+    // Test: RE-RBS-75
     soil_simulator::rng.seed(1234);
     for (auto ii = 9; ii < 12;  ii++)
         for (auto jj = 13; jj < 16;  jj++)
@@ -8323,8 +8153,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, terrain_pos, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing case with two bucket layers, second layer being lower and --
-    // -- soil is not unstable                                              --
+    // Test: RE-RBS-76
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8351,8 +8180,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // -- Testing case with two bucket layers, second layer with bucket soil --
-    // -- being lower and soil is not unstable                               --
+    // Test: RE-RBS-77
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.8;
     sim_out->body_[0][10][14] = -0.8;
@@ -8363,9 +8191,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     sim_out->body_[0][10][15] = 0.0;
     sim_out->body_[1][10][15] = 0.1;
     sim_out->body_[2][10][15] = -0.4;
-    sim_out->body_[3][10][15] = -0.1;
-    sim_out->body_soil_[2][10][15] = -0.3;
-    sim_out->body_soil_[3][10][15] = -0.1;
+    sim_out->body_[3][10][15] = -0.2;
+    sim_out->body_soil_[2][10][15] = -0.2;
+    sim_out->body_soil_[3][10][15] = 0.0;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
@@ -8386,8 +8214,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // -- Testing case where there are two bucket layers with bucket soil --
-    // -- second layer being lower and soil is not unstable               --
+    // Test: RE-RBS-78
     soil_simulator::rng.seed(1234);
     for (auto ii = 9; ii < 12;  ii++)
         for (auto jj = 13; jj < 16;  jj++)
@@ -8434,7 +8261,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, terrain_pos, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
-    // -- Testing randomization --
+    // Test: RE-RBS-79
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.6;
     sim_out->body_[0][10][14] = -0.6;

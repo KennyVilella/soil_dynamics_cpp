@@ -880,7 +880,144 @@ The configuration of the inital position should not impact the result of this fu
 | RE-RUB-18 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
 | RE-RUB-19 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
 | RE-RUB-20 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Full         |
-
+| RE-RUB-21 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-22 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-23 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &cross;     | &check;      | Full         |
+| RE-RUB-24 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &cross;      | Partial      |
+| RE-RUB-25 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-26 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-27 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-28 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &check;      | Full         |  
+| RE-RUB-29 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &cross;     | &check;      | Full         |
+| RE-RUB-30 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &cross;      | Partial      |
+| RE-RUB-31 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |  
+| RE-RUB-32 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Fulll        | 
+| RE-RUB-33 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-34 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-35 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &cross;     | &check;      | Full         |
+| RE-RUB-36 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &cross;      | Partial      |
+| RE-RUB-37 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-38 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-39 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-40 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &check;      | Full         | 
+| RE-RUB-41 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &cross;     | &check;      | Full         |
+| RE-RUB-42 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &cross;      | Partial      |
+| RE-RUB-43 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      | 
+| RE-RUB-44 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Fulll        | 
+| RE-RUB-45 | First layer  | &check; | &check;   | Second layer | &check; | &cross;      | &check;     | &cross;      | &cross;      |
+| RE-RUB-46 | Second layer | &check; | &check;   | First layer  | &check; | &cross;      | &check;     | &cross;      | &cross;      | 
+| RE-RUB-47 | First layer  | &check; | &check;   | Second layer | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-48 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-49 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-50 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-51 | Second layer | &check; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &cross;      | Partial      |
 
 ### `RelaxBodySoil`
 
+Unit test for the `RelaxBodySoil` function.
+
+The tested function moves the body soil cell that are unstablle following the configuration.
+The purpose of these tests is to check all possible configurations.
+The description of the unit tests can therefore be done with a simple table describing the configuration.
+However, several movements can be investigated within a single unit test.
+By convention, multiples rows are present within a unit test when the avalanche occurs in several steps.
+Each unit test is constructed such that soil is only avalanching to a single position (`10`, `15`).
+
+For all the unit tests, the initial position has soil on the first bucket layer.
+The configuration of the inital position should not impact the result of this function.
+
+| Test name | Bottom layer | Soil    | Until top | Top layer    | Soil    | Avalanche    | Enough space | Status       |
+| --------- | ------------ | ------- | --------- | ------------ | ------- | ------------ | ------------ | ------------ |
+| RE-RBS-1  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Partial      |
+| RE-RBS-2  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Full         |
+| RE-RBS-3  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Partial      |
+|           | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Full         |
+| RE-RBS-4  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Partial      |
+| RE-RBS-5  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Full         |
+| RE-RBS-6  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;      | Partial      |
+| RE-RBS-7  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-8  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-9  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Partial      |
+|           | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-10 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-11 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-12 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Partial      |
+|           | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-13 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Partial      |
+| RE-RBS-14 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;      | Full         |
+| RE-RBS-15 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;      | Partial      |
+| RE-RBS-16 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-17 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-18 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Partial      |
+|           | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-19 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-20 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-21 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Partial      |
+|           | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-22 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-23 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-24 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;      | Partial      |
+|           | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-25 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-26 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-27 | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-28 | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-29 | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;      | Partial      |
+|           | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-30 | First layer  | &check; | &cross;   | Second layer | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-31 | First layer  | &check; | &cross;   | Second layer | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-32 | First layer  | &cross; | &cross;   | Second layer | &check; | First layer  | &check;      | Partial      |
+| RE-RBS-33 | First layer  | &cross; | &cross;   | Second layer | &check; | First layer  | &check;      | Full         |
+| RE-RBS-34 | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &check;      | Partial      |
+| RE-RBS-35 | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &check;      | Full         |
+| RE-RBS-36 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;      | Partial      |
+| RE-RBS-37 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;      | Full         |
+| RE-RBS-38 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;      | Partial      |
+| RE-RBS-39 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;      | Full         |
+| RE-RBS-40 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &cross;      | Partial      |
+| RE-RBS-41 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &cross;      | Partial      |
+| RE-RBS-42 | First layer  | &check; | &check;   | Second layer | &check; | First layer  | &cross;      | &cross;      |
+| RE-RBS-43 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-44 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-45 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;      | Partial      |
+|           | Second layer | &check; | &cross;   | First layer  | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-46 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-47 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-48 | Second layer | &check; | &cross;   | First layer  | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-49 | Second layer | &check; | &cross;   | First layer  | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-50 | Second layer | &check; | &cross;   | First layer  | &cross; | Second layer | &check;      | Partial      |
+|           | Second layer | &check; | &cross;   | First layer  | &cross; | Second layer | &check;      | Full         |
+| RE-RBS-51 | Second layer | &check; | &cross;   | First layer  | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-52 | Second layer | &check; | &cross;   | First layer  | &cross; | First layer  | &check;      | Full         |
+| RE-RBS-53 | Second layer | &cross; | &cross;   | First layer  | &check; | Second layer | &check;      | Partial      |
+| RE-RBS-54 | Second layer | &cross; | &cross;   | First layer  | &check; | Second layer | &check;      | Full         |
+| RE-RBS-55 | Second layer | &cross; | &cross;   | First layer  | &check; | First layer  | &check;      | Partial      |
+| RE-RBS-56 | Second layer | &cross; | &cross;   | First layer  | &check; | First layer  | &check;      | Full         |
+| RE-RBS-57 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;      | Partial      |
+| RE-RBS-58 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;      | Full         |
+| RE-RBS-59 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;      | Partial      |
+| RE-RBS-60 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;      | Full         |
+| RE-RBS-61 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &cross;      | Partial      |
+| RE-RBS-62 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &cross;      | Partial      |
+| RE-RBS-63 | Second layer | &check; | &check;   | First layer  | &check; | &cross;      | &cross;      | &cross;      |
+| RE-RBS-64 | First layer  | &check; | &check;   | Second layer | &cross; | Second layer | &check;      | Partial      |
+| RE-RBS-65 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;      | Partial      |
+| RE-RBS-66 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;      | Partial      |
+| RE-RBS-67 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &check;      | Partial      |
+| RE-RBS-68 | &cross;      | &cross; | &cross;   | &cross;      | &cross; | &cross;      | &check;      | &cross;      |
+| RE-RBS-69 | First layer  | &cross; | &cross;   | &cross;      | &cross; | &cross;      | &check;      | &cross;      |
+| RE-RBS-70 | First layer  | &check; | &cross;   | &cross;      | &cross; | &cross;      | &check;      | &cross;      | 
+| RE-RBS-71 | Second layer | &cross; | &cross;   | &cross;      | &cross; | &cross;      | &check;      | &cross;      | 
+| RE-RBS-72 | Second layer | &check; | &cross;   | &cross;      | &cross; | &cross;      | &check;      | &cross;      |
+| RE-RBS-73 | First layer  | &cross; | &cross;   | Second layer | &cross; | &cross;      | &check;      | &cross;      | 
+| RE-RBS-74 | First layer  | &check; | &check;   | Second layer | &cross; | &cross;      | &check;      | &cross;      |    
+| RE-RBS-75 | First layer  | &check; | &check;   | Second layer | &check; | &cross;      | &check;      | &cross;      |    
+| RE-RBS-76 | Second layer | &cross; | &cross;   | First layer  | &cross; | &cross;      | &check;      | &cross;      |    
+| RE-RBS-77 | Second layer | &check; | &check;   | First layer  | &cross; | &cross;      | &check;      | &cross;      |
+| RE-RBS-78 | Second layer | &check; | &check;   | First layer  | &check; | &cross;      | &check;      | &cross;      |
+
+In addition to these basic unit tests, a few extra edge cases are checked.
+
+| Test name | Description of the unit test                                                |
+| --------- | --------------------------------------------------------------------------- |
+| RE-RBS-79 | Testing the randomness of the investigated direction for the soil movement. |
