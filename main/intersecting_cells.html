@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Documentation for the soil relaxation" href="relax.html" />
-    <link rel="prev" title="Documentation for the update of the soil resting on the bucket" href="body_soil.html" /> 
+    <link rel="prev" title="Documentation for the update of the soil resting on the body" href="body_soil.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,7 +54,6 @@
 <li class="toctree-l1"><a class="reference internal" href="bucket.html">Bucket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Intersecting cells</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introductory-remarks">Introductory remarks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#movement-of-soil-cells-on-the-bucket-intersecting-with-the-bucket">Movement of soil cells on the bucket intersecting with the bucket</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#general-description">General description</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#description-of-the-different-cases">Description of the different cases</a><ul>
@@ -104,15 +103,12 @@
              
   <section id="documentation-for-the-movement-of-intersecting-soil-cells">
 <span id="intersecting-cells"></span><h1>Documentation for the movement of intersecting soil cells<a class="headerlink" href="#documentation-for-the-movement-of-intersecting-soil-cells" title="Permalink to this heading"></a></h1>
-<section id="introductory-remarks">
-<h2>Introductory remarks<a class="headerlink" href="#introductory-remarks" title="Permalink to this heading"></a></h2>
 <p>After updating the position of the bucket and the soil resting on the bucket, it is possible that some soil cells are located in the same position as a bucket wall, while it is obviously physically impossible to have both soil and the bucket at the same position.
 These soil cells are referred to as intersecting cells in the simulator.</p>
 <p>The third task of the simulator is to move these soil cells following a set of rules to ensure a physically valid simulation.
 This is done by the <code class="code docutils literal notranslate"><span class="pre">MoveIntersectingCells</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">intersecting_cells.cpp</span></code> file.
 The process involves two main steps: moving intersecting cells resting on the bucket and moving intersecting cells from the terrain.
 The order of these steps is crucial, as the movement of intersecting cells resting on the bucket can create new intersecting cells in the terrain.</p>
-</section>
 <section id="movement-of-soil-cells-on-the-bucket-intersecting-with-the-bucket">
 <h2>Movement of soil cells on the bucket intersecting with the bucket<a class="headerlink" href="#movement-of-soil-cells-on-the-bucket-intersecting-with-the-bucket" title="Permalink to this heading"></a></h2>
 <section id="general-description">
@@ -202,7 +198,7 @@ Additionally, the case where a different bucket blocks the movement of soil to t
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="body_soil.html" class="btn btn-neutral float-left" title="Documentation for the update of the soil resting on the bucket" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="body_soil.html" class="btn btn-neutral float-left" title="Documentation for the update of the soil resting on the body" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="relax.html" class="btn btn-neutral float-right" title="Documentation for the soil relaxation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

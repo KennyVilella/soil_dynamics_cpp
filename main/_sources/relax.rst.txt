@@ -3,9 +3,6 @@
 Documentation for the soil relaxation
 =====================================
 
-Introductory remarks
---------------------
-
 The fourth task of this simulator is to model soil dynamics.
 Various models of different complexities have been developed over the years for this purpose.
 As this simulator focuses on performance, a simplified model is therefore employed.

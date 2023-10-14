@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Documentation for the update of the soil resting on the bucket &mdash; soil_simulator  documentation</title>
+  <title>Documentation for the update of the soil resting on the body &mdash; soil_simulator  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -53,7 +53,6 @@
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bucket.html">Bucket</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Body soil</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introductory-remarks">Introductory remarks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#challenges">Challenges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#determination-of-the-new-soil-position">Determination of the new soil position</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#current-limitations-and-alternatives">Current limitations and alternatives</a></li>
@@ -79,7 +78,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Documentation for the update of the soil resting on the bucket</li>
+      <li class="breadcrumb-item active">Documentation for the update of the soil resting on the body</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/body_soil.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -89,56 +88,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="documentation-for-the-update-of-the-soil-resting-on-the-bucket">
-<span id="body-soil"></span><h1>Documentation for the update of the soil resting on the bucket<a class="headerlink" href="#documentation-for-the-update-of-the-soil-resting-on-the-bucket" title="Permalink to this heading"></a></h1>
-<section id="introductory-remarks">
-<h2>Introductory remarks<a class="headerlink" href="#introductory-remarks" title="Permalink to this heading"></a></h2>
-<p>The second task of the simulator is to move the soil resting on the bucket following the bucket movement.
+  <section id="documentation-for-the-update-of-the-soil-resting-on-the-body">
+<span id="body-soil"></span><h1>Documentation for the update of the soil resting on the body<a class="headerlink" href="#documentation-for-the-update-of-the-soil-resting-on-the-body" title="Permalink to this heading"></a></h1>
+<p>The second task of the simulator is to move the soil resting on the body following its movement.
 This is done by the <code class="code docutils literal notranslate"><span class="pre">UpdateBodySoil</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">body_soil.cpp</span></code> file.</p>
-<p>As the bucket is moving, the soil resting on the bucket should also be moved.
-Because the bucket frame does not necessarily aligned with the global frame, this task is extremely challenging.
+<p>As the body is moving, the soil resting on the it should also be moved.
+Because the body frame is not necessarily aligned with the global frame, this task is extremely challenging.
 The current implementation has already been refactored and improved, while still not being good enough for our purpose.
 Another round of improvements is therefore needed.</p>
-</section>
 <section id="challenges">
 <h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this heading"></a></h2>
 <p>Before describing the current algorithm, it is important to list the main challenges of this process in order to better understand the choices that have been made.</p>
-<p>(a) In some cases, the bucket could move by a succesion of small movements.
+<p>(a) In some cases, the body could move by a series of small movements.
 Each individual movement would not be enough to move the soil by one cell, but the addition of multiple small movements would move the soil by one cell.</p>
 <p>(b) Two or more soil columns could potentially merged into one, and then split if the movement is reversed.
-This is particularly true when the bucket is doing a dumping motion.
-In that case, the base of the bucket, where most of the soil should have landed, would be almost vertical such that a lot of soil should merged to a few lateral cells.</p>
-<p>(c) When the soil is close to the edge of the bucket, two bucket layers could be close enough such that it becomes difficult to asses in which bucket layer the soil belongs.
-In such cases, some errors may occur and the soil may jump from the inside to the outside of the bucket, or inversely, from the outside to the inside of the bucket.</p>
-<p>Note that (a) means that the last bucket movement is not enough to asses the position of the bucket soil.
-It is necessary to have information about the history of the bucket soil.
+This is particularly true when the body is doing a dumping motion.
+In that case, the base of the body, where most of the soil should have landed, would be almost vertical such that a lot of soil should merged to a few lateral cells.</p>
+<p>(c) When the soil is close to the edge of the body, two body layers could be close enough such that it becomes difficult to assess in which body layer the soil belongs.
+In such cases, some errors may occur and the soil may jump from the inside to the outside of the body, or vice versa.</p>
+<p>Note that (a) means that the last body movement is not enough to asses the position of the body soil.
+It is necessary to have information about the history of the body soil.
 In the current algorithm, (c) is still a problem.
-This is clear as soil falls down from the bucket when moving it laterally.</p>
+This is clear as soil falls down from the body when moving it laterally.</p>
 </section>
 <section id="determination-of-the-new-soil-position">
 <h2>Determination of the new soil position<a class="headerlink" href="#determination-of-the-new-soil-position" title="Permalink to this heading"></a></h2>
-<p>In the current implementation, for all soil landing on the bucket across the simulator, the position of the landing as well as the amount of soil is stored in the <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> field of the <code class="code docutils literal notranslate"><span class="pre">SimOut</span></code> class using the <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> struct.
-Note that the landing position is converted into the reference bucket frame (that is the bucket frame in its reference pose) in order to be independent of the current position of the bucket.</p>
-<p>The <code class="code docutils literal notranslate"><span class="pre">UpdateBodySoil</span></code> function iterates over all the soil in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> and converts the landing position stored into the current pose of the bucket.
-This gives the estimated position of the bucket soil in the current pose of the bucket.
-Unfortunately, this estimated position may not always correspond to an actual position on the bucket.
-To tackle this issue, the eight cells neighbouring the estimated position is investigated and soil is moved to the first bucket layer found.
-If no bucket layer is found, the soil is moved to the neighbouring cells with the lowest vertical difference compared to the estimated position.
-The purpose of this is to ensure the continuity in the bucket soil movement and reduce the impact of the (c) challenge mentionned in the previous section.</p>
+<p>In the current implementation, for all soil landing on the body across the simulator, the position of the landing as well as the amount of soil is stored in the <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> field of the <code class="code docutils literal notranslate"><span class="pre">SimOut</span></code> class using the <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> struct.
+Note that the landing position is converted into the reference body frame (that is the body frame in its reference pose) in order to be independent of the current position of the body.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">UpdateBodySoil</span></code> function iterates over all the soil in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> and converts the landing position stored into the current pose of the body.
+This gives the estimated position of the body soil in the current pose of the body.
+Unfortunately, this estimated position may not always correspond to an actual position on the body.
+To tackle this issue, the eight cells neighbouring the estimated position is investigated and soil is moved to the first body layer found.
+If no body layer is found, the soil is moved to the neighbouring cells with the lowest vertical difference compared to the estimated position.
+The purpose of this is to ensure the continuity in the body soil movement and reduce the impact of the (c) challenge mentionned in the previous section.</p>
 </section>
 <section id="current-limitations-and-alternatives">
 <h2>Current limitations and alternatives<a class="headerlink" href="#current-limitations-and-alternatives" title="Permalink to this heading"></a></h2>
-<p>The current implementation has several issues that needs to be solved:</p>
+<p>The current implementation has several issues that need to be solved:</p>
 <ul class="simple">
 <li><p>The code becomes significantly slower when a high resolution is used due to the number of soil to track in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code>.</p></li>
 <li><p>The algorithm does not always work.
-In particular, soil tends to jump outside the bucket when close to a vertical bucket wall.</p></li>
-<li><p>Soil resting on the bucket seems to always move, even when the bucket is doing a simple translation outside ground.</p></li>
+In particular, soil tends to jump outside the body when close to a vertical body wall.</p></li>
+<li><p>Soil resting on the body seems to always move, even when the body is doing a simple translation outside ground.</p></li>
 </ul>
-<p>An alternative way to deal with the soil resting on the bucket will be to implement a second grid aligned with the bucket frame.
+<p>An alternative way to deal with the soil resting on the body will be to implement a second grid aligned with the body frame.
 This will however introduce different types of problems.
-For instance, soil relaxation will become very complicated due to the bucket rotation.</p>
-<p>Overall, it seems better to keep the current approach, while improving the continuity in the bucket soil movement and reducing the number of soil in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code>.</p>
+For instance, soil relaxation will become very complicated due to the body rotation.</p>
+<p>Overall, it seems better to keep the current approach, while improving the continuity in the body soil movement and reducing the number of soil in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code>.</p>
 </section>
 </section>
 

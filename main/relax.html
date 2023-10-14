@@ -55,7 +55,6 @@
 <li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intersecting_cells.html">Intersecting cells</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Relax</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introductory-remarks">Introductory remarks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#general-description">General description</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#terrain-relaxation">Terrain relaxation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#description-of-the-different-cases">Description of the different cases</a></li>
@@ -98,8 +97,6 @@
              
   <section id="documentation-for-the-soil-relaxation">
 <span id="relax"></span><h1>Documentation for the soil relaxation<a class="headerlink" href="#documentation-for-the-soil-relaxation" title="Permalink to this heading"></a></h1>
-<section id="introductory-remarks">
-<h2>Introductory remarks<a class="headerlink" href="#introductory-remarks" title="Permalink to this heading"></a></h2>
 <p>The fourth task of this simulator is to model soil dynamics.
 Various models of different complexities have been developed over the years for this purpose.
 As this simulator focuses on performance, a simplified model is therefore employed.
@@ -116,7 +113,6 @@ In practice, several thousand iterations may be required to reach full equilibri
 To balance computational efficiency and accuracy, the algorithm does not wait for a complete equilibrium state and instead stops after a set number of iterations, which can be specified by the <code class="code docutils literal notranslate"><span class="pre">max_iterations_</span></code> field of the <code class="code docutils literal notranslate"><span class="pre">SimParam</span></code> class.
 The appropriate value for <code class="code docutils literal notranslate"><span class="pre">max_iterations_</span></code> typically ranges from 1 to 20 and should be chosen based on the specific simulation requirements.
 It is worth noting that increasing the value of <code class="code docutils literal notranslate"><span class="pre">max_iterations_</span></code> impacts significantly the performance of the simulator.</p>
-</section>
 <section id="general-description">
 <h2>General description<a class="headerlink" href="#general-description" title="Permalink to this heading"></a></h2>
 <p>While the detailed implementation of the relaxation process differs for terrain relaxation and bucket soil relaxation, the core algorithm remains the same and will be described in this section.</p>
