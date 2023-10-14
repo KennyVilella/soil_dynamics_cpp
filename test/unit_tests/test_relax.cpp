@@ -25,8 +25,11 @@ TEST(UnitTestRelax, LocateUnstableTerrainCell) {
     sim_out->terrain_[15][5] = -0.4;
     sim_out->terrain_[15][6] = -0.2;
 
+    // Declaring variables
+    std::vector<std::vector<int>> unstable_cells;
+
     // -- Testing that all unstable cells are properly located --
-    auto unstable_cells = soil_simulator::LocateUnstableTerrainCell(
+    unstable_cells = soil_simulator::LocateUnstableTerrainCell(
         sim_out, 0.1, 1e-5);
     EXPECT_TRUE((unstable_cells[0] == std::vector<int> {4, 2}));
     EXPECT_TRUE((unstable_cells[1] == std::vector<int> {5, 3}));
@@ -52,6 +55,8 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // Declaring variables
     int status;
 
     // Test: RE-CUT-1
@@ -821,6 +826,11 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
+    // Declaring variables
+    std::vector<float> pos0;
+    std::vector<float> pos2;
+    std::vector<float> posA;
+
     // Test: RE-RUT-1
     sim_out->terrain_[10][14] = 0.4;
     sim_out->terrain_[10][15] = 0.1;
@@ -863,7 +873,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->terrain_[10][15] = -0.4;
     sim_out->body_[0][10][15] = -0.4;
     sim_out->body_[1][10][15] = -0.2;
-    auto posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 14, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -883,7 +893,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[1][10][15] = -0.5;
     sim_out->body_soil_[0][10][15] = -0.5;
     sim_out->body_soil_[1][10][15] = -0.3;
-    auto  pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
     soil_simulator::RelaxUnstableTerrainCell(
@@ -989,7 +999,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     sim_out->body_[3][10][15] = -0.5;
     sim_out->body_soil_[2][10][15] = -0.5;
     sim_out->body_soil_[3][10][15] = -0.3;
-    auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
     soil_simulator::RelaxUnstableTerrainCell(
@@ -1459,6 +1469,12 @@ TEST(UnitTestRelax, RelaxTerrain) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
+    // Declaring variables
+    std::vector<float> pos0;
+    std::vector<float> pos2;
+    std::vector<float> posA;
+    std::vector<float> posB;
+
     // Test: RE-RT-1
     soil_simulator::rng.seed(200);
     sim_out->terrain_[10][15] = -0.1;
@@ -1527,7 +1543,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
-    auto posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
@@ -1575,7 +1591,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
-    auto pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
@@ -1730,7 +1746,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[0][1] = 15;
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
-    auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.4});
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
@@ -1868,7 +1884,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    auto posB = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
+    posB = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.8, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
@@ -2718,6 +2734,8 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // Declaring variables
     int status;
 
     // Test: RE-CUB-1
@@ -3576,6 +3594,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
+    // Declaring variables
+    std::vector<float> pos0;
+    std::vector<float> pos2;
+    std::vector<float> posA;
+
     // Test: RE-RUB-1
     sim_out->terrain_[10][14] = -0.2;
     sim_out->body_[0][10][14] = -0.2;
@@ -3583,7 +3606,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     sim_out->body_soil_[0][10][14] = 0.0;
     sim_out->body_soil_[1][10][14] = 0.2;
     sim_out->terrain_[10][15] = 0.0;
-    auto pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
     soil_simulator::RelaxUnstableBodyCell(
@@ -3750,7 +3773,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
-    auto posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 14, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3995,7 +4018,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
-    auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::RelaxUnstableBodyCell(
@@ -5527,6 +5550,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
     bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
 
+    // Declaring variables
+    std::vector<float> pos0;
+    std::vector<float> pos2;
+    std::vector<float> posA;
+
     // Test: RE-RBS-1
     soil_simulator::rng.seed(1234);
     sim_out->terrain_[10][14] = -0.3;
@@ -5535,7 +5563,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     sim_out->body_soil_[0][10][14] = -0.2;
     sim_out->body_soil_[1][10][14] = 0.0;
     sim_out->terrain_[10][15] = -0.2;
-    auto pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
@@ -5693,7 +5721,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
-    auto posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.4, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
@@ -6454,7 +6482,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
-    auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
