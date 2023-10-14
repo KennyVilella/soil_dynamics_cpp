@@ -16,9 +16,13 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
 
+    // Declaring variables
+    std::vector<float> pos;
+    std::vector<float> ori;
+
     // Test: UT-CBC-1
-    auto pos = std::vector<float> {0.0, 0.0, 0.0};
-    auto ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    pos = {0.0, 0.0, 0.0};
+    ori = {1.0, 0.0, 0.0, 0.0};
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.0, -0.25, 0.0}));
@@ -29,8 +33,8 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     EXPECT_TRUE((t_l_pos == std::vector<float> {0.7, 0.25, -0.5}));
 
     // Test: UT-CBC-2
-    pos = std::vector<float> {0.1, -0.1, 0.2};
-    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    pos = {0.1, -0.1, 0.2};
+    ori = {1.0, 0.0, 0.0, 0.0};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.1, -0.35, 0.2}));
@@ -41,8 +45,8 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     EXPECT_TRUE((t_l_pos == std::vector<float> {0.8, 0.15, -0.3}));
 
     // Test: UT-CBC-3
-    pos = std::vector<float> {0.0, 0.0, 0.0};
-    ori = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    pos = {0.0, 0.0, 0.0};
+    ori = {0.707107, 0.0, 0.0, -0.707107};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.25, 0.0, 0.0}));
@@ -58,8 +62,8 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     EXPECT_NEAR(t_l_pos[2], -0.5, 1e-5);
 
     // Test: UT-CBC-4
-    pos = std::vector<float> {0.1, -0.1, 0.2};
-    ori = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    pos = {0.1, -0.1, 0.2};
+    ori = {0.707107, 0.0, 0.0, -0.707107};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.35, -0.1, 0.2}));
@@ -81,54 +85,59 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     std::vector<float> t_pos = {0.7, 0.0, -0.5};
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
+
+    // Declaring variables
+    std::vector<float> pos;
+    std::vector<float> ori;
+    bool status;
 
     // Test: UT-CBM-1
-    auto pos = std::vector<float> {0.1, 0.0, 0.0};
-    auto ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
-    bool status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    pos = {0.1, 0.0, 0.0};
+    ori = {1.0, 0.0, 0.0, 0.0};
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-2
-    pos = std::vector<float> {0.05, 0.02, -0.05};
-    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    pos = {0.05, 0.02, -0.05};
+    ori = {1.0, 0.0, 0.0, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-3
-    pos = std::vector<float> {0.0, 0.0, 0.0};
-    ori = std::vector<float> {0.997, 0.0, 0.07, 0.0};
+    pos = {0.0, 0.0, 0.0};
+    ori = {0.997, 0.0, 0.07, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-4
-    pos = std::vector<float> {0.05, 0.0, 0.0};
-    ori = std::vector<float> {0.997, 0.0, 0.07, 0.0};
+    pos = {0.05, 0.0, 0.0};
+    ori = {0.997, 0.0, 0.07, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-5
-    pos = std::vector<float> {0.005, 0.0, 0.0};
-    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    pos = {0.005, 0.0, 0.0};
+    ori = {1.0, 0.0, 0.0, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-6
-    pos = std::vector<float> {0.001, 0.002, -0.003};
-    ori = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    pos = {0.001, 0.002, -0.003};
+    ori = {1.0, 0.0, 0.0, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-7
-    pos = std::vector<float> {0.0, 0.0, 0.0};
-    ori = std::vector<float> {0.999, 0.0, 0.0029, 0.0};
+    pos = {0.0, 0.0, 0.0};
+    ori = {0.999, 0.0, 0.0029, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-8
-    pos = std::vector<float> {0.001, 0.0, 0.0};
-    ori = std::vector<float> {0.999, 0.0, 0.0029, 0.0};
+    pos = {0.001, 0.0, 0.0};
+    ori = {0.999, 0.0, 0.0029, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
@@ -136,11 +145,18 @@ TEST(UnitTestUtils, CheckBucketMovement) {
 }
 
 TEST(UnitTestUtils, CalcNormal) {
+    // Declaring variables
+    std::vector<float> a;
+    std::vector<float> b;
+    std::vector<float> c;
+    std::vector<float> normal;
+    float cc;
+
     // Test: UT-CN-1
-    std::vector<float> a = {0.0, 0.0, 0.0};
-    std::vector<float> b = {2.3, 0.0, 0.0};
-    std::vector<float> c = {2.3, 2.45, 0.0};
-    auto normal = soil_simulator::CalcNormal(a, b, c);
+    a = {0.0, 0.0, 0.0};
+    b = {2.3, 0.0, 0.0};
+    c = {2.3, 2.45, 0.0};
+    normal = soil_simulator::CalcNormal(a, b, c);
     EXPECT_TRUE((normal == std::vector<float> {0.0, 0.0, 1.0}));
     normal = soil_simulator::CalcNormal(a, c, b);
     EXPECT_TRUE((normal == std::vector<float> {0.0, 0.0, -1.0}));
@@ -167,7 +183,7 @@ TEST(UnitTestUtils, CalcNormal) {
     a = {1.0, 0.0, 0.0};
     b = {0.0, 1.0, 0.0};
     c = {0.0, 0.0, 1.0};
-    float cc = std::sqrt(1.0 / 3.0);
+    cc = std::sqrt(1.0 / 3.0);
     normal = soil_simulator::CalcNormal(a, b, c);
     EXPECT_TRUE((normal == std::vector<float> {cc, cc, cc}));
     normal = soil_simulator::CalcNormal(a, c, b);
@@ -175,9 +191,14 @@ TEST(UnitTestUtils, CalcNormal) {
 }
 
 TEST(UnitTestUtils, MultiplyQuaternion) {
+    // Declaring variables
+    std::vector<float> q1;
+    std::vector<float> q2;
+    std::vector<float> quat;
+
     // Test: UT-MQ-1
-    std::vector<float> q1 = {0.707107, 0.0, 0.0, -0.707107};
-    std::vector<float> quat = soil_simulator::MultiplyQuaternion(q1, q1);
+    q1 = {0.707107, 0.0, 0.0, -0.707107};
+    quat = soil_simulator::MultiplyQuaternion(q1, q1);
     EXPECT_NEAR(quat[0], 0.0, 1e-5);
     EXPECT_NEAR(quat[1], 0.0, 1e-5);
     EXPECT_NEAR(quat[2], 0.0, 1e-5);
@@ -201,7 +222,7 @@ TEST(UnitTestUtils, MultiplyQuaternion) {
 
     // Test: UT-MQ-4
     q1 = {0.8, -0.4, 0.2, 0.7};
-    std::vector<float> q2 = {0.2, 0.5, -0.7, -0.8};
+    q2 = {0.2, 0.5, -0.7, -0.8};
     quat = soil_simulator::MultiplyQuaternion(q1, q2);
     EXPECT_NEAR(quat[0], 1.06, 1e-5);
     EXPECT_NEAR(quat[1], 0.65, 1e-5);
@@ -210,10 +231,15 @@ TEST(UnitTestUtils, MultiplyQuaternion) {
 }
 
 TEST(UnitTestUtils, CalcRotationQuaternion) {
+    // Declaring variables
+    std::vector<float> pos;
+    std::vector<float> ori;
+    std::vector<float> new_pos;
+
     // Test: UT-CRQ-1
-    std::vector<float> ori = {0.707107, 0.0, 0.0, -0.707107};
-    std::vector<float> pos = {0.1, 0.1, 0.3};
-    auto new_pos = soil_simulator::CalcRotationQuaternion(ori, pos);
+    ori = {0.707107, 0.0, 0.0, -0.707107};
+    pos = {0.1, 0.1, 0.3};
+    new_pos = soil_simulator::CalcRotationQuaternion(ori, pos);
     EXPECT_NEAR(new_pos[0], -0.1, 1e-5);
     EXPECT_NEAR(new_pos[1], 0.1, 1e-5);
     EXPECT_NEAR(new_pos[2], 0.3, 1e-5);
@@ -244,9 +270,13 @@ TEST(UnitTestUtils, CalcRotationQuaternion) {
 }
 
 TEST(UnitTestUtils, AngleToQuat) {
+    // Declaring variables
+    std::vector<float> ori;
+    std::vector<float> quat;
+
     // Test: UT-AQ-1
-    std::vector<float> ori = {-1.570796327, 0.0, 0.0};
-    auto quat = soil_simulator::AngleToQuat(ori);
+    ori = {-1.570796327, 0.0, 0.0};
+    quat = soil_simulator::AngleToQuat(ori);
     EXPECT_NEAR(quat[0], 0.707107, 1e-5);
     EXPECT_NEAR(quat[1], 0.0, 1e-5);
     EXPECT_NEAR(quat[2], 0.0, 1e-5);
@@ -286,70 +316,76 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
     std::vector<float> t_pos = {0.7, 0.0, -0.5};
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
+
+    // Declaring variables
+    std::vector<float> pos;
 
     // Test: UT-CBF-1
-    auto pos = soil_simulator::CalcBucketFramePos(
+    pos = soil_simulator::CalcBucketFramePos(
         11, 11, 0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], 0.1, 1e-5);
     EXPECT_NEAR(pos[2], 0.2, 1e-5);
 
     // Test: UT-CBF-2
-    bucket->pos_ = std::vector<float> {-0.1, 0.2, 0.3};
+    bucket->pos_ = {-0.1, 0.2, 0.3};
     pos = soil_simulator::CalcBucketFramePos(
         10, 12, -0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], 0.0, 1e-5);
     EXPECT_NEAR(pos[2], -0.5, 1e-5);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
 
     // Test: UT-CBF-3
-    bucket->ori_ = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    bucket->ori_ = {0.707107, 0.0, 0.0, -0.707107};
     pos = soil_simulator::CalcBucketFramePos(
         11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], 0.2, 1e-5);
     EXPECT_NEAR(pos[1], -0.1, 1e-5);
     EXPECT_NEAR(pos[2], 0.3, 1e-5);
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Test: UT-CBF-4
-    bucket->ori_ = std::vector<float> {0.707107, 0.0, -0.707107, 0.0};
+    bucket->ori_ = {0.707107, 0.0, -0.707107, 0.0};
     pos = soil_simulator::CalcBucketFramePos(
         11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], -0.3, 1e-5);
     EXPECT_NEAR(pos[1], 0.2, 1e-5);
     EXPECT_NEAR(pos[2], 0.1, 1e-5);
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Test: UT-CBF-5
-    bucket->ori_ = std::vector<float> {0.707107, 0.707107, 0.0, 0.0};
+    bucket->ori_ = {0.707107, 0.707107, 0.0, 0.0};
     pos = soil_simulator::CalcBucketFramePos(
         11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], -0.3, 1e-5);
     EXPECT_NEAR(pos[2], 0.2, 1e-5);
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Test: UT-CBF-6
-    bucket->pos_ = std::vector<float> {-0.1, 0.2, 0.3};
-    bucket->ori_ = std::vector<float> {0.707107, 0.0, 0.0, -0.707107};
+    bucket->pos_ = {-0.1, 0.2, 0.3};
+    bucket->ori_ = {0.707107, 0.0, 0.0, -0.707107};
     pos = soil_simulator::CalcBucketFramePos(
         10, 12, -0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.0, 1e-5);
     EXPECT_NEAR(pos[1], -0.1, 1e-5);
     EXPECT_NEAR(pos[2], -0.5, 1e-5);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     delete bucket;
 }
 
 TEST(UnitTestUtils, CheckVolume) {
-    // Setting dummy classes
+    // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // Declaring variables
+    float init_volume;
 
     // Test: UT-CV-1
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
@@ -361,7 +397,7 @@ TEST(UnitTestUtils, CheckVolume) {
 
     // Test: UT-CV-2
     sim_out->terrain_[1][2] = 0.2;
-    float init_volume =  0.2 * grid.cell_area_;
+    init_volume =  0.2 * grid.cell_area_;
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
     EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
     EXPECT_FALSE(soil_simulator::CheckVolume(
@@ -409,7 +445,7 @@ TEST(UnitTestUtils, CheckVolume) {
 }
 
 TEST(UnitTestUtils, CheckSoil) {
-    // Setting dummy classes
+    // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
 
