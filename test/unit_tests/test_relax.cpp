@@ -823,8 +823,8 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Declaring variables
     std::vector<float> pos0;
@@ -1466,8 +1466,8 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->impact_area_[0][1] = 16;
     sim_out->impact_area_[1][0] = 9;
     sim_out->impact_area_[1][1] = 20;
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Declaring variables
     std::vector<float> pos0;
@@ -3591,8 +3591,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     std::vector<soil_simulator::body_soil> *body_soil_pos = (
         new std::vector<soil_simulator::body_soil>);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Declaring variables
     std::vector<float> pos0;
@@ -5547,13 +5547,14 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     sim_out->impact_area_[0][1] = 20;
     sim_out->impact_area_[1][0] = 2;
     sim_out->impact_area_[1][1] = 20;
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Declaring variables
     std::vector<float> pos0;
     std::vector<float> pos2;
     std::vector<float> posA;
+    std::vector<std::vector<int>> terrain_pos;
 
     // Test: RE-RBS-1
     soil_simulator::rng.seed(1234);
@@ -8174,7 +8175,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.7, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
-    std::vector<std::vector<int>> terrain_pos = {
+    terrain_pos = {
         {9, 13}, {9, 14}, {9, 15}, {10, 13}, {10, 14}, {10, 15}, {11, 13},
         {11, 14}, {11, 15}};
     test_soil_simulator::ResetValueAndTest(

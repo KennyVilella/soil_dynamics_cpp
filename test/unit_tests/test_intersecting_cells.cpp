@@ -19,8 +19,8 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
     auto pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.7, grid, bucket);
     auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
 
@@ -472,8 +472,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
 
     // Declaring variables
     std::vector<float> pos0;
@@ -489,6 +489,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     std::vector<float> posI;
     std::vector<float> posJ;
     std::vector<float> posK;
+    std::vector<std::vector<int>> body_pos;
+    std::vector<std::vector<int>> body_soil_pos;
 
     // Test: IC-MIBS-1
     soil_simulator::rng.seed(1234);
@@ -2707,12 +2709,12 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out->body_soil_pos_[11], 2, 12, 17, posE, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 12);
     // Resetting values
-    std::vector<std::vector<int>> body_pos = {
+    body_pos = {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
         {0, 10, 16}, {2, 10, 16}, {2, 10, 17}, {0, 11, 14}, {2, 11, 14},
         {2, 12, 13}, {0, 9, 14}, {2, 9, 14}, {2, 8, 13}, {0, 11, 16},
         {2, 11, 16}, {0, 12, 17}, {2, 12, 17}};
-    std::vector<std::vector<int>> body_soil_pos = {
+    body_soil_pos = {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 10, 16}, {0, 11, 14},
         {2, 9, 14}, {0, 11, 16}, {2, 12, 17}};
     test_soil_simulator::ResetValueAndTest(
