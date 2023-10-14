@@ -3,9 +3,6 @@
 Documentation for the movement of intersecting soil cells
 =========================================================
 
-Introductory remarks
---------------------
-
 After updating the position of the bucket and the soil resting on the bucket, it is possible that some soil cells are located in the same position as a bucket wall, while it is obviously physically impossible to have both soil and the bucket at the same position.
 These soil cells are referred to as intersecting cells in the simulator.
 

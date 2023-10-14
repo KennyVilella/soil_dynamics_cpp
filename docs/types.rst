@@ -3,9 +3,6 @@
 Documentation for the implemented types
 =======================================
 
-Introductory remarks
---------------------
-
 The simulator relies on class and struct to organize and manage the various parameters and properties.
 These new types are implemented in the :code:`types.cpp` file and are designed to provide a clear and efficient way of passing input arguments to the simulator's public functions.
 
