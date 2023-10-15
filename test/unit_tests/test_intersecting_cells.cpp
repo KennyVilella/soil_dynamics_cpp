@@ -19,10 +19,18 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
     auto pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.7, grid, bucket);
     auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
+
+    // Declaring variables
+    int ind;
+    int ii;
+    int jj;
+    float h_soil;
+    bool wall_presence;
+    std::vector<float> posA;
 
     // Creating a lambda function to set the initial state
     auto SetInitState = [&]() {
@@ -42,7 +50,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
 
     // Test: IC-MBS-1
     SetInitState();
-    auto [ind, ii, jj, h_soil, wall_presence] = soil_simulator::MoveBodySoil(
+    std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
@@ -86,7 +94,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     SetInitState();
     sim_out->body_[0][5][7] = 0.0;
     sim_out->body_[1][5][7] = 0.2;
-    auto posA = soil_simulator::CalcBucketFramePos(5, 7, 0.2, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(5, 7, 0.2, grid, bucket);
     std::tie(ind, ii, jj, h_soil, wall_presence) = soil_simulator::MoveBodySoil(
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
@@ -464,8 +472,25 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    bucket->pos_ = std::vector<float> {0.0, 0.0, 0.0};
-    bucket->ori_ = std::vector<float> {1.0, 0.0, 0.0, 0.0};
+    bucket->pos_ = {0.0, 0.0, 0.0};
+    bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
+
+    // Declaring variables
+    std::vector<float> pos0;
+    std::vector<float> pos2;
+    std::vector<float> posA;
+    std::vector<float> posB;
+    std::vector<float> posC;
+    std::vector<float> posD;
+    std::vector<float> posE;
+    std::vector<float> posF;
+    std::vector<float> posG;
+    std::vector<float> posH;
+    std::vector<float> posI;
+    std::vector<float> posJ;
+    std::vector<float> posK;
+    std::vector<std::vector<int>> body_pos;
+    std::vector<std::vector<int>> body_soil_pos;
 
     // Test: IC-MIBS-1
     soil_simulator::rng.seed(1234);
@@ -477,8 +502,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_[1][10][15] = 0.8;
     sim_out->body_soil_[2][10][15] = 0.6;
     sim_out->body_soil_[3][10][15] = 0.7;
-    auto pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    auto pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
     sim_out->body_soil_pos_.push_back(
@@ -738,7 +763,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    auto posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
@@ -2382,7 +2407,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.1});
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, pos2[0], pos2[1], pos2[2], 0.1});
-    auto posB = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
+    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, posB[0], posB[1], posB[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
@@ -2644,16 +2669,16 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posB = soil_simulator::CalcBucketFramePos(10, 16, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 16, posB[0], posB[1], posB[2], 0.3});
-    auto posC = soil_simulator::CalcBucketFramePos(11, 14, 0.1, grid, bucket);
+    posC = soil_simulator::CalcBucketFramePos(11, 14, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 14, posC[0], posC[1], posC[2], 0.1});
-    auto posD = soil_simulator::CalcBucketFramePos(9, 14, 0.3, grid, bucket);
+    posD = soil_simulator::CalcBucketFramePos(9, 14, 0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 9, 14, posD[0], posD[1], posD[2], 0.1});
     pos0 = soil_simulator::CalcBucketFramePos(11, 16, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 16, pos0[0], pos0[1], pos0[2], 0.7});
-    auto posE = soil_simulator::CalcBucketFramePos(12, 17, 0.3, grid, bucket);
+    posE = soil_simulator::CalcBucketFramePos(12, 17, 0.3, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
@@ -2684,12 +2709,12 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out->body_soil_pos_[11], 2, 12, 17, posE, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 12);
     // Resetting values
-    std::vector<std::vector<int>> body_pos = {
+    body_pos = {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
         {0, 10, 16}, {2, 10, 16}, {2, 10, 17}, {0, 11, 14}, {2, 11, 14},
         {2, 12, 13}, {0, 9, 14}, {2, 9, 14}, {2, 8, 13}, {0, 11, 16},
         {2, 11, 16}, {0, 12, 17}, {2, 12, 17}};
-    std::vector<std::vector<int>> body_soil_pos = {
+    body_soil_pos = {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 10, 16}, {0, 11, 14},
         {2, 9, 14}, {0, 11, 16}, {2, 12, 17}};
     test_soil_simulator::ResetValueAndTest(
@@ -3028,15 +3053,15 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posE = soil_simulator::CalcBucketFramePos(15, 15, 0.2, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 15, 15, posE[0], posE[1], posE[2], 0.2});
-    auto posG = soil_simulator::CalcBucketFramePos(17, 15, 0.6, grid, bucket);
+    posG = soil_simulator::CalcBucketFramePos(17, 15, 0.6, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 17, 15, posG[0], posG[1], posG[2], 0.2});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     posD = soil_simulator::CalcBucketFramePos(14, 15, 0.2, grid, bucket);
-    auto posF = soil_simulator::CalcBucketFramePos(16, 15, 0.5, grid, bucket);
-    auto posH = soil_simulator::CalcBucketFramePos(18, 15, 0.8, grid, bucket);
-    auto posI = soil_simulator::CalcBucketFramePos(19, 15, 0.4, grid, bucket);
-    auto posJ = soil_simulator::CalcBucketFramePos(20, 15, 0.1, grid, bucket);
+    posF = soil_simulator::CalcBucketFramePos(16, 15, 0.5, grid, bucket);
+    posH = soil_simulator::CalcBucketFramePos(18, 15, 0.8, grid, bucket);
+    posI = soil_simulator::CalcBucketFramePos(19, 15, 0.4, grid, bucket);
+    posJ = soil_simulator::CalcBucketFramePos(20, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
@@ -3190,7 +3215,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posJ = soil_simulator::CalcBucketFramePos(19, 15, 0.9, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 19, 15, posJ[0], posJ[1], posJ[2], 0.3});
-    auto posK = soil_simulator::CalcBucketFramePos(20, 15, 0.1, grid, bucket);
+    posK = soil_simulator::CalcBucketFramePos(20, 15, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 20, 15, posK[0], posK[1], posK[2], 0.2});
     posC = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
@@ -3977,8 +4002,11 @@ TEST(UnitTestIntersectingCells, LocateIntersectingCells) {
     sim_out->body_[2][10][16] = -0.6;
     sim_out->body_[3][10][16] = -0.4;
 
+    // Declaring variables
+    std::vector<std::vector<int>> intersecting_cells;
+
     // -- Testing that intersecting cells are properly located --
-    auto intersecting_cells = soil_simulator::LocateIntersectingCells(
+    intersecting_cells = soil_simulator::LocateIntersectingCells(
         sim_out, 1e-5);
     EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {0, 10, 11}));
     EXPECT_TRUE((intersecting_cells[1] == std::vector<int> {2, 10, 12}));
@@ -4002,6 +4030,10 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     sim_out->bucket_area_[1][0] = 1;
     sim_out->bucket_area_[1][1] = 20;
 
+    // Declaring variables
+    std::vector<std::vector<int>> body_pos;
+    std::vector<std::vector<int>> terrain_pos;
+
     // Test: IC-MIB-1
     for (auto ii = 11; ii < 13; ii++)
         for (auto jj = 16; jj < 19; jj++) {
@@ -4016,7 +4048,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     soil_simulator::MoveIntersectingBody(sim_out, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][17], 0.1, 1e-5);
     // Resetting values
-    std::vector<std::vector<int>> body_pos = {
+    body_pos = {
         {0, 10, 16}, {0, 10, 18}, {0, 11, 16}, {0, 11, 17}, {0, 11, 18},
         {0, 12, 16}, {0, 12, 17}, {0, 12, 18}};
     test_soil_simulator::ResetValueAndTest(
@@ -4348,7 +4380,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     EXPECT_NEAR(sim_out->terrain_[14][20], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[15][17], 0.2, 1e-5);
     // Resetting values
-    std::vector<std::vector<int>> terrain_pos = {
+    terrain_pos = {
         {11, 17}, {10, 17}, {8, 17}, {12, 17}, {13, 17}, {13, 19}, {14, 20},
         {15, 17}};
     body_pos = {

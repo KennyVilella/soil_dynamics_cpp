@@ -92,11 +92,16 @@ TEST(UnitTestTypes, Grid) {
 }
 
 TEST(UnitTestTypes, Bucket) {
-    // Test: TY-B-1
+    // Setting up the environment
+    std::vector<float> vect_1 = {0.0};
+    std::vector<float> vect_2 = {0.0, 0.1};
+    std::vector<float> vect_4 = {0.0, 0.1, 0.0, 0.3};
     std::vector<float> o_pos = {0.0, 0.1, 0.0};
     std::vector<float> j_pos = {0.0, 0.5, 0.0};
     std::vector<float> b_pos = {0.0, 0.5, 0.5};
     std::vector<float> t_pos = {0.5, 0.5, 0.0};
+
+    // Test: TY-B-1
     soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     EXPECT_NEAR(bucket.j_pos_init_[0], 0.0, 1e-8);
     EXPECT_NEAR(bucket.j_pos_init_[1], 0.4, 1e-8);
@@ -112,11 +117,6 @@ TEST(UnitTestTypes, Bucket) {
         EXPECT_EQ(bucket.pos_[ii], 0.0);
     for (auto ii = 0 ; ii < 4 ; ii++)
         EXPECT_EQ(bucket.ori_[ii], 0.0);
-
-    // Setting up some dummy vect
-    std::vector<float> vect_1 = {0.0};
-    std::vector<float> vect_2 = {0.0, 0.1};
-    std::vector<float> vect_4 = {0.0, 0.1, 0.0, 0.3};
 
     // Test: TY-B-2
     EXPECT_THROW(

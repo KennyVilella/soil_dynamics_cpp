@@ -8,12 +8,18 @@ Copyright, 2023, Vilella Kenny.
 #include "test/unit_tests/utility.hpp"
 
 TEST(UnitTestBucketPos, CalcLinePos) {
+    // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
 
+    // Declaring variables
+    std::vector<float> a;
+    std::vector<float> b;
+    std::vector<std::vector<int>> line_pos;
+
     // Test: BP-CL-1
-    std::vector<float> a = {0.0 + 1e-5, 0.0 - 1e-5, -0.06 + 1e-5};
-    std::vector<float> b = {1.0 - 1e-5, 0.0 - 1e-5,  0.0  - 1e-5};
-    std::vector<std::vector<int>> line_pos = soil_simulator::CalcLinePos(
+    a = {0.0 + 1e-5, 0.0 - 1e-5, -0.06 + 1e-5};
+    b = {1.0 - 1e-5, 0.0 - 1e-5,  0.0  - 1e-5};
+    line_pos = soil_simulator::CalcLinePos(
         a, b, grid);
     EXPECT_EQ(line_pos.size(), 11);
     EXPECT_TRUE((line_pos[0] == std::vector<int> {10, 10, 9}));
@@ -110,6 +116,10 @@ TEST(UnitTestBucketPos, CalcLinePos) {
 }
 
 TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
+    // Setting up the environment
+    float tol = 1.e-5;
+
+    // Declaring variables
     std::vector<float> ab_ind;
     std::vector<float> ad_ind;
     std::vector<float> a_ind;
@@ -117,7 +127,10 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     int area_min_y;
     int area_length_x;
     int area_length_y;
-    float tol = 1.e-5;
+    std::vector<std::vector<float>> c_ab;
+    std::vector<std::vector<float>> c_ad;
+    std::vector<std::vector<bool>> in_rec;
+    int nn;
 
     // Test: BP-DVR-1
     a_ind = {10.0, 10.0, 10.0};
@@ -127,7 +140,7 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     area_min_y = 8;
     area_length_x = 8;
     area_length_y = 8;
-    auto [c_ab, c_ad, in_rec, nn] = soil_simulator::DecomposeVectorRectangle(
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
         ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
         area_length_y, tol);
     EXPECT_EQ(nn, 25 * 4);
@@ -285,6 +298,10 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
 }
 
 TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
+    // Setting up the environment
+    float tol = 1.e-5;
+
+    // Declaring variables
     std::vector<float> ab_ind;
     std::vector<float> ac_ind;
     std::vector<float> a_ind;
@@ -292,7 +309,10 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     int area_min_y;
     int area_length_x;
     int area_length_y;
-    float tol = 1.e-5;
+    std::vector<std::vector<float>> c_ab;
+    std::vector<std::vector<float>> c_ac;
+    std::vector<std::vector<bool>> in_tri;
+    int nn;
 
     // Test: BP-DVT-1
     a_ind = {10.0, 10.0, 10.0};
@@ -302,7 +322,7 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     area_min_y = 8;
     area_length_x = 15;
     area_length_y = 15;
-    auto [c_ab, c_ac, in_tri, nn] = soil_simulator::DecomposeVectorTriangle(
+    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
         ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
         area_length_y, tol);
     EXPECT_EQ(nn, 45 * 4);
@@ -544,19 +564,23 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
 }
 
 TEST(UnitTestBucketPos, CalcRectanglePos) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    float tol = 1e-5;
+
+    // Declaring variables
     std::vector<float> a;
     std::vector<float> b;
     std::vector<float> c;
     std::vector<float> d;
-    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
-    float tol = 1e-5;
+    std::vector<std::vector<int>> rect_pos;
 
     // Test: BP-CR-1
     a = {0.0 + 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {0.5 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
     d = {0.0 + 1e-5, 0.5 - 1e-5, 0.0 - 1e-5};
-    auto rect_pos = soil_simulator::CalcRectanglePos(
+    rect_pos = soil_simulator::CalcRectanglePos(
         a, b, c, d, grid, tol);
     sort(rect_pos.begin(), rect_pos.end());
     rect_pos.erase(unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
@@ -909,17 +933,21 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
 }
 
 TEST(UnitTestBucketPos, CalcTrianglePos) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    float tol = 1e-5;
+
+    // Declaring variables
     std::vector<float> a;
     std::vector<float> b;
     std::vector<float> c;
-    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
-    float tol = 1e-5;
+    std::vector<std::vector<int>> tri_pos;
 
     // Test: BP-CT-1
     a = {0.0 + 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {1.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.0 + 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    auto tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
+    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
     sort(tri_pos.begin(), tri_pos.end());
     tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     EXPECT_EQ(tri_pos.size(), 76);
@@ -1313,7 +1341,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
 }
 
 TEST(UnitTestBucketPos, IncludeNewBodyPos) {
-    // Setting a dummy body
+    // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
     sim_out->body_[0][6][9] = 1.0;
@@ -1413,21 +1441,17 @@ TEST(UnitTestBucketPos, IncludeNewBodyPos) {
 }
 
 TEST(UnitTestBucketPos, UpdateBody) {
-    // Setting up
+    // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
 
+    // Declaring variables
+    std::vector<std::vector<int>> area_pos;
+
     // Test: BP-UB-1
-    std::vector<std::vector<int>> area_pos(9);
-    area_pos[0] = std::vector<int> {5, 5, 9};
-    area_pos[1] = std::vector<int> {5, 5, 13};
-    area_pos[2] = std::vector<int> {6, 6, 15};
-    area_pos[3] = std::vector<int> {7, 11, 9};
-    area_pos[4] = std::vector<int> {7, 11, 10};
-    area_pos[5] = std::vector<int> {7, 12, 10};
-    area_pos[6] = std::vector<int> {7, 12, 11};
-    area_pos[7] = std::vector<int> {7, 13, 9};
-    area_pos[8] = std::vector<int> {10, 10, 9};
+    area_pos = {
+        {5, 5, 9}, {5, 5, 13}, {6, 6, 15}, {7, 11, 9}, {7, 11, 10}, {7, 12, 10},
+        {7, 12, 11}, {7, 13, 9}, {10, 10, 9}};
     soil_simulator::UpdateBody(area_pos, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][5][5], -0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][5][5], 0.4, 1.e-5);
@@ -1443,18 +1467,10 @@ TEST(UnitTestBucketPos, UpdateBody) {
     EXPECT_NEAR(sim_out->body_[1][10][10], 0.0, 1.e-5);
 
     // Test: BP-UB-2
-    std::vector<std::vector<int>> area_pos_2(10);
-    area_pos_2[0] = std::vector<int> {4, 4, 9};
-    area_pos_2[1] = std::vector<int> {5, 5, 13};
-    area_pos_2[2] = std::vector<int> {6, 6, 8};
-    area_pos_2[3] = std::vector<int> {7, 11, 10};
-    area_pos_2[4] = std::vector<int> {7, 11, 13};
-    area_pos_2[5] = std::vector<int> {7, 12, 7};
-    area_pos_2[6] = std::vector<int> {7, 12, 10};
-    area_pos_2[7] = std::vector<int> {7, 13, 7};
-    area_pos_2[8] = std::vector<int> {7, 13, 12};
-    area_pos_2[9] = std::vector<int> {10, 10, 11};
-    soil_simulator::UpdateBody(area_pos_2, sim_out, grid, 1e-5);
+    area_pos = {
+        {4, 4, 9}, {5, 5, 13}, {6, 6, 8}, {7, 11, 10}, {7, 11, 13}, {7, 12, 7},
+        {7, 12, 10}, {7, 13, 7}, {7, 13, 12}, {10, 10, 11}};
+    soil_simulator::UpdateBody(area_pos, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][4][4], -0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][4][4], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][5][5], -0.1, 1.e-5);
@@ -1475,19 +1491,16 @@ TEST(UnitTestBucketPos, UpdateBody) {
     EXPECT_NEAR(sim_out->body_[3][10][10], 0.2, 1.e-5);
 
     // Test: BP-UB-3
-    std::vector<std::vector<int>> area_pos_3(2);
-    area_pos_3[0] = std::vector<int> {6, 6, 6};
-    area_pos_3[1] = std::vector<int> {6, 6, 17};
-    soil_simulator::UpdateBody(area_pos_3, sim_out, grid, 1e-5);
+    area_pos = {{6, 6, 6}, {6, 6, 17}};
+    soil_simulator::UpdateBody(area_pos, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][6][6], -0.4, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][6][6], 0.8, 1.e-5);
     EXPECT_NEAR(sim_out->body_[2][6][6], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[3][6][6], 0.0, 1.e-5);
 
     // Test: BP-UB-4
-    std::vector<std::vector<int>> area_pos_4(1);
-    area_pos_4[0] = std::vector<int> {10, 10, 13};
-    soil_simulator::UpdateBody(area_pos_4, sim_out, grid, 1e-5);
+    area_pos = {{{10, 10, 13}}};
+    soil_simulator::UpdateBody(area_pos, sim_out, grid, 1e-5);
     EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][10][10], 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_[2][10][10], 0.1, 1.e-5);
@@ -1497,20 +1510,29 @@ TEST(UnitTestBucketPos, UpdateBody) {
 }
 
 TEST(UnitTestBucketPos, CalcBucketPos) {
-    // Setting up
+    // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimParam sim_param(0.785, 4, 4);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
 
+    // Declaring variables
+    std::vector<float> o_pos;
+    std::vector<float> j_pos;
+    std::vector<float> b_pos;
+    std::vector<float> t_pos;
+    std::vector<float> ori;
+    std::vector<float> pos;
+    std::vector<std::vector<int>> body_pos;
+
     // Test: BP-CB-1
-    std::vector<float> o_pos = {0.0, 0.0, 0.0};
-    std::vector<float> j_pos = {0.0, 0.0, 0.0};
-    std::vector<float> b_pos = {0.5, 0.01, 0.0};
-    std::vector<float> t_pos = {0.5, 0.0, 0.0};
+    o_pos = {0.0, 0.0, 0.0};
+    j_pos = {0.0, 0.0, 0.0};
+    b_pos = {0.5, 0.01, 0.0};
+    t_pos = {0.5, 0.0, 0.0};
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
         o_pos, j_pos, b_pos, t_pos, 0.5);
-    std::vector<float> ori = {1.0, 0.0, 0.0, 0.0};
-    std::vector<float> pos = {0.0, 0.0, 0.0};
+    ori = {1.0, 0.0, 0.0, 0.0};
+    pos = {0.0, 0.0, 0.0};
     soil_simulator::CalcBucketPos(
         sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][10][10], -0.3, 1.e-5);
@@ -1530,7 +1552,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
     // Resetting values
-    std::vector<std::vector<int>> body_pos = {
+    body_pos = {
         {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
         {0, 15, 10}};
     test_soil_simulator::ResetValueAndTest(
