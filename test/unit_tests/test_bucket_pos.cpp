@@ -116,6 +116,9 @@ TEST(UnitTestBucketPos, CalcLinePos) {
 }
 
 TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
+    // Setting up the environment
+    float tol = 1.e-5;
+
     // Declaring variables
     std::vector<float> ab_ind;
     std::vector<float> ad_ind;
@@ -124,7 +127,6 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     int area_min_y;
     int area_length_x;
     int area_length_y;
-    float tol = 1.e-5;
     std::vector<std::vector<float>> c_ab;
     std::vector<std::vector<float>> c_ad;
     std::vector<std::vector<bool>> in_rec;
@@ -296,6 +298,9 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
 }
 
 TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
+    // Setting up the environment
+    float tol = 1.e-5;
+
     // Declaring variables
     std::vector<float> ab_ind;
     std::vector<float> ac_ind;
@@ -304,7 +309,6 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     int area_min_y;
     int area_length_x;
     int area_length_y;
-    float tol = 1.e-5;
     std::vector<std::vector<float>> c_ab;
     std::vector<std::vector<float>> c_ac;
     std::vector<std::vector<bool>> in_tri;
@@ -562,13 +566,13 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
 TEST(UnitTestBucketPos, CalcRectanglePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    float tol = 1e-5;
 
     // Declaring variables
     std::vector<float> a;
     std::vector<float> b;
     std::vector<float> c;
     std::vector<float> d;
-    float tol = 1e-5;
     std::vector<std::vector<int>> rect_pos;
 
     // Test: BP-CR-1
@@ -931,12 +935,12 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
 TEST(UnitTestBucketPos, CalcTrianglePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    float tol = 1e-5;
 
     // Declaring variables
     std::vector<float> a;
     std::vector<float> b;
     std::vector<float> c;
-    float tol = 1e-5;
     std::vector<std::vector<int>> tri_pos;
 
     // Test: BP-CT-1
