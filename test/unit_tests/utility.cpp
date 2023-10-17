@@ -3,10 +3,41 @@ This file implements utility functions for unit testing.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include "gtest/gtest.h"
 #include "test/unit_tests/utility.hpp"
+
+void test_soil_simulator::SetBucketAndSoil(
+    soil_simulator::SimOut* sim_out, int ii, int jj, float terrain,
+    float body_0, float body_1, float body_soil_0, float body_soil_1,
+    float body_2, float body_3, float body_soil_2, float body_soil_3
+) {
+    // Setting terrain
+    if (!std::isnan(terrain))
+        sim_out->terrain_[ii][jj] = terrain;
+
+    // Setting body
+    if (!std::isnan(body_0))
+        sim_out->body_[0][ii][jj] = body_0;
+    if (!std::isnan(body_1))
+        sim_out->body_[1][ii][jj] = body_1;
+    if (!std::isnan(body_2))
+        sim_out->body_[2][ii][jj] = body_2;
+    if (!std::isnan(body_3))
+        sim_out->body_[3][ii][jj] = body_3;
+
+    // Setting body_soil
+    if (!std::isnan(body_soil_0))
+        sim_out->body_soil_[0][ii][jj] = body_soil_0;
+    if (!std::isnan(body_soil_1))
+        sim_out->body_soil_[1][ii][jj] = body_soil_1;
+    if (!std::isnan(body_soil_2))
+        sim_out->body_soil_[2][ii][jj] = body_soil_2;
+    if (!std::isnan(body_soil_3))
+        sim_out->body_soil_[3][ii][jj] = body_soil_3;
+}
 
 void test_soil_simulator::ResetValueAndTest(
     soil_simulator::SimOut* sim_out, std::vector<std::vector<int>> terrain_pos,
