@@ -9,7 +9,7 @@ Copyright, 2023, Vilella Kenny.
 #include "gtest/gtest.h"
 #include "test/unit_tests/utility.hpp"
 
-void test_soil_simulator::SetBucketAndSoil(
+void test_soil_simulator::SetHeight(
     soil_simulator::SimOut* sim_out, int ii, int jj, float terrain,
     float body_0, float body_1, float body_soil_0, float body_soil_1,
     float body_2, float body_3, float body_soil_2, float body_soil_3
