@@ -3,9 +3,14 @@ This file implements unit tests for the functions in bucket_pos.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <cmath>
 #include "gtest/gtest.h"
 #include "soil_simulator/bucket_pos.hpp"
 #include "test/unit_tests/utility.hpp"
+
+// To make the function call holds in a single line.
+// It greatly improves readability.
+using test_soil_simulator::SetHeight;
 
 TEST(UnitTestBucketPos, CalcLinePos) {
     // Setting up the environment
