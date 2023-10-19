@@ -1017,14 +1017,9 @@ TEST(UnitTestBucketPos, IncludeNewBodyPos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    sim_out->body_[0][6][9] = 1.0;
-    sim_out->body_[1][6][9] = 2.0;
-    sim_out->body_[0][8][11] = 0.5;
-    sim_out->body_[1][8][11] = 0.6;
-    sim_out->body_[2][8][11] = 0.8;
-    sim_out->body_[3][8][11] = 0.9;
-    sim_out->body_[2][9][8] = 1.2;
-    sim_out->body_[3][9][8] = 1.4;
+    SetHeight(sim_out, 6, 9, NAN, 1.0, 2.0, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 8, 11, NAN, 0.5, 0.6, NAN, NAN, 0.8, 0.9, NAN, NAN);
+    SetHeight(sim_out, 9, 8, NAN, NAN, NAN, NAN, NAN, 1.2, 1.4, NAN, NAN);
 
     // Test: BP-INB-1
     soil_simulator::IncludeNewBodyPos(sim_out, 5, 5, 0.1, 0.2, 1e-5);
