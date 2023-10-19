@@ -26,7 +26,7 @@ namespace test_soil_simulator {
 /// \param body_3: Maximum height of the second body layer. [m]
 /// \param body_soil_2: Minimum height of the second body soil layer. [m]
 /// \param body_soil_3: Maximum height of the second body soil layer. [m]
-void SetBucketAndSoil(
+void SetHeight(
     soil_simulator::SimOut* sim_out, int ii, int jj, float terrain,
     float body_0, float body_1, float body_soil_0, float body_soil_1,
     float body_2, float body_3, float body_soil_2, float body_soil_3);
