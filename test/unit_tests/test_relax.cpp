@@ -3247,7 +3247,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
 
     // Test: RE-RUB-20
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.3, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, -0.3, -0.2, -0.2, -0.1);
+    SetHeight(
+        sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
@@ -3506,7 +3507,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
 
     // Test: RE-RUB-29
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.3, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.2, 0.3, 0.3, 0.5);
+    SetHeight(
+        sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.2, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
@@ -4374,7 +4376,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
 
     // Test: RE-RBS-7
     soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
+    SetHeight(
+        sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
@@ -4398,7 +4401,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
 
     // Test: RE-RBS-8
     soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
+    SetHeight(
+        sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
@@ -4422,7 +4426,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
 
     // Test: RE-RBS-9
     soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
+    SetHeight(
+        sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
@@ -4708,7 +4713,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     soil_simulator::rng.seed(1234);
     SetHeight(
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.7, NAN, NAN, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
+    SetHeight(
+        sim_out, 10, 15, -0.7, NAN, NAN, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
@@ -4735,7 +4741,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     soil_simulator::rng.seed(1234);
     SetHeight(
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.7, NAN, NAN, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
+    SetHeight(
+        sim_out, 10, 15, -0.7, NAN, NAN, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
@@ -5527,7 +5534,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
 
     // Test: RE-RBS-49
     soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
+    SetHeight(
+        sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(
         sim_out, 10, 15, -0.7, -0.1, 0.0, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
