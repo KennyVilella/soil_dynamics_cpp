@@ -6,6 +6,11 @@ Copyright, 2023, Vilella Kenny.
 #include <cmath>
 #include "gtest/gtest.h"
 #include "soil_simulator/utils.hpp"
+#include "test/unit_tests/utility.hpp"
+
+// To make the function call holds in a single line.
+// It greatly improves readability.
+using test_soil_simulator::SetHeight;
 
 TEST(UnitTestUtils, CalcBucketCornerPos) {
     // Setting up the environment
@@ -407,14 +412,9 @@ TEST(UnitTestUtils, CheckVolume) {
 
     // Test: UT-CV-3
     sim_out->terrain_[1][2] = 0.0;
-    sim_out->body_soil_[0][2][2] = -0.1;
-    sim_out->body_soil_[1][2][2] = 0.0;
-    sim_out->body_soil_[2][2][2] = 0.2;
-    sim_out->body_soil_[3][2][2] = 0.27;
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[1][1][1] = 0.08;
-    sim_out->body_soil_[2][2][1] = 0.0;
-    sim_out->body_soil_[3][2][1] = 0.15;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.08, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15);
+    SetHeight(sim_out, 2, 2, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN, 0.2, 0.27);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 2, 2, 0., 0., 0., 0.1});
     sim_out->body_soil_pos_.push_back(
@@ -460,29 +460,17 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-3
-    sim_out->body_[0][1][1] = -0.2;
-    sim_out->body_[1][1][1] = 0.0;
-    sim_out->body_[0][1][2] = -0.15;
-    sim_out->body_[1][1][2] = 0.0;
-    sim_out->body_[2][1][2] = 0.1;
-    sim_out->body_[3][1][2] = 0.2;
-    sim_out->body_[2][2][1] = 0.0;
-    sim_out->body_[3][2][1] = 0.15;
-    sim_out->body_[0][2][2] = 0.1;
-    sim_out->body_[1][2][2] = 0.1;
+    SetHeight(sim_out, 1, 1, NAN, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 1, 2, NAN, -0.15, 0.0, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15, NAN, NAN);
+    SetHeight(sim_out, 2, 2, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-4
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[1][1][1] = 0.1;
-    sim_out->body_soil_[0][1][2] = 0.0;
-    sim_out->body_soil_[1][1][2] = 0.1;
-    sim_out->body_soil_[2][1][2] = 0.2;
-    sim_out->body_soil_[3][1][2] = 0.3;
-    sim_out->body_soil_[2][2][1] = 0.15;
-    sim_out->body_soil_[3][2][1] = 0.25;
-    sim_out->body_soil_[0][2][2] = 0.1;
-    sim_out->body_soil_[1][2][2] = 0.1;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 1, 2, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, 0.2, 0.3);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
+    SetHeight(sim_out, 2, 2, NAN, NAN, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 1, 1, 0.0, 0.0, 0.0, 0.0});
     sim_out->body_soil_pos_.push_back(
@@ -505,127 +493,85 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-6
-    sim_out->body_[0][1][1] = 0.0;
-    sim_out->body_[1][1][1] = -0.1;
+    SetHeight(sim_out, 1, 1, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[1][1][1] = 0.0;
+    SetHeight(sim_out, 1, 1, NAN, 0.0, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][1][1] = 0.41;
-    sim_out->body_[1][1][1] = 0.4;
+    SetHeight(sim_out, 1, 1, NAN, 0.41, 0.4, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[1][1][1] = 0.0;
+    SetHeight(sim_out, 1, 1, NAN, 0.41, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][1][1] = 0.0;
-    sim_out->body_[1][1][1] = -0.4;
+    SetHeight(sim_out, 1, 1, NAN, 0.0, -0.4, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][1][1] = -0.2;
-    sim_out->body_[1][1][1] = 0.0;
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[1][1][1] = 0.1;
-    sim_out->body_[2][2][1] = 0.16;
+    SetHeight(sim_out, 1, 1, NAN, -0.2, 0.0, 0.0, 0.1, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, 0.16, 0.15, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[2][2][1] = 0.0;
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-7
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[1][1][1] = -0.1;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[0][1][1] = 0.2;
-    sim_out->body_soil_[1][1][1] = 0.0;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.2, 0.0, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[1][1][1] = 0.1;
-    sim_out->body_soil_[2][2][1] = 0.15;
-    sim_out->body_soil_[3][2][1] = 0.14;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.14);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[2][2][1] = 0.15;
-    sim_out->body_soil_[3][2][1] = 0.25;
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-8
-    sim_out->body_[1][1][1] = 0.05;
+    SetHeight(sim_out, 1, 1, NAN, -0.2, 0.05, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[1][1][1] = 0.0;
-    sim_out->body_[3][1][2] = 0.25;
+    SetHeight(sim_out, 1, 1, NAN, -0.2, 0.00, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.25, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[3][1][2] = 0.45;
+    SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.45, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[3][1][2] = 0.2;
+    SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-9
-    sim_out->body_soil_[0][1][1] = 0.1;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[0][1][1] = 0.05;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.05, 0.1, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[0][1][1] = 0.0;
-    sim_out->body_soil_[2][2][1] = 0.20;
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.2, 0.25);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[2][2][1] = 0.15;
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-10
-    sim_out->body_[2][1][2] = 0.0;
-    sim_out->body_[3][1][2] = 0.0;
+    SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.0, 0.0, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[2][1][2] = 0.1;
-    sim_out->body_[3][1][2] = 0.2;
-    sim_out->body_[0][1][1] = 0.0;
-    sim_out->body_[1][1][1] = 0.0;
+    SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    SetHeight(sim_out, 1, 1, NAN, 0.0, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][1][1] = -0.2;
-    sim_out->body_[1][1][1] = 0.0;
+    SetHeight(sim_out, 1, 1, NAN, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-11
     sim_out->terrain_[3][2] = -0.2;
-    sim_out->body_[0][3][2] = -0.15;
-    sim_out->body_[1][3][2] = 0.1;
-    sim_out->body_[2][3][2] = 0.0;
-    sim_out->body_[3][3][2] = 0.2;
+    SetHeight(sim_out, 3, 2, NAN, -0.15, 0.1, NAN, NAN, 0.0, 0.2, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[1][3][2] = 0.0;
+    SetHeight(sim_out, 3, 2, NAN, -0.15, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][3][2] = 0.0;
-    sim_out->body_[1][3][2] = 0.2;
-    sim_out->body_[2][3][2] = -0.2;
-    sim_out->body_[3][3][2] = 0.1;
+    SetHeight(sim_out, 3, 2, NAN, 0.0, 0.2, NAN, NAN, -0.2, 0.1, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[3][3][2] = 0.0;
+    SetHeight(sim_out, 3, 2, NAN, NAN, NAN, NAN, NAN, -0.2, 0.0, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][3][2] = 0.0;
-    sim_out->body_[1][3][2] = 0.0;
-    sim_out->body_[2][3][2] = 0.0;
-    sim_out->body_[3][3][2] = 0.0;
+    SetHeight(sim_out, 3, 2, NAN, 0.0, 0.0, NAN, NAN, 0.0, 0.0, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-12
-    sim_out->body_[0][3][2] = -0.15;
-    sim_out->body_[1][3][2] = 0.0;
-    sim_out->body_[2][3][2] = 0.1;
-    sim_out->body_[3][3][2] = 0.2;
-    sim_out->body_soil_[0][3][2] = 0.0;
-    sim_out->body_soil_[1][3][2] = 0.15;
+    SetHeight(sim_out, 3, 2, NAN, -0.15, 0.0, 0.0, 0.15, 0.1, 0.2, NAN, NAN);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[0][3][2] = 0.0;
-    sim_out->body_soil_[1][3][2] = 0.0;
-    sim_out->body_[2][3][2] = -0.15;
-    sim_out->body_[3][3][2] = 0.0;
-    sim_out->body_[0][3][2] = 0.1;
-    sim_out->body_[1][3][2] = 0.2;
-    sim_out->body_soil_[2][3][2] = 0.0;
-    sim_out->body_soil_[3][3][2] = 0.15;
+    SetHeight(sim_out, 3, 2, NAN, 0.1, 0.2, 0.0, 0.0, -0.15, 0.0, 0.0, 0.15);
     EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_soil_[3][3][2] = 0.1;
+    SetHeight(sim_out, 3, 2, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.1);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    sim_out->body_[0][3][2] = 0.0;
-    sim_out->body_[1][3][2] = 0.0;
-    sim_out->body_[2][3][2] = 0.0;
-    sim_out->body_[3][3][2] = 0.0;
-    sim_out->body_soil_[2][3][2] = 0.0;
-    sim_out->body_soil_[3][3][2] = 0.0;
+    SetHeight(sim_out, 3, 2, NAN, 0.0, 0.0, NAN, NAN, 0.0, 0.0, 0.0, 0.0);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     delete sim_out;
