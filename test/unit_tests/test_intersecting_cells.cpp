@@ -13,6 +13,7 @@ Copyright, 2023, Vilella Kenny.
 // To make the function call holds in a single line.
 // It greatly improves readability.
 using test_soil_simulator::SetHeight;
+using test_soil_simulator::CheckHeight;
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
     // Setting up the environment
@@ -94,8 +95,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.2, 0.8, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
@@ -114,8 +114,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 1.0, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.1, 1.0, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -148,8 +147,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, true);
     EXPECT_NEAR(h_soil, 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.7, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.6, 0.7);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -164,8 +162,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.0, 0.6);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 2, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
@@ -184,8 +181,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.9, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.0, 0.9);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -207,8 +203,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(ind, 0);
     EXPECT_EQ(ii, 5);
     EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.2, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.1, 0.2, NAN, NAN);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -228,8 +223,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(ind, 2);
     EXPECT_EQ(ii, 5);
     EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.1, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -244,8 +238,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.2, 0.8, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
@@ -262,8 +255,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.0, 0.6);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
@@ -282,8 +274,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.8, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.1, 0.8, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -302,8 +293,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
         sim_out, 2, 10, 15, 0.3, 5, 7, 0.6, false, grid, bucket, 1e-5);
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.8, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.0, 0.8);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -323,8 +313,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(ind, 0);
     EXPECT_EQ(ii, 5);
     EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.4, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.1, 0.4, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 5, 7, posA, 0.3);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
@@ -344,8 +333,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(ind, 2);
     EXPECT_EQ(ii, 5);
     EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.3, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.2, 0.3);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 2, 5, 7, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
@@ -367,8 +355,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(ind, 0);
     EXPECT_EQ(ii, 5);
     EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[0][5][7], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][5][7], 0.4, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, 0.1, 0.4, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 5, 7, posA, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -390,8 +377,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(ind, 2);
     EXPECT_EQ(ii, 5);
     EXPECT_EQ(jj, 7);
-    EXPECT_NEAR(sim_out->body_soil_[2][5][7], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][5][7], 0.6, 1e-5);
+    CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.0, 0.6);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.4);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
@@ -444,10 +430,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -466,10 +449,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -489,10 +469,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -512,10 +489,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -538,13 +512,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, pos0[0], pos0[1], pos0[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->terrain_[11][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, 0.7, 0.7, 0.8, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
@@ -563,10 +532,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -586,10 +552,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -609,10 +572,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -633,12 +593,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 11, 15, posA, 0.3);
@@ -660,12 +616,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 11, 15, posA, 0.3);
@@ -687,12 +639,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.3);
@@ -714,12 +662,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.3);
@@ -743,12 +687,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
@@ -772,12 +712,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
@@ -801,12 +737,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
@@ -830,12 +762,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
@@ -857,12 +785,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 11, 15, posA, 0.3);
@@ -884,12 +808,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 0, 11, 15, posA, 0.3);
@@ -911,12 +831,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.3);
@@ -938,12 +854,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.3);
@@ -967,12 +879,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
@@ -996,12 +904,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
@@ -1025,12 +929,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
@@ -1054,12 +954,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
@@ -1081,12 +977,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.4, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1110,12 +1002,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.4, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1139,12 +1027,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.4);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1168,12 +1052,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.4);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1199,12 +1079,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.4, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1230,12 +1106,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.6});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.9, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1261,12 +1133,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.4);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1292,12 +1160,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.6});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.9);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1330,16 +1194,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, pos0[0], pos0[1], pos0[2], 0.4});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.7, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, 0.4, 0.8, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1372,16 +1229,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, pos0[0], pos0[1], pos0[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 1.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.9, 1.2, 0.4, 0.8);
+    CheckHeight(sim_out, 12, 15, NAN, 0.6, 0.8, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1414,16 +1264,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posA[0], posA[1], posA[2], 0.4});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.0, 0.5, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.4, 0.8);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
@@ -1454,16 +1297,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posA[0], posA[1], posA[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.6, 0.8);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.6, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
@@ -1494,16 +1330,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, pos0[0], pos0[1], pos0[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.7, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, 0.4, 0.8, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1536,16 +1365,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, pos0[0], pos0[1], pos0[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 1.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 1.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 1.0, 1.2, 0.2, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, 0.6, 0.8, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1578,16 +1400,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, pos2[0], pos2[1], pos2[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.0, 0.5, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.4, 0.8);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.5, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1620,16 +1435,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, pos2[0], pos2[1], pos2[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.2, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.6, 0.8);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
@@ -1662,16 +1470,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.3, 0.5, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, 0.3, 0.7, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[5], 0, 12, 15, posA, 0.3);
@@ -1701,16 +1502,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 11, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[4], 0, 12, 15, posA, 0.3);
@@ -1742,16 +1536,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posA[0], posA[1], posA[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.6, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.7, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.6);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[5], 2, 12, 15, posA, 0.3);
@@ -1781,16 +1568,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 11, 15, pos2[0], pos2[1], pos2[2], 0.1});
     posA = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.6, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.3, 0.6);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[4], 2, 12, 15, posA, 0.3);
@@ -1822,16 +1602,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, posB[0], posB[1], posB[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.6, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.3, 0.5, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, 0.3, 0.6, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[5], 0, 11, 15, posA, 0.1);
@@ -1863,16 +1636,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 12, 15, posB[0], posB[1], posB[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[4], 2, 11, 15, posA, 0.1);
@@ -1904,16 +1670,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posB[0], posB[1], posB[2], 0.2});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.4, 0.6, 0.8, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.4);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[4], 0, 11, 15, posA, 0.2);
@@ -1947,16 +1706,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posB[0], posB[1], posB[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.3, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.2, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[5], 2, 11, 15, posA, 0.1);
@@ -2005,22 +1757,13 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {0, 11, 16, pos0[0], pos0[1], pos0[2], 0.7});
     posE = soil_simulator::CalcBucketFramePos(12, 17, 0.3, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][16], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][16], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][14], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][14], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][9][14], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][9][14], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][16], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][16], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][17], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][17], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
+    CheckHeight(sim_out, 10, 16, NAN, NAN, NAN, 0.1, 0.7);
+    CheckHeight(sim_out, 11, 14, NAN, 0.1, 0.4, NAN, NAN);
+    CheckHeight(sim_out, 9, 14, NAN, NAN, NAN, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 16, NAN, 0.1, 0.8, NAN, NAN);
+    CheckHeight(sim_out, 12, 17, NAN, NAN, NAN, 0.3, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[7], 0, 11, 15, posA, 0.2);
@@ -2063,14 +1806,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posA[0], posA[1], posA[2], 0.3});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 1.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.2, 1.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[4], 2, 12, 15, posA, 1.0);
@@ -2099,14 +1837,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 12, 15, posA[0], posA[1], posA[2], 0.5});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 1.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.4);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.3, 1.8);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[4], 2, 12, 15, posA, 1.0);
@@ -2153,22 +1886,13 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {0, 11, 16, pos0[0], pos0[1], pos0[2], 0.7});
     posA = soil_simulator::CalcBucketFramePos(12, 17, 0.3, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][16], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][16], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][14], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][14], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][9][14], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][9][14], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][16], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][16], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][17], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][17], 0.6, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
+    CheckHeight(sim_out, 10, 16, NAN, NAN, NAN, 0.1, 0.7);
+    CheckHeight(sim_out, 11, 14, NAN, 0.1, 0.9, NAN, NAN);
+    CheckHeight(sim_out, 9, 14, NAN, NAN, NAN, 0.4, 0.5);
+    CheckHeight(sim_out, 11, 16, NAN, 0.1, 0.8, NAN, NAN);
+    CheckHeight(sim_out, 12, 17, NAN, 0.3, 0.6, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[7], 0, 12, 17, posA, 0.3);
@@ -2201,14 +1925,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 11, 15, pos2[0], pos2[1], pos2[2], 0.5});
     posA = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.4, 0.9);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.4);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 12, 15, posA, 0.3);
@@ -2259,30 +1978,17 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posI = soil_simulator::CalcBucketFramePos(19, 15, 0.4, grid, bucket);
     posJ = soil_simulator::CalcBucketFramePos(20, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][13][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][13][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][14][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][14][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][15][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][15][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][16][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][16][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][17][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][17][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][18][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][18][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][19][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][19][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][20][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][20][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
+    CheckHeight(sim_out, 12, 15, NAN, 0.4, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 13, 15, NAN, 0.5, 0.9, NAN, NAN);
+    CheckHeight(sim_out, 14, 15, NAN, 0.2, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 15, 15, NAN, 0.2, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 16, 15, NAN, NAN, NAN, 0.5, 0.7);
+    CheckHeight(sim_out, 17, 15, NAN, NAN, NAN, 0.6, 0.9);
+    CheckHeight(sim_out, 18, 15, NAN, 0.8, 0.9, NAN, NAN);
+    CheckHeight(sim_out, 19, 15, NAN, NAN, NAN, 0.4, 0.9);
+    CheckHeight(sim_out, 20, 15, NAN, 0.1, 0.5, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[6], 0, 11, 15, posA, 0.3);
@@ -2365,32 +2071,18 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posH = soil_simulator::CalcBucketFramePos(17, 15, 0.7, grid, bucket);
     posI = soil_simulator::CalcBucketFramePos(18, 15, 0.8, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][9][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][9][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][9][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][9][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][13][15], -0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][13][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][14][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][14][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][15][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][15][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][16][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][16][15], 1.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][17][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][17][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][18][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][18][15], 1.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][19][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][19][15], 1.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][20][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][20][15], 0.6, 1e-5);
+    CheckHeight(sim_out, 9, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 10, 15, NAN, NAN, NAN, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.2, 0.4);
+    CheckHeight(sim_out, 13, 15, NAN, NAN, NAN, -0.1, 0.3);
+    CheckHeight(sim_out, 14, 15, NAN, NAN, NAN, 0.2, 0.4);
+    CheckHeight(sim_out, 15, 15, NAN, 0.1, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 16, 15, NAN, 0.5, 1.0, NAN, NAN);
+    CheckHeight(sim_out, 17, 15, NAN, NAN, NAN, 0.7, 0.9);
+    CheckHeight(sim_out, 18, 15, NAN, 0.8, 1.0, NAN, NAN);
+    CheckHeight(sim_out, 19, 15, NAN, NAN, NAN, 0.9, 1.5);
+    CheckHeight(sim_out, 20, 15, NAN, 0.1, 0.6, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[9], 2, 10, 15, posA, 0.1);
@@ -2463,22 +2155,13 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 16, 15, posA[0], posA[1], posA[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][13][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][13][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][14][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][14][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][15][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][15][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][16][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][16][15], 0.6, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.4, NAN, NAN);
+    CheckHeight(sim_out, 12, 15, NAN, 0.0, 0.2, NAN, NAN);
+    CheckHeight(sim_out, 13, 15, NAN, NAN, NAN, 0.1, 0.4);
+    CheckHeight(sim_out, 14, 15, NAN, NAN, NAN, 0.3, 0.4);
+    CheckHeight(sim_out, 15, 15, NAN, 0.4, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 16, 15, NAN, 0.2, 0.6, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[8], 0, 16, 15, posA, 0.3);
@@ -2524,22 +2207,13 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posC = soil_simulator::CalcBucketFramePos(13, 15, 0.2, grid, bucket);
     posE = soil_simulator::CalcBucketFramePos(15, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][13][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][13][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][14][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][14][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][15][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][15][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][16][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][16][15], 0.5, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.3, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN);
+    CheckHeight(sim_out, 13, 15, NAN, NAN, NAN, 0.2, 0.7);
+    CheckHeight(sim_out, 14, 15, NAN, NAN, NAN, 0.3, 0.5);
+    CheckHeight(sim_out, 15, 15, NAN, 0.1, 0.3, NAN, NAN);
+    CheckHeight(sim_out, 16, 15, NAN, NAN, NAN, 0.3, 0.5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[6], 0, 11, 15, posA, 0.2);
@@ -2615,30 +2289,17 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 20, 15, posF[0], posF[1], posF[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][12][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][13][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][13][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][14][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][14][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][15][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][15][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][16][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][16][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][17][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][17][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][18][15], 0.4, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][18][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][19][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][19][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][20][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][20][15], 0.3, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.3, 0.7, NAN, NAN);
+    CheckHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN);
+    CheckHeight(sim_out, 13, 15, NAN, 0.3, 0.5, NAN, NAN);
+    CheckHeight(sim_out, 14, 15, NAN, NAN, NAN, 0.4, 0.7);
+    CheckHeight(sim_out, 15, 15, NAN, NAN, NAN, 0.1, 0.5);
+    CheckHeight(sim_out, 16, 15, NAN, 0.2, 0.3, NAN, NAN);
+    CheckHeight(sim_out, 17, 15, NAN, NAN, NAN, 0.1, 0.6);
+    CheckHeight(sim_out, 18, 15, NAN, NAN, NAN, 0.4, 0.8);
+    CheckHeight(sim_out, 19, 15, NAN, 0.2, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 20, 15, NAN, 0.0, 0.3, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[12], 0, 11, 15, posA, 0.3);
@@ -2683,14 +2344,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.1});
     posB = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 1.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][12][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 1.0);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.8);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.6);
@@ -2719,12 +2375,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 15, posA[0], posA[1], posA[2], 0.6});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 1.1, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 1.1, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
@@ -2748,12 +2400,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, posA[0], posA[1], posA[2], 0.3});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.8, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.8);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     test_soil_simulator::CheckBodySoilPos(
         sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
@@ -2773,10 +2421,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], -0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], -0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.0, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.1, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, -0.5, -0.3, 0.0, 0.1);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -2809,16 +2454,10 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     posB = soil_simulator::CalcBucketFramePos(11, 16, 0.1, grid, bucket);
     posC = soil_simulator::CalcBucketFramePos(11, 14, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.8, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 1.7, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][15], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][16], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][16], 0.2, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][11][14], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][11][14], 0.2, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.8, 0.9, 1.7);
+    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.6, NAN, NAN);
+    CheckHeight(sim_out, 11, 16, NAN, 0.1, 0.2, NAN, NAN);
+    CheckHeight(sim_out, 11, 14, NAN, 0.1, 0.2, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.0, 1.e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[3].h_soil, 0.1, 1.e-5);
@@ -2849,12 +2488,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 11, 15, pos2[0], pos2[1], pos2[2], 0.8});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.9, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][11][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][11][15], 0.9, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.9, 0.3, 0.5);
+    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.9);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     // Resetting values
     test_soil_simulator::ResetValueAndTest(
@@ -2871,10 +2506,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
     EXPECT_NEAR(sim_out->terrain_[11][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
@@ -2884,10 +2516,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     sim_out->body_soil_[1][10][15] = 0.8;
     sim_out->body_soil_pos_[0].h_soil = 0.5;
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[0][10][15], 0.3, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[1][10][15], 0.5, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[2][10][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_[3][10][15], 0.7, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
     EXPECT_NEAR(sim_out->terrain_[9][16], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);

@@ -39,18 +39,13 @@ void SetHeight(
 /// \param ii: Index in the X direction.
 /// \param jj: Index in the Y direction.
 /// \param terrain: Height of the terrain. [m]
-/// \param body_0: Minimum height of the first body layer. [m]
-/// \param body_1: Maximum height of the first body layer. [m]
 /// \param body_soil_0: Minimum height of the first body soil layer. [m]
 /// \param body_soil_1: Maximum height of the first body soil layer. [m]
-/// \param body_2: Minimum height of the second body layer. [m]
-/// \param body_3: Maximum height of the second body layer. [m]
 /// \param body_soil_2: Minimum height of the second body soil layer. [m]
 /// \param body_soil_3: Maximum height of the second body soil layer. [m]
 void CheckHeight(
     soil_simulator::SimOut* sim_out, int ii, int jj, float terrain,
-    float body_0, float body_1, float body_soil_0, float body_soil_1,
-    float body_2, float body_3, float body_soil_2, float body_soil_3);
+    float body_soil_0, float body_soil_1, float body_soil_2, float body_soil_3);
 
 /// \brief This function resets the requested outputs and checks that all
 ///        terrain, body and body_soil is properly reset. This can be used to
