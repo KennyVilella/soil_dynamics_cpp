@@ -389,8 +389,10 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     pos = {-0.01, -grid.cell_size_xy_, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
     for (auto ii = 9; ii < 12; ii++)
-        for (auto jj = 8; jj < 11; jj++)
-            CheckHeight(sim_out, ii, jj, NAN, 0.0, 0.1, NAN, NAN);
+        for (auto jj = 8; jj < 11; jj++) {
+            sim_out->body_[0][ii][jj] = 0.0;
+            sim_out->body_[1][ii][jj] = 0.1;
+        }
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 10, 10, 0.0, 0.0, 0.0, 0.1});
@@ -525,8 +527,10 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     pos = {grid.cell_size_xy_, 0.01, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
     for (auto ii = 10; ii < 13; ii++)
-        for (auto jj = 9; jj < 12; jj++)
-            CheckHeight(sim_out, ii, jj, NAN, 0.2, 0.3, NAN, NAN);
+        for (auto jj = 9; jj < 12; jj++) {
+            sim_out->body_[0][ii][jj] = 0.2;
+            sim_out->body_[1][ii][jj] = 0.3;
+        }
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 11, 9, NAN, -0.2, -0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_.push_back(
