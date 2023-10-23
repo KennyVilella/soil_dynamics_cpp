@@ -13,6 +13,7 @@ Copyright, 2023, Vilella Kenny.
 using test_soil_simulator::SetHeight;
 using test_soil_simulator::CheckHeight;
 using soil_simulator::UpdateBodySoil;
+using test_soil_simulator::ResetValueAndTest;
 
 TEST(UnitTestBodySoil, UpdateBodySoil) {
     // Setting up the environment
@@ -51,8 +52,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 0, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 11, 10}}, {{0, 11, 10}});
+    ResetValueAndTest(sim_out, {}, {{0, 11, 10}}, {{0, 11, 10}});
 
     // Test: BS-UBS-2
     pos = {grid.cell_size_xy_, 0.0, 0.0};
@@ -67,8 +67,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 0, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 11, 10}}, {{0, 11, 10}});
+    ResetValueAndTest(sim_out, {}, {{0, 11, 10}}, {{0, 11, 10}});
 
     // Test: BS-UBS-3
     pos = {grid.cell_size_xy_, 0.0, 0.0};
@@ -83,8 +82,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 2, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{2, 11, 10}}, {{2, 11, 10}});
+    ResetValueAndTest(sim_out, {}, {{2, 11, 10}}, {{2, 11, 10}});
 
     // Test: BS-UBS-4
     pos = {grid.cell_size_xy_, 0.0, 0.0};
@@ -99,8 +97,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 2, 11, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{2, 11, 10}}, {{2, 11, 10}});
+    ResetValueAndTest(sim_out, {}, {{2, 11, 10}}, {{2, 11, 10}});
 
     // Test: BS-UBS-5
     pos = {0.0, 0.0, 0.0};
@@ -115,8 +112,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 0, 10, 11, {0.1, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 11}}, {{0, 10, 11}});
+    ResetValueAndTest(sim_out, {}, {{0, 10, 11}}, {{0, 10, 11}});
 
     // Test: BS-UBS-6
     pos = {0.0, 0.0, 0.0};
@@ -131,8 +127,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 0, 11, 11, {0.1, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 11, 11}}, {{0, 11, 11}});
+    ResetValueAndTest(sim_out, {}, {{0, 11, 11}}, {{0, 11, 11}});
 
     // Test: BS-UBS-7
     pos = {grid.cell_size_xy_, 0.0, 0.0};
@@ -147,8 +142,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 0, 12, 11, {0.1, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 12, 11}}, {{0, 12, 11}});
+    ResetValueAndTest(sim_out, {}, {{0, 12, 11}}, {{0, 12, 11}});
 
     // Test: BS-UBS-8
     pos = {0.0, 0.0, 0.0};
@@ -160,8 +154,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     EXPECT_NEAR(sim_out->terrain_[9][10], 0.1, 1.e-5);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {{9, 10}}, {}, {});
+    ResetValueAndTest(sim_out, {{9, 10}}, {}, {});
 
     // Test: BS-UBS-9
     pos = {0.0, 0.0, 0.0};
@@ -181,8 +174,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[1], 0, 10, 10, {0.2, 0.0, 0.0}, 0.2);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
+    ResetValueAndTest(sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
     // Test: BS-UBS-10
     pos = {0.0, 0.0, 0.0};
@@ -202,8 +194,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[1], 0, 10, 10, {0.2, 0.0, 0.0}, 0.2);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
+    ResetValueAndTest(sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
     // Test: BS-UBS-11
     pos = {0.0, 0.0, 0.0};
@@ -223,8 +214,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[1], 2, 10, 10, {0.2, 0.0, 0.0}, 0.2);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{2, 10, 10}}, {{2, 10, 10}});
+    ResetValueAndTest(sim_out, {}, {{2, 10, 10}}, {{2, 10, 10}});
 
     // ---------------------------------------------------------------------- //
     // The tests below are specific to the current implementation and may     //
@@ -241,8 +231,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 0);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
+    ResetValueAndTest(sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
     // Test: BS-UBS-13
     SetHeight(sim_out, 10, 10, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
@@ -255,8 +244,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
         sim_out->body_soil_pos_[0], 0, 10, 10, {0.0, 0.0, 0.0}, 0.1);
     // Resetting values
     ResetBucketPose();
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
+    ResetValueAndTest(sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
     // Test: BS-UBS-14
     pos = {grid.cell_size_xy_, 0.01, 0.0};
@@ -349,8 +337,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     body_pos = {
         {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 11, 9}, {0, 11, 10},
         {0, 11, 11}, {0, 12, 9}, {0, 12, 10}, {0, 12, 11}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {{0, 10, 9}});
+    ResetValueAndTest(sim_out, {}, body_pos, {{0, 10, 9}});
 
     // Test: BS-UBS-15
     pos = {-0.01, -grid.cell_size_xy_, 0.0};
@@ -443,8 +430,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     body_pos = {
         {0, 9, 8}, {0, 9, 9}, {0, 9, 10}, {0, 10, 8}, {0, 10, 9},
         {0, 10, 10}, {0, 11, 8}, {0, 11, 9}, {0, 11, 10}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {{0, 11, 10}});
+    ResetValueAndTest(sim_out, {}, body_pos, {{0, 11, 10}});
 
     // Test: BS-UBS-16
     pos = {grid.cell_size_xy_, 0.01, 0.0};
@@ -467,8 +453,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     body_pos = {
         {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 11, 9}, {0, 11, 10},
         {0, 11, 11}, {0, 12, 9}, {0, 12, 10}, {0, 12, 11}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {{0, 10, 9}});
+    ResetValueAndTest(sim_out, {}, body_pos, {{0, 10, 9}});
 
     // Test: BS-UBS-17
     pos = {grid.cell_size_xy_, 0.01, 0.0};
@@ -491,8 +476,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     body_pos = {
         {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 11, 9}, {0, 11, 10},
         {0, 11, 11}, {0, 12, 9}, {0, 12, 10}, {0, 12, 11}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {{0, 11, 9}});
+    ResetValueAndTest(sim_out, {}, body_pos, {{0, 11, 9}});
 
     delete sim_out;
     delete bucket;
