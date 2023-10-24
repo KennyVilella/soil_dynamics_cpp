@@ -336,7 +336,7 @@ The tests are separated into two categories:
 | BS-UBS-5  | Testing for a pi/2 rotation around the Z axis when `body_` and `body_soil_` are on the first body layer. |
 | BS-UBS-6  | Testing for a pi/4 rotation around the Z axis when `body_` and `body_soil_` are on the first body layer. |
 | BS-UBS-7  | Testing for a one cell translation following the X axis combined to a pi/4 rotation around the Z axis when `body_` and `body_soil_` are on the first body layer. |
-| BS-UBS-8  | Testing for a pi rotation around the X and Z axis when `body_soil_` is on the first body layer. Soil is avalanching to the `terrain_`. |
+| BS-UBS-8  | Testing for a pi rotation around the X and Z axis when `body_soil_` is on the first body layer. Soil is avalanching to the `terrain_`. Checking that a warning is issued. |
 | BS-UBS-9  | Testing for a pi/2 rotation around the Y axis when `body_` and two `body_soil_` are on the first body layer. The two `body_soil_` are avalanching to the same position. |
 | BS-UBS-10 | Testing for a pi/2 rotation around the Y axis when `body_` and one `body_soil_` are on the first body layer, while a second `body_soil_` is on the second body layer. The two `body_soil_` are avalanching to the same position. |
 | BS-UBS-11 | Testing for a pi/2 rotation around the Y axis when `body_` and one `body_soil_` are on the second body layer, while a second `body_soil_` is on the first body layer. The two `body_soil_` are avalanching to the same position. |
