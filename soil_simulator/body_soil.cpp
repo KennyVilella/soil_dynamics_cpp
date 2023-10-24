@@ -37,7 +37,6 @@ void soil_simulator::UpdateBodySoil(
     Bucket* bucket, float tol
 ) {
     // Copying previous body_soil locations
-    auto old_body_soil = sim_out->body_soil_;
     auto old_body_soil_pos = sim_out->body_soil_pos_;
 
     // Resetting body_soil
