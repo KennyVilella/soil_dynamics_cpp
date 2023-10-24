@@ -95,6 +95,7 @@ Unit tests for the `CheckBucketMovement` function.
 | UT-CBM-6  | Testing for an arbitrary translation much shorter than cell size.               |
 | UT-CBM-7  | Testing for a 0.33 degree rotation around the Y axis.                           |
 | UT-CBM-8  | Testing for a 0.33 degree rotation around the Y axis combined with a translation much shorter than the cell size following the X axis. |
+| UT-CBM-9  | Testing that a warning is issued for a large movement.                          |
 
 ### `CalcNormal`
 

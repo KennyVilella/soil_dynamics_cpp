@@ -147,6 +147,18 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
+    // Test: UT-CBM-9
+    pos = {0.3, 0.0, 0.0};
+    ori = {1.0, 0.0, 0.0, 0.0};
+    testing::internal::CaptureStdout();
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    std::string warning_msg = testing::internal::GetCapturedStdout();
+    std::string exp_msg = "Movement made by the bucket is larger than two"
+        " cell size.";
+    size_t string_loc = warning_msg.find(exp_msg);
+    EXPECT_TRUE(string_loc != std::string::npos);
+    EXPECT_TRUE(status);
+
     delete bucket;
 }
 
