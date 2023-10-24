@@ -3,6 +3,7 @@ This file runs all unit tests.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <glog/header.h>
 #include <glog/logging.h>
 #include <random>
 #include "gtest/gtest.h"

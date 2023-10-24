@@ -453,16 +453,16 @@ bool soil_simulator::CheckSoil(
             }
 
             if ((bucket_soil_presence_0) && !(bucket_presence_0)) {
-                LOG(WARNING) << "WARNING\nBucket soil is present but there is no "
-                    "bucket.\nLocation: (" << ii << ", " << jj << ")\n"
+                LOG(WARNING) << "WARNING\nBucket soil is present but there is "
+                    "no bucket.\nLocation: (" << ii << ", " << jj << ")\n"
                     "Bucket soil 1 min height: " << body_soil_0 << "\n"
                     "Bucket soil 1 max height: " << body_soil_1;
                 return false;
             }
 
             if ((bucket_soil_presence_2) && !(bucket_presence_2)) {
-                LOG(WARNING) << "WARNING\nBucket soil is present but there is no "
-                    "bucket.\nLocation: (" << ii << ", " << jj << ")\n"
+                LOG(WARNING) << "WARNING\nBucket soil is present but there is "
+                    "no bucket.\nLocation: (" << ii << ", " << jj << ")\n"
                     "Bucket soil 2 min height: " << body_soil_2 << "\n"
                     "Bucket soil 2 max height: " << body_soil_3;
                 return false;
