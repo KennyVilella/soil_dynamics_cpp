@@ -60,6 +60,19 @@ void ResetValueAndTest(
     std::vector<std::vector<int>> body_pos,
     std::vector<std::vector<int>> body_soil_pos);
 
+/// \brief This function pushes a new `body_soil` struct into `body_soil_pos_`.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param ind: Index of the soil layer.
+/// \param ii: Index of the body soil in the X direction.
+/// \param jj: Index of the body soil in the Y direction.
+/// \param pos: Cartesian coordinates of the body soil in the
+///             reference bucket frame. [m]
+/// \param h_soil: Height of the soil column. [m]
+void PushBodySoilPos(
+    soil_simulator::SimOut* sim_out, int ind, int ii, int jj,
+    std::vector<float> pos, float h_soil);
+
 /// \brief This function checks the values of an inputted `body_soil` struct
 ///        against provided values.
 ///
