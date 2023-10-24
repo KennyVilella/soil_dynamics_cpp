@@ -368,7 +368,7 @@ bool soil_simulator::CheckSoil(
                 return false;
             }
 
-            if ((bucket_presence_0) && (body_0 > body_1 + tol)) {
+            if ((bucket_presence_0) && (body_0 > body_1 - tol)) {
                 LOG(WARNING) << "WARNING\nMin height of the bucket is above its"
                     " max height\nLocation: (" << ii << ", " << jj << ")\n"
                     "Bucket min height: " << body_0 << "\n"
@@ -376,7 +376,7 @@ bool soil_simulator::CheckSoil(
                 return false;
             }
 
-            if ((bucket_presence_2) && (body_2 > body_3 + tol)) {
+            if ((bucket_presence_2) && (body_2 > body_3 - tol)) {
                 LOG(WARNING) << "WARNING\nMin height of the bucket is above its"
                     " max height\nLocation: (" << ii << ", " << jj << ")\n"
                     "Bucket min height: " << body_2 << "\n"
@@ -399,7 +399,7 @@ bool soil_simulator::CheckSoil(
             if (
                 (bucket_presence_0) && (bucket_soil_presence_2) &&
                 (body_1 - tol > body_soil_2) && (body_soil_3 - tol > body_0)) {
-                LOG(WARNING) << "WARNING\nA bucket and bucket soil layer are"
+                LOG(WARNING) << "WARNING\nA bucket and bucket soil layer are "
                     "intersecting\nLocation: (" << ii << ", " << jj << ")\n"
                     "Bucket 1 min height: " << body_0 << "\n"
                     "Bucket 1 max height: " << body_1 << "\n"
@@ -411,8 +411,8 @@ bool soil_simulator::CheckSoil(
             if (
                 (bucket_presence_2) && (bucket_soil_presence_0) &&
                 (body_soil_1 - tol > body_2) && (body_3 - tol > body_soil_0)) {
-                LOG(WARNING) << "WARNING\nA bucket and bucket soil layer are"
-                    "intsecting\nLocation: (" << ii << ", " << jj << ")\n"
+                LOG(WARNING) << "WARNING\nA bucket and bucket soil layer are "
+                    "intersecting\nLocation: (" << ii << ", " << jj << ")\n"
                     "Bucket soil 1 min height: " << body_soil_0 << "\n"
                     "Bucket soil 1 max height: " << body_soil_1 << "\n"
                     "Bucket 2 min height: " << body_2 << "\n"
@@ -452,6 +452,22 @@ bool soil_simulator::CheckSoil(
                 return false;
             }
 
+            if ((bucket_soil_presence_0) && !(bucket_presence_0)) {
+                LOG(WARNING) << "WARNING\nBucket soil is present but there is no "
+                    "bucket\nLocation: (" << ii << ", " << jj << ")\n"
+                    "Bucket soil 1 min height: " << body_soil_0 << "\n"
+                    "Bucket soil 1 max height: " << body_soil_1;
+                return false;
+            }
+
+            if ((bucket_soil_presence_2) && !(bucket_presence_2)) {
+                LOG(WARNING) << "WARNING\nBucket soil is present but there is no "
+                    "bucket\nLocation: (" << ii << ", " << jj << ")\n"
+                    "Bucket soil 2 min height: " << body_soil_2 << "\n"
+                    "Bucket soil 2 max height: " << body_soil_3;
+                return false;
+            }
+
             if ((bucket_soil_presence_0) && (body_soil_0 != body_1)) {
                 LOG(WARNING) << "WARNING\nBucket soil is not resting on the "
                     "bucket\nLocation: (" << ii << ", " << jj << ")\n"
@@ -468,30 +484,6 @@ bool soil_simulator::CheckSoil(
                 return false;
             }
         }
-
-    // Iterating over all cells where bucket soil is located
-    for (auto nn = 0; nn < sim_out->body_soil_pos_.size(); nn++) {
-        // Renaming for convenience
-        int ii = sim_out->body_soil_pos_[nn].ii;
-        int jj = sim_out->body_soil_pos_[nn].jj;
-        int ind = sim_out->body_soil_pos_[nn].ind;
-        float body_min = sim_out->body_[ind][ii][jj];
-        float body_max = sim_out->body_[ind+1][ii][jj];
-        float body_soil_min = sim_out->body_soil_[ind][ii][jj];
-        float body_soil_max = sim_out->body_soil_[ind+1][ii][jj];
-
-        // Check that soil is actually present
-        bool bucket_soil_presence = (
-            (body_soil_min != 0.0) || (body_soil_max != 0.0));
-
-       if ((bucket_soil_presence) && (body_min == 0.0) && (body_max == 0.0)) {
-            LOG(WARNING) << "WARNING\nBucket soil is present but there is no "
-                "bucket\nLocation: (" << ii << ", " << jj << ")\n"
-                "Bucket soil min height: " << body_soil_min << "\n"
-                "Bucket soil max height: " << body_soil_max;
-           return false;
-       }
-    }
 
     return true;
 }
