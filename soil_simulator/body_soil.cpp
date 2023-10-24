@@ -202,7 +202,7 @@ void soil_simulator::UpdateBodySoil(
                 // Moving body_soil to terrain
                 sim_out->terrain_[ii_n][jj_n] += h_soil;
                 LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n "
-                   "Soil is moved to the terrain to maintain mass conservation";
+                   "Soil is moved to the terrain to maintain mass conservation.";
             }
         }
     }
