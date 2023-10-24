@@ -562,6 +562,7 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 | IC-MIBS-63 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
 | IC-MIBS-64 | Testing when there is no intersecting cell                                                       |
 | IC-MIBS-65 | Testing the randomness of the investigated direction for the soil movement.                      |
+| IC-MIBS-66 | Testing that a warning is issued if all soil cannot be moved.                                    |
 
 ### `LocateIntersectingCells`
 
