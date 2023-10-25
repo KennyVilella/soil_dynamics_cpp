@@ -125,9 +125,6 @@ jobs:
           - ubuntu-latest
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-
       - name: Install Google test
         run: |
           sudo apt-get install libgtest-dev
@@ -155,6 +152,14 @@ jobs:
           cmake -S . -B build -G "Unix Makefiles"
           cmake --build build
           sudo cmake --build build --target install
+
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Build the unit test
+        run: |
+          cmake -S . -B build
+          cmake --build build --target unit_tests
 
       - name: Run the unit test
         run: ./build/test/unit_tests/unit_tests
