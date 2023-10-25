@@ -104,6 +104,15 @@ void test_soil_simulator::ResetValueAndTest(
         sim_out->body_soil_pos_.begin(), sim_out->body_soil_pos_.end());
 }
 
+void test_soil_simulator::PushBodySoilPos(
+    soil_simulator::SimOut* sim_out, int ind, int ii, int jj,
+    std::vector<float> pos, float h_soil
+) {
+    // Pushing a new body soil position
+    sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
+        {ind, ii, jj, pos[0], pos[1], pos[2], h_soil});
+}
+
 void test_soil_simulator::CheckBodySoilPos(
     soil_simulator::body_soil body_soil_pos, int ind, int ii, int jj,
     std::vector<float> pos, float h_soil
