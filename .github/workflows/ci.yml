@@ -138,7 +138,13 @@ jobs:
         run: sudo apt-get install libbenchmark-dev
 
       - name: Install Google Logging
-        run: sudo apt-get install libgflags-dev libunwind-dev libgoogle-glog0v6 libgoogle-glog-dev
+        run: |
+          #sudo apt-get install libgflags-dev libunwind-dev
+          git clone -b v0.6.0 https://github.com/google/glog.git
+          cd glog
+          cmake -S . -B build -G "Unix Makefiles"
+          cmake --build build
+          cmake --build build --target install
 
       - name: Build the unit test
         run: |
