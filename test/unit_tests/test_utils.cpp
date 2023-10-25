@@ -4,6 +4,7 @@ This file implements unit tests for the functions in utils.cpp.
 Copyright, 2023, Vilella Kenny.
 */
 #include <cmath>
+#include <string>
 #include "gtest/gtest.h"
 #include "soil_simulator/utils.hpp"
 #include "test/unit_tests/utility.hpp"
@@ -145,6 +146,18 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     ori = {0.999, 0.0, 0.0029, 0.0};
     status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
+
+    // Test: UT-CBM-9
+    pos = {0.3, 0.0, 0.0};
+    ori = {1.0, 0.0, 0.0, 0.0};
+    testing::internal::CaptureStdout();
+    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    std::string warning_msg = testing::internal::GetCapturedStdout();
+    std::string exp_msg = "Movement made by the bucket is larger than two"
+        " cell size.";
+    size_t string_loc = warning_msg.find(exp_msg);
+    EXPECT_TRUE(string_loc != std::string::npos);
+    EXPECT_TRUE(status);
 
     delete bucket;
 }
@@ -391,26 +404,38 @@ TEST(UnitTestUtils, CheckVolume) {
 
     // Declaring variables
     float init_volume;
+    std::string warning_msg;
+    std::string exp_msg;
+    size_t string_loc;
+
+    // Creating a lambda function to check that a warning has been issued
+    auto CheckVolumeWarning = [&](float init_volume) {
+        testing::internal::CaptureStdout();
+        EXPECT_FALSE(
+            soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+        warning_msg = testing::internal::GetCapturedStdout();
+        string_loc = warning_msg.find(exp_msg);
+        EXPECT_TRUE(string_loc != std::string::npos);
+    };
 
     // Test: UT-CV-1
+    exp_msg = "Volume is not conserved!";
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 1.0, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(
-        sim_out, -0.6 * grid.cell_volume_, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(
-        sim_out, 0.6 * grid.cell_volume_, grid, 1e-5));
+    CheckVolumeWarning(1.0);
+    CheckVolumeWarning(-0.6 * grid.cell_volume_);
+    CheckVolumeWarning(0.6 * grid.cell_volume_);
 
     // Test: UT-CV-2
+    exp_msg = "Volume is not conserved!";
     sim_out->terrain_[1][2] = 0.2;
     init_volume =  0.2 * grid.cell_area_;
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(
-        sim_out, init_volume - 0.6 * grid.cell_volume_, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(
-        sim_out, init_volume + 0.6 * grid.cell_volume_, grid, 1e-5));
+    CheckVolumeWarning(0.0);
+    CheckVolumeWarning(init_volume - 0.6 * grid.cell_volume_);
+    CheckVolumeWarning(init_volume + 0.6 * grid.cell_volume_);
 
     // Test: UT-CV-3
+    exp_msg = "Volume is not conserved!";
     sim_out->terrain_[1][2] = 0.0;
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.08, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15);
@@ -425,21 +450,22 @@ TEST(UnitTestUtils, CheckVolume) {
         soil_simulator::body_soil {2, 2, 1, 0., 0., 0., 0.15});
     init_volume =  0.4 * grid.cell_area_;
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
-    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
+    CheckVolumeWarning(0.0);
 
     // Test: UT-CV-4
+    exp_msg = "Volume of soil in body_soil_pos_ is not consistent";
     sim_out->body_soil_pos_[0].h_soil = 0.0;
-    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+    CheckVolumeWarning(init_volume);
     sim_out->body_soil_pos_[0].h_soil = 0.1;
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 2, 2, 0., 0., 0., 0.05});
-    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+    CheckVolumeWarning(init_volume);
     sim_out->body_soil_[1][2][2] = 0.05;
     init_volume += 0.05 * grid.cell_area_;
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 5, 5, 0., 0., 0., 0.05});
-    EXPECT_FALSE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
+    CheckVolumeWarning(init_volume);
 
     delete sim_out;
 }
@@ -448,6 +474,20 @@ TEST(UnitTestUtils, CheckSoil) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // Declaring variables
+    std::string warning_msg;
+    std::string exp_msg;
+    size_t string_loc;
+
+    // Creating a lambda function to check that a warning has been issued
+    auto CheckSoilWarning = [&]() {
+        testing::internal::CaptureStdout();
+        EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+        warning_msg = testing::internal::GetCapturedStdout();
+        string_loc = warning_msg.find(exp_msg);
+        EXPECT_TRUE(string_loc != std::string::npos);
+    };
 
     // Test: UT-CS-1
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
@@ -463,14 +503,14 @@ TEST(UnitTestUtils, CheckSoil) {
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 1, 2, NAN, -0.15, 0.0, NAN, NAN, 0.1, 0.2, NAN, NAN);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15, NAN, NAN);
-    SetHeight(sim_out, 2, 2, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 2, NAN, 0.05, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-4
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, 0.2, 0.3);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
-    SetHeight(sim_out, 2, 2, NAN, NAN, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 2, NAN, NAN, NAN, 0.1, 0.15, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 1, 1, 0.0, 0.0, 0.0, 0.0});
     sim_out->body_soil_pos_.push_back(
@@ -484,91 +524,99 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-5
+    exp_msg = "Terrain is above the bucket";
     sim_out->terrain_[1][1] = 0.5;
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     sim_out->terrain_[1][1] = -0.2;
     sim_out->terrain_[2][1] = 0.05;
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     sim_out->terrain_[2][1] = 0.0;
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-6
+    exp_msg = "Min height of the bucket is above its max height";
     SetHeight(sim_out, 1, 1, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
-    SetHeight(sim_out, 1, 1, NAN, 0.0, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
+    SetHeight(sim_out, 1, 1, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, 0.41, 0.4, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, 0.41, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, 0.0, -0.4, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.0, 0.0, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, 0.16, 0.15, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-7
+    exp_msg = "Min height of the bucket soil is above its max height";
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.2, 0.0, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.14);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-8
+    exp_msg = "Bucket is above the bucket soil";
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.05, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.00, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.25, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.45, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-9
+    exp_msg = "Bucket soil is not resting on the bucket";
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.05, 0.1, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.2, 0.25);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-10
+    exp_msg = "Bucket soil is present but there is no bucket";
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.0, 0.0, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN);
     SetHeight(sim_out, 1, 1, NAN, 0.0, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-11
+    exp_msg = "Two bucket layers are intersecting";
     sim_out->terrain_[3][2] = -0.2;
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.1, NAN, NAN, 0.0, 0.2, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, 0.0, 0.2, NAN, NAN, -0.2, 0.1, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, NAN, NAN, NAN, NAN, -0.2, 0.0, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, 0.0, 0.0, NAN, NAN, 0.0, 0.0, NAN, NAN);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-12
+    exp_msg = "A bucket and bucket soil layer are intersecting";
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.0, 0.0, 0.15, 0.1, 0.2, NAN, NAN);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, 0.1, 0.2, 0.0, 0.0, -0.15, 0.0, 0.0, 0.15);
-    EXPECT_FALSE(soil_simulator::CheckSoil(sim_out, 1e-5));
+    CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.1);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
     SetHeight(sim_out, 3, 2, NAN, 0.0, 0.0, NAN, NAN, 0.0, 0.0, 0.0, 0.0);

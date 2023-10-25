@@ -2525,6 +2525,39 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {{9, 16}}, {{0, 10, 15}, {2, 10, 15}},
         {{0, 10, 15}, {2, 10, 15}});
 
+    // Test: IC-MIBS-66
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 11, 16, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 16, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 9, 16, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 9, 15, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 9, 14, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 14, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 11, 14, NAN, 0.0, 0.7, NAN, NAN, NAN, NAN, NAN, NAN);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    sim_out->body_soil_pos_.push_back(
+        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    testing::internal::CaptureStdout();
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+     std::string warning_msg = testing::internal::GetCapturedStdout();
+    std::string exp_msg = "The extra soil has been arbitrarily removed.";
+    size_t string_loc = warning_msg.find(exp_msg);
+    EXPECT_TRUE(string_loc != std::string::npos);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
+    // Resetting values
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {0, 11, 16}, {0, 10, 16},
+        {0, 9, 16}, {0, 9, 15}, {0, 9, 14}, {0, 10, 14}, {0, 11, 14}};
+    test_soil_simulator::ResetValueAndTest(
+        sim_out, {}, body_pos, {{0, 10, 15}, {2, 10, 15}});
+
     delete bucket;
     delete sim_out;
 }

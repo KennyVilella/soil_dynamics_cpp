@@ -143,8 +143,8 @@ void soil_simulator::MoveIntersectingBodySoil(
 
         if (h_soil > tol) {
             LOG(WARNING) << "WARNING\nNot all soil intersecting with a bucket "
-                "layer could be moved\nThe extra soil has been arbitrarily "
-                "removed";
+                "layer could be moved.\nThe extra soil has been arbitrarily "
+                "removed.";
         }
     }
 }

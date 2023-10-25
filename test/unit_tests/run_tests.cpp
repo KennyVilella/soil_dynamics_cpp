@@ -16,10 +16,10 @@ int main(int argc, char **argv) {
     google::InitGoogleLogging(argv[0]);
 
     // Writting outputs to stderr instead of logfiles
-    FLAGS_logtostderr = 1;
+    FLAGS_logtostdout = 1;
 
     // Disabling Warning messages
-    FLAGS_minloglevel = 2;
+    FLAGS_minloglevel = 1;
 
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
