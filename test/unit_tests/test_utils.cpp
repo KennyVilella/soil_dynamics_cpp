@@ -12,6 +12,7 @@ Copyright, 2023, Vilella Kenny.
 // To make the function call holds in a single line.
 // It greatly improves readability.
 using test_soil_simulator::SetHeight;
+using test_soil_simulator::PushBodySoilPos;
 
 TEST(UnitTestUtils, CalcBucketCornerPos) {
     // Setting up the environment
@@ -440,31 +441,25 @@ TEST(UnitTestUtils, CheckVolume) {
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.08, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15);
     SetHeight(sim_out, 2, 2, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN, 0.2, 0.27);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 2, 2, 0., 0., 0., 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 2, 2, 0., 0., 0., 0.07});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 1, 1, 0., 0., 0., 0.08});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 2, 1, 0., 0., 0., 0.15});
+    PushBodySoilPos(sim_out, 0, 1, 1, {0.0, 0.0, 0.0}, 0.08);
+    PushBodySoilPos(sim_out, 2, 2, 1, {0.0, 0.0, 0.0}, 0.15);
+    PushBodySoilPos(sim_out, 0, 2, 2, {0.0, 0.0, 0.0}, 0.1);
+    PushBodySoilPos(sim_out, 2, 2, 2, {0.0, 0.0, 0.0}, 0.07);
     init_volume =  0.4 * grid.cell_area_;
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
     CheckVolumeWarning(0.0);
 
     // Test: UT-CV-4
     exp_msg = "Volume of soil in body_soil_pos_ is not consistent";
-    sim_out->body_soil_pos_[0].h_soil = 0.0;
+    sim_out->body_soil_pos_[2].h_soil = 0.0;
     CheckVolumeWarning(init_volume);
-    sim_out->body_soil_pos_[0].h_soil = 0.1;
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 2, 2, 0., 0., 0., 0.05});
+    sim_out->body_soil_pos_[2].h_soil = 0.1;
+    PushBodySoilPos(sim_out, 0, 2, 2, {0.0, 0.0, 0.0}, 0.05);
     CheckVolumeWarning(init_volume);
     sim_out->body_soil_[1][2][2] = 0.05;
     init_volume += 0.05 * grid.cell_area_;
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 5, 5, 0., 0., 0., 0.05});
+    PushBodySoilPos(sim_out, 0, 5, 5, {0.0, 0.0, 0.0}, 0.05);
     CheckVolumeWarning(init_volume);
 
     delete sim_out;
@@ -511,16 +506,11 @@ TEST(UnitTestUtils, CheckSoil) {
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, 0.2, 0.3);
     SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.15, 0.25);
     SetHeight(sim_out, 2, 2, NAN, NAN, NAN, 0.1, 0.15, NAN, NAN, NAN, NAN);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 1, 1, 0.0, 0.0, 0.0, 0.0});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 1, 2, 0.0, 0.0, 0.0, 0.0});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 1, 2, 0.0, 0.0, 0.0, 0.0});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 2, 1, 0.0, 0.0, 0.0, 0.0});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 2, 2, 0.0, 0.0, 0.0, 0.0});
+    PushBodySoilPos(sim_out, 0, 1, 1, {0.0, 0.0, 0.0}, 0.0);
+    PushBodySoilPos(sim_out, 0, 1, 2, {0.0, 0.0, 0.0}, 0.0);
+    PushBodySoilPos(sim_out, 2, 1, 2, {0.0, 0.0, 0.0}, 0.0);
+    PushBodySoilPos(sim_out, 2, 2, 1, {0.0, 0.0, 0.0}, 0.0);
+    PushBodySoilPos(sim_out, 0, 2, 2, {0.0, 0.0, 0.0}, 0.0);
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-5
