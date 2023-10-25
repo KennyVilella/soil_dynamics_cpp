@@ -95,6 +95,7 @@ Unit tests for the `CheckBucketMovement` function.
 | UT-CBM-6  | Testing for an arbitrary translation much shorter than cell size.               |
 | UT-CBM-7  | Testing for a 0.33 degree rotation around the Y axis.                           |
 | UT-CBM-8  | Testing for a 0.33 degree rotation around the Y axis combined with a translation much shorter than the cell size following the X axis. |
+| UT-CBM-9  | Testing that a warning is issued for a large movement.                          |
 
 ### `CalcNormal`
 
@@ -335,7 +336,7 @@ The tests are separated into two categories:
 | BS-UBS-5  | Testing for a pi/2 rotation around the Z axis when `body_` and `body_soil_` are on the first body layer. |
 | BS-UBS-6  | Testing for a pi/4 rotation around the Z axis when `body_` and `body_soil_` are on the first body layer. |
 | BS-UBS-7  | Testing for a one cell translation following the X axis combined to a pi/4 rotation around the Z axis when `body_` and `body_soil_` are on the first body layer. |
-| BS-UBS-8  | Testing for a pi rotation around the X and Z axis when `body_soil_` is on the first body layer. Soil is avalanching to the `terrain_`. |
+| BS-UBS-8  | Testing for a pi rotation around the X and Z axis when `body_soil_` is on the first body layer. Soil is avalanching to the `terrain_`. Checking that a warning is issued. |
 | BS-UBS-9  | Testing for a pi/2 rotation around the Y axis when `body_` and two `body_soil_` are on the first body layer. The two `body_soil_` are avalanching to the same position. |
 | BS-UBS-10 | Testing for a pi/2 rotation around the Y axis when `body_` and one `body_soil_` are on the first body layer, while a second `body_soil_` is on the second body layer. The two `body_soil_` are avalanching to the same position. |
 | BS-UBS-11 | Testing for a pi/2 rotation around the Y axis when `body_` and one `body_soil_` are on the second body layer, while a second `body_soil_` is on the first body layer. The two `body_soil_` are avalanching to the same position. |
@@ -561,6 +562,7 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 | IC-MIBS-63 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
 | IC-MIBS-64 | Testing when there is no intersecting cell                                                       |
 | IC-MIBS-65 | Testing the randomness of the investigated direction for the soil movement.                      |
+| IC-MIBS-66 | Testing that a warning is issued if all soil cannot be moved.                                    |
 
 ### `LocateIntersectingCells`
 

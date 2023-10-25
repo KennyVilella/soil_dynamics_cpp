@@ -3,6 +3,7 @@ This file implements unit tests for the functions in body_soil.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
+#include <string>
 #include <cmath>
 #include "gtest/gtest.h"
 #include "soil_simulator/body_soil.hpp"
@@ -150,7 +151,12 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     SetHeight(sim_out, 11, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 11, 10, 0.1, 0.0, 0.0, 0.1});
+    testing::internal::CaptureStdout();
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
+    std::string warning_msg = testing::internal::GetCapturedStdout();
+    std::string exp_msg = "Bucket soil could not be updated.";
+    size_t string_loc = warning_msg.find(exp_msg);
+    EXPECT_TRUE(string_loc != std::string::npos);
     EXPECT_NEAR(sim_out->terrain_[9][10], 0.1, 1.e-5);
     // Resetting values
     ResetBucketPose();
