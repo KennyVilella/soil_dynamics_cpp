@@ -41,13 +41,14 @@ jobs:
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
 
-      # Google Logging has to be installed from source
-      # This is because the example script use LogMessageInfo
-      # that is not recognized when using the ubuntu package
+      # Google Logging has to be installed from source.
+      # This is because version 0.6 is needed but ubuntu 22.04
+      # used by Github action only supports version 0.5.
       - name: Clone Google Logging repo
         uses: actions/checkout@v3
         with:
           repository: google/glog
+          ref: 'v0.6.0'
 
       - name: Install dependencies of Google Logging
         run: sudo apt-get install libgflags-dev libunwind-dev
@@ -137,19 +138,23 @@ jobs:
       - name: Install Google benchmark
         run: sudo apt-get install libbenchmark-dev
 
+      # Google Logging has to be installed from source.
+      # This is because version 0.6 is needed but ubuntu 22.04
+      # used by Github action only supports version 0.5.
+      - name: Clone Google Logging repo
+        uses: actions/checkout@v3
+        with:
+          repository: google/glog
+          ref: 'v0.6.0'
+
+      - name: Install dependencies of Google Logging
+        run: sudo apt-get install libgflags-dev libunwind-dev
+
       - name: Install Google Logging
         run: |
-          #sudo apt-get install libgflags-dev libunwind-dev
-          git clone -b v0.6.0 https://github.com/google/glog.git
-          cd glog
           cmake -S . -B build -G "Unix Makefiles"
           cmake --build build
-          cmake --build build --target install
-
-      - name: Build the unit test
-        run: |
-          cmake -S . -B build
-          cmake --build build --target unit_tests
+          sudo cmake --build build --target install
 
       - name: Run the unit test
         run: ./build/test/unit_tests/unit_tests
