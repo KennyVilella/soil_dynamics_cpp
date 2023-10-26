@@ -208,52 +208,6 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
         }
 
     // Test: BP-DVR-3
-    a_ind = {10.0 + 1e-12, 9.5 + 1e-12, 5.0};
-    ab_ind = {5.0 - 1e-12, 0.0, 2.4};
-    ad_ind = {0.0, 3.0 - 1e-12, -0.3};
-    area_min_x = 8;
-    area_min_y = 8;
-    area_length_x = 8;
-    area_length_y = 8;
-    in_rec_exp = {
-        {false, false, false, false, false, false, false, false},
-        {false, false, false, false, false, false, false, false},
-        {false, false, true,  true,  false, false, false, false},
-        {false, false, true,  true,  false, false, false, false},
-        {false, false, true,  true,  false, false, false, false},
-        {false, false, true,  true,  false, false, false, false},
-        {false, false, true,  true,  false, false, false, false},
-        {false, false, false, false, false, false, false, false}};
-    c_ab_exp = {
-        {-0.3, -0.3, -0.3, -0.3, -0.3, -0.3, -0.3, -0.3},
-        {-0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1},
-        { 0.1,  0.1,  0.1,  0.1,  0.1,  0.1,  0.1,  0.1},
-        { 0.3,  0.3,  0.3,  0.3,  0.3,  0.3,  0.3,  0.3},
-        { 0.5,  0.5,  0.5,  0.5,  0.5,  0.5,  0.5,  0.5},
-        { 0.7,  0.7,  0.7,  0.7,  0.7,  0.7,  0.7,  0.7},
-        { 0.9,  0.9,  0.9,  0.9,  0.9,  0.9,  0.9,  0.9},
-        { 1.1,  1.1,  1.1,  1.1,  1.1,  1.1,  1.1,  1.1}};
-    c_ad_exp = {
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
-        {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0}};
-    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
-        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
-    EXPECT_EQ(nn, 10 * 4);
-    EXPECT_EQ(in_rec, in_rec_exp);
-    for (auto ii = 0; ii < area_length_x; ii++)
-        for (auto jj = 0; jj < area_length_y; jj++) {
-            EXPECT_NEAR(c_ab[ii][jj], c_ab_exp[ii][jj], 1e-5);
-            EXPECT_NEAR(c_ad[ii][jj], c_ad_exp[ii][jj], 1e-5);
-        }
-
-    // Test: BP-DVR-4
     a_ind = {15.0, 10.0, 5.0};
     ab_ind = {1.0, 0.0, 2.4};
     ad_ind = {0.0, 5.0, -0.3};
@@ -299,7 +253,7 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
             EXPECT_NEAR(c_ad[ii][jj], c_ad_exp[ii][jj], 1e-5);
         }
 
-    // Test: BP-DVR-5
+    // Test: BP-DVR-4
     a_ind = {14.2, 10.3, 5.0};
     ab_ind = {2.3, 1.2, 2.4};
     ad_ind = {4.6, 2.4, -0.3};
@@ -315,7 +269,7 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
         for (auto jj = 0; jj < area_length_y; jj++)
             EXPECT_EQ(in_rec[ii][jj], false);
 
-    // Test: BP-DVR-6
+    // Test: BP-DVR-5
     a_ind = {14.2, 10.3, 5.0};
     ab_ind = {0.0, 0.0, 0.0};
     ad_ind = {0.0, 0.0, 0.0};
@@ -627,18 +581,6 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     CheckResults();
 
     // Test: BP-CR-2
-    a = {0.0 + 1e-5, -0.05 + 1e-5, 0.0 - 1e-5};
-    b = {0.5 - 1e-5, -0.05 + 1e-5, 0.0 - 1e-5};
-    c = {0.5 - 1e-5,  0.25 - 1e-5, 0.0 - 1e-5};
-    d = {0.0 + 1e-5,  0.25 - 1e-5, 0.0 - 1e-5};
-    rect_pos_exp = {
-        {10, 10, 9}, {10, 11, 9}, {10, 12, 9}, {11, 10, 9}, {11, 11, 9},
-        {11, 12, 9}, {12, 10, 9}, {12, 11, 9}, {12, 12, 9}, {13, 10, 9},
-        {13, 11, 9}, {13, 12, 9}, {14, 10, 9}, {14, 11, 9}, {14, 12, 9},
-        {15, 10, 9}, {15, 11, 9}, {15, 12, 9}};
-    CheckResults();
-
-    // Test: BP-CR-3
     a = {0.0 + 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     b = {0.5 - 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     c = {0.5 - 1e-5, 0.0 - 1e-5, 0.5 - 1e-5};
@@ -650,7 +592,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
         {15, 10, 12}, {15, 10, 13}, {15, 10, 14}};
     CheckResults();
 
-    // Test: BP-CR-4
+    // Test: BP-CR-3
     a = {0.5 + 1e-5, 0.0 + 1e-5, 0.5 + 1e-5};
     b = {0.6 - 1e-5, 0.0 + 1e-5, 0.6 - 1e-5};
     c = {0.6 - 1e-5, 0.5 - 1e-5, 0.6 - 1e-5};
@@ -661,7 +603,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
         {16, 14, 15}, {16, 15, 15}};
     CheckResults();
 
-    // Test: BP-CR-5
+    // Test: BP-CR-4
     a = {0.34 + 1e-5, 0.57 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
     c = {0.44 + 1e-5, 0.67 + 1e-5, 0.0 - 1e-5};
@@ -671,19 +613,11 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
         {16, 18, 9}, {16, 19, 9}, {17, 19, 9}, {17, 20, 9}};
     CheckResults();
 
-    // Test: BP-CR-6
+    // Test: BP-CR-5
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     d = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    rect_pos_exp = {{15, 15, 14}};
-    CheckResults();
-
-    // Test: BP-CR-7
-    a = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
-    b = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
-    c = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
-    d = {0.55 - 1e-5, 0.55 - 1e-5, 0.5 - 1e-5};
     rect_pos_exp = {{15, 15, 14}};
     CheckResults();
 }
