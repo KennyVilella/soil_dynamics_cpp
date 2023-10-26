@@ -11,6 +11,8 @@ Copyright, 2023, Vilella Kenny.
 // To make the function call holds in a single line.
 // It greatly improves readability.
 using test_soil_simulator::SetHeight;
+using test_soil_simulator::ResetValueAndTest;
+using soil_simulator::CalcBucketPos;
 
 TEST(UnitTestBucketPos, CalcLinePos) {
     // Setting up the environment
@@ -991,18 +993,17 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     std::vector<float> ori;
     std::vector<float> pos;
     std::vector<std::vector<int>> body_pos;
+    soil_simulator::Bucket *bucket = new soil_simulator::Bucket();
 
     // Test: BP-CB-1
     o_pos = {0.0, 0.0, 0.0};
     j_pos = {0.0, 0.0, 0.0};
     b_pos = {0.5, 0.01, 0.0};
     t_pos = {0.5, 0.0, 0.0};
-    soil_simulator::Bucket *bucket = new soil_simulator::Bucket(
-        o_pos, j_pos, b_pos, t_pos, 0.5);
+    *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {1.0, 0.0, 0.0, 0.0};
     pos = {0.0, 0.0, 0.0};
-    soil_simulator::CalcBucketPos(
-        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][10][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][10][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][11][10], -0.3, 1.e-5);
@@ -1015,6 +1016,8 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_NEAR(sim_out->body_[1][14][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][15][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][15][10], 0.3, 1.e-5);
+    EXPECT_TRUE((sim_out->bucket_area_ == int[2][2] {{6, 19}, {6, 14}}));
+
     EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
@@ -1023,15 +1026,13 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     body_pos = {
         {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
         {0, 15, 10}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {});
+    ResetValueAndTest(sim_out, {}, body_pos, {});
 
     // Test: BP-CB-2
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
-    soil_simulator::CalcBucketPos(
-        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
             for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
@@ -1056,8 +1057,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
         {0, 13, 8}, {0, 13, 9}, {0, 13, 10}, {0, 13, 11}, {0, 13, 12},
         {0, 14, 8}, {0, 14, 9}, {0, 14, 10}, {0, 14, 11}, {0, 14, 12},
         {0, 15, 8}, {0, 15, 9}, {0, 15, 10}, {0, 15, 11}, {0, 15, 12}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {});
+    ResetValueAndTest(sim_out, {}, body_pos, {});
 
     // Test: BP-CB-3
     b_pos = {0.0, 0.0, -0.5};
@@ -1065,8 +1065,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {0.707107, 0.0, -0.707107, 0.0};  // -pi/2 rotation around the Y axis
     pos = {0.0, 0.0, -0.1};
-    soil_simulator::CalcBucketPos(
-        sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto jj = 5; jj < 11; jj++)
         for (auto kk = 8; kk < 13; kk++)
             EXPECT_NEAR(sim_out->body_[1][jj][kk], -0.1, 1.e-5);
@@ -1097,8 +1096,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
         {0, 8, 8}, {0, 8, 9}, {0, 8, 10}, {0, 8, 11}, {0, 8, 12},
         {0, 9, 8}, {0, 9, 9}, {0, 9, 10}, {0, 9, 11}, {0, 9, 12},
         {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12}};
-    test_soil_simulator::ResetValueAndTest(
-        sim_out, {}, body_pos, {});
+    ResetValueAndTest(sim_out, {}, body_pos, {});
 
     delete bucket;
     delete sim_out;
