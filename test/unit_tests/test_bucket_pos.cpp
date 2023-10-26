@@ -24,6 +24,23 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     std::vector<std::vector<int>> line_pos;
     std::vector<std::vector<int>> line_pos_exp;
 
+    // Creating a lambda function to check the results for any input orders
+    // The results are sorted and duplicates are removed
+    auto CheckResults = [&]() {
+        // Checking first input order
+        line_pos = soil_simulator::CalcLinePos(a, b, grid);
+        sort(line_pos.begin(), line_pos.end());
+        line_pos.erase(
+            unique(line_pos.begin(), line_pos.end()), line_pos.end());
+        EXPECT_EQ(line_pos, line_pos_exp);
+        // Checking second input order
+        line_pos = soil_simulator::CalcLinePos(b, a, grid);
+        sort(line_pos.begin(), line_pos.end());
+        line_pos.erase(
+            unique(line_pos.begin(), line_pos.end()), line_pos.end());
+        EXPECT_EQ(line_pos, line_pos_exp);
+    };
+
     // Test: BP-CL-1
     a = {0.0 + 1e-5, 0.0 - 1e-5, -0.06 + 1e-5};
     b = {1.0 - 1e-5, 0.0 - 1e-5,  0.0  - 1e-5};
@@ -31,8 +48,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
         {10, 10, 9}, {11, 10, 9}, {12, 10, 9}, {13, 10, 9}, {14, 10, 9},
         {15, 10, 9}, {16, 10, 9}, {17, 10, 9}, {18, 10, 9}, {19, 10, 9},
         {20, 10, 9}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
 
     // Test: BP-CL-2
     a = {0.04 + 1e-5,  0.04 - 1e-5, -0.09 + 1e-5};
@@ -41,8 +57,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
         {10, 10, 9}, {11, 10, 9}, {12, 10, 9}, {13, 10, 9}, {14, 10, 9},
         {15, 10, 9}, {16, 10, 9}, {17, 10, 9}, {18, 10, 9}, {19, 10, 9},
         {20, 10, 9}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
 
     // Test: BP-CL-3
     a = {0.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
@@ -51,8 +66,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
         {10, 10, 9}, {10, 11, 9}, {10, 12, 9}, {10, 13, 9}, {10, 14, 9},
         {10, 15, 9}, {10, 16, 9}, {10, 17, 9}, {10, 18, 9}, {10, 19, 9},
         {10, 20, 9}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
 
     // Test: BP-CL-4
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
@@ -60,9 +74,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos_exp = {
         {13, 16, 9}, {14, 16, 9}, {14, 17, 9}, {15, 17, 9}, {15, 18, 9},
         {16, 18, 9}, {16, 19, 9}, {17, 19, 9}, {17, 20, 9}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
 
     // Test: BP-CL-5
     a = {0.34 + 1e-8, 0.0 - 1e-8, 0.56 + 1e-8};
@@ -70,23 +82,17 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     line_pos_exp = {
         {13, 10, 15}, {14, 10, 15}, {14, 10, 16}, {15, 10, 16}, {15, 10, 17},
         {16, 10, 17}, {16, 10, 18}, {17, 10, 18}, {17, 10, 19}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
 
     // Test: BP-CL-6
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     line_pos_exp = {{15, 15, 14}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
     line_pos_exp = {{15, 15, 15}};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
-    EXPECT_EQ(line_pos, line_pos_exp);
+    CheckResults();
 }
 
 TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
