@@ -708,13 +708,51 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     std::vector<std::vector<int>> tri_pos;
     std::vector<std::vector<int>> tri_pos_exp;
 
+    // Creating a lambda function to check the results for any input orders
+    // The results are sorted and duplicates are removed
+    auto CheckResults = [&]() {
+        // Checking first input order
+        tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
+        sort(tri_pos.begin(), tri_pos.end());
+        tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
+        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
+        EXPECT_EQ(tri_pos, tri_pos_exp);
+        // Checking second input order
+        tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
+        sort(tri_pos.begin(), tri_pos.end());
+        tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
+        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
+        EXPECT_EQ(tri_pos, tri_pos_exp);
+        // Checking third input order
+        tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
+        sort(tri_pos.begin(), tri_pos.end());
+        tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
+        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
+        EXPECT_EQ(tri_pos, tri_pos_exp);
+        // Checking fourth input order
+        tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
+        sort(tri_pos.begin(), tri_pos.end());
+        tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
+        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
+        EXPECT_EQ(tri_pos, tri_pos_exp);
+        // Checking fifth input order
+        tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
+        sort(tri_pos.begin(), tri_pos.end());
+        tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
+        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
+        EXPECT_EQ(tri_pos, tri_pos_exp);
+        // Checking sixth input order
+        tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
+        sort(tri_pos.begin(), tri_pos.end());
+        tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
+        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
+        EXPECT_EQ(tri_pos, tri_pos_exp);
+    };
+
     // Test: BP-CT-1
     a = {0.0 + 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {1.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     c = {0.0 + 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     tri_pos_exp = {
         {10, 10, 9}, {10, 11, 9}, {10, 12, 9}, {10, 13, 9}, {10, 14, 9},
         {10, 15, 9}, {10, 16, 9}, {10, 17, 9}, {10, 18, 9}, {10, 19, 9},
@@ -732,46 +770,12 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
         {17, 13, 9}, {17, 14, 9}, {18, 10, 9}, {18, 11, 9}, {18, 12, 9},
         {18, 13, 9}, {19, 10, 9}, {19, 11, 9}, {19, 12, 9}, {20, 10, 9},
         {20, 11, 9}};
-    EXPECT_EQ(tri_pos.size(), 76);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 76);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 76);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 76);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 76);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 76);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
+    CheckResults();
 
     // Test: BP-CT-2
     a = {0.0 + 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     b = {1.0 - 1e-5, 0.0 - 1e-5, 0.0 + 1e-5};
     c = {0.0 + 1e-5, 0.0 - 1e-5, 1.0 - 1e-5};
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     tri_pos_exp = {
         {10, 10, 10}, {10, 10, 11}, {10, 10, 12}, {10, 10, 13}, {10, 10, 14},
         {10, 10, 15}, {10, 10, 16}, {10, 10, 17}, {10, 10, 18}, {10, 10, 19},
@@ -781,105 +785,32 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
         {16, 10, 10}, {16, 10, 13}, {16, 10, 14}, {17, 10, 10}, {17, 10, 12},
         {17, 10, 13}, {18, 10, 10}, {18, 10, 11}, {18, 10, 12}, {19, 10, 10},
         {19, 10, 11}, {20, 10, 10}};
-    EXPECT_EQ(tri_pos.size(), 37);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 37);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 37);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 37);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 37);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 37);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
+    CheckResults();
 
     // Test: BP-CT-3
     a = {0.5 + 1e-5, 0.0 + 1e-5, 0.5 + 1e-5};
     b = {0.6 - 1e-5, 0.0 + 1e-5, 0.6 - 1e-5};
     c = {0.6 - 2e-5, 0.5 - 1e-5, 0.6 - 2e-5};
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     tri_pos_exp = {
         {15, 10, 15}, {15, 11, 15}, {15, 12, 15}, {15, 13, 15}, {16, 10, 15},
         {16, 11, 15}, {16, 12, 15}, {16, 13, 15}, {16, 14, 15}, {16, 15, 15}};
-    EXPECT_EQ(tri_pos.size(), 10);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 10);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 10);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 10);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 10);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
-    // New order
-    tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-    EXPECT_EQ(tri_pos.size(), 10);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
+    CheckResults();
 
     // Test: BP-CT-4
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
     c = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     tri_pos_exp = {
         {13, 16, 9}, {14, 16, 9}, {14, 17, 9}, {15, 17, 9}, {15, 18, 9},
         {16, 18, 9}, {16, 19, 9}, {17, 19, 9}, {17, 20, 9}};
-    EXPECT_EQ(tri_pos.size(), 9);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
+    CheckResults();
 
     // Test: BP-CT-5
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     c = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
-    tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
-    sort(tri_pos.begin(), tri_pos.end());
-    tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
     tri_pos_exp = {{15, 15, 14}};
-    EXPECT_EQ(tri_pos.size(), 1);
-    EXPECT_EQ(tri_pos, tri_pos_exp);
+    CheckResults();
 }
 
 TEST(UnitTestBucketPos, IncludeNewBodyPos) {
