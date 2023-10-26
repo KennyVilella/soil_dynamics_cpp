@@ -27,73 +27,65 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     // Test: BP-CL-1
     a = {0.0 + 1e-5, 0.0 - 1e-5, -0.06 + 1e-5};
     b = {1.0 - 1e-5, 0.0 - 1e-5,  0.0  - 1e-5};
-    line_pos = soil_simulator::CalcLinePos(
-        a, b, grid);
     line_pos_exp = {
         {10, 10, 9}, {11, 10, 9}, {12, 10, 9}, {13, 10, 9}, {14, 10, 9},
         {15, 10, 9}, {16, 10, 9}, {17, 10, 9}, {18, 10, 9}, {19, 10, 9},
         {20, 10, 9}};
-    EXPECT_EQ(line_pos.size(), 11);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     EXPECT_EQ(line_pos, line_pos_exp);
 
     // Test: BP-CL-2
     a = {0.04 + 1e-5,  0.04 - 1e-5, -0.09 + 1e-5};
     b = {1.04 - 1e-5, -0.04 + 1e-5,   0.0 - 1e-5};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos_exp = {
         {10, 10, 9}, {11, 10, 9}, {12, 10, 9}, {13, 10, 9}, {14, 10, 9},
         {15, 10, 9}, {16, 10, 9}, {17, 10, 9}, {18, 10, 9}, {19, 10, 9},
         {20, 10, 9}};
-    EXPECT_EQ(line_pos.size(), 11);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     EXPECT_EQ(line_pos, line_pos_exp);
 
     // Test: BP-CL-3
     a = {0.0 - 1e-5, 0.0 + 1e-5, 0.0 - 1e-5};
     b = {0.0 - 1e-5, 1.0 - 1e-5, 0.0 - 1e-5};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos_exp = {
         {10, 10, 9}, {10, 11, 9}, {10, 12, 9}, {10, 13, 9}, {10, 14, 9},
         {10, 15, 9}, {10, 16, 9}, {10, 17, 9}, {10, 18, 9}, {10, 19, 9},
         {10, 20, 9}};
-    EXPECT_EQ(line_pos.size(), 11);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
     EXPECT_EQ(line_pos, line_pos_exp);
 
     // Test: BP-CL-4
     a = {0.34 + 1e-5, 0.56 + 1e-5, 0.0 - 1e-5};
     b = {0.74 - 1e-5, 0.97 - 1e-5, 0.0 - 1e-5};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
     line_pos_exp = {
         {13, 16, 9}, {14, 16, 9}, {14, 17, 9}, {15, 17, 9}, {15, 18, 9},
         {16, 18, 9}, {16, 19, 9}, {17, 19, 9}, {17, 20, 9}};
-    EXPECT_EQ(line_pos.size(), 9);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
+    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
     EXPECT_EQ(line_pos, line_pos_exp);
 
     // Test: BP-CL-5
     a = {0.34 + 1e-8, 0.0 - 1e-8, 0.56 + 1e-8};
     b = {0.74 - 1e-8, 0.0 - 1e-8, 0.97 - 1e-8};
-    line_pos = soil_simulator::CalcLinePos(a, b, grid);
-    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
     line_pos_exp = {
         {13, 10, 15}, {14, 10, 15}, {14, 10, 16}, {15, 10, 16}, {15, 10, 17},
         {16, 10, 17}, {16, 10, 18}, {17, 10, 18}, {17, 10, 19}};
-    EXPECT_EQ(line_pos.size(), 9);
+    line_pos = soil_simulator::CalcLinePos(a, b, grid);
+    line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
     EXPECT_EQ(line_pos, line_pos_exp);
 
     // Test: BP-CL-6
     a = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
     b = {0.5 - 1e-5, 0.5 - 1e-5, 0.5 - 1e-5};
+    line_pos_exp = {{15, 15, 14}};
     line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
-    line_pos_exp = {{15, 15, 14}};
-    EXPECT_EQ(line_pos.size(), 1);
     EXPECT_EQ(line_pos, line_pos_exp);
     a = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
     b = {0.55 - 1e-5, 0.55 - 1e-5, 0.55 - 1e-5};
+    line_pos_exp = {{15, 15, 15}};
     line_pos = soil_simulator::CalcLinePos(a, b, grid);
     line_pos.erase(unique(line_pos.begin(), line_pos.end()), line_pos.end());
-    line_pos_exp = {{15, 15, 15}};
-    EXPECT_EQ(line_pos.size(), 1);
     EXPECT_EQ(line_pos, line_pos_exp);
 }
 
@@ -125,9 +117,6 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     area_min_y = 8;
     area_length_x = 8;
     area_length_y = 8;
-    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
-        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_rec_exp = {
         {false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false},
@@ -155,6 +144,9 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1},
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1},
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1}};
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 25 * 4);
     EXPECT_EQ(in_rec, in_rec_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -171,9 +163,6 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     area_min_y = 8;
     area_length_x = 8;
     area_length_y = 8;
-    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
-        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_rec_exp = {
         {false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false},
@@ -201,6 +190,9 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
         {-1.8, -0.8, 0.2, 1.2, 2.2, 3.2, 4.2, 5.2},
         {-1.8, -0.8, 0.2, 1.2, 2.2, 3.2, 4.2, 5.2},
         {-1.8, -0.8, 0.2, 1.2, 2.2, 3.2, 4.2, 5.2}};
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 25 * 4);
     EXPECT_EQ(in_rec, in_rec_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -217,9 +209,6 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     area_min_y = 8;
     area_length_x = 8;
     area_length_y = 8;
-    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
-        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_rec_exp = {
         {false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false},
@@ -247,6 +236,9 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
         {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
         {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0},
         {-1.0 / 3, 0.0, 1.0 / 3, 2.0 / 3, 1.0, 4.0 / 3, 5.0 / 3, 2.0}};
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 10 * 4);
     EXPECT_EQ(in_rec, in_rec_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -263,9 +255,6 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
     area_min_y = 8;
     area_length_x = 8;
     area_length_y = 8;
-    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
-        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_rec_exp = {
         {false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false},
@@ -293,6 +282,9 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1},
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1},
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1}};
+    std::tie(c_ab, c_ad, in_rec, nn) = soil_simulator::DecomposeVectorRectangle(
+        ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 5 * 4);
     EXPECT_EQ(in_rec, in_rec_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -362,9 +354,6 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     area_min_y = 9;
     area_length_x = 11;
     area_length_y = 10;
-    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
-        ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_tri_exp = {
         {false, false, false, false, false, false, false, false, false, false},
         {false, true,  true,  true,  true,  true,  true,  true,  true,  true},
@@ -403,6 +392,9 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
         {-0.05, 0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95},
         {-0.05, 0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95},
         {-0.05, 0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95}};
+    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
+        ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 45 * 4);
     EXPECT_EQ(in_tri, in_tri_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -419,9 +411,6 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     area_min_y = 9;
     area_length_x = 11;
     area_length_y = 10;
-    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
-        ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_tri_exp = {
         {false, false, false, false, false, false, false, false, false, false},
         {false, true,  true,  true,  true,  true,  true,  true,  true,  true},
@@ -459,6 +448,9 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
         {-0.2, 0.8, 1.8, 2.8, 3.8, 4.8, 5.8, 6.8, 7.8, 8.8},
         {-0.2, 0.8, 1.8, 2.8, 3.8, 4.8, 5.8, 6.8, 7.8, 8.8},
         {-0.2, 0.8, 1.8, 2.8, 3.8, 4.8, 5.8, 6.8, 7.8, 8.8}};
+    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
+        ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 45 * 4);
     EXPECT_EQ(in_tri, in_tri_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -475,9 +467,6 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
     area_min_y = 8;
     area_length_x = 8;
     area_length_y = 8;
-    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
-        ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
-        area_length_y, tol);
     in_tri_exp = {
         {false, false, false, false, false, false, false, false},
         {false, false, false, false, false, false, false, false},
@@ -505,6 +494,9 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1},
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1},
         {-0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1}};
+    std::tie(c_ab, c_ac, in_tri, nn) = soil_simulator::DecomposeVectorTriangle(
+        ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
+        area_length_y, tol);
     EXPECT_EQ(nn, 2 * 4);
     EXPECT_EQ(in_tri, in_tri_exp);
     for (auto ii = 0; ii < area_length_x; ii++)
@@ -567,56 +559,48 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking second input order
         rect_pos = soil_simulator::CalcRectanglePos(a, d, c, b, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking third input order
         rect_pos = soil_simulator::CalcRectanglePos(c, b, a, d, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking fourth input order
         rect_pos = soil_simulator::CalcRectanglePos(b, c, d, a, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking fifth input order
         rect_pos = soil_simulator::CalcRectanglePos(c, d, a, b, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking sixth input order
         rect_pos = soil_simulator::CalcRectanglePos(d, a, b, c, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking seventh input order
         rect_pos = soil_simulator::CalcRectanglePos(d, c, b, a, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
         // Checking eigth input order
         rect_pos = soil_simulator::CalcRectanglePos(b, a, d, c, grid, tol);
         sort(rect_pos.begin(), rect_pos.end());
         rect_pos.erase(
             unique(rect_pos.begin(), rect_pos.end()), rect_pos.end());
-        EXPECT_EQ(rect_pos.size(), rect_pos_exp.size());
         EXPECT_EQ(rect_pos, rect_pos_exp);
     };
 
@@ -717,37 +701,31 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
         tri_pos = soil_simulator::CalcTrianglePos(a, b, c, grid, tol);
         sort(tri_pos.begin(), tri_pos.end());
         tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
         EXPECT_EQ(tri_pos, tri_pos_exp);
         // Checking second input order
         tri_pos = soil_simulator::CalcTrianglePos(a, c, b, grid, tol);
         sort(tri_pos.begin(), tri_pos.end());
         tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
         EXPECT_EQ(tri_pos, tri_pos_exp);
         // Checking third input order
         tri_pos = soil_simulator::CalcTrianglePos(b, a, c, grid, tol);
         sort(tri_pos.begin(), tri_pos.end());
         tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
         EXPECT_EQ(tri_pos, tri_pos_exp);
         // Checking fourth input order
         tri_pos = soil_simulator::CalcTrianglePos(b, c, a, grid, tol);
         sort(tri_pos.begin(), tri_pos.end());
         tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
         EXPECT_EQ(tri_pos, tri_pos_exp);
         // Checking fifth input order
         tri_pos = soil_simulator::CalcTrianglePos(c, a, b, grid, tol);
         sort(tri_pos.begin(), tri_pos.end());
         tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
         EXPECT_EQ(tri_pos, tri_pos_exp);
         // Checking sixth input order
         tri_pos = soil_simulator::CalcTrianglePos(c, b, a, grid, tol);
         sort(tri_pos.begin(), tri_pos.end());
         tri_pos.erase(unique(tri_pos.begin(), tri_pos.end()), tri_pos.end());
-        EXPECT_EQ(tri_pos.size(), tri_pos_exp.size());
         EXPECT_EQ(tri_pos, tri_pos_exp);
     };
 
@@ -1016,8 +994,6 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_NEAR(sim_out->body_[1][14][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][15][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][15][10], 0.3, 1.e-5);
-    EXPECT_TRUE((sim_out->bucket_area_ == int[2][2] {{6, 19}, {6, 14}}));
-
     EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
     EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
     EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
