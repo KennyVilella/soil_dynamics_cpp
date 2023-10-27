@@ -14,6 +14,7 @@ Copyright, 2023, Vilella Kenny.
 // It greatly improves readability.
 using test_soil_simulator::SetHeight;
 using test_soil_simulator::CheckHeight;
+using test_soil_simulator::PushBodySoilPos;
 
 TEST(UnitTestRelax, LocateUnstableTerrainCell) {
     // Setting up the environment
@@ -651,8 +652,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.7, -0.5, -0.5, -0.3, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 10, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -665,8 +665,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     // Test: RE-RUT-6
     SetHeight(sim_out, 10, 15, -0.7, -0.2, -0.1, -0.1, 0.3, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.4);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 10, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
@@ -680,8 +679,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.5, -0.5, -0.3, NAN, NAN, NAN, NAN);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 13, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -733,8 +731,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, NAN, NAN, NAN, NAN, -0.7, -0.5, -0.5, -0.3);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 20, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -747,8 +744,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     // Test: RE-RUT-12
     SetHeight(sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, 0.0, 0.3, 0.3, 0.5);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 20, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -762,8 +758,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, -0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 21, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -832,8 +827,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.6, -0.6, -0.4, -0.4, -0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 32, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
@@ -851,11 +845,9 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.4, -0.4, -0.3, 0.4, 0.7, 0.7, 0.9);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 33, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -872,11 +864,9 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.6, -0.6, -0.5, -0.4, -0.3, -0.3, -0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 33, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -893,11 +883,9 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.6, -0.6, -0.4, -0.4, -0.3, -0.3, -0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 31, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -967,8 +955,7 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.6, -0.4, NAN, NAN, -0.8, -0.7, -0.7, -0.6);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 34, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
@@ -986,11 +973,9 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.2, -0.1, -0.1, 0.5, -0.8, -0.7, -0.7, -0.6);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.6});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.6);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 31, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.3, 1e-5);
@@ -1007,11 +992,9 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.5, -0.4, -0.4, 0.5, -0.8, -0.7, -0.7, -0.6);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.9});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.9);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 31, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -1028,11 +1011,9 @@ TEST(UnitTestRelax, RelaxUnstableTerrainCell) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.5, -0.4, -0.4, -0.3, -0.8, -0.7, -0.7, -0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableTerrainCell(
         sim_out, 33, 0.1, 10, 14, 10, 15, grid, bucket, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][14], -0.1, 1e-5);
@@ -1178,8 +1159,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.7, -0.5, 0.0, NAN, NAN);
@@ -1201,8 +1181,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.2);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
@@ -1228,8 +1207,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.5);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.8, -0.5, 0.0, NAN, NAN);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
@@ -1309,8 +1287,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.4});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.4);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.7, NAN, NAN, -0.5, -0.1);
@@ -1332,8 +1309,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.3);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.8, NAN, NAN, -0.5, -0.1);
@@ -1356,8 +1332,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.8, NAN, NAN, -0.5, 0.0);
     EXPECT_EQ(sim_out->relax_area_[0][0], 5);
@@ -1447,8 +1422,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.2, NAN, NAN, 0.5, 0.7);
@@ -1471,8 +1445,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
@@ -1498,8 +1471,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posB = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posB[0], posB[1], posB[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, posB, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
@@ -1527,8 +1499,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
@@ -1552,8 +1523,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.8, -0.6, -0.4, NAN, NAN);
@@ -1578,8 +1548,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     posB = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
@@ -1607,11 +1576,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.4);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.5, -0.4, 0.0, 0.3, 0.4);
@@ -1634,11 +1601,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.3);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.8, -0.6, -0.4, -0.3, 0.0);
@@ -1663,11 +1628,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     posB = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posB[0], posB[1], posB[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, posB, 0.3);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
@@ -1764,8 +1727,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.1, 0.5, 0.6, NAN, NAN);
@@ -1787,8 +1749,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
@@ -1814,8 +1775,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posB = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posB[0], posB[1], posB[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posB, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
@@ -1844,8 +1804,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.7, NAN, NAN, -0.6, -0.4);
@@ -1868,8 +1827,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.2, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
@@ -1900,8 +1858,7 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.2);
     posB = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
@@ -1930,11 +1887,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.7, -0.3, -0.1, -0.6, -0.4);
@@ -1957,11 +1912,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     CheckHeight(sim_out, 10, 15, -0.8, -0.3, 0.0, -0.6, -0.4);
@@ -1986,11 +1939,9 @@ TEST(UnitTestRelax, RelaxTerrain) {
     sim_out->relax_area_[1][0] = 10;
     sim_out->relax_area_[1][1] = 15;
     posB = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posB[0], posB[1], posB[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posB, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][16], -0.1, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[9][15], -0.1, 1e-5);
@@ -2588,8 +2539,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = 0.0;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 40, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2606,8 +2556,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = -0.2;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 40, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2624,10 +2573,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = -0.2;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 40, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2645,8 +2592,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, 0.0, 0.3, 0.4, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 10, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2664,11 +2610,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.4, 0.4, 0.5, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 10, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2686,8 +2630,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, 0.0, 0.2, 0.4, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.5);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 10, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2704,8 +2647,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 14, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -2731,8 +2673,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 14, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -2758,10 +2699,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 14, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -2788,11 +2727,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 13, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2819,11 +2756,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 13, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2850,13 +2785,10 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 13, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2883,11 +2815,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, 0.0, NAN, NAN, NAN, NAN, 0.5, 0.6, 0.6, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 20, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2905,8 +2835,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, 0.5, 0.6, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 20, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -2923,8 +2852,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 22, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -2945,8 +2873,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, -0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 22, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -2967,10 +2894,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.3, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, -0.3, -0.2, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 22, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -2992,11 +2917,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 21, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3017,11 +2940,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 21, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3043,13 +2964,10 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 21, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3071,8 +2989,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3093,8 +3010,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3115,10 +3031,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3140,8 +3054,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3162,8 +3075,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.0, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3184,8 +3096,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.5, 0.5, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.0, 0.2, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3207,14 +3118,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.1, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3235,14 +3143,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.2, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3263,16 +3168,12 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.2, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3294,14 +3195,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.2, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3322,14 +3220,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.1, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3350,14 +3245,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, -0.1, 0.1, 0.3, 0.3, 0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3377,8 +3269,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.3, NAN, NAN, -0.2, -0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3399,8 +3290,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.3, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, 0.2, 0.4, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.0, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3421,10 +3311,8 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.3, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, 0.2, 0.4, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.0, 1, 10, 14, 0, 10, 15, grid, bucket,
@@ -3446,8 +3334,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, 0.2, 0.4, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3468,8 +3355,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.4, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.4, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3490,8 +3376,7 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.6, 0.6, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3513,14 +3398,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, 0.1, 0.3, 0.3, 0.8, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3541,14 +3423,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, 0.1, 0.3, 0.3, 0.8, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3569,16 +3448,12 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.4, 0.1, 0.3, 0.3, 0.8, -0.4, -0.3, -0.3, -0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3600,14 +3475,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, 0.1, 0.3, 0.3, 0.8, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3628,14 +3500,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, 0.1, 0.3, 0.3, 0.5, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3656,14 +3525,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(
         sim_out, 10, 15, -0.3, 0.1, 0.3, 0.3, 0.4, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3683,14 +3549,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.1, 0.1, 0.3, 0.3, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.3);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.5});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3707,14 +3570,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, 0.1, 0.3, 0.3, 0.8, -0.3, -0.2, -0.2, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.3);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3731,11 +3591,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.1, 0.1, 0.2, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.2, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 32, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3756,14 +3614,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.1, 0.1, 0.2, 0.2, 0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.2);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 31, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3783,11 +3638,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, 0.4, 0.5, NAN, NAN, -0.3, -0.2, -0.2, 0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.6});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.6);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.5, grid, bucket);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 34, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
@@ -3808,14 +3661,11 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.8, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, 0.4, 0.5, 0.5, 0.6, -0.3, -0.2, -0.2, 0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.8});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.8);
     posA = soil_simulator::CalcBucketFramePos(10, 15, 0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.6});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.6);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 33, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3835,11 +3685,9 @@ TEST(UnitTestRelax, RelaxUnstableBodyCell) {
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, 0.0, NAN, NAN, NAN, NAN, 0.2, 0.3, 0.3, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.5);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.4});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.4);
     soil_simulator::RelaxUnstableBodyCell(
         sim_out, 20, body_soil_pos, 0.1, 0, 10, 14, 0, 10, 15, grid, bucket,
         1e-5);
@@ -3887,8 +3735,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.3, -0.3, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = -0.2;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.3, -0.2, -0.1, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.1, 1e-5);
@@ -3903,8 +3750,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.3, -0.3, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = -0.4;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.3, 0.0, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
@@ -3919,10 +3765,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.3, -0.3, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = -0.4;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.3, 0.0, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
@@ -3939,8 +3783,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.1, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
@@ -3957,11 +3800,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, 0.0, 0.2, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.1, 0.0, 0.0, 0.1, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN);
@@ -3977,8 +3818,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.4);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
@@ -3995,8 +3835,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
@@ -4016,8 +3855,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4037,10 +3875,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4063,11 +3899,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.2, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, -0.3, -0.1, NAN, NAN);
@@ -4087,11 +3921,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, -0.7, -0.6, -0.6, -0.5, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, -0.6, -0.3, NAN, NAN);
@@ -4111,13 +3943,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, -0.7, -0.6, -0.6, -0.5, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, -0.6, -0.3, NAN, NAN);
@@ -4139,8 +3968,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
@@ -4157,8 +3985,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, NAN, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
@@ -4175,8 +4002,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.3, NAN, NAN, NAN, NAN, -0.2, 0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.4);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.2, 1e-5);
@@ -4193,8 +4019,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, -0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
@@ -4214,8 +4039,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, NAN, NAN, NAN, NAN, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.4);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4235,10 +4059,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, NAN, NAN, NAN, NAN, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4261,11 +4083,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, NAN, NAN, -0.3, -0.1);
@@ -4285,11 +4105,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, NAN, NAN, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, NAN, NAN, -0.6, -0.3);
@@ -4309,13 +4127,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, NAN, NAN, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, NAN, NAN, -0.6, -0.3);
@@ -4337,8 +4152,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
@@ -4358,8 +4172,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4379,10 +4192,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4405,8 +4216,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, -0.4, -0.2, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.2, -0.1, NAN, NAN);
@@ -4426,8 +4236,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.7, NAN, NAN, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4448,11 +4257,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, -0.5, -0.3, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.5, -0.2, NAN, NAN);
@@ -4472,11 +4279,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, -0.5, -0.4, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.5, -0.3, NAN, NAN);
@@ -4495,13 +4300,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, -0.5, -0.4, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.5, -0.2, NAN, NAN);
@@ -4523,11 +4325,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.7, -0.7, -0.6, -0.4, -0.2, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.2, -0.1, NAN, NAN);
@@ -4547,11 +4347,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.7, -0.7, -0.6, -0.5, -0.4, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4570,11 +4368,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.2, NAN, NAN, -0.1, 0.0, 0.0, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
@@ -4593,11 +4389,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.5, -0.5, -0.4, NAN, NAN, -0.1, 0.0, 0.0, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4617,11 +4411,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.3, -0.2, -0.1, NAN, NAN);
@@ -4641,11 +4433,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.3, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, NAN, NAN, -0.3, -0.1);
@@ -4664,14 +4454,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, -0.5, -0.4, -0.2, -0.1, -0.1, 0.0);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.5, -0.2, -0.1, 0.0);
@@ -4691,14 +4478,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, -0.7, -0.6, -0.6, -0.5, -0.2, -0.1, -0.1, 0.0);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.1, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, -0.6, -0.3, -0.1, 0.0);
@@ -4717,14 +4501,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, -0.5, -0.4, -0.3, -0.2, -0.2, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.2, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.5, -0.4, -0.2, 0.0);
@@ -4743,14 +4524,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.7, -0.6, -0.5, -0.2);
@@ -4768,8 +4546,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.3, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.6, -0.4, NAN, NAN, -0.2, 0.0, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.6});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.6);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, 0.1, NAN, NAN);
@@ -4789,14 +4566,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.5, -0.5, -0.3, -0.2, 0.0, 0.0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.5);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, 0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.5, -0.2, 0.0, 0.1);
@@ -4815,14 +4589,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.6, -0.4, -0.4, -0.2, -0.2, 0.0, 0.0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, 0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.4, -0.2, 0.0, 0.1);
@@ -4838,8 +4609,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.1, 0.0, NAN, NAN, -0.4, -0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
@@ -4859,8 +4629,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.1, 0.0, NAN, NAN, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4880,10 +4649,8 @@ TEST(UnitTestRelax, RelaxBodySoil) {
         sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, -0.1, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.1, 0.0, NAN, NAN, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4906,8 +4673,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.3, -0.2, NAN, NAN, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
@@ -4928,8 +4694,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.5, -0.4, NAN, NAN, -0.8, -0.7, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -4949,11 +4714,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.1, 0.0, NAN, NAN, -0.6, -0.5, -0.5, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, NAN, NAN, -0.5, -0.2);
@@ -4973,11 +4736,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, -0.1, 0.0, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, NAN, NAN, -0.6, -0.3);
@@ -4997,13 +4758,10 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, -0.1, 0.0, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.7, NAN, NAN, -0.6, -0.3);
@@ -5025,11 +4783,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.4, -0.3, NAN, NAN, -0.6, -0.5, -0.5, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
@@ -5049,11 +4805,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.7, -0.5, -0.4, NAN, NAN, -0.7, -0.6, -0.6, -0.5);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.6, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -5072,11 +4826,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.1, 0.0, 0.0, 0.1, -0.4, -0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.1, NAN, NAN);
@@ -5095,11 +4847,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.6, -0.1, 0.0, 0.0, 0.1, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
@@ -5119,11 +4869,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.6, -0.4, -0.3, -0.3, -0.2, -0.6, -0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.2, -0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, -0.3, -0.1, NAN, NAN);
@@ -5142,11 +4890,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.6, -0.5, -0.5, -0.4, -0.8, -0.7, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.5, -0.2, NAN, NAN);
@@ -5165,14 +4911,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.1, 0.0, 0.0, 0.1, -0.8, -0.7, -0.7, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.3});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.3);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, -0.2, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, 0.0, 0.1, -0.7, -0.2);
@@ -5191,14 +4934,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.1, 0.0, 0.0, 0.1, -0.8, -0.7, -0.7, -0.6);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, 0.0, 0.1, -0.7, -0.4);
@@ -5217,14 +4957,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.3, -0.2, -0.2, -0.1, -0.8, -0.7, -0.7, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.4});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.4);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.3);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, -0.3, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.2, 0.0, -0.7, -0.4);
@@ -5243,14 +4980,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.6, -0.5, -0.5, -0.4, -0.8, -0.7, -0.7, -0.6);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.4, 0.0, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.5, -0.2, -0.7, -0.6);
@@ -5269,8 +5003,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.5, -0.3, NAN, NAN, -0.8, -0.7, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, -0.2, NAN, NAN);
@@ -5290,14 +5023,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.4, -0.3, -0.3, -0.2, -0.8, -0.7, -0.7, -0.6);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, -0.2, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.3, -0.2, -0.7, -0.4);
@@ -5316,14 +5046,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.4, -0.3, -0.3, -0.1, -0.8, -0.7, -0.7, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.3);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.3, -0.1, -0.7, -0.4);
@@ -5340,11 +5067,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.7, -0.7, -0.5, -0.5, -0.4, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, -0.2, NAN, NAN);
@@ -5364,14 +5089,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.7, -0.7, -0.5, -0.5, -0.4, -0.4, -0.2);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.4, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, posA[0], posA[1], posA[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, posA, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, -0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.7, -0.5, -0.4, -0.1);
@@ -5390,11 +5112,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.4, -0.3, NAN, NAN, -0.8, -0.7, -0.7, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.3);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, -0.1, NAN, NAN);
@@ -5414,14 +5134,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.8, -0.4, -0.3, -0.3, -0.2, -0.8, -0.7, -0.7, -0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, posA[0], posA[1], posA[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.3});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.3);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, -0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.8, -0.3, -0.1, -0.7, -0.4);
@@ -5438,8 +5155,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.7, 1.e-5);
@@ -5453,8 +5169,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
@@ -5470,11 +5185,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, -0.2, 0.0, NAN, NAN);
@@ -5490,8 +5203,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, 0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
@@ -5508,11 +5220,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, -0.3, -0.3, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, NAN, NAN, -0.3, -0.1);
@@ -5528,8 +5238,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.1, NAN, NAN, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
@@ -5546,11 +5255,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.1, 0.1, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, -0.3, -0.1, NAN, NAN);
@@ -5570,14 +5277,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.1, -0.1, 0.0, 0.0, 0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.2});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.2);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.1});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, -0.3, -0.1, 0.0, 0.1);
@@ -5596,8 +5300,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.1, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
@@ -5613,11 +5316,9 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(sim_out, 10, 14, -0.8, -0.8, -0.7, -0.7, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.2, -0.2, 0.0);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, NAN, NAN, -0.2, 0.0);
@@ -5637,14 +5338,11 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     SetHeight(
         sim_out, 10, 15, -0.4, -0.1, 0.0, 0.0, 0.1, -0.4, -0.3, -0.3, -0.1);
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.7, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.7});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.7);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.0, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 15, pos0[0], pos0[1], pos0[2], 0.1});
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.3, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {2, 10, 15, pos2[0], pos2[1], pos2[2], 0.2});
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.8, -0.7, 0.0, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, -0.3, -0.1);
@@ -5664,8 +5362,7 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     sim_out->terrain_[10][13] = -0.4;
     sim_out->terrain_[10][15] = -0.4;
     pos0 = soil_simulator::CalcBucketFramePos(10, 14, -0.5, grid, bucket);
-    sim_out->body_soil_pos_.push_back(
-        soil_simulator::body_soil {0, 10, 14, pos0[0], pos0[1], pos0[2], 0.5});
+    PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.5);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.6, -0.5, -0.3, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[10][13], -0.2, 1e-5);
