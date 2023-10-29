@@ -200,6 +200,8 @@ Note that the `CalcLinePos` function does not account well for the case where th
 It is therefore necessary to solve this potential ambiguity before calling the function.
 As a result, a small increment (`1e-5`) is added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
 
+For each case, some tests are present to check that the results do not depend on the order where the line vertices are given to the function.
+
 | Test name | Description of the unit test                                                          |
 | --------- | ------------------------------------------------------------------------------------- |
 | BP-CL-1   | Testing with a line following the X axis.                                             |
@@ -219,10 +221,9 @@ As a result, a small increment (`1e-12`) is sometimes added or removed to the in
 | Test name | Description of the unit test                                                        |
 | --------- | ----------------------------------------------------------------------------------- |
 | BP-DVR-1  | Testing with a simple rectangle in the XY plane.                                    |
-| BP-DVR-2  | Testing hat rounding is done properly with a simple rectangle in the XY plane.      |
-| BP-DVR-3  | Testing with a simple rectangle in the XY plane on a cell border.                   |
-| BP-DVR-4  | Testing with an arbitrary rectangle. Results were obtained with a drawing.          |
-| BP-DVR-5  | Testing the edge case where the rectangle is a line. No decomposition can be made.  |
+| BP-DVR-2  | Testing that rounding is done properly with a simple rectangle in the XY plane.     |
+| BP-DVR-3  | Testing with an arbitrary rectangle. Results were obtained with a drawing.          |
+| BP-DVR-4  | Testing the edge case where the rectangle is a line. No decomposition can be made.  |
 | BP-DVR-5  | Testing the edge case where the rectangle is a point. No decomposition can be made. |
 
 ### `DecomposeVectorTriangle`
@@ -234,7 +235,7 @@ It is therefore necessary to solve this potential ambiguity before calling the f
 | Test name | Description of the unit test                                                       |
 | --------- | ---------------------------------------------------------------------------------- |
 | BP-DVT-1  | Testing with a simple triangle in the XY plane.                                    |
-| BP-DVT-2  | Testing hat rounding is done properly with a simple triangle in the XY plane.      |
+| BP-DVT-2  | Testing that rounding is done properly with a simple triangle in the XY plane.     |
 | BP-DVT-3  | Testing with an arbitrary triangle. Results were obtained with a drawing.          |
 | BP-DVT-4  | Testing the edge case where the triangle is a line. No decomposition can be made.  |
 | BP-DVT-5  | Testing the edge case where the triangle is a point. No decomposition can be made. |
@@ -246,17 +247,15 @@ Note that the `CalcRectanglePos` function does not account for the case where th
 It is therefore necessary to solve this potential ambiguity before calling the function.
 As a result, a small increment (`1e-5`) is added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
 
-For each case (except edge cases), some tests are present to check that the results do not depend on the order where the rectangle vertices are given to the function.
+For each case, some tests are present to check that the results do not depend on the order where the rectangle vertices are given to the function.
 
-| Test name | Description of the unit test                                                                             |
-| --------- | -------------------------------------------------------------------------------------------------------- |
-| BP-CR-1   | Testing with a simple rectangle in the XY plane for all possible input orders.                           |
-| BP-CR-2   | Testing with a simple rectangle in the XY plane on a cell border for all possible input orders.          |
-| BP-CR-3   | Testing with a simple rectangle in the XZ plane for all possible input orders.                           |
-| BP-CR-4   | Testing with an arbitrary rectangle for all possible input orders. Results were obtained with a drawing. |
-| BP-CR-5   | Testing the edge case where the rectangle is a line.                                                     |
-| BP-CR-6   | Testing the edge case where the rectangle is a point.                                                    |
-| BP-CR-7   | Testing the edge case where the rectangle is a point on the edge of a cell.                              |
+| Test name | Description of the unit test                                               |
+| --------- | -------------------------------------------------------------------------- |
+| BP-CR-1   | Testing with a simple rectangle in the XY plane.                           |
+| BP-CR-2   | Testing with a simple rectangle in the XZ plane.                           |
+| BP-CR-3   | Testing with an arbitrary rectangle. Results were obtained with a drawing. |
+| BP-CR-4   | Testing the edge case where the rectangle is a line.                       |
+| BP-CR-5   | Testing the edge case where the rectangle is a point.                      |
 
 ### `CalcTrianglePos`
 
@@ -265,15 +264,15 @@ Note that the `CalcTrianglePos` function does not account for the case where the
 It is therefore necessary to solve this potential ambiguity before calling the function.
 As a result, a small increment (`1e-5`) is added or removed to the input in order to make sure that the input coordinates do not correspond to a cell border.
 
-For each case (except edge cases), some tests are present to check that the results do not depend on the order where the triangle vertices are given to the function.
+For each case, some tests are present to check that the results do not depend on the order where the triangle vertices are given to the function.
 
-| Test name | Description of the unit test                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------- |
-| BP-CT-1   | Testing with a simple triangle in the XY plane for all possible input orders.                           |
-| BP-CT-2   | Testing with a simple triangle in the XZ plane for all possible input orders.                           |
-| BP-CT-3   | Testing with an arbitrary triangle for all possible input orders. Results were obtained with a drawing. |
-| BP-CT-4   | Testing the edge case where the triangle is a line.                                                     |
-| BP-CT-5   | Testing the edge case where the triangle is a point.                                                    |
+| Test name | Description of the unit test                                              |
+| --------- | ------------------------------------------------------------------------- |
+| BP-CT-1   | Testing with a simple triangle in the XY plane.                           |
+| BP-CT-2   | Testing with a simple triangle in the XZ plane.                           |
+| BP-CT-3   | Testing with an arbitrary triangle. Results were obtained with a drawing. |
+| BP-CT-4   | Testing the edge case where the triangle is a line.                       |
+| BP-CT-5   | Testing the edge case where the triangle is a point.                      |
 
 ### `IncludeNewBodyPos`
 
