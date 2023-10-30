@@ -131,15 +131,15 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {});
 
     // Test: RE-CUT-4
-    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.2, NAN, NAN, NAN, NAN, NAN, NAN);
-    status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 14);
-    ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {});
-
-    // Test: RE-CUT-5
     SetHeight(sim_out, 10, 15, -0.4, -0.4, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
     status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
+    ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {});
+
+    // Test: RE-CUT-5
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.2, NAN, NAN, NAN, NAN, NAN, NAN);
+    status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 14);
     ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {});
 
     // Test: RE-CUT-6
@@ -149,16 +149,16 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     ResetValueAndTest(sim_out, {{9, 15}}, {{0, 9, 15}}, {{0, 9, 15}});
 
     // Test: RE-CUT-7
-    SetHeight(sim_out, 9, 15, -0.8, -0.8, -0.5, -0.5, -0.3, NAN, NAN, NAN, NAN);
-    status = CheckUnstableTerrainCell(sim_out, 9, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 13);
-    ResetValueAndTest(sim_out, {{9, 15}}, {{0, 9, 15}}, {{0, 9, 15}});
-
-    // Test: RE-CUT-8
     SetHeight(sim_out, 10, 15, -0.8, -0.8, -0.5, -0.5, 0.0, NAN, NAN, NAN, NAN);
     status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
     ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {{0, 10, 15}});
+
+    // Test: RE-CUT-8
+    SetHeight(sim_out, 9, 15, -0.8, -0.8, -0.5, -0.5, -0.3, NAN, NAN, NAN, NAN);
+    status = CheckUnstableTerrainCell(sim_out, 9, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 13);
+    ResetValueAndTest(sim_out, {{9, 15}}, {{0, 9, 15}}, {{0, 9, 15}});
 
     // Test: RE-CUT-9
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN);
@@ -167,15 +167,15 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {});
 
     // Test: RE-CUT-10
-    SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, -0.2, NAN, NAN);
-    status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 22);
-    ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {});
-
-    // Test: RE-CUT-11
     SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, 0.0, NAN, NAN);
     status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
+    ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {});
+
+    // Test: RE-CUT-11
+    SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, -0.2, NAN, NAN);
+    status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 22);
     ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {});
 
     // Test: RE-CUT-12
@@ -185,16 +185,16 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     ResetValueAndTest(sim_out, {{9, 15}}, {{2, 9, 15}}, {{2, 9, 15}});
 
     // Test: RE-CUT-13
-    SetHeight(sim_out, 9, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, -0.3);
-    status = CheckUnstableTerrainCell(sim_out, 9, 15, -0.1, 1e-5);
-    EXPECT_EQ(status, 21);
-    ResetValueAndTest(sim_out, {{9, 15}}, {{2, 9, 15}}, {{2, 9, 15}});
-
-    // Test: RE-CUT-14
     SetHeight(sim_out, 10, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, 0.0);
     status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
     ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {{2, 10, 15}});
+
+    // Test: RE-CUT-14
+    SetHeight(sim_out, 9, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, -0.3);
+    status = CheckUnstableTerrainCell(sim_out, 9, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 21);
+    ResetValueAndTest(sim_out, {{9, 15}}, {{2, 9, 15}}, {{2, 9, 15}});
 
     // Test: RE-CUT-15
     SetHeight(sim_out, 9, 15, -0.8, -0.7, -0.6, NAN, NAN, -0.4, -0.3, NAN, NAN);
