@@ -603,8 +603,15 @@ This file implements unit tests for the function in the `relax.cpp` file.
 
 Unit test for the `LocateUnstableTerrainCell` function.
 
-Currently, all the tests are done simultaneously.
-In the future, the tests will be separated and described in this section.
+| Test name | Description of the unit test                                                                       |
+| --------- | -------------------------------------------------------------------------------------------------- |
+| RE-LUT-1  | Testing for all terrain at zero. No cell is detected.                                              |
+| RE-LUT-2  | Testing for a positive height that is stable or unstable depending on the minimum height provided. |
+| RE-LUT-3  | Same as RE-LUT-2 but for a higher height.                                                          |
+| RE-LUT-4  | Testing for a negative height that is stable or unstable depending on the minimum height provided. |
+| RE-LUT-5  | Same as RE-LUT-4 but for a lower height.                                                           |
+| RE-LUT-6  | Testing with two unstable neighbouring cells.                                                      |
+| RE-LUT-7  | Testing with an unstable cell close to the border of the grid.                                     |
 
 ### `CheckUnstableTerrainCell`
 
