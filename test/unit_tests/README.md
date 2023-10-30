@@ -693,28 +693,28 @@ The description of the unit tests can therefore be done with a simple table desc
 | Test name | Bottom layer | Soil    | Top layer    | Soil    | Avalanche    | Enough space |
 | --------- | ------------ | ------- | ------------ | ------- | ------------ | ------------ |
 | RE-RUT-1  | &cross;      | &cross; | &cross;      | &cross; | terrain      | &check;      |
-| RE-RUT-2  | First layer  | &cross; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-3  | First layer  | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-2  | First layer  | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-3  | First layer  | &cross; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-4  | First layer  | &cross; | &cross;      | &cross; | First layer  | &check;      |
-| RE-RUT-5  | First layer  | &check; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-6  | First layer  | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-5  | First layer  | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-6  | First layer  | &check; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-7  | First layer  | &check; | &cross;      | &cross; | First layer  | &check;      |  
-| RE-RUT-8  | Second layer | &cross; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-9  | Second layer | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-8  | Second layer | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-9  | Second layer | &cross; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-10 | Second layer | &cross; | &cross;      | &cross; | Second layer | &check;      |  
-| RE-RUT-11 | Second layer | &check; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-12 | Second layer | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-11 | Second layer | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-12 | Second layer | &check; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-13 | Second layer | &check; | &cross;      | &cross; | Second layer | &check;      | 
-| RE-RUT-14 | First layer  | &cross; | Second layer | &cross; | terrain      | &cross;      |
-| RE-RUT-15 | First layer  | &cross; | Second layer | &cross; | terrain      | &check;      |
+| RE-RUT-14 | First layer  | &cross; | Second layer | &cross; | terrain      | &check;      |
+| RE-RUT-15 | First layer  | &cross; | Second layer | &cross; | terrain      | &cross;      |
 | RE-RUT-16 | First layer  | &cross; | Second layer | &cross; | First layer  | &check;      |
 | RE-RUT-17 | First layer  | &cross; | Second layer | &cross; | First layer  | &cross;      |   
 | RE-RUT-18 | First layer  | &check; | Second layer | &cross; | Second layer | &check;      |
 | RE-RUT-19 | First layer  | &check; | Second layer | &check; | First layer  | &check;      |   
 | RE-RUT-20 | First layer  | &check; | Second layer | &check; | First layer  | &cross;      | 
 | RE-RUT-21 | First layer  | &check; | Second layer | &check; | Second layer | &check;      |
-| RE-RUT-22 | Second layer | &cross; | First layer  | &cross; | terrain      | &cross;      |
-| RE-RUT-23 | Second layer | &cross; | First layer  | &cross; | terrain      | &check;      |
+| RE-RUT-22 | Second layer | &cross; | First layer  | &cross; | terrain      | &check;      |
+| RE-RUT-23 | Second layer | &cross; | First layer  | &cross; | terrain      | &cross;      |
 | RE-RUT-24 | Second layer | &cross; | First layer  | &cross; | Second layer | &check;      |
 | RE-RUT-25 | Second layer | &cross; | First layer  | &cross; | Second layer | &cross;      | 
 | RE-RUT-26 | Second layer | &check; | First layer  | &cross; | First layer  | &check;      |
