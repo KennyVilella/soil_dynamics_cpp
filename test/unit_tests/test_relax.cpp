@@ -984,6 +984,16 @@ TEST(UnitTestRelax, RelaxTerrain) {
     // Test: RE-RT-4
     soil_simulator::rng.seed(200);
     SetRelaxArea();
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
+    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
+    CheckRelaxArea(5, 15, 10, 20);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 0);
+    ResetValueAndTest(sim_out, {{10, 15}, {10, 16}}, {{0, 10, 15}}, {});
+
+    // Test: RE-RT-5
+    soil_simulator::rng.seed(200);
+    SetRelaxArea();
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.2, NAN, NAN, NAN, NAN, NAN, NAN);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
@@ -994,16 +1004,6 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     ResetValueAndTest(
         sim_out, {{10, 15}, {10, 16}}, {{0, 10, 15}}, {{0, 10, 15}});
-
-    // Test: RE-RT-5
-    soil_simulator::rng.seed(200);
-    SetRelaxArea();
-    SetHeight(sim_out, 10, 15, -0.4, -0.4, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
-    CheckRelaxArea(5, 15, 10, 20);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 0);
-    ResetValueAndTest(sim_out, {{10, 15}, {10, 16}}, {{0, 10, 15}}, {});
 
     // Test: RE-RT-6
     soil_simulator::rng.seed(200);
@@ -1022,6 +1022,18 @@ TEST(UnitTestRelax, RelaxTerrain) {
     // Test: RE-RT-7
     soil_simulator::rng.seed(200);
     SetRelaxArea();
+    SetHeight(sim_out, 10, 15, -0.8, -0.8, -0.5, -0.5, 0.0, NAN, NAN, NAN, NAN);
+    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.5);
+    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
+    CheckRelaxArea(5, 15, 10, 20);
+    CheckHeight(sim_out, 10, 15, -0.8, -0.5, 0.0, NAN, NAN);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
+    ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {{0, 10, 15}});
+
+    // Test: RE-RT-8
+    soil_simulator::rng.seed(200);
+    SetRelaxArea();
     SetHeight(
         sim_out, 10, 15, -0.8, -0.8, -0.5, -0.5, -0.3, NAN, NAN, NAN, NAN);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
@@ -1037,18 +1049,6 @@ TEST(UnitTestRelax, RelaxTerrain) {
     ResetValueAndTest(
         sim_out, {{9, 15}, {10, 15}, {10, 16}}, {{0, 10, 15}}, {{0, 10, 15}});
 
-    // Test: RE-RT-8
-    soil_simulator::rng.seed(200);
-    SetRelaxArea();
-    SetHeight(sim_out, 10, 15, -0.8, -0.8, -0.5, -0.5, 0.0, NAN, NAN, NAN, NAN);
-    posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, posA, 0.5);
-    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
-    CheckRelaxArea(5, 15, 10, 20);
-    CheckHeight(sim_out, 10, 15, -0.8, -0.5, 0.0, NAN, NAN);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
-    ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}}, {{0, 10, 15}});
-
     // Test: RE-RT-9
     soil_simulator::rng.seed(200);
     SetRelaxArea();
@@ -1063,6 +1063,16 @@ TEST(UnitTestRelax, RelaxTerrain) {
     // Test: RE-RT-10
     soil_simulator::rng.seed(200);
     SetRelaxArea();
+    SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, 0.0, NAN, NAN);
+    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
+    CheckRelaxArea(5, 15, 10, 20);
+    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 0);
+    ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {});
+
+    // Test: RE-RT-11
+    soil_simulator::rng.seed(200);
+    SetRelaxArea();
     SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, -0.2, NAN, NAN);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.2, grid, bucket);
     soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
@@ -1073,16 +1083,6 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
     ResetValueAndTest(
         sim_out, {{10, 15}, {10, 16}}, {{2, 10, 15}}, {{2, 10, 15}});
-
-    // Test: RE-RT-11
-    soil_simulator::rng.seed(200);
-    SetRelaxArea();
-    SetHeight(sim_out, 10, 15, -0.4, NAN, NAN, NAN, NAN, -0.4, 0.0, NAN, NAN);
-    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
-    CheckRelaxArea(5, 15, 10, 20);
-    EXPECT_NEAR(sim_out->terrain_[10][15], -0.4, 1e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 0);
-    ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {});
 
     // Test: RE-RT-12
     soil_simulator::rng.seed(200);
@@ -1102,6 +1102,18 @@ TEST(UnitTestRelax, RelaxTerrain) {
     // Test: RE-RT-13
     soil_simulator::rng.seed(200);
     SetRelaxArea();
+    SetHeight(sim_out, 10, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, 0.0);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
+    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
+    CheckRelaxArea(5, 15, 10, 20);
+    CheckHeight(sim_out, 10, 15, -0.8, NAN, NAN, -0.5, 0.0);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
+    ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {{2, 10, 15}});
+
+    // Test: RE-RT-14
+    soil_simulator::rng.seed(200);
+    SetRelaxArea();
     SetHeight(
         sim_out, 10, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, -0.2);
     posA = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
@@ -1114,18 +1126,6 @@ TEST(UnitTestRelax, RelaxTerrain) {
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 2);
     ResetValueAndTest(
         sim_out, {{10, 15}, {10, 16}}, {{2, 10, 15}}, {{2, 10, 15}});
-
-    // Test: RE-RT-14
-    soil_simulator::rng.seed(200);
-    SetRelaxArea();
-    SetHeight(sim_out, 10, 15, -0.8, NAN, NAN, NAN, NAN, -0.8, -0.5, -0.5, 0.0);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, -0.5, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1e-5);
-    CheckRelaxArea(5, 15, 10, 20);
-    CheckHeight(sim_out, 10, 15, -0.8, NAN, NAN, -0.5, 0.0);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 1);
-    ResetValueAndTest(sim_out, {{10, 15}}, {{2, 10, 15}}, {{2, 10, 15}});
 
     // Test: RE-RT-15
     soil_simulator::rng.seed(200);
