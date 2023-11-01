@@ -207,7 +207,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 34);
     ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}, {2, 10, 15}}, {});
-    
+
     // Test: RE-CUT-17
     SetHeight(sim_out, 9, 15, -0.8, -0.8, -0.6, NAN, NAN, -0.4, -0.3, NAN, NAN);
     status = CheckUnstableTerrainCell(sim_out, 9, 15, -0.1, 1e-5);
