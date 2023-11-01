@@ -207,7 +207,7 @@ TEST(UnitTestRelax, CheckUnstableTerrainCell) {
     status = CheckUnstableTerrainCell(sim_out, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 34);
     ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}, {2, 10, 15}}, {});
-    
+
     // Test: RE-CUT-17
     SetHeight(sim_out, 9, 15, -0.8, -0.8, -0.6, NAN, NAN, -0.4, -0.3, NAN, NAN);
     status = CheckUnstableTerrainCell(sim_out, 9, 15, -0.1, 1e-5);
@@ -1605,318 +1605,6 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
     int status;
 
     // Test: RE-CUB-1
-    sim_out->terrain_[10][15] = -0.2;
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 40);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
-
-    // Test: RE-CUB-2
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, NAN, NAN, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 10);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-3
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, 0.3, 0.5, 0.5, 0.7, NAN, NAN, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 10);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-4
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 14);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-5
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, NAN, NAN, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 13);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-6
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, 0.4, 0.5, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 20);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-7
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 20);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-8
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, 0.0, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 22);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-9
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 21);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-10
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 34);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-11
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 33);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-12
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 34);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-13
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, 0.2, 0.3);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 33);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-14
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, -0.2, -0.1, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 32);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-15
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 32);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-16
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 31);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-17
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 31);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-18
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 32);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-19
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 31);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-20
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 32);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-21
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, -0.1, 0.0);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 31);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-22
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, NAN, NAN, -0.4, -0.3, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 34);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}});
-
-    // Test: RE-CUB-23
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 34);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-24
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, -0.1, 0.0, -0.4, -0.3, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 33);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-25
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, -0.1, 0.0, -0.4, -0.3, -0.3, -0.2);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 33);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-26
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, 0.2, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 0);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-27
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, -0.1, 0.2, -0.4, -0.3, -0.3, -0.2);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 0);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-28
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.1, -0.1, 0.5, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 0);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-29
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.1, -0.1, 0.0, 0.0, 0.1);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 0);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-30
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 34);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {2, 10, 15}});
-
-    // Test: RE-CUB-31
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.2, -0.1, -0.1, 0.0, -0.4, -0.3, -0.3, -0.2);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 33);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-32
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, NAN, NAN);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 32);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}});
-
-    // Test: RE-CUB-33
-    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0);
-    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
-    EXPECT_EQ(status, 31);
-    ResetValueAndTest(
-        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
-        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
-
-    // Test: RE-CUB-34
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     sim_out->terrain_[10][15] = 0.1;
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
@@ -1924,7 +1612,15 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
     ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
 
-    // Test: RE-CUB-35
+    // Test: RE-CUB-2
+    sim_out->terrain_[10][15] = -0.2;
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 40);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}}, {{0, 10, 14}});
+
+    // Test: RE-CUB-3
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
@@ -1933,7 +1629,25 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}});
 
-    // Test: RE-CUB-36
+    // Test: RE-CUB-4
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, NAN, NAN, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 10);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-5
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 14);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-6
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, -0.2, 0.0, 0.0, 0.1, NAN, NAN, NAN, NAN);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
@@ -1942,7 +1656,25 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
         {{0, 10, 14}, {0, 10, 15}});
 
-    // Test: RE-CUB-37
+    // Test: RE-CUB-7
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.3, 0.5, 0.5, 0.7, NAN, NAN, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 10);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-8
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, NAN, NAN, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 13);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-9
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, 0.1, NAN, NAN);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
@@ -1951,7 +1683,25 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}});
 
-    // Test: RE-CUB-38
+    // Test: RE-CUB-10
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, 0.4, 0.5, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 20);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-11
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, 0.0, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 22);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-12
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, 0.0, 0.0, 0.1);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
@@ -1960,26 +1710,133 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // Test: RE-CUB-39
+    // Test: RE-CUB-13
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(
-        sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, -0.3, -0.2);
+    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 20);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-14
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, NAN, NAN, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 21);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-15
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-16
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-17
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.1, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-18
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-19
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-20
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-21
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-22
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, NAN, NAN, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.0, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-23
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.0, 0.3, 0.3, 0.4);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
     EXPECT_EQ(status, 0);
     ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // Test: RE-CUB-40
-    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.2, NAN, NAN, -0.4, -0.3, -0.3, 0.1);
+    // Test: RE-CUB-24
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.0, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-25
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.0, 0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-26
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.0, 0.5, 0.5, 0.6);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
     EXPECT_EQ(status, 0);
     ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // Test: RE-CUB-41
+    // Test: RE-CUB-27
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.0, 0.1, 0.1, 0.3);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
@@ -1988,14 +1845,608 @@ TEST(UnitTestRelax, CheckUnstableBodyCell) {
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}, {2, 10, 15}});
 
-    // Test: RE-CUB-42
+    // Test: RE-CUB-28
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, NAN, NAN, 0.0, 0.1, 0.1, 0.2);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-29
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-30
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-31
     SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.1, NAN, NAN, 0.1, 0.2, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-32
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-33
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-34
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-35
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-36
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, -0.2, -0.1, -0.1, 0.0, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-37
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.0, 0.1, 0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-38
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.0, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-39
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.0, 0.1, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-40
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.3, -0.3, -0.2, -0.2, 0.0, 0.1, 0.3, 0.3, 0.5);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-41
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-42
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.1, 0.2, 0.2, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.4, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-43
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.5, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-44
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.2, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-45
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-46
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, 0.1, 0.5);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-47
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, 0.1, 0.2);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-48
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, 0.1, 0.2);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-49
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.5, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-50
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-51
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-52
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, 0.1, 0.3);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-53
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, 0.1, 0.2);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-54
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, -0.4, -0.3, -0.3, 0.0, 0.0, 0.1, 0.1, 0.2);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-55
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, NAN, NAN);
     status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
     EXPECT_EQ(status, 0);
     ResetValueAndTest(
         sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
         {{0, 10, 14}});
+
+    // Test: RE-CUB-56
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-57
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-58
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.0, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-59
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-60
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-61
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-62
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 32);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-63
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.4, NAN, NAN, -0.4, -0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-64
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-65
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}});
+
+    // Test: RE-CUB-66
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.3, -0.4, -0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-67
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.3, -0.4, -0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-68
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.2, -0.4, -0.3, NAN, NAN);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}});
+
+    // Test: RE-CUB-69
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.0, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-70
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-71
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.0, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-72
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, NAN, NAN, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-73
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-74
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-75
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-76
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.2, 0.1, 0.2, 0.2, 0.3, -0.2, -0.1, -0.1, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 31);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-77
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.3, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-78
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.2, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-79
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.2, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.4, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-80
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.3, 0.3, 0.4, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-81
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.6, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.3, 0.3, 0.4, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-82
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.1, 0.1, 0.6, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.1, 0.3, 0.3, 0.4, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.6, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-83
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.3, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-84
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-85
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-86
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.5, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-87
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.2, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-88
+    SetHeight(sim_out, 10, 14, -0.4, -0.4, -0.3, -0.3, 0.4, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.2, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-89
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.3, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-90
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, -0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-91
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.3, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, NAN, NAN, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.2, 1e-5);
+    EXPECT_EQ(status, 34);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {2, 10, 15}});
+
+    // Test: RE-CUB-92
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.5, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.1, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-93
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.2, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.0, 1e-5);
+    EXPECT_EQ(status, 0);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
+
+    // Test: RE-CUB-94
+    SetHeight(sim_out, 10, 14, -0.2, -0.2, 0.0, 0.0, 0.5, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 15, -0.4, 0.0, 0.1, 0.1, 0.2, -0.4, -0.3, -0.3, 0.0);
+    status = CheckUnstableBodyCell(sim_out, 10, 14, 0, 10, 15, 0.3, 1e-5);
+    EXPECT_EQ(status, 33);
+    ResetValueAndTest(
+        sim_out, {{10, 14}, {10, 15}}, {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}},
+        {{0, 10, 14}, {0, 10, 15}, {2, 10, 15}});
 
     delete sim_out;
 }
