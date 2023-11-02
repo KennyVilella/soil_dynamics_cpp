@@ -673,6 +673,12 @@ The description of the unit tests can therefore be done with a simple table desc
 | RE-CUT-49 | Second layer | &check; | &check;   | &check; | First layer  | &check; | &check; | &cross;      |
 | RE-CUT-50 | Second layer | &check; | &check;   | &check; | First layer  | &check; | &cross; | First layer  |
 
+In this table,
+- `Soil` indicates whether soil is present on the corresponding layer.
+- `Until top` indicates whether the soil fully fill the gap between the two layers.
+- `Stable` indicates whether the corresponding soil layer is unstable considering the configuration.
+- `Avalanche` indicates where the soil should avalanche.
+
 In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name | Description of the unit test                                               |
@@ -720,6 +726,11 @@ The description of the unit tests can therefore be done with a simple table desc
 | RE-RUT-27 | Second layer | &check; | First layer  | &check; | Second layer | &check;      | 
 | RE-RUT-28 | Second layer | &check; | First layer  | &check; | Second layer | &cross;      |
 | RE-RUT-29 | Second layer | &check; | First layer  | &check; | First layer  | &check;      |
+
+In this table,
+- `Soil` indicates whether soil is present on the corresponding layer.
+- `Avalanche` indicates where the soil should avalanche.
+- `Enough space` indicates whether there is enough space on the layer where the soil should avalanche to accommodate all the avalanching soil.
 
 ### `RelaxTerrain`
 
@@ -780,6 +791,12 @@ Each unit test is constructed such that soil is only avalanching to a single pos
 | RE-RT-37  | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &check; | Second layer |
 | RE-RT-38  | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
 |           | Second layer | &check; | &check;   | &check; | First layer  | &check; | &cross; | First layer  |
+
+In this table,
+- `Soil` indicates whether soil is present on the corresponding layer.
+- `Until top` indicates whether the soil fully fill the gap between the two layers.
+- `Stable` indicates whether the corresponding soil layer is unstable considering the configuration.
+- `Avalanche` indicates where the soil should avalanche.
 
 In addition to these basic unit tests, a few extra edge cases are checked.
 
@@ -846,6 +863,13 @@ The configuration of the inital position should not impact the result of this fu
 | RE-CUB-41 | First layer  | &cross; | &cross;   | &cross;    | Second layer | &check; | &check;    | &cross;      |
 | RE-CUB-42 | First layer  | &cross; | &cross;   | &check;    | Second layer | &cross; | &check;    | &cross;      |
 
+In this table,
+- `Soil` indicates whether soil is present on the corresponding layer.
+- `Until top` indicates whether the soil fully fill the gap between the two layers.
+- `Accessible` indicates whether the soil could potentially avalanche on this layer.
+  The layer is not accessible if a wall blocked the movement or if the soil column in the corresponding layer is higher than the considered soil column.
+- `Avalanche` indicates where the soil should avalanche.
+
 ### `RelaxUnstableBodyCell`
 
 Unit test for the `RelaxUnstableBodyCell` function.
@@ -910,6 +934,14 @@ The configuration of the inital position should not impact the result of this fu
 | RE-RUB-49 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
 | RE-RUB-50 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      |
 | RE-RUB-51 | Second layer | &check; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &cross;      | Partial      |
+
+In this table,
+- `Soil` indicates whether soil is present on the corresponding layer.
+- `Until top` indicates whether the soil fully fill the gap between the two layers.
+- `Avalanche` indicates where the soil should avalanche.
+- `Enough soil` indicates whether there is enough soil in the considered soil column to reach the stable configuration.
+- `Enough space` indicates whether there is enough space on the layer where the soil should avalanche to accommodate all the avalanching soil.
+- `Status` indicates the type of soil avalanche.
 
 ### `RelaxBodySoil`
 
@@ -1014,6 +1046,13 @@ The configuration of the inital position should not impact the result of this fu
 | RE-RBS-76 | Second layer | &cross; | &cross;   | First layer  | &cross; | &cross;      | &check;      | &cross;      |    
 | RE-RBS-77 | Second layer | &check; | &check;   | First layer  | &cross; | &cross;      | &check;      | &cross;      |
 | RE-RBS-78 | Second layer | &check; | &check;   | First layer  | &check; | &cross;      | &check;      | &cross;      |
+
+In this table,
+- `Soil` indicates whether soil is present on the corresponding layer.
+- `Until top` indicates whether the soil fully fill the gap between the two layers.
+- `Avalanche` indicates where the soil should avalanche.
+- `Enough space` indicates whether there is enough space on the layer where the soil should avalanche to accommodate all the avalanching soil.
+- `Status` indicates the type of soil avalanche.
 
 In addition to these basic unit tests, a few extra edge cases are checked.
 
