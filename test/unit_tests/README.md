@@ -602,8 +602,15 @@ This file implements unit tests for the function in the `relax.cpp` file.
 
 Unit test for the `LocateUnstableTerrainCell` function.
 
-Currently, all the tests are done simultaneously.
-In the future, the tests will be separated and described in this section.
+| Test name | Description of the unit test                                                                       |
+| --------- | -------------------------------------------------------------------------------------------------- |
+| RE-LUT-1  | Testing for all terrain at zero. No cell is detected.                                              |
+| RE-LUT-2  | Testing for a positive height that is stable or unstable depending on the minimum height provided. |
+| RE-LUT-3  | Same as RE-LUT-2 but for a higher height.                                                          |
+| RE-LUT-4  | Testing for a negative height that is stable or unstable depending on the minimum height provided. |
+| RE-LUT-5  | Same as RE-LUT-4 but for a lower height.                                                           |
+| RE-LUT-6  | Testing with two unstable neighbouring cells.                                                      |
+| RE-LUT-7  | Testing with an unstable cell close to the border of the grid.                                     |
 
 ### `CheckUnstableTerrainCell`
 
@@ -618,53 +625,53 @@ The description of the unit tests can therefore be done with a simple table desc
 | RE-CUT-1  | &cross;      | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
 | RE-CUT-2  | &cross;      | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
 | RE-CUT-3  | First layer  | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
-| RE-CUT-4  | First layer  | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
-| RE-CUT-5  | First layer  | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      | 
+| RE-CUT-4  | First layer  | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-CUT-5  | First layer  | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
 | RE-CUT-6  | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | terrain      |
-| RE-CUT-7  | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
-| RE-CUT-8  | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | &cross;      | 
+| RE-CUT-7  | First layer  | &check; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-CUT-8  | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
 | RE-CUT-9  | Second layer | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
-| RE-CUT-10 | Second layer | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer | 
-| RE-CUT-11 | Second layer | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-CUT-10 | Second layer | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-CUT-11 | Second layer | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer | 
 | RE-CUT-12 | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | terrain      |
-| RE-CUT-13 | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer |
-| RE-CUT-14 | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | &cross;      |
+| RE-CUT-13 | Second layer | &check; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-CUT-14 | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer |
 | RE-CUT-15 | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &cross; | terrain      |
-| RE-CUT-16 | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &cross; | First layer  |
-| RE-CUT-17 | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &check; | First layer  | 
+| RE-CUT-16 | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &check; | First layer  |
+| RE-CUT-17 | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &cross; | First layer  |
 | RE-CUT-18 | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &cross; | terrain      |
-| RE-CUT-19 | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
+| RE-CUT-19 | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &check; | First layer  |
 | RE-CUT-20 | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
 | RE-CUT-21 | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &cross; | terrain      |
-| RE-CUT-22 | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &cross; | First layer  |
-| RE-CUT-23 | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &check; | First layer  |
-| RE-CUT-24 | First layer  | &check; | &check;   | &cross; | Second layer | &cross; | &cross; | terrain      |
-| RE-CUT-25 | First layer  | &check; | &check;   | &cross; | Second layer | &cross; | &cross; | Second layer |
-| RE-CUT-26 | First layer  | &check; | &check;   | &cross; | Second layer | &cross; | &check; | &cross;      |
-| RE-CUT-27 | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | terrain      |
-| RE-CUT-28 | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
-| RE-CUT-29 | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
-| RE-CUT-30 | First layer  | &check; | &check;   | &cross; | Second layer | &check; | &cross; | terrain      |
-| RE-CUT-31 | First layer  | &check; | &check;   | &cross; | Second layer | &check; | &cross; | Second layer |
-| RE-CUT-32 | First layer  | &check; | &check;   | &cross; | Second layer | &check; | &cross; | &cross;      |
+| RE-CUT-22 | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &check; | First layer  |
+| RE-CUT-23 | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &cross; | First layer  |
+| RE-CUT-24 | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | terrain      |
+| RE-CUT-25 | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &check; | First layer  |
+| RE-CUT-26 | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
+| RE-CUT-27 | First layer  | &check; | &check;   | &check; | Second layer | &cross; | &cross; | terrain      |
+| RE-CUT-28 | First layer  | &check; | &check;   | &check; | Second layer | &cross; | &check; | &cross;      |
+| RE-CUT-29 | First layer  | &check; | &check;   | &check; | Second layer | &cross; | &cross; | Second layer |
+| RE-CUT-30 | First layer  | &check; | &check;   | &check; | Second layer | &check; | &cross; | terrain      |
+| RE-CUT-31 | First layer  | &check; | &check;   | &check; | Second layer | &check; | &check; | &cross;      |
+| RE-CUT-32 | First layer  | &check; | &check;   | &check; | Second layer | &check; | &cross; | Second layer |
 | RE-CUT-33 | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &cross; | terrain      |
-| RE-CUT-34 | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &cross; | Second layer |
-| RE-CUT-35 | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &check; | Second layer |
+| RE-CUT-34 | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &check; | Second layer |
+| RE-CUT-35 | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &cross; | Second layer |
 | RE-CUT-36 | Second layer | &cross; | &cross;   | &cross; | First layer  | &check; | &cross; | terrain      | 
-| RE-CUT-37 | Second layer | &cross; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
+| RE-CUT-37 | Second layer | &cross; | &cross;   | &cross; | First layer  | &check; | &check; | Second layer |
 | RE-CUT-38 | Second layer | &cross; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
 | RE-CUT-39 | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &cross; | terrain      |
-| RE-CUT-40 | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &cross; | Second layer |
-| RE-CUT-41 | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &check; | Second layer |
-| RE-CUT-42 | Second layer | &check; | &check;   | &cross; | First layer  | &cross; | &cross; | terrain      |
-| RE-CUT-43 | Second layer | &check; | &check;   | &cross; | First layer  | &cross; | &cross; | First layer  |
-| RE-CUT-44 | Second layer | &check; | &check;   | &cross; | First layer  | &cross; | &check; | &cross;      |
-| RE-CUT-45 | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | terrain      |
-| RE-CUT-46 | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
-| RE-CUT-47 | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
-| RE-CUT-48 | Second layer | &check; | &check;   | &cross; | First layer  | &check; | &cross; | terrain      |
-| RE-CUT-49 | Second layer | &check; | &check;   | &cross; | First layer  | &check; | &cross; | First layer  |
-| RE-CUT-50 | Second layer | &check; | &check;   | &cross; | First layer  | &check; | &cross; | &cross;      |
+| RE-CUT-40 | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &check; | Second layer |
+| RE-CUT-41 | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &cross; | Second layer |
+| RE-CUT-42 | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | terrain      |
+| RE-CUT-43 | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &check; | Second layer |
+| RE-CUT-44 | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
+| RE-CUT-45 | Second layer | &check; | &check;   | &check; | First layer  | &cross; | &cross; | terrain      |
+| RE-CUT-46 | Second layer | &check; | &check;   | &check; | First layer  | &cross; | &check; | &cross;      |
+| RE-CUT-47 | Second layer | &check; | &check;   | &check; | First layer  | &cross; | &cross; | First layer  |
+| RE-CUT-48 | Second layer | &check; | &check;   | &check; | First layer  | &check; | &cross; | terrain      |
+| RE-CUT-49 | Second layer | &check; | &check;   | &check; | First layer  | &check; | &check; | &cross;      |
+| RE-CUT-50 | Second layer | &check; | &check;   | &check; | First layer  | &check; | &cross; | First layer  |
 
 In addition to these basic unit tests, a few extra edge cases are checked.
 
@@ -685,28 +692,28 @@ The description of the unit tests can therefore be done with a simple table desc
 | Test name | Bottom layer | Soil    | Top layer    | Soil    | Avalanche    | Enough space |
 | --------- | ------------ | ------- | ------------ | ------- | ------------ | ------------ |
 | RE-RUT-1  | &cross;      | &cross; | &cross;      | &cross; | terrain      | &check;      |
-| RE-RUT-2  | First layer  | &cross; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-3  | First layer  | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-2  | First layer  | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-3  | First layer  | &cross; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-4  | First layer  | &cross; | &cross;      | &cross; | First layer  | &check;      |
-| RE-RUT-5  | First layer  | &check; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-6  | First layer  | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-5  | First layer  | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-6  | First layer  | &check; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-7  | First layer  | &check; | &cross;      | &cross; | First layer  | &check;      |  
-| RE-RUT-8  | Second layer | &cross; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-9  | Second layer | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-8  | Second layer | &cross; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-9  | Second layer | &cross; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-10 | Second layer | &cross; | &cross;      | &cross; | Second layer | &check;      |  
-| RE-RUT-11 | Second layer | &check; | &cross;      | &cross; | terrain      | &cross;      |
-| RE-RUT-12 | Second layer | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-11 | Second layer | &check; | &cross;      | &cross; | terrain      | &check;      |
+| RE-RUT-12 | Second layer | &check; | &cross;      | &cross; | terrain      | &cross;      |
 | RE-RUT-13 | Second layer | &check; | &cross;      | &cross; | Second layer | &check;      | 
-| RE-RUT-14 | First layer  | &cross; | Second layer | &cross; | terrain      | &cross;      |
-| RE-RUT-15 | First layer  | &cross; | Second layer | &cross; | terrain      | &check;      |
+| RE-RUT-14 | First layer  | &cross; | Second layer | &cross; | terrain      | &check;      |
+| RE-RUT-15 | First layer  | &cross; | Second layer | &cross; | terrain      | &cross;      |
 | RE-RUT-16 | First layer  | &cross; | Second layer | &cross; | First layer  | &check;      |
 | RE-RUT-17 | First layer  | &cross; | Second layer | &cross; | First layer  | &cross;      |   
 | RE-RUT-18 | First layer  | &check; | Second layer | &cross; | Second layer | &check;      |
 | RE-RUT-19 | First layer  | &check; | Second layer | &check; | First layer  | &check;      |   
 | RE-RUT-20 | First layer  | &check; | Second layer | &check; | First layer  | &cross;      | 
 | RE-RUT-21 | First layer  | &check; | Second layer | &check; | Second layer | &check;      |
-| RE-RUT-22 | Second layer | &cross; | First layer  | &cross; | terrain      | &cross;      |
-| RE-RUT-23 | Second layer | &cross; | First layer  | &cross; | terrain      | &check;      |
+| RE-RUT-22 | Second layer | &cross; | First layer  | &cross; | terrain      | &check;      |
+| RE-RUT-23 | Second layer | &cross; | First layer  | &cross; | terrain      | &cross;      |
 | RE-RUT-24 | Second layer | &cross; | First layer  | &cross; | Second layer | &check;      |
 | RE-RUT-25 | Second layer | &cross; | First layer  | &cross; | Second layer | &cross;      | 
 | RE-RUT-26 | Second layer | &check; | First layer  | &cross; | First layer  | &check;      |
@@ -730,51 +737,52 @@ Each unit test is constructed such that soil is only avalanching to a single pos
 | RE-RT-1   | &cross;      | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
 | RE-RT-2   | &cross;      | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
 | RE-RT-3   | First layer  | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
-| RE-RT-4   | First layer  | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
-| RE-RT-5   | First layer  | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
-| RE-RT-6   | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | terrain      |
-| RE-RT-7   | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
-| RE-RT-8   | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | &cross;      |
+| RE-RT-4   | First layer  | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-RT-5   | First layer  | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
+| RE-RT-6   | First layer  | &check; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
+| RE-RT-7   | First layer  | &check; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-RT-8   | First layer  | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | First layer  |
 | RE-RT-9   | Second layer | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
-| RE-RT-10  | Second layer | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer |
-| RE-RT-11  | Second layer | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
-| RE-RT-12  | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | terrain      |
-| RE-RT-13  | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer |
-| RE-RT-14  | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | &cross;      |
+| RE-RT-10  | Second layer | &cross; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-RT-11  | Second layer | &cross; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer |
+| RE-RT-12  | Second layer | &check; | &cross;   | &check; | &cross;      | &cross; | &check; | terrain      |
+| RE-RT-13  | Second layer | &check; | &cross;   | &check; | &cross;      | &cross; | &check; | &cross;      |
+| RE-RT-14  | Second layer | &check; | &cross;   | &cross; | &cross;      | &cross; | &check; | Second layer |
 | RE-RT-15  | First layer  | &cross; | &cross;   | &check; | Second layer | &cross; | &check; | terrain      |
 | RE-RT-16  | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &check; | First layer  |
 | RE-RT-17  | First layer  | &cross; | &cross;   | &cross; | Second layer | &cross; | &cross; | First layer  |
-|           | First layer  | &check; | &check;   | &cross; | Second layer | &cross; | &cross; | Second layer |
+|           | First layer  | &check; | &check;   | &check; | Second layer | &cross; | &cross; | Second layer |
 | RE-RT-18  | First layer  | &cross; | &cross;   | &check; | Second layer | &check; | &check; | terrain      |
-| RE-RT-19  | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
+| RE-RT-19  | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &check; | First layer  |
 | RE-RT-20  | First layer  | &cross; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
-|           | First layer  | &check; | &check;   | &cross; | Second layer | &check; | &cross; | Second layer |
+|           | First layer  | &check; | &check;   | &check; | Second layer | &check; | &cross; | Second layer |
 | RE-RT-21  | First layer  | &check; | &cross;   | &check; | Second layer | &cross; | &check; | terrain      |
 | RE-RT-22  | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &check; | First layer  |   
 | RE-RT-23  | First layer  | &check; | &cross;   | &cross; | Second layer | &cross; | &cross; | First layer  |
-|           | First layer  | &check; | &check;   | &cross; | Second layer | &cross; | &cross; | Second layer |
-| RE-RT-24  | First layer  | &check; | &check;   | &cross; | Second layer | &check; | &check; | terrain      |
-| RE-RT-25  | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  | 
+|           | First layer  | &check; | &check;   | &check; | Second layer | &cross; | &cross; | Second layer |
+| RE-RT-24  | First layer  | &check; | &check;   | &check; | Second layer | &check; | &check; | terrain      |
+| RE-RT-25  | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &check; | First layer  | 
 | RE-RT-26  | First layer  | &check; | &cross;   | &cross; | Second layer | &check; | &cross; | First layer  |
-|           | First layer  | &check; | &check;   | &cross; | Second layer | &check; | &cross; | Second layer |
+|           | First layer  | &check; | &check;   | &check; | Second layer | &check; | &cross; | Second layer |
 | RE-RT-27  | Second layer | &cross; | &cross;   | &check; | First layer  | &cross; | &check; | terrain      |
 | RE-RT-28  | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &check; | Second layer |
 | RE-RT-29  | Second layer | &cross; | &cross;   | &cross; | First layer  | &cross; | &cross; | Second layer |
-|           | Second layer | &check; | &check;   | &cross; | First layer  | &cross; | &cross; | First layer  |
+|           | Second layer | &check; | &check;   | &check; | First layer  | &cross; | &cross; | First layer  |
 | RE-RT-30  | Second layer | &cross; | &cross;   | &check; | First layer  | &check; | &check; | terrain      |
 | RE-RT-31  | Second layer | &cross; | &cross;   | &cross; | First layer  | &check; | &check; | Second layer |
 | RE-RT-32  | Second layer | &cross; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
-|           | Second layer | &check; | &check;   | &cross; | First layer  | &check; | &cross; | First layer  |
-| RE-RT-33  | Second layer | &check; | &check;   | &cross; | First layer  | &cross; | &check; | terrain      |
+|           | Second layer | &check; | &check;   | &check; | First layer  | &check; | &cross; | First layer  |
+| RE-RT-33  | Second layer | &check; | &check;   | &check; | First layer  | &cross; | &check; | terrain      |
 | RE-RT-34  | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &check; | Second layer |
 | RE-RT-35  | Second layer | &check; | &cross;   | &cross; | First layer  | &cross; | &cross; | Second layer |
-|           | Second layer | &check; | &check;   | &cross; | First layer  | &cross; | &cross; | First layer  |
-| RE-RT-36  | Second layer | &check; | &check;   | &cross; | First layer  | &check; | &cross; | terrain      |
-| RE-RT-37  | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
+|           | Second layer | &check; | &check;   | &check; | First layer  | &cross; | &cross; | First layer  |
+| RE-RT-36  | Second layer | &check; | &check;   | &check; | First layer  | &check; | &check; | terrain      |
+| RE-RT-37  | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &check; | Second layer |
 | RE-RT-38  | Second layer | &check; | &cross;   | &cross; | First layer  | &check; | &cross; | Second layer |
-|           | Second layer | &check; | &check;   | &cross; | First layer  | &check; | &cross; | First layer  |
+|           | Second layer | &check; | &check;   | &check; | First layer  | &check; | &cross; | First layer  |
 
 In addition to these basic unit tests, a few extra edge cases are checked.
+
 
 | Test name | Description of the unit test                                                |
 | --------- | --------------------------------------------------------------------------- |
