@@ -875,6 +875,7 @@ In this table,
 Unit test for the `RelaxUnstableBodyCell` function.
 
 The tested function moves the soil following the status code provided assuming that it corresponds to the actual configuration.
+It is thus required to have avalanching soil.
 The purpose of these tests is to check all possible configurations.
 The description of the unit tests can therefore be done with a simple table describing the configuration.
 
@@ -885,63 +886,81 @@ The configuration of the inital position should not impact the result of this fu
 | --------- | ------------ | ------- | --------- | ------------ | ------- | ------------ | ----------- | ------------ | ------------ |
 | RE-RUB-1  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
 | RE-RUB-2  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
-| RE-RUB-3  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Full         |
+| RE-RUB-3  | &cross;      | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Partial      |
 | RE-RUB-4  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
 | RE-RUB-5  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
-| RE-RUB-6  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Partial      |
-| RE-RUB-7  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-8  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Full         |
-| RE-RUB-9  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &cross;     | &check;      | Full         |
-| RE-RUB-10 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-11 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Full         |
-| RE-RUB-12 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &cross;     | &check;      | Full         |
-| RE-RUB-13 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
-| RE-RUB-14 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
-| RE-RUB-15 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-16 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
-| RE-RUB-17 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Full         |
-| RE-RUB-18 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-19 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
-| RE-RUB-20 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Full         |
-| RE-RUB-21 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-22 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Full         |
-| RE-RUB-23 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &cross;     | &check;      | Full         |
-| RE-RUB-24 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &cross;      | Partial      |
-| RE-RUB-25 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-26 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;     | &check;      | Full         |
-| RE-RUB-27 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-28 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &check;      | Full         |  
-| RE-RUB-29 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &cross;     | &check;      | Full         |
-| RE-RUB-30 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &cross;      | Partial      |
-| RE-RUB-31 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |  
-| RE-RUB-32 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Fulll        | 
-| RE-RUB-33 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-34 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Full         |
-| RE-RUB-35 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &cross;     | &check;      | Full         |
-| RE-RUB-36 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &cross;      | Partial      |
-| RE-RUB-37 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-38 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;     | &check;      | Full         |
-| RE-RUB-39 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-40 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &check;      | Full         | 
-| RE-RUB-41 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &cross;     | &check;      | Full         |
-| RE-RUB-42 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &cross;      | Partial      |
-| RE-RUB-43 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      | 
-| RE-RUB-44 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Fulll        | 
-| RE-RUB-45 | First layer  | &check; | &check;   | Second layer | &check; | &cross;      | &check;     | &cross;      | &cross;      |
-| RE-RUB-46 | Second layer | &check; | &check;   | First layer  | &check; | &cross;      | &check;     | &cross;      | &cross;      | 
-| RE-RUB-47 | First layer  | &check; | &check;   | Second layer | &cross; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-48 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
-| RE-RUB-49 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-50 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      |
-| RE-RUB-51 | Second layer | &check; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &cross;      | Partial      |
+| RE-RUB-6  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &cross;      | Partial      |
+| RE-RUB-7  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Partial      |
+| RE-RUB-8  | First layer  | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &cross;      | Partial      |
+| RE-RUB-9  | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-10 | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-11 | First layer  | &cross; | &cross;   | &cross;      | &cross; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-12 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-13 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-14 | First layer  | &check; | &cross;   | &cross;      | &cross; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-15 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Partial      |
+| RE-RUB-16 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &check;      | Full         |
+| RE-RUB-17 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &check;     | &cross;      | Partial      |
+| RE-RUB-18 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &check;      | Partial      |
+| RE-RUB-19 | Second layer | &cross; | &cross;   | &cross;      | &cross; | terrain      | &cross;     | &cross;      | Partial      |
+| RE-RUB-20 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-21 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-22 | Second layer | &cross; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-23 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-24 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-25 | Second layer | &check; | &cross;   | &cross;      | &cross; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-26 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-27 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-28 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-29 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &check;     | &cross;      | Partial      |
+| RE-RUB-30 | First layer  | &cross; | &cross;   | Second layer | &cross; | First layer  | &cross;     | &cross;      | Partial      |
+| RE-RUB-31 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-32 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-33 | First layer  | &cross; | &cross;   | Second layer | &cross; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-34 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-35 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-36 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-37 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &check;     | &cross;      | Partial      |
+| RE-RUB-38 | First layer  | &check; | &cross;   | Second layer | &check; | First layer  | &cross;     | &cross;      | Partial      |
+| RE-RUB-39 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-40 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-41 | First layer  | &check; | &cross;   | Second layer | &check; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-42 | First layer  | &check; | &check;   | Second layer | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-43 | First layer  | &check; | &check;   | Second layer | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-44 | First layer  | &check; | &check;   | Second layer | &cross; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-45 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-46 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-47 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-48 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-49 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Full         |
+| RE-RUB-50 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-51 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &cross;      | Partial      |
+| RE-RUB-52 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &cross;     | &cross;      | Partial      |
+| RE-RUB-53 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-54 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-55 | Second layer | &cross; | &cross;   | First layer  | &cross; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-56 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &check;      | Partial      |
+| RE-RUB-57 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &check;      | Full         | 
+| RE-RUB-58 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &cross;     | &check;      | Partial      |
+| RE-RUB-59 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &check;     | &cross;      | Partial      |
+| RE-RUB-60 | Second layer | &check; | &cross;   | First layer  | &check; | Second layer | &cross;     | &cross;      | Partial      |
+| RE-RUB-61 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      | 
+| RE-RUB-62 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-63 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-64 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-65 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-66 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &cross;     | &check;      | Partial      |
+| RE-RUB-67 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      |
+| RE-RUB-68 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &check;     | &check;      | Full         |
+| RE-RUB-69 | Second layer | &check; | &check;   | First layer  | &check; | First layer  | &cross;     | &check;      | Partial      |
 
 In this table,
 - `Soil` indicates whether soil is present on the corresponding layer.
 - `Until top` indicates whether the soil fully fill the gap between the two layers.
 - `Avalanche` indicates where the soil should avalanche.
-- `Enough soil` indicates whether there is enough soil in the considered soil column to reach the stable configuration.
+- `Enough soil` indicates whether all the soil is located in one `body_soil` or several has to be moved.
 - `Enough space` indicates whether there is enough space on the layer where the soil should avalanche to accommodate all the avalanching soil.
-- `Status` indicates the type of soil avalanche.
+- `Status` indicates the type of soil avalanche. `Partial` when some soil remained from the original location, `Full` when all soil avalanche, and `&cross;` when there is no avalanche.
 
 ### `RelaxBodySoil`
 
