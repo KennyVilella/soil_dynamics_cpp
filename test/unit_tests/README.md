@@ -1083,7 +1083,7 @@ The configuration of the inital position should not impact the result of this fu
 | RE-RBS-41 | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
 | RE-RBS-42 | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Full         |
 | RE-RBS-43 | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &cross;     | &check;      | Partial      |
-|           | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
+|           | First layer  | &cross; | &cross;   | Second layer | &check; | Second layer | &check;     | &check;      | Full         |
 | RE-RBS-44 | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Partial      |
 | RE-RBS-45 | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;     | &check;      | Full         |
 | RE-RBS-46 | First layer  | &check; | &cross;   | Second layer | &cross; | First layer  | &check;     | &cross;      | Partial      |
@@ -1110,8 +1110,6 @@ The configuration of the inital position should not impact the result of this fu
 | RE-RBS-62 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
 | RE-RBS-63 | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &cross;     | &check;      | Partial      |
 |           | First layer  | &check; | &check;   | Second layer | &check; | Second layer | &check;     | &check;      | Partial      |
-
-
 | RE-RBS-64 | Second layer | &cross; | &cross;   | First layer  | &cross; | &cross;      | &check;     | &check;      | &cross;      |
 | RE-RBS-65 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Partial      |
 | RE-RBS-66 | Second layer | &cross; | &cross;   | First layer  | &cross; | Second layer | &check;     | &check;      | Full         |
@@ -1148,7 +1146,7 @@ The configuration of the inital position should not impact the result of this fu
 | RE-RBS-90 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      |
 | RE-RBS-91 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Full         |
 | RE-RBS-92 | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &cross;     | &check;      | Partial      |
-|           | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Partial      |
+|           | Second layer | &check; | &cross;   | First layer  | &check; | First layer  | &check;     | &check;      | Full         |
 | RE-RBS-93 | Second layer | &check; | &check;   | First layer  | &cross; | &cross;      | &check;     | &check;      | &cross;      |
 | RE-RBS-94 | Second layer | &check; | &check;   | First layer  | &check; | &cross;      | &check;     | &check;      | &cross;      |
 | RE-RBS-95 | Second layer | &check; | &check;   | First layer  | &cross; | First layer  | &check;     | &check;      | Partial      |
@@ -1162,6 +1160,7 @@ In this table,
 - `Soil` indicates whether soil is present on the corresponding layer.
 - `Until top` indicates whether the soil fully fill the gap between the two layers.
 - `Avalanche` indicates where the soil should avalanche.
+- `Enough soil` indicates whether all the soil is located in one `body_soil` or several has to be moved.
 - `Enough space` indicates whether there is enough space on the layer where the soil should avalanche to accommodate all the avalanching soil.
 - `Status` indicates the type of soil avalanche.
 
