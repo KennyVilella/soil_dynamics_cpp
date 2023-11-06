@@ -567,8 +567,18 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 Unit test for the `LocateIntersectingCells` function.
 
-Currently, all the tests are done simultaneously.
-In the future, the tests will be separated and described in this section.
+| Test name | Description of the unit test                                                      |
+| --------- | --------------------------------------------------------------------------------- |
+| IC-LIC-1  | Testing with first bucket layer and no intersecting cell.                         |
+| IC-LIC-2  | Testing with first bucket layer and no intersecting cell. (2)                     |
+| IC-LIC-3  | Testing with second bucket layer and no intersecting cell.                        |
+| IC-LIC-4  | Testing with first and second bucket layer and no intersecting cell.              |
+| IC-LIC-5  | Testing with first bucket layer fully intersecting with the terrain.              |
+| IC-LIC-6  | Testing with second bucket layer fully intersecting with the terrain.             |
+| IC-LIC-7  | Testing with first bucket layer fully intersecting with the terrain and second bucket layer partially intersecting.   |
+| IC-LIC-8  | Testing with second bucket layer fully intersecting with the terrain and first bucket layer not intersecting.   |
+| IC-LIC-9  | Testing  with first bucket layer fully intersecting with the terrain and second bucket layer not intersecting.  |
+| IC-LIC-10 | Testing with first and second bucket layer fully intersecting with the terrain.   |
 
 ### `MoveIntersectingBody`
 
