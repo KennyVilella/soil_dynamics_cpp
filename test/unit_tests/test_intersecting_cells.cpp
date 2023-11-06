@@ -288,7 +288,7 @@ TEST(UnitTestIntersectingCells, MoveBodySoil) {
     EXPECT_EQ(wall_presence, false);
     EXPECT_NEAR(h_soil, 0.0, 1e-5);
     CheckHeight(sim_out, 5, 7, NAN, NAN, NAN, 0.0, 0.6);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 5, 7, posA, 0.6);
+    CheckBodySoilPos(sim_out->body_soil_pos_[2], 2, 5, 7, posA, 0.6);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
     ResetValueAndTest(
         sim_out, {}, {{0, 5, 7}, {2, 5, 7}, {0, 10, 15}, {2, 10, 15}},
