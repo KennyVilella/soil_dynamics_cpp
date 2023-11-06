@@ -16,7 +16,7 @@ using test_soil_simulator::SetHeight;
 using test_soil_simulator::PushBodySoilPos;
 using test_soil_simulator::CheckHeight;
 using test_soil_simulator::CheckBodySoilPos;
-using ResetValueAndTest;
+using test_soil_simulator::ResetValueAndTest;
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
     // Setting up the environment
