@@ -17,6 +17,7 @@ using test_soil_simulator::PushBodySoilPos;
 using test_soil_simulator::CheckHeight;
 using test_soil_simulator::CheckBodySoilPos;
 using test_soil_simulator::ResetValueAndTest;
+using soil_simulator::LocateIntersectingCells;
 
 TEST(UnitTestIntersectingCells, MoveBodySoil) {
     // Setting up the environment
@@ -2122,32 +2123,77 @@ TEST(UnitTestIntersectingCells, LocateIntersectingCells) {
     sim_out->bucket_area_[0][1] = 12;
     sim_out->bucket_area_[1][0] = 8;
     sim_out->bucket_area_[1][1] = 17;
-    SetHeight(sim_out, 5, 10, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 6, 10, NAN, NAN, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN);
-    SetHeight(sim_out, 7, 10, NAN, 0.0, 0.1, NAN, NAN, 0.2, 0.3, NAN, NAN);
-    SetHeight(sim_out, 10, 11, 0.1, -0.1, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 12, 0.1, NAN, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN);
-    SetHeight(sim_out, 10, 13, 0.1, -0.2, 0.0, NAN, NAN, 0.0, 0.3, NAN, NAN);
-    SetHeight(sim_out, 10, 14, 0.1, 0.2, 0.3, NAN, NAN, -0.1, 0.0, NAN, NAN);
-    SetHeight(sim_out, 10, 15, 0.1, -0.3, -0.2, NAN, NAN, 0.5, 0.6, NAN, NAN);
-    SetHeight(sim_out, 10, 16, 0.1, -0.3, -0.2, NAN, NAN, -0.6, -0.4, NAN, NAN);
-    SetHeight(sim_out, 11, 11, -0.1, -0.1, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
 
     // Declaring variables
     std::vector<std::vector<int>> intersecting_cells;
 
-    // -- Testing that intersecting cells are properly located --
-    intersecting_cells = soil_simulator::LocateIntersectingCells(
-        sim_out, 1e-5);
+    // Test: IC-LIC-1
+    SetHeight(sim_out, 5, 10, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_EQ(intersecting_cells.size(), 0);
+    ResetValueAndTest(sim_out, {}, {{0, 5, 10}}, {});
+
+    // Test: IC-LIC-2
+    SetHeight(sim_out, 11, 11, -0.1, -0.1, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_EQ(intersecting_cells.size(), 0);
+    ResetValueAndTest(sim_out, {{11, 11}}, {{0, 11, 11}}, {});
+
+    // Test: IC-LIC-3
+    SetHeight(sim_out, 6, 10, NAN, NAN, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_EQ(intersecting_cells.size(), 0);
+    ResetValueAndTest(sim_out, {}, {{2, 6, 10}}, {});
+
+    // Test: IC-LIC-4
+    SetHeight(sim_out, 7, 10, NAN, 0.0, 0.1, NAN, NAN, 0.2, 0.3, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_EQ(intersecting_cells.size(), 0);
+    ResetValueAndTest(sim_out, {}, {{0, 7, 10}, {2, 7, 10}}, {});
+
+    // Test: IC-LIC-5
+    SetHeight(sim_out, 10, 11, 0.1, -0.1, 0.0, NAN, NAN, NAN, NAN, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
     EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {0, 10, 11}));
-    EXPECT_TRUE((intersecting_cells[1] == std::vector<int> {2, 10, 12}));
-    EXPECT_TRUE((intersecting_cells[2] == std::vector<int> {0, 10, 13}));
-    EXPECT_TRUE((intersecting_cells[3] == std::vector<int> {2, 10, 13}));
-    EXPECT_TRUE((intersecting_cells[4] == std::vector<int> {2, 10, 14}));
-    EXPECT_TRUE((intersecting_cells[5] == std::vector<int> {0, 10, 15}));
-    EXPECT_TRUE((intersecting_cells[6] == std::vector<int> {0, 10, 16}));
-    EXPECT_TRUE((intersecting_cells[7] == std::vector<int> {2, 10, 16}));
-    EXPECT_EQ(intersecting_cells.size(), 8);
+    EXPECT_EQ(intersecting_cells.size(), 1);
+    ResetValueAndTest(sim_out, {{10, 11}}, {{0, 10, 11}}, {});
+
+    // Test: IC-LIC-6
+    SetHeight(sim_out, 10, 12, 0.1, NAN, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {2, 10, 12}));
+    EXPECT_EQ(intersecting_cells.size(), 1);
+    ResetValueAndTest(sim_out, {{10, 12}}, {{2, 10, 12}}, {});
+
+    // Test: IC-LIC-7
+    SetHeight(sim_out, 10, 13, 0.1, -0.2, 0.0, NAN, NAN, 0.0, 0.3, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {0, 10, 13}));
+    EXPECT_TRUE((intersecting_cells[1] == std::vector<int> {2, 10, 13}));
+    EXPECT_EQ(intersecting_cells.size(), 2);
+    ResetValueAndTest(sim_out, {{10, 13}}, {{0, 10, 13}, {2, 10, 13}}, {});
+
+    // Test: IC-LIC-8
+    SetHeight(sim_out, 10, 14, 0.1, 0.2, 0.3, NAN, NAN, -0.1, 0.0, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {2, 10, 14}));
+    EXPECT_EQ(intersecting_cells.size(), 1);
+    ResetValueAndTest(sim_out, {{10, 14}}, {{0, 10, 14}, {2, 10, 14}}, {});
+
+    // Test: IC-LIC-9
+    SetHeight(sim_out, 10, 15, 0.1, -0.3, -0.2, NAN, NAN, 0.5, 0.6, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {0, 10, 15}));
+    EXPECT_EQ(intersecting_cells.size(), 1);
+    ResetValueAndTest(sim_out, {{10, 15}}, {{0, 10, 15}, {2, 10, 15}}, {});
+
+    // Test: IC-LIC-10
+    SetHeight(sim_out, 10, 16, 0.1, -0.3, -0.2, NAN, NAN, -0.6, -0.4, NAN, NAN);
+    intersecting_cells = LocateIntersectingCells(sim_out, 1e-5);
+    EXPECT_TRUE((intersecting_cells[0] == std::vector<int> {0, 10, 16}));
+    EXPECT_TRUE((intersecting_cells[1] == std::vector<int> {2, 10, 16}));
+    EXPECT_EQ(intersecting_cells.size(), 2);
+    ResetValueAndTest(sim_out, {{10, 16}}, {{0, 10, 16}, {2, 10, 16}}, {});
 
     delete sim_out;
 }
