@@ -409,19 +409,44 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>IC-MIBS-1</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-2</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-3</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-4</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-5</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-6</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-7</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-8</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-9</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-10</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-11</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-12</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-13</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-14</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-4</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-5</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-6</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-7</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-8</td><td>First layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-9</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>        </td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-10</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-11</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-12</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-13</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-14</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-15</td><td>First layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
-  <tr><td>IC-MIBS-16</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-16</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>        </td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-17</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-18</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-19</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-20</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-21</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-22</td><td>Second layer</td><td>First layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-23</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>        </td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-24</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-25</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-26</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-27</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-28</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&cross;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-29</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>&cross;</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>IC-MIBS-30</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&check;</td></tr>
+  <tr><td>        </td><td>Second layer</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>&cross;</td><td>terrain</td><td>&check;</td><td>&cross;</td></tr>
+
+
+
+
+
+
+
   <tr><td>IC-MIBS-17</td><td>First layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-18</td><td>Second layer</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-19</td><td>First layer</td><td>Second layer</td><td>&cross;</td><td>First layer</td><td>&cross;</td><td>Second layer</td><td>&check;</td><td>&cross;</td></tr>
