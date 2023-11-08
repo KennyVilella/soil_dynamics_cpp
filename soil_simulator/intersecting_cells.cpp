@@ -134,6 +134,14 @@ void soil_simulator::MoveIntersectingBodySoil(
                     soil_simulator::MoveBodySoil(
                         sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
                         wall_presence, grid, bucket, tol));
+
+                // Updating the value used for the detection of bucket wall
+                // This is working because this value will be used only in cases
+                // where two bucket layers are present. Note however that the
+                // value is incorrect when it will not be used.
+                max_h = std::max(
+                    sim_out->body_[0][ii_p][jj_p],
+                    sim_out->body_[2][ii_p][jj_p]);
             }
             if (h_soil < tol) {
                 // No more soil to move

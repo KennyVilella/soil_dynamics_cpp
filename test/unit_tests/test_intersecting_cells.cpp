@@ -1446,7 +1446,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     SetHeight(sim_out, 11, 15, NAN, 0.0, 0.2, 0.2, 0.3, 0.5, 0.7, NAN, NAN);
     SetHeight(sim_out, 12, 15, NAN, 0.2, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 16, NAN, 0.7, 0.8, NAN, NAN, 0.0, 0.1, 0.1, 0.4);
-    SetHeight(sim_out, 10, 17, NAN, NAN, NAN, NAN, NAN, 0.0, 0.5, NAN, NAN);
+    SetHeight(sim_out, 10, 17, NAN, NAN, NAN, NAN, NAN, 0.0, 0.7, NAN, NAN);
     SetHeight(sim_out, 11, 14, NAN, 0.0, 0.1, 0.1, 0.2, 0.4, 1.0, NAN, NAN);
     SetHeight(sim_out, 12, 13, NAN, NAN, NAN, NAN, NAN, 0.1, 0.7, NAN, NAN);
     SetHeight(sim_out, 9, 14, NAN, 0.5, 0.7, NAN, NAN, 0.0, 0.3, 0.3, 0.4);
@@ -1549,9 +1549,9 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     SetHeight(sim_out, 11, 15, NAN, 0.0, 0.2, 0.2, 0.5, 0.5, 0.7, NAN, NAN);
     SetHeight(sim_out, 12, 15, NAN, 0.2, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 16, NAN, 0.7, 0.8, NAN, NAN, 0.0, 0.1, 0.1, 0.7);
-    SetHeight(sim_out, 10, 17, NAN, NAN, NAN, NAN, NAN, 0.0, 0.5, NAN, NAN);
+    SetHeight(sim_out, 10, 17, NAN, NAN, NAN, NAN, NAN, 0.0, 0.7, NAN, NAN);
     SetHeight(sim_out, 11, 14, NAN, 0.0, 0.1, 0.1, 0.9, 0.9, 1.0, NAN, NAN);
-    SetHeight(sim_out, 12, 13, NAN, NAN, NAN, NAN, NAN, 0.1, 0.7, NAN, NAN);
+    SetHeight(sim_out, 12, 13, NAN, NAN, NAN, NAN, NAN, 0.1, 0.9, NAN, NAN);
     SetHeight(sim_out, 9, 14, NAN, 0.5, 0.7, NAN, NAN, 0.0, 0.4, 0.4, 0.5);
     SetHeight(sim_out, 8, 13, -0.2, NAN, NAN, NAN, NAN, -0.2, 1.0, NAN, NAN);
     SetHeight(sim_out, 11, 16, NAN, 0.0, 0.1, 0.1, 0.8, 0.8, 0.9, NAN, NAN);
