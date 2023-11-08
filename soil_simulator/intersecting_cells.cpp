@@ -134,6 +134,10 @@ void soil_simulator::MoveIntersectingBodySoil(
                     soil_simulator::MoveBodySoil(
                         sim_out, ind_p, ii_p, jj_p, max_h, ii_n, jj_n, h_soil,
                         wall_presence, grid, bucket, tol));
+
+                max_h = std::max(
+                    sim_out->body_[0][ii_p][jj_p],
+                    sim_out->body_[2][ii_p][jj_p]);
             }
             if (h_soil < tol) {
                 // No more soil to move
