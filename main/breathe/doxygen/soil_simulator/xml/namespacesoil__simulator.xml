@@ -1003,7 +1003,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="34" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="48" bodyend="150" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="34" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="34" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="48" bodyend="158" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="34" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1048,7 +1048,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="42" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="166" bodyend="265" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="42" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="42" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="174" bodyend="273" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="42" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1ab896aae726451fe99f98d6519f6f927f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; int, int, int, float, bool &gt;</type>
@@ -1217,7 +1217,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="66" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="285" bodyend="499" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="66" declcolumn="12"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="66" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="293" bodyend="507" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="66" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -1257,7 +1257,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="76" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="501" bodyend="531" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="76" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="76" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="509" bodyend="539" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="76" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1af120fcc95c5971ab8730777ff218daca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
