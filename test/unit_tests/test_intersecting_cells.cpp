@@ -2030,392 +2030,84 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
 
 
 
-/*
-    // Test: IC-MIBS-18
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.2, NAN, NAN, 0.5, 0.7, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.5, NAN, NAN);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[2], 0, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
 
-    // Test: IC-MIBS-19
+
+
+
+
+
+
+    // Test: IC-MIBS-71
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.7, NAN, NAN, 0.0, 0.2, NAN, NAN);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.4, 0.4, 0.7, 0.7, 0.9);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-20
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.7, NAN, NAN, 0.0, 0.2, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-22
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.2, 0.5, 0.7, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, posA, 0.1);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.5, NAN, NAN);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
-
-    // Test: IC-MIBS-23
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.7, NAN, NAN, 0.0, 0.1, 0.1, 0.2);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-24
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.7, NAN, NAN, 0.0, 0.1, 0.1, 0.2);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    ResetValueAndTest(
-        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-26
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.2, NAN, NAN, 0.4, 0.7, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, 0.2, 0.4, NAN, NAN);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[2], 0, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
-
-    // Test: IC-MIBS-27
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.4, 0.7, NAN, NAN, 0.0, 0.2, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.4);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-28
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.4, 0.7, NAN, NAN, 0.0, 0.2, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.4);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[2], 2, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 3);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-30
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.9, 1.3, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, posA, 0.6);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.9, NAN, NAN);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 0, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}});
-
-    // Test: IC-MIBS-31
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.4, 0.7, NAN, NAN, 0.0, 0.1, 0.1, 0.2);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.4);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-32
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.5, 0.6, 0.6, 0.7, 0.0, 0.3, 0.3, 0.8);
-    SetHeight(sim_out, 11, 15, NAN, 0.9, 1.0, NAN, NAN, 0.0, 0.1, 0.1, 0.7);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.6);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.6, 0.7, 0.3, 0.5);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.1, 0.9);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.1, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[1].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}});
-
-    // Test: IC-MIBS-34
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.9, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.9, 1.2, 0.3, 0.4, 0.4, 0.7);
-    SetHeight(sim_out, 12, 15, NAN, 0.5, 0.6, 0.6, 0.8, NAN, NAN, NAN, NAN);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.6);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.9, grid, bucket);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.4, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);
     PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.3);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.3);
-    pos0 = soil_simulator::CalcBucketFramePos(12, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 12, 15, pos0, 0.2);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.2);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.9, 1.2, 0.4, 0.8);
-    CheckHeight(sim_out, 12, 15, NAN, 0.6, 0.8, NAN, NAN);
     EXPECT_NEAR(sim_out->terrain_[12][15], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 11, 15, posA, 0.1);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     ResetValueAndTest(
         sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
 
-    // Test: IC-MIBS-35
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 1.1, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, -0.1, 0.0, 0.0, 0.5, 0.5, 0.8, 0.8, 0.9);
-    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.1, 0.4, 0.4, 0.8);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.8);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.0, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.5);
-    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.4, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 12, 15, posA, 0.4);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.0, 0.5, 0.8, 0.9);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.4, 0.8);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
-
-    // Test: IC-MIBS-36
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 1.1, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.8, 0.8, 0.9, 0.1, 0.4, 0.4, 0.5);
-    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.5, 0.6, 0.6, 0.8);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.8);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.4, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 12, 15, posA, 0.2);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.6, 0.8);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.6, 1e-5);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
-    ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
-
-    // Test: IC-MIBS-38
+    // Test: IC-MIBS-72
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.9, 1.0, 1.0, 1.2, 0.1, 0.2, 0.2, 0.8);
-    SetHeight(sim_out, 12, 15, NAN, 0.5, 0.6, 0.6, 0.8, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, 0.1, 0.2, 0.4, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 1.0, grid, bucket);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.6);
-    pos0 = soil_simulator::CalcBucketFramePos(12, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 12, 15, pos0, 0.2);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 1.0, 1.2, 0.2, 0.9);
-    CheckHeight(sim_out, 12, 15, NAN, 0.6, 0.8, NAN, NAN);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->terrain_[12][15], 0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 11, 15, posA, 0.1);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     ResetValueAndTest(
         sim_out, {{12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
 
-    // Test: IC-MIBS-40
+    // Test: IC-MIBS-73
     soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 1.1, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.8, 0.8, 0.9, 0.1, 0.2, 0.2, 0.3);
-    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.5, 0.6, 0.6, 0.8);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.3, 0.3, 0.5, 0.5, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.0, 0.3, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.8);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
-    pos2 = soil_simulator::CalcBucketFramePos(12, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 12, 15, pos2, 0.2);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.2, 0.5);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.6, 0.8);
-    EXPECT_NEAR(sim_out->terrain_[12][15], 0.4, 1e-5);
+    CheckHeight(sim_out, 12, 15, NAN, 0.3, 0.6, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 11, 15, posA, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
+    CheckBodySoilPos(sim_out->body_soil_pos_[4], 0, 12, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
     ResetValueAndTest(
-        sim_out, {{12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
+        sim_out, {},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // Test: IC-MIBS-41
+    // Test: IC-MIBS-74
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
     SetHeight(sim_out, 11, 15, NAN, 0.0, 0.3, 0.3, 0.5, 0.5, 0.8, 0.8, 0.9);
@@ -2432,7 +2124,6 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     PushBodySoilPos(sim_out, 0, 12, 15, posA, 0.1);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.3, 0.5, 0.8, 0.9);
     CheckHeight(sim_out, 12, 15, NAN, 0.3, 0.7, NAN, NAN);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     CheckBodySoilPos(sim_out->body_soil_pos_[5], 0, 12, 15, posA, 0.3);
@@ -2442,37 +2133,34 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
 
-    // Test: IC-MIBS-42
+    // Test: IC-MIBS-75
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.8, 0.8, 0.9, 0.3, 0.4, 0.4, 0.5);
-    SetHeight(sim_out, 12, 15, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.3, 0.3, 0.5, 0.5, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.3, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.4, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
     PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
-    CheckHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN);
+    EXPECT_NEAR(sim_out->terrain_[10][16], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[4], 0, 12, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     ResetValueAndTest(
-        sim_out, {},
+        sim_out, {{10, 16}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
 
-    // Test: IC-MIBS-43
+    // Test: IC-MIBS-76
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
     SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
-    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.0, 0.1, 0.1, 0.3);
+    SetHeight(sim_out, 12, 15, 0.1, NAN, NAN, NAN, NAN, 0.2, 0.4, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
@@ -2481,37 +2169,32 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
     PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
     PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 12, 15, posA, 0.2);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.1, 0.7, 0.8, 0.9);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.6);
+    EXPECT_NEAR(sim_out->terrain_[12][15], 0.4, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 12, 15, posA, 0.3);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
     ResetValueAndTest(
-        sim_out, {},
+        sim_out, {{12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
 
-    // Test: IC-MIBS-44
+    // Test: IC-MIBS-77
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.8, 0.8, 0.9, 0.3, 0.4, 0.4, 0.5);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.3, 0.3, 0.5, 0.5, 0.8, 0.8, 0.9);
     SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.0, 0.3, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.4, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
     PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
+    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
     CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.3, 0.6);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
     CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 12, 15, posA, 0.3);
@@ -2521,105 +2204,223 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // Test: IC-MIBS-46
+    // Test: IC-MIBS-78
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.8, 0.8, 0.9, 0.3, 0.4, NAN, NAN);
-    SetHeight(sim_out, 12, 15, NAN, 0.0, 0.1, 0.1, 0.2, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.3, 0.3, 0.5, 0.5, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.0, 0.3, 0.3, 0.4);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.4, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
-    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 12, 15, posB, 0.1);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.4, 0.5);
-    CheckHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 11, 15, posA, 0.1);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 0, 12, 15, posB, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
-    ResetValueAndTest(
-        sim_out, {},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
-
-    // Test: IC-MIBS-48
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.5, 0.8, 0.8, 0.9, 0.0, 0.3, 0.3, 0.4);
-    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.0, 0.2, 0.2, 0.3);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
-    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
     PushBodySoilPos(sim_out, 2, 12, 15, posB, 0.1);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.3, 0.5);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.2, 0.5);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.3, 0.7);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 11, 15, posA, 0.1);
-    CheckBodySoilPos(sim_out->body_soil_pos_[6], 2, 12, 15, posB, 0.2);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 7);
+    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 12, 15, posB, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
     ResetValueAndTest(
         sim_out, {},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // Test: IC-MIBS-51
-    soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 1.5, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.4, 0.9, NAN, NAN, 0.1, 0.2, 0.2, 0.4);
-    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.0, 0.3, 0.3, 0.8);
-    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
-    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 1.2);
-    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.2);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 12, 15, posA, 0.5);
-    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
-    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 0.4);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.3, 1.8);
-    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 12, 15, posA, 1.0);
-    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
-    ResetValueAndTest(
-        sim_out, {},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
-
-    // Test: IC-MIBS-53
+    // Test: IC-MIBS-79
     soil_simulator::rng.seed(1234);
     SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 0.9, 1.4, NAN, NAN, 0.3, 0.4, 0.4, 0.9);
-    SetHeight(sim_out, 12, 15, NAN, 0.7, 0.8, NAN, NAN, 0.0, 0.1, NAN, NAN);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.3, 0.3, 0.5, 0.5, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, NAN, NAN, NAN, NAN, 0.3, 0.5, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.4, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.5);
-    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.4, 0.9);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.4);
+    EXPECT_NEAR(sim_out->terrain_[10][16], 0.3, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 12, 15, posA, 0.3);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 4);
+    ResetValueAndTest(
+        sim_out, {{10, 16}},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
+
+    // Test: IC-MIBS-80
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN, 0.7, 0.9, NAN, NAN);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.4, grid, bucket);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, 0.4, 0.7, NAN, NAN);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[4], 0, 12, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(
+        sim_out, {}, body_pos,
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
+
+    // Test: IC-MIBS-81
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.1, 0.4, NAN, NAN, 0.5, 0.9, NAN, NAN);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.4, grid, bucket);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, 0.4, 0.5, NAN, NAN);
+    EXPECT_NEAR(sim_out->terrain_[13][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[4], 0, 12, 15, posA, 0.1);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(
+        sim_out, {{13, 15}}, body_pos,
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15}});
+
+    // Test: IC-MIBS-82
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.1, 0.2, 0.2, 0.3, 0.7, 0.9, 0.9, 1.3);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(12, 15, 0.9, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 12, 15, posA, 0.1);
+    PushBodySoilPos(sim_out, 2, 12, 15, pos2, 0.4);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, 0.2, 0.6, 0.9, 1.3);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[6], 0, 12, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 7);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    body_soil_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(sim_out, {}, body_pos, body_soil_pos);
+
+    // Test: IC-MIBS-83
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.1, 0.2, 0.2, 0.3, 0.4, 0.9, 0.9, 1.3);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(12, 15, 0.9, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 12, 15, posA, 0.1);
+    PushBodySoilPos(sim_out, 2, 12, 15, pos2, 0.4);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, 0.2, 0.4, 0.9, 1.3);
+    EXPECT_NEAR(sim_out->terrain_[13][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[6], 0, 12, 15, posA, 0.1);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 7);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    body_soil_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(sim_out, {{13, 15}}, body_pos, body_soil_pos);
+
+    // Test: IC-MIBS-84
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.1, 0.2, 0.2, 0.4, 0.4, 0.9, 0.9, 1.3);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(12, 15, 0.9, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 12, 15, pos0, 0.2);
+    PushBodySoilPos(sim_out, 2, 12, 15, pos2, 0.4);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    EXPECT_NEAR(sim_out->terrain_[13][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    body_soil_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(sim_out, {{13, 15}}, body_pos, body_soil_pos);
+
+    // Test: IC-MIBS-85
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.7, 0.9, NAN, NAN, 0.1, 0.4, NAN, NAN);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.4, grid, bucket);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.4, 0.7);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 12, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
     body_pos = {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
         {2, 12, 15}};
@@ -2627,33 +2428,136 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
         sim_out, {}, body_pos,
         {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
-    // Test: IC-MIBS-59
+    // Test: IC-MIBS-86
     soil_simulator::rng.seed(1234);
-    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 1.8, 0.5, 0.6, 0.6, 0.7);
-    SetHeight(sim_out, 11, 15, NAN, 1.0, 1.2, NAN, NAN, 0.0, 0.2, 0.2, 0.4);
-    SetHeight(sim_out, 12, 15, NAN, 0.9, 1.2, NAN, NAN, 0.0, 0.1, NAN, NAN);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.5, 0.9, NAN, NAN, 0.1, 0.4, NAN, NAN);
     pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
-    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 1.5);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.2, grid, bucket);
-    PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
-    posB = soil_simulator::CalcBucketFramePos(12, 15, 0.1, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.4, grid, bucket);
     soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
     CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
-    CheckHeight(sim_out, 11, 15, NAN, NAN, NAN, 0.2, 1.0);
-    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.1, 0.8);
+    CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.4, 0.5);
+    EXPECT_NEAR(sim_out->terrain_[13][15], 0.2, 1e-5);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[3], 2, 11, 15, posA, 0.6);
-    CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 12, 15, posB, 0.7);
+    CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 12, 15, posA, 0.1);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
     body_pos = {
         {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
         {2, 12, 15}};
     ResetValueAndTest(
-        sim_out, {}, body_pos,
-        {{0, 10, 15}, {2, 10, 15}, {2, 11, 15}, {2, 12, 15}});
-*/
+        sim_out, {{13, 15}}, body_pos,
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
+
+    // Test: IC-MIBS-87
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.7, 0.9, 0.9, 1.3, 0.1, 0.2, 0.2, 0.3);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(12, 15, 0.9, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 12, 15, pos0, 0.4);
+    PushBodySoilPos(sim_out, 2, 12, 15, posA, 0.1);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, 0.9, 1.3, 0.2, 0.6);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[6], 2, 12, 15, posA, 0.3);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 7);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    body_soil_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(sim_out, {}, body_pos, body_soil_pos);
+
+    // Test: IC-MIBS-88
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.4, 0.9, 0.9, 1.3, 0.1, 0.2, 0.2, 0.3);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(12, 15, 0.9, grid, bucket);
+    posA = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 12, 15, pos0, 0.4);
+    PushBodySoilPos(sim_out, 2, 12, 15, posA, 0.1);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    CheckHeight(sim_out, 12, 15, NAN, 0.9, 1.3, 0.2, 0.4);
+    EXPECT_NEAR(sim_out->terrain_[13][15], 0.2, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    CheckBodySoilPos(sim_out->body_soil_pos_[6], 2, 12, 15, posA, 0.1);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 7);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    body_soil_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(sim_out, {{13, 15}}, body_pos, body_soil_pos);
+
+    // Test: IC-MIBS-89
+    soil_simulator::rng.seed(1234);
+    SetHeight(sim_out, 10, 15, NAN, 0.0, 0.3, 0.3, 0.8, 0.5, 0.6, 0.6, 0.7);
+    SetHeight(sim_out, 11, 15, NAN, 0.0, 0.1, 0.1, 0.7, 0.7, 0.8, 0.8, 0.9);
+    SetHeight(sim_out, 12, 15, NAN, 0.4, 0.9, 0.9, 1.3, 0.1, 0.2, 0.2, 0.4);
+    pos0 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
+    PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.6);
+    PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.1);
+    pos0 = soil_simulator::CalcBucketFramePos(12, 15, 0.9, grid, bucket);
+    pos2 = soil_simulator::CalcBucketFramePos(12, 15, 0.2, grid, bucket);
+    PushBodySoilPos(sim_out, 0, 12, 15, pos0, 0.4);
+    PushBodySoilPos(sim_out, 2, 12, 15, pos2, 0.2);
+    soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1e-5);
+    CheckHeight(sim_out, 10, 15, NAN, 0.3, 0.5, 0.6, 0.7);
+    EXPECT_NEAR(sim_out->terrain_[13][15], 0.3, 1e-5);
+    EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
+    EXPECT_EQ(sim_out->body_soil_pos_.size(), 6);
+    body_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    body_soil_pos = {
+        {0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {0, 12, 15},
+        {2, 12, 15}};
+    ResetValueAndTest(sim_out, {{13, 15}}, body_pos, body_soil_pos);
+
+
+
+
+
+
+
+
+
+
 
     // Test: IC-MIBS-60
     soil_simulator::rng.seed(1234);
