@@ -601,9 +601,6 @@ As a result, for the previous location, only the identity of the bottom layer is
 
 
 
-
-
-
 In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name  | Description of the unit test                                                                     |
