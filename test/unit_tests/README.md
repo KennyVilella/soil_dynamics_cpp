@@ -1001,6 +1001,12 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&check;</td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
 
+
+
+
+
+
+
 In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name  | Description of the unit test                                                                     |
