@@ -3598,7 +3598,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);    
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
     PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
     PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.3);
@@ -6782,7 +6782,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.3, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.1);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.5);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);    
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
     PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
     PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.3);
