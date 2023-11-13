@@ -3811,7 +3811,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
     ResetValueAndTest(
         sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
 
     // Test: IC-MIBS-137
     soil_simulator::rng.seed(1234);
