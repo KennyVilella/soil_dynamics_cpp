@@ -3173,7 +3173,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    posA = soil_simulator::CalcBucketFramePos(11, 15, 0.3, grid, bucket);
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.8, grid, bucket);
     PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.1);
     PushBodySoilPos(sim_out, 2, 11, 15, posA, 0.1);
     posB = soil_simulator::CalcBucketFramePos(12, 15, 0.3, grid, bucket);
@@ -3288,7 +3288,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     CheckHeight(sim_out, 11, 15, NAN, 0.8, 0.9, 0.3, 0.5);
     CheckHeight(sim_out, 12, 15, NAN, NAN, NAN, 0.3, 0.6);
     EXPECT_NEAR(sim_out->body_soil_pos_[0].h_soil, 0.2, 1.e-5);
-    CheckBodySoilPos(sim_out->body_soil_pos_[5], 0, 11, 15, posA, 0.1);
+    CheckBodySoilPos(sim_out->body_soil_pos_[5], 2, 11, 15, posA, 0.1);
     CheckBodySoilPos(sim_out->body_soil_pos_[6], 2, 12, 15, posB, 0.2);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 7);
     ResetValueAndTest(
@@ -3655,7 +3655,7 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     pos2 = soil_simulator::CalcBucketFramePos(10, 15, 0.6, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 15, pos0, 0.5);
     PushBodySoilPos(sim_out, 2, 10, 15, pos2, 0.1);
-    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);    
+    pos0 = soil_simulator::CalcBucketFramePos(11, 15, 0.7, grid, bucket);
     pos2 = soil_simulator::CalcBucketFramePos(11, 15, 0.1, grid, bucket);
     PushBodySoilPos(sim_out, 0, 11, 15, pos0, 0.2);
     PushBodySoilPos(sim_out, 2, 11, 15, pos2, 0.3);
@@ -3810,9 +3810,8 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBodySoil) {
     CheckBodySoilPos(sim_out->body_soil_pos_[4], 2, 12, 15, posA, 0.3);
     EXPECT_EQ(sim_out->body_soil_pos_.size(), 5);
     ResetValueAndTest(
-        sim_out, {},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}},
-        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}, {2, 12, 15}});
+        sim_out, {}, {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}},
+        {{0, 10, 15}, {2, 10, 15}, {0, 11, 15}, {2, 11, 15}});
 
     // Test: IC-MIBS-137
     soil_simulator::rng.seed(1234);
