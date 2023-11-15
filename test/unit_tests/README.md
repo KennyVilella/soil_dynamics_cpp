@@ -460,7 +460,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>Second Layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-40 </td><td>First layer </td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-41 </td><td>First layer </td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&cross;</td><td>Second Layer</td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-42 </td><td>First layer </td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
@@ -507,7 +507,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>Second Layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-60 </td><td>First layer </td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-61 </td><td>First layer </td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&cross;</td><td>Second Layer</td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-62 </td><td>First layer </td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
@@ -553,7 +553,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>Second Layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-79 </td><td>First layer </td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-80 </td><td>First layer </td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&cross;</td><td>Second Layer</td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-81 </td><td>First layer </td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
@@ -600,7 +600,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>Second Layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-99 </td><td>First layer </td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-100</td><td>First layer </td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&cross;</td><td>Second Layer</td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-101</td><td>First layer </td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
@@ -647,7 +647,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>Second Layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-119</td><td>First layer </td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-120</td><td>First layer </td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&cross;</td><td>Second Layer</td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-121</td><td>First layer </td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
@@ -693,7 +693,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>Second Layer</td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-138</td><td>First layer </td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-139</td><td>First layer </td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&cross;</td><td>Second Layer</td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-140</td><td>First layer </td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
@@ -731,7 +731,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-154</td><td>Second layer</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-155</td><td>Second layer</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-156</td><td>Second layer</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
@@ -778,7 +778,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-174</td><td>Second layer</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-175</td><td>Second layer</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-176</td><td>Second layer</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&cross;</td><td>&cross;</td></tr>
@@ -824,7 +824,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-193</td><td>Second layer</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>First Layer </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-194</td><td>Second layer</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>First layer </td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-195</td><td>Second layer</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
@@ -871,7 +871,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-213</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-214</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-215</td><td>Second layer</td><td>Second layer</td><td>&cross;</td><td>First layer </td><td>&cross;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
@@ -918,7 +918,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-233</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-234</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-235</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>Second layer</td><td>&cross;</td><td>&cross;</td></tr>
@@ -964,7 +964,7 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>First Layer </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-252</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>First Layer </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>&check;</td></tr>
-  <tr><td>           </td><td>First layer </td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
+  <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-253</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>IC-MIBS-254</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
@@ -1000,12 +1000,6 @@ As a result, for the previous location, only the identity of the bottom layer is
   <tr><td>IC-MIBS-266</td><td>Second layer</td><td>Second layer</td><td>&check;</td><td>First layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>Second Layer</td><td>&check;</td><td>First Layer </td><td>&check;</td><td>&cross;     </td><td>&cross;</td><td>&cross;</td></tr>
   <tr><td>           </td><td>Second layer</td><td>&cross;     </td><td>&cross;</td><td>&cross;     </td><td>&cross;</td><td>Terrain     </td><td>&check;</td><td>&cross;</td></tr>
-
-
-
-
-
-
 
 In addition to these basic unit tests, a few extra edge cases are checked.
 
