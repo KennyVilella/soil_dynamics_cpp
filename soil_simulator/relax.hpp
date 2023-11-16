@@ -36,10 +36,10 @@ void RelaxBodySoil(
     SimOut* sim_out, Grid grid, Bucket* bucket, SimParam sim_param, float tol);
 
 /// \brief This function locates all the cells in `terrain_` that have a height
-///        difference larger than `dh_max` with at least one neighboring cell.
+///        difference larger than `dh_max` with at least one neighbouring cell.
 ///
 /// \param sim_out: Class that stores simulation outputs.
-/// \param dh_max: Maximum height difference allowed between two neighboring
+/// \param dh_max: Maximum height difference allowed between two neighbouring
 ///                cells. [m]
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
@@ -48,11 +48,11 @@ std::vector<std::vector<int>> LocateUnstableTerrainCell(
     SimOut* sim_out, float dh_max, float tol);
 
 /// \brief This function checks the stability of a soil column in `terrain_`
-///        compared to one of its neighbor (`ii_c`, `jj_c`)
+///        compared to one of its neighbour (`ii_c`, `jj_c`)
 ///
 /// \param sim_out: Class that stores simulation outputs.
-/// \param ii_c: Index of the neighboring cell in the X direction.
-/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param ii_c: Index of the neighbouring cell in the X direction.
+/// \param jj_c: Index of the neighbouring cell in the Y direction.
 /// \param h_min: Minimum allowed height for a stable configuration. [m]
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
@@ -63,14 +63,14 @@ int CheckUnstableTerrainCell(
 
 /// \brief This function checks the stability of a soil column in the soil
 ///        layer `ind` of `body_soil_` at (`ii`, `jj`) compared to one of its
-///        neighbor at (`ii_c`, `jj_c`).
+///        neighbour at (`ii_c`, `jj_c`).
 ///
 /// \param sim_out: Class that stores simulation outputs.
 /// \param ii: Index of the considered cell in the X direction.
 /// \param jj: Index of the considered cell in the Y direction.
 /// \param ind: Index of the considered soil layer.
-/// \param ii_c: Index of the neighboring cell in the X direction.
-/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param ii_c: Index of the neighbouring cell in the X direction.
+/// \param jj_c: Index of the neighbouring cell in the Y direction.
 /// \param h_min: Minimum allowed height for a stable configuration. [m]
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
@@ -85,12 +85,12 @@ int CheckUnstableBodyCell(
 ///
 /// \param sim_out: Class that stores simulation outputs.
 /// \param status: Two-digit number indicating how the soil should avalanche.
-/// \param dh_max: Maximum height difference allowed between two neighboring
+/// \param dh_max: Maximum height difference allowed between two neighbouring
 ///                cells. [m]
 /// \param ii: Index of the considered cell in the X direction.
 /// \param jj: Index of the considered cell in the Y direction.
-/// \param ii_c: Index of the neighboring cell in the X direction.
-/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param ii_c: Index of the neighbouring cell in the X direction.
+/// \param jj_c: Index of the neighbouring cell in the Y direction.
 /// \param grid: Class that stores information related to the simulation grid.
 /// \param bucket: Class that stores information related to the bucket object.
 /// \param tol: Small number used to handle numerical approximation errors.
@@ -104,14 +104,14 @@ void RelaxUnstableTerrainCell(
 /// \param sim_out: Class that stores simulation outputs.
 /// \param status: Two-digit number indicating how the soil should avalanche.
 /// \param body_soil_pos: Queue to append new body_soil_pos.
-/// \param dh_max: Maximum height difference allowed between two neighboring
+/// \param dh_max: Maximum height difference allowed between two neighbouring
 ///                cells. [m]
 /// \param nn: Index of the considered soil in `body_soil_pos_`.
 /// \param ii: Index of the considered cell in the X direction.
 /// \param jj: Index of the considered cell in the Y direction.
 /// \param ind: Index of the considered soil layer.
-/// \param ii_c: Index of the neighboring cell in the X direction.
-/// \param jj_c: Index of the neighboring cell in the Y direction.
+/// \param ii_c: Index of the neighbouring cell in the X direction.
+/// \param jj_c: Index of the neighbouring cell in the Y direction.
 /// \param grid: Class that stores information related to the simulation grid.
 /// \param bucket: Class that stores information related to the bucket object.
 /// \param tol: Small number used to handle numerical approximation errors.

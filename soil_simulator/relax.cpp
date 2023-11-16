@@ -15,9 +15,9 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/utils.hpp"
 
 /// The soil stability is determined by the `repose_angle_`. If the slope formed
-/// by two neighboring soil columns exceeds the `repose_angle_`, it is
+/// by two neighbouring soil columns exceeds the `repose_angle_`, it is
 /// considered unstable, and the soil from the higher column should avalanche to
-/// the neighboring column to reach an equilibrium state.
+/// the neighbouring column to reach an equilibrium state.
 ///
 /// By convention, this function only checks the stability of the soil in the
 /// four adjacent cells:
@@ -30,7 +30,7 @@ Copyright, 2023, Vilella Kenny.
 ///
 /// This function only moves the soil when the following conditions are met:
 ///
-/// (1) The soil column in the neighboring cell is low enough.
+/// (1) The soil column in the neighbouring cell is low enough.
 /// (2) Either:
 ///     (a) The bucket is not on the soil, meaning there is space between the
 ///         `terrain_` and the bucket, or there is no bucket.
@@ -137,9 +137,9 @@ void soil_simulator::RelaxTerrain(
 }
 
 /// The soil stability is determined by the `repose_angle_`. If the slope formed
-/// by two neighboring soil columns exceeds the `repose_angle_`, it is
+/// by two neighbouring soil columns exceeds the `repose_angle_`, it is
 /// considered unstable, and the soil from the higher column should avalanche to
-/// the neighboring column to reach an equilibrium state.
+/// the neighbouring column to reach an equilibrium state.
 ///
 /// By convention, this function only checks the stability of the soil in the
 /// four adjacent cells:
@@ -152,8 +152,8 @@ void soil_simulator::RelaxTerrain(
 ///
 /// This function only moves the soil when the following conditions are met:
 ///
-/// (1) The soil column in the neighboring cell is low enough.
-/// (2) There is space on the top of the neighboring soil column.
+/// (1) The soil column in the neighbouring cell is low enough.
+/// (2) There is space on the top of the neighbouring soil column.
 void soil_simulator::RelaxBodySoil(
     SimOut* sim_out, Grid grid, Bucket* bucket, SimParam sim_param, float tol
 ) {
@@ -274,7 +274,7 @@ std::vector<std::vector<int>> soil_simulator::LocateUnstableTerrainCell(
 /// - 4 when no bucket layer is present.
 ///
 /// The second digit indicates the layer where the soil should avalanche:
-/// - 0 when it is the terrai` (no bucket is present).
+/// - 0 when it is the terrain` (no bucket is present).
 /// - 1 when it is the second bucket soil layer.
 /// - 2 when it is the second bucket layer.
 /// - 3 when it is the first bucket soil layer.
@@ -577,7 +577,7 @@ int soil_simulator::CheckUnstableBodyCell(
 /// The precise movement applied to the soil cell depends on the `status` number
 /// provided by the `CheckUnstableTerrainCell` function.
 ///
-/// The soil is moved such that the slope formed by the two neighboring soil
+/// The soil is moved such that the slope formed by the two neighbouring soil
 /// columns is equal to the `repose_angle_`. When the bucket is preventing this
 /// configuration, the soil avalanche below the bucket to fill the space under
 /// it.
@@ -791,7 +791,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
 /// The precise movement applied to the soil cell depends on the `status` number
 /// provided by the `CheckUnstableBodyCell` function.
 ///
-/// The soil is moved such that the slope formed by the two neighboring soil
+/// The soil is moved such that the slope formed by the two neighbouring soil
 /// columns is equal to the `repose_angle_`, provided that the bucket is not
 /// preventing this configuration.
 ///
