@@ -11,7 +11,7 @@ Copyright, 2023, Vilella Kenny.
 
 // -- MoveIntersectingCells --
 static void BM_MoveIntersectingCells(benchmark::State& state) {
-    // Writting outputs to stderr instead of logfiles
+    // Writing outputs to stderr instead of logfiles
     FLAGS_logtostderr = 1;
 
     // Defining inputs
@@ -62,7 +62,7 @@ BENCHMARK(BM_MoveIntersectingBody)->Unit(benchmark::kMicrosecond);
 
 // -- MoveIntersectingBodySoil --
 static void BM_MoveIntersectingBodySoil(benchmark::State& state) {
-    // Writting outputs to stderr instead of logfiles
+    // Writing outputs to stderr instead of logfiles
     FLAGS_logtostderr = 1;
 
     // Defining inputs

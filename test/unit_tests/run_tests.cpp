@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     // Initialize Google’s logging library.
     google::InitGoogleLogging(argv[0]);
 
-    // Writting outputs to stderr instead of logfiles
+    // Writing outputs to stderr instead of logfiles
     FLAGS_logtostdout = 1;
 
     // Disabling Warning messages
