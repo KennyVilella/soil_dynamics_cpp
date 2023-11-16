@@ -40,11 +40,13 @@ void soil_simulator::UpdateBodySoil(
     auto old_body_soil_pos = sim_out->body_soil_pos_;
 
     // Resetting body_soil
-    for (auto ii = 0 ; ii < sim_out->body_soil_.size(); ii++)
-        for (auto jj = 0 ; jj < sim_out->body_soil_[0].size(); jj++)
-            std::fill(
-                sim_out->body_soil_[ii][jj].begin(),
-                sim_out->body_soil_[ii][jj].end(), 0.0);
+    for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
+        int ind = old_body_soil_pos[nn].ind;
+        int ii = old_body_soil_pos[nn].ii;
+        int jj = old_body_soil_pos[nn].jj;
+        sim_out->body_soil_[ind][ii][jj] = 0.0;
+        sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+    }
 
     // Resetting body_soil_pos
     sim_out->body_soil_pos_.erase(
