@@ -125,8 +125,8 @@ void soil_simulator::CalcBucketPos(
 /// To optimize performance, the function iterates over a portion of the
 /// horizontal grid where the rectangle is located. For each cell, the function
 /// calculates the height of the plane formed by the rectangle at the top right
-/// corner of the cell. If the cell is within the rectangle area, the calcualted
-/// height is added to the results for the four neighboring cells.
+/// corner of the cell. If the cell is within the rectangle area, the calculated
+/// height is added to the results for the four neighbouring cells.
 ///
 /// This method works because when a plane intersects with a rectangular cell,
 /// the minimum and maximum height of the plane within the cell occurs at one of
@@ -197,7 +197,7 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
     ab_ind[2] = ab[2] / grid.cell_size_z_;
     ad_ind[2] = ad[2] / grid.cell_size_z_;
 
-    // Listing the cells inside the rectangle area
+    // Listing cells inside the rectangle area
     auto [c_ab, c_ad, in_rectangle, n_cell] =
         soil_simulator::DecomposeVectorRectangle(
             ab_ind, ad_ind, a_ind, area_min_x, area_min_y, area_length_x,
@@ -343,9 +343,6 @@ soil_simulator::DecomposeVectorRectangle(
                 // Cell is inside the rectangle area
                 in_rectangle[ii_s][jj_s] = true;
                 n_cell += 4;
-            } else {
-                // Cell is outside the rectangle area
-                in_rectangle[ii_s][jj_s] = false;
             }
         }
 
@@ -358,8 +355,8 @@ soil_simulator::DecomposeVectorRectangle(
 /// To optimize performance, the function iterates over a portion of the
 /// horizontal grid where the triangle is located. For each cell, the function
 /// calculates the height of the plane formed by the triangle at the top right
-/// corner of the cell. If the cell is within the triangle area, the calcualted
-/// height is added to the results for the four neighboring cells.
+/// corner of the cell. If the cell is within the triangle area, the calculated
+/// height is added to the results for the four neighbouring cells.
 ///
 /// This method works because when a plane intersects with a rectangular cell,
 /// the minimum and maximum height of the plane within the cell occurs at one of
@@ -426,7 +423,7 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
     ab_ind[2] = ab[2] / grid.cell_size_z_;
     ac_ind[2] = ac[2] / grid.cell_size_z_;
 
-    // Listing the cells inside the triangle area
+    // Listing cells inside the triangle area
     auto [c_ab, c_ac, in_triangle, n_cell] =
         soil_simulator::DecomposeVectorTriangle(
             ab_ind, ac_ind, a_ind, area_min_x, area_min_y, area_length_x,
@@ -571,9 +568,6 @@ soil_simulator::DecomposeVectorTriangle(
                 // Cell is inside the triangle area
                 in_triangle[ii_s][jj_s] = true;
                 n_cell += 4;
-            } else {
-                // Cell is outside the triangle area
-                in_triangle[ii_s][jj_s] = false;
             }
         }
 
@@ -586,7 +580,7 @@ soil_simulator::DecomposeVectorTriangle(
 ///
 /// The floating-point values are rounded to obtain the cell indices in
 /// the X, Y, Z directions.
-/// As the center of each cell is considered to be on the center of the top
+/// As the centre of each cell is considered to be on the centre of the top
 /// surface, `round` should be used for getting the cell indices in the X and Y
 /// direction, while `ceil` should be used for the Z direction.
 ///
@@ -605,9 +599,9 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     float z2 = b[2] / grid.cell_size_z_ + grid.half_length_z_ - 1.0;
 
     // Determining direction of line
-    int stepX = (x1 < x2) ? 1 : -1;
-    int stepY = (y1 < y2) ? 1 : -1;
-    int stepZ = (z1 < z2) ? 1 : -1;
+    int step_x = (x1 < x2) ? 1 : -1;
+    int step_y = (y1 < y2) ? 1 : -1;
+    int step_z = (z1 < z2) ? 1 : -1;
 
     // Spatial difference between a and b
     float dx = x2 - x1;
@@ -623,34 +617,34 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
         dz = 1e-10;
 
     // Determining the offset to first cell boundary
-    float tMaxX;
-    float tMaxY;
-    float tMaxZ;
-    if (stepX == 1) {
-        tMaxX = round(x1) + 0.5 - x1;
+    float t_max_x;
+    float t_max_y;
+    float t_max_z;
+    if (step_x == 1) {
+        t_max_x = round(x1) + 0.5 - x1;
     } else {
-        tMaxX = x1 - round(x1) + 0.5;
+        t_max_x = x1 - round(x1) + 0.5;
     }
-    if (stepY == 1) {
-        tMaxY = round(y1) + 0.5 - y1;
+    if (step_y == 1) {
+        t_max_y = round(y1) + 0.5 - y1;
     } else {
-        tMaxY = y1 - round(y1) + 0.5;
+        t_max_y = y1 - round(y1) + 0.5;
     }
-    if (stepZ == 1) {
-        tMaxZ = std::ceil(z1) - z1;
+    if (step_z == 1) {
+        t_max_z = std::ceil(z1) - z1;
     } else {
-        tMaxZ = z1 - std::floor(z1);
+        t_max_z = z1 - std::floor(z1);
     }
 
     // Determining how long on the line to cross the cell
-    float tDeltaX = std::sqrt(1.0 + (dy * dy + dz * dz) / (dx * dx));
-    float tDeltaY = std::sqrt(1.0 + (dx * dx + dz * dz) / (dy * dy));
-    float tDeltaZ = std::sqrt(1.0 + (dx * dx + dy * dy) / (dz * dz));
+    float t_delta_x = std::sqrt(1.0 + (dy * dy + dz * dz) / (dx * dx));
+    float t_delta_y = std::sqrt(1.0 + (dx * dx + dz * dz) / (dy * dy));
+    float t_delta_z = std::sqrt(1.0 + (dx * dx + dy * dy) / (dz * dz));
 
     // Determining the distance along the line until the first cell boundary
-    tMaxX *= tDeltaX;
-    tMaxY *= tDeltaY;
-    tMaxZ *= tDeltaZ;
+    t_max_x *= t_delta_x;
+    t_max_y *= t_delta_y;
+    t_max_z *= t_delta_z;
 
     // Calculating norm of the vector AB
     float ab_norm = std::sqrt(dx * dx + dy * dy + dz * dz);
@@ -664,22 +658,22 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
         static_cast<int>(std::ceil(z1))};
 
     // Iterating along the line until reaching the end
-    while ((tMaxX < ab_norm) || (tMaxY < ab_norm) || (tMaxZ < ab_norm)) {
-        if (tMaxX < tMaxY) {
-            if (tMaxX < tMaxZ) {
-                x1 = x1 + stepX;
-                tMaxX += tDeltaX;
+    while ((t_max_x < ab_norm) || (t_max_y < ab_norm) || (t_max_z < ab_norm)) {
+        if (t_max_x < t_max_y) {
+            if (t_max_x < t_max_z) {
+                x1 = x1 + step_x;
+                t_max_x += t_delta_x;
             } else {
-                z1 = z1 + stepZ;
-                tMaxZ += tDeltaZ;
+                z1 = z1 + step_z;
+                t_max_z += t_delta_z;
             }
         } else {
-            if (tMaxY < tMaxZ) {
-                y1 = y1 + stepY;
-                tMaxY += tDeltaY;
+            if (t_max_y < t_max_z) {
+                y1 = y1 + step_y;
+                t_max_y += t_delta_y;
             } else {
-                z1 = z1 + stepZ;
-                tMaxZ += tDeltaZ;
+                z1 = z1 + step_z;
+                t_max_z += t_delta_z;
             }
         }
         line_pos.push_back(std::vector<int> {
@@ -707,16 +701,16 @@ void soil_simulator::UpdateBody(
     // Iterating over all cells in area_pos
     for (auto nn = 0; nn < area_pos.size(); nn++) {
         if ((ii != area_pos[nn][0]) || (jj != area_pos[nn][1])) {
-            // New XY position ###
+            // New XY position
             // Updating bucket position for the previous XY position
             soil_simulator::IncludeNewBodyPos(
                 sim_out, ii, jj, min_h, max_h, tol);
 
             // Initializing new cell position and height
-            min_h = grid.vect_z_[area_pos[nn][2]] - grid.cell_size_z_;
-            max_h = grid.vect_z_[area_pos[nn][2]];
             ii = area_pos[nn][0];
             jj = area_pos[nn][1];
+            min_h = grid.vect_z_[area_pos[nn][2]] - grid.cell_size_z_;
+            max_h = grid.vect_z_[area_pos[nn][2]];
         } else {
             // New height for the XY position
             // Updating maximum height
