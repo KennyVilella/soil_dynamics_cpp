@@ -16,13 +16,26 @@ Copyright, 2023, Vilella Kenny.
 /// The bucket position is calculated based on its reference pose stored in
 /// the `Bucket` class, as well as the provided position (`pos`) and orientation
 /// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
-/// rotation to the bucket relative to its reference pose. The center of
+/// rotation to the bucket relative to its reference pose. The centre of
 /// rotation is assumed to be the bucket origin. The orientation is provided
 /// using the quaternion definition.
 void soil_simulator::CalcBucketPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, SimParam sim_param, float tol
 ) {
+    // Reinitializing bucket position
+    int bucket_min_x = sim_out->bucket_area_[0][0];
+    int bucket_max_x = sim_out->bucket_area_[0][1];
+    int bucket_min_y = sim_out->bucket_area_[1][0];
+    int bucket_max_y = sim_out->bucket_area_[1][1];
+    for (auto ii = bucket_min_x; ii < bucket_max_x; ii++)
+        for (auto jj = bucket_min_y; jj < bucket_max_y; jj++) {
+            sim_out->body_[0][ii][jj] = 0.0;
+            sim_out->body_[1][ii][jj] = 0.0;
+            sim_out->body_[2][ii][jj] = 0.0;
+            sim_out->body_[3][ii][jj] = 0.0;
+        }
+
     // Calculating position of the bucket corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
         soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
@@ -98,13 +111,6 @@ void soil_simulator::CalcBucketPos(
     sort(back_pos.begin(), back_pos.end());
     sort(right_side_pos.begin(), right_side_pos.end());
     sort(left_side_pos.begin(), left_side_pos.end());
-
-    // Reinitializing bucket position
-    for (auto ii = 0 ; ii < sim_out->body_.size(); ii++)
-        for (auto jj = 0 ; jj < sim_out->body_[0].size(); jj++)
-            std::fill(
-                sim_out->body_[ii][jj].begin(), sim_out->body_[ii][jj].end(),
-                0.0);
 
     // Updating the bucket position
     soil_simulator::UpdateBody(base_pos, sim_out, grid, tol);
