@@ -111,6 +111,7 @@ static void BM_UpdateBody(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::UpdateBody(tri_pos, sim_out, grid, 1.e-5);
+
     delete sim_out;
 }
 BENCHMARK(BM_UpdateBody)->Unit(benchmark::kMicrosecond);
@@ -123,6 +124,7 @@ static void BM_IncludeNewBodyPos(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::IncludeNewBodyPos(sim_out, 10, 15, 0.5, 0.6, 1.e-5);
+
     delete sim_out;
 }
 BENCHMARK(BM_IncludeNewBodyPos);

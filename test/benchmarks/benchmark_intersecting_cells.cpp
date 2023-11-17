@@ -31,6 +31,7 @@ static void BM_MoveIntersectingCells(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::MoveIntersectingCells(sim_out, grid, bucket, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }
@@ -55,6 +56,7 @@ static void BM_MoveIntersectingBody(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::MoveIntersectingBody(sim_out, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }
@@ -94,6 +96,7 @@ static void BM_MoveIntersectingBodySoil(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::MoveIntersectingBodySoil(sim_out, grid, bucket, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }
@@ -118,6 +121,7 @@ static void BM_LocateIntersectingCells(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::LocateIntersectingCells(sim_out, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }
@@ -152,6 +156,7 @@ static void BM_MoveBodySoil(benchmark::State& state) {
     for (auto _ : state)
         soil_simulator::MoveBodySoil(
             sim_out, 0, 5, 7, 0.4, 5, 11, 0.5, true, grid, bucket, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }

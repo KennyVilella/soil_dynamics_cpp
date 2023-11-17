@@ -40,6 +40,7 @@ static void BM_RelaxTerrain(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::RelaxTerrain(sim_out, grid, bucket, sim_param, 1.e-5);
+
     delete bucket;
     delete sim_out;
 }
@@ -89,6 +90,7 @@ static void BM_RelaxBodySoil(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1.e-5);
+
     delete bucket;
     delete sim_out;
 }
@@ -110,6 +112,7 @@ static void BM_LocateUnstableTerrainCell(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::LocateUnstableTerrainCell(sim_out, 0.1, 1.e-5);
+
     delete sim_out;
 }
 BENCHMARK(BM_LocateUnstableTerrainCell)->Unit(benchmark::kMicrosecond);
@@ -124,6 +127,7 @@ static void BM_CheckUnstableTerrainCell(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::CheckUnstableTerrainCell(sim_out, 50, 55, 0.2, 1.e-5);
+
     delete sim_out;
 }
 BENCHMARK(BM_CheckUnstableTerrainCell);
@@ -147,6 +151,7 @@ static void BM_RelaxUnstableTerrainCell(benchmark::State& state) {
     for (auto _ : state)
         soil_simulator::RelaxUnstableTerrainCell(
             sim_out, 142, 0.1, 50, 55, 49, 55, grid, bucket, 1.e-5);
+
     delete bucket;
     delete sim_out;
 }
@@ -180,9 +185,11 @@ static void BM_CheckUnstableBodyCell(benchmark::State& state) {
     pos = soil_simulator::CalcBucketFramePos(50, 60, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 50, 60, pos[0], pos[1], pos[2], 0.3});
+
     for (auto _ : state)
         soil_simulator::CheckUnstableBodyCell(
             sim_out, 50, 61, 0, 50, 60, 0.1, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }
@@ -223,6 +230,7 @@ static void BM_RelaxUnstableBodyCell(benchmark::State& state) {
         soil_simulator::RelaxUnstableBodyCell(
             sim_out, 13, body_soil_pos, 0.1, 0, 50, 61, 0, 50, 60, grid, bucket,
             1.e-5);
+
     delete bucket;
     delete sim_out;
     delete body_soil_pos;
