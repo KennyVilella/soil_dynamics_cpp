@@ -570,39 +570,9 @@ void soil_simulator::WriteSoil(
 void soil_simulator::WriteBucket(
     Bucket* bucket
 ) {
-    // Calculating position of the bucket points
-    auto j_pos = soil_simulator::CalcRotationQuaternion(
-        bucket->ori_, bucket->j_pos_init_);
-    auto b_pos = soil_simulator::CalcRotationQuaternion(
-        bucket->ori_, bucket->b_pos_init_);
-    auto t_pos = soil_simulator::CalcRotationQuaternion(
-        bucket->ori_, bucket->t_pos_init_);
-
-    // Unit vector normal to the side of the bucket
-    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
-
-    // Declaring vectors for each vertex of the bucket
-    std::vector<float> j_r_pos(3);
-    std::vector<float> j_l_pos(3);
-    std::vector<float> b_r_pos(3);
-    std::vector<float> b_l_pos(3);
-    std::vector<float> t_r_pos(3);
-    std::vector<float> t_l_pos(3);
-
-    for (auto ii = 0; ii < 3; ii++) {
-        // Adding position of the bucket origin
-        j_pos[ii] += bucket->pos_[ii];
-        b_pos[ii] += bucket->pos_[ii];
-        t_pos[ii] += bucket->pos_[ii];
-
-        // Position of each vertex of the bucket
-        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-    }
+    // Calculating position of bucket corners
+    auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
+        soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
 
     // Finding next filename for the bucket file
     std::source_location location = std::source_location::current();
