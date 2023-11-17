@@ -63,8 +63,8 @@ soil_simulator::CalcBucketCornerPos(
 ///
 /// If the maximum distance travelled is lower than 50% of the cell size,
 /// the function returns `false` otherwise it returns `true`.
-/// Note that if the distance travelled exceeds twice the cell size, a warning is
-/// issued to indicate a potential problem with the soil update.
+/// Note that if the distance travelled exceeds twice the cell size, a warning
+/// is issued to indicate a potential problem with the soil update.
 bool soil_simulator::CheckBucketMovement(
     std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket
 ) {
