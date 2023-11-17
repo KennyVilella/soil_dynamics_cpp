@@ -220,7 +220,7 @@ std::vector<std::vector<int>> soil_simulator::CalcRectanglePos(
                     a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
                     c_ad[ii_s][jj_s] * ad_ind[2]));
 
-                // Adding the four neighboring cells with the calculated height
+                // Adding the four neighbouring cells with the calculated height
                 rect_pos[nn_cell][0] = ii;
                 rect_pos[nn_cell][1] = jj;
                 rect_pos[nn_cell][2] = kk;
@@ -446,7 +446,7 @@ std::vector<std::vector<int>> soil_simulator::CalcTrianglePos(
                     a_ind[2] + c_ab[ii_s][jj_s] * ab_ind[2] +
                     c_ac[ii_s][jj_s] * ac_ind[2]));
 
-                // Adding the four neighboring cells with the calculated height
+                // Adding the four neighbouring cells with the calculated height
                 tri_pos[nn_cell][0] = ii;
                 tri_pos[nn_cell][1] = jj;
                 tri_pos[nn_cell][2] = kk;

@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/docs-main-blue.svg)][docs-main]
 
 This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of an excavator bucket.
-It employs a cellular automata approach to model the behavior of the soil.
+It employs a cellular automata approach to model the behaviour of the soil.
 The bucket geometry is assumed to be a simple triangular prism, and the simulator operates on a grid composed of rectangular cells with equal length in the X and Y directions, and a height that is less than or equal to the cell's length.
 A crucial requirement of the simulator is that the terrain must be updated every time the bucket moves by more than one cell.
 
@@ -19,7 +19,7 @@ There are several important features that are yet to be implemented.
 These include, in order of priority:
 
 - Integration testing: Conduct thorough integration tests to ensure the functionality of the simulator.
-- Multiple digging buckets: Add support for simulating the behavior of multiple digging buckets simultaneously.
+- Multiple digging buckets: Add support for simulating the behaviour of multiple digging buckets simultaneously.
 - Force calculation: Incorporate force calculation methods for better integration with rigid body engines.
 - Heterogeneous soil properties: Extend the simulator to handle soil properties that vary across the terrain.
 
