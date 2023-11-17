@@ -29,7 +29,7 @@ std::tuple<
 CalcBucketCornerPos(
     std::vector<float> pos, std::vector<float> ori, Bucket* bucket);
 
-/// \brief This function calculates how far the bucket has traveled since the
+/// \brief This function calculates how far the bucket has travelled since the
 ///        last soil update and checks whether it is necessary to update the
 ///        soil.
 ///
@@ -54,7 +54,7 @@ std::vector<float> CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c);
 
 /// \brief This function calculates the position of a considered cell in the
-///        bucket frame assuming that the bucket is in its reference psoition.
+///        bucket frame assuming that the bucket is in its reference position.
 ///
 /// \param ii: Index of the considered cell in the X direction.
 /// \param jj: Index of the considered cell in the Y direction.
@@ -62,7 +62,7 @@ std::vector<float> CalcNormal(
 /// \param grid: Class that stores information related to the simulation grid.
 /// \param bucket: Class that stores information related to the bucket object.
 ///
-/// \return Cartesian coordinate of the considered position in the reference
+/// \return Cartesian coordinates of the considered position in the reference
 ///         bucket frame.
 std::vector<float> CalcBucketFramePos(
     int ii, int jj, float z, Grid grid, Bucket* bucket);
@@ -89,7 +89,7 @@ std::vector<float> CalcRotationQuaternion(
 /// \return Orientation of the bucket. [Quaternion]
 std::vector<float> AngleToQuat(std::vector<float> ori);
 
-/// \brief This function calculates the product of two Quaternions.
+/// \brief This function calculates the product of two quaternions.
 ///
 /// \param q1: First quaternion. [Quaternion]
 /// \param q2: Second quaternion. [Quaternion]
@@ -139,6 +139,7 @@ void WriteBucket(Bucket* bucket);
 /// \param perm_table: Pre-calculated permutation table to generate
 ///                    pseudo-random noise.
 ///
-/// \return float: Simplex noise.
+/// \return A float representing the Simplex noise.
 float simplex_noise(float x, float y, std::vector<int> perm_table);
+
 }  // namespace soil_simulator
