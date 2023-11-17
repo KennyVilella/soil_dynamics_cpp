@@ -183,7 +183,7 @@
 </pre></div>
 </div>
 <p><ul class="simple">
-<li><p>The center of each cell (O) is considered to be at the center of the top surface.</p></li>
+<li><p>The centre of each cell (O) is considered to be at the centre of the top surface.</p></li>
 <li><p>The considered reference frame follows the right-hand rule, with the Z direction pointing upward.</p></li>
 </ul>
 </p>
@@ -336,7 +336,7 @@ B ____________________ E
 </pre></div>
 </div>
 <p><ul class="simple">
-<li><p>The center of rotation of the bucket is assumed to be at the bucket origin (not shown in the figure) and the bucket vertices are given relative to this origin.</p></li>
+<li><p>The centre of rotation of the bucket is assumed to be at the bucket origin (not shown in the figure) and the bucket vertices are given relative to this origin.</p></li>
 <li><p>The provided coordinates are assumed to be the reference pose of the bucket, from which the bucket pose is calculated throughout the code.</p></li>
 </ul>
 </p>
@@ -349,7 +349,7 @@ B ____________________ E
 </pre></div>
 </div>
 </p>
-<p>This would create a bucket ABCDEF with its center of rotation at the bucket joint and with:<ul class="simple">
+<p>This would create a bucket ABCDEF with its centre of rotation at the bucket joint and with:<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">-0.25,</span> <span class="pre">0.0]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">=</span> <span class="pre">[1.0,</span> <span class="pre">-0.25,</span> <span class="pre">-0.5]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">-0.25,</span> <span class="pre">-0.5]</span></code></p></li>
@@ -509,9 +509,9 @@ B ____________________ E
 <li><p>The <code class="docutils literal notranslate"><span class="pre">terrain_</span></code> Matrix stores the height of the terrain at each XY position, see the <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_grid"><span class="std std-ref"><span class="pre">Grid</span></span></a></code> class for more details on the simulation grid.</p></li>
 <li><p>The cells where a bucket wall is located is stored in <code class="docutils literal notranslate"><span class="pre">body_</span></code>. At each XY position, the first layer indicates the lowest height where a bucket wall is located while the second layer indicates the maximum height of this bucket wall. If a second bucket wall is located at the same XY position, its minimum and maximum height are indicated in the third and fourth layers, respectively.</p></li>
 <li><p>For each bucket, there can be only two distinct bucket walls located at the same XY position. As a result, the number of layers in the <code class="docutils literal notranslate"><span class="pre">body_</span></code> vector should be equal to four times the number of bucket.</p></li>
-<li><p>Similarly, <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> stores the location of the soil resting on a bucket wall. The structure of <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> is identical to <code class="docutils literal notranslate"><span class="pre">body_</span></code>. An additionnal restriction is that the minimum height of the soil resting on the bucket must correspond to the maximum height of a bucket wall.</p></li>
-<li><p>The locations where there is soil resting on the bucket are stored in <code class="docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> as 3-elements vectors. The first element corresponds to the index where the minimum height of the soil is stored, while the second and third element correspond to the index of the X and Y position, respectively.</p></li>
-<li><p>The active areas (<code class="docutils literal notranslate"><span class="pre">bucket_area_</span></code>, <code class="docutils literal notranslate"><span class="pre">relax_area_</span></code> and <code class="docutils literal notranslate"><span class="pre">impact_area_</span></code>) are assumed to be rectangular and to follow the grid geometry. They are thus stored as 2x2 Matrices where: [1, 1] corresponds to the minimum X index. [1, 2] corresponds to the maximum X index. [2, 1] corresponds to the minimum Y index. [2, 2] corresponds to the maximum Y index.</p></li>
+<li><p>Similarly, <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> stores the location of the soil resting on a bucket wall. The structure of <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> is identical to <code class="docutils literal notranslate"><span class="pre">body_</span></code>. An additional restriction is that the minimum height of the soil resting on the bucket must correspond to the maximum height of a bucket wall.</p></li>
+<li><p>The locations where there is soil resting on the bucket are stored in <code class="docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> as a vector of <code class="docutils literal notranslate"><a class="reference internal" href="#structsoil__simulator_1_1body__soil"><span class="std std-ref"><span class="pre">body_soil</span></span></a></code> struct.</p></li>
+<li><p>The active areas (<code class="docutils literal notranslate"><span class="pre">bucket_area_</span></code>, <code class="docutils literal notranslate"><span class="pre">relax_area_</span></code> and <code class="docutils literal notranslate"><span class="pre">impact_area_</span></code>) are assumed to be rectangular and to follow the grid geometry. They are thus stored as 2x2 Matrices where: [0, 0] corresponds to the minimum X index. [0, 1] corresponds to the maximum X index. [1, 0] corresponds to the minimum Y index. [1, 1] corresponds to the maximum Y index.</p></li>
 </ul>
 </p>
 <p>Note:<ul class="simple">

@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="352" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="352" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="348" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="348" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1a4b7a38b487950de6994e2a93b44f700e" prot="public" static="no" mutable="no">
         <type>std::vector&lt; std::vector&lt; float &gt; &gt;</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="355" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="355" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="351" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="351" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1a516a4d6d9be2ba178f68f323e43cb578" prot="public" static="no" mutable="no">
         <type>std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt;</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="359" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="359" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="355" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="355" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1aed6d0cf14eb073bfb65e2c5d1c8d816c" prot="public" static="no" mutable="no">
         <type>std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt;</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="363" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="363" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="359" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="359" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1a2d124a2bb5f7e445db83a7f55aa6a830" prot="public" static="no" mutable="no">
         <type>std::vector&lt; <ref refid="structsoil__simulator_1_1body__soil" kindref="compound">body_soil</ref> &gt;</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="366" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="366" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="362" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="362" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1a42dae9412a224155f4ae41218b501dee" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="370" column="10" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="370" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="366" column="10" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="366" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1a1b82b86c0e79f9ef6159ce9967fcc80a" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="374" column="10" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="374" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="370" column="10" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="370" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classsoil__simulator_1_1_sim_out_1ae23295a53a5d42a25e461558721561a5" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="378" column="10" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="378" bodyend="-1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="374" column="10" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="374" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="384" column="15" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp" bodystart="149" bodyend="176"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="380" column="15" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp" bodystart="149" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="classsoil__simulator_1_1_sim_out_1a854bd1d28c331603b18f5a9f565b9fa9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="387" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="387" bodyend="387"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="383" column="5" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="383" bodyend="383"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -170,9 +170,9 @@
 <listitem><para>The <computeroutput>terrain_</computeroutput> Matrix stores the height of the terrain at each XY position, see the <computeroutput><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></computeroutput> class for more details on the simulation grid.</para>
 </listitem><listitem><para>The cells where a bucket wall is located is stored in <computeroutput>body_</computeroutput>. At each XY position, the first layer indicates the lowest height where a bucket wall is located while the second layer indicates the maximum height of this bucket wall. If a second bucket wall is located at the same XY position, its minimum and maximum height are indicated in the third and fourth layers, respectively.</para>
 </listitem><listitem><para>For each bucket, there can be only two distinct bucket walls located at the same XY position. As a result, the number of layers in the <computeroutput>body_</computeroutput> vector should be equal to four times the number of bucket.</para>
-</listitem><listitem><para>Similarly, <computeroutput>body_soil_</computeroutput> stores the location of the soil resting on a bucket wall. The structure of <computeroutput>body_soil_</computeroutput> is identical to <computeroutput>body_</computeroutput>. An additionnal restriction is that the minimum height of the soil resting on the bucket must correspond to the maximum height of a bucket wall.</para>
-</listitem><listitem><para>The locations where there is soil resting on the bucket are stored in <computeroutput>body_soil_pos_</computeroutput> as 3-elements vectors. The first element corresponds to the index where the minimum height of the soil is stored, while the second and third element correspond to the index of the X and Y position, respectively.</para>
-</listitem><listitem><para>The active areas (<computeroutput>bucket_area_</computeroutput>, <computeroutput>relax_area_</computeroutput> and <computeroutput>impact_area_</computeroutput>) are assumed to be rectangular and to follow the grid geometry. They are thus stored as 2x2 Matrices where: [1, 1] corresponds to the minimum X index. [1, 2] corresponds to the maximum X index. [2, 1] corresponds to the minimum Y index. [2, 2] corresponds to the maximum Y index.</para>
+</listitem><listitem><para>Similarly, <computeroutput>body_soil_</computeroutput> stores the location of the soil resting on a bucket wall. The structure of <computeroutput>body_soil_</computeroutput> is identical to <computeroutput>body_</computeroutput>. An additional restriction is that the minimum height of the soil resting on the bucket must correspond to the maximum height of a bucket wall.</para>
+</listitem><listitem><para>The locations where there is soil resting on the bucket are stored in <computeroutput>body_soil_pos_</computeroutput> as a vector of <computeroutput><ref refid="structsoil__simulator_1_1body__soil" kindref="compound">body_soil</ref></computeroutput> struct.</para>
+</listitem><listitem><para>The active areas (<computeroutput>bucket_area_</computeroutput>, <computeroutput>relax_area_</computeroutput> and <computeroutput>impact_area_</computeroutput>) are assumed to be rectangular and to follow the grid geometry. They are thus stored as 2x2 Matrices where: [0, 0] corresponds to the minimum X index. [0, 1] corresponds to the maximum X index. [1, 0] corresponds to the minimum Y index. [1, 1] corresponds to the maximum Y index.</para>
 </listitem></itemizedlist>
 </para>
 <para>Note:<itemizedlist>
@@ -185,7 +185,7 @@
 </programlisting></para>
 <para>This would create a flat terrain located at 0 height. </para>
     </detaileddescription>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="349" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="349" bodyend="388"/>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="345" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="345" bodyend="384"/>
     <listofallmembers>
       <member refid="classsoil__simulator_1_1_sim_out_1a516a4d6d9be2ba178f68f323e43cb578" prot="public" virt="non-virtual"><scope>soil_simulator::SimOut</scope><name>body_</name></member>
       <member refid="classsoil__simulator_1_1_sim_out_1aed6d0cf14eb073bfb65e2c5d1c8d816c" prot="public" virt="non-virtual"><scope>soil_simulator::SimOut</scope><name>body_soil_</name></member>

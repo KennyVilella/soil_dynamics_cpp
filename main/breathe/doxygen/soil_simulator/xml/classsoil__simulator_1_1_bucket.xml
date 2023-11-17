@@ -229,7 +229,7 @@ B ____________________ E
 <para><programlisting><codeline><highlight class="normal">AD<sp/>=<sp/>BE<sp/>=<sp/>CF<sp/>=<sp/>`width_`.</highlight></codeline>
 </programlisting></para>
 <para><itemizedlist>
-<listitem><para>The center of rotation of the bucket is assumed to be at the bucket origin (not shown in the figure) and the bucket vertices are given relative to this origin.</para>
+<listitem><para>The centre of rotation of the bucket is assumed to be at the bucket origin (not shown in the figure) and the bucket vertices are given relative to this origin.</para>
 </listitem><listitem><para>The provided coordinates are assumed to be the reference pose of the bucket, from which the bucket pose is calculated throughout the code.</para>
 </listitem></itemizedlist>
 </para>
@@ -240,7 +240,7 @@ B ____________________ E
 <codeline></codeline>
 <codeline><highlight class="normal">soil_simulator::Bucket<sp/>bucket(o_pos,<sp/>j_pos,<sp/>b_pos,<sp/>t_pos,<sp/>0.5);</highlight></codeline>
 </programlisting></para>
-<para>This would create a bucket ABCDEF with its center of rotation at the bucket joint and with:<itemizedlist>
+<para>This would create a bucket ABCDEF with its centre of rotation at the bucket joint and with:<itemizedlist>
 <listitem><para><computeroutput>A = [0.0, -0.25, 0.0]</computeroutput></para>
 </listitem><listitem><para><computeroutput>B = [1.0, -0.25, -0.5]</computeroutput></para>
 </listitem><listitem><para><computeroutput>C = [0.0, -0.25, -0.5]</computeroutput></para>

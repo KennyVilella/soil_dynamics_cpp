@@ -53,9 +53,9 @@
     <member refid="classsoil__simulator_1_1_sim_param_1ab3d425640c0281cf06fd67bcbe42e23c" kind="function"><name>~SimParam</name></member>
   </compound>
   <compound refid="classsoil__simulator_1_1_soil_dynamics" kind="class"><name>soil_simulator::SoilDynamics</name>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1a3c911bf55837590aa62997a53f380d49" kind="function"><name>init</name></member>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1a6ceb9b7184272c995b91a9aa2b697b56" kind="function"><name>step</name></member>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1ac74563070fa12a0cb5bda7f0a3519e2d" kind="function"><name>check</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1a0e8aedf7573bbdf9fab4d04233c1c99b" kind="function"><name>Init</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1a1eeeb5a2ca5050bdb488cf5d301a146d" kind="function"><name>Step</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1a3fb2d0179bbaacf11b0ab24ca83f36ac" kind="function"><name>Check</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" kind="function"><name>WriteOutputs</name></member>
   </compound>
   <compound refid="namespacesoil__simulator" kind="namespace"><name>soil_simulator</name>

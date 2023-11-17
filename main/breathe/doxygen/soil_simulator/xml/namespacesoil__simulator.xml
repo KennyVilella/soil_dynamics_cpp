@@ -118,11 +118,11 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The bucket position is calculated based on its reference pose stored in the <computeroutput><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></computeroutput> class, as well as the provided position (<computeroutput>pos</computeroutput>) and orientation (<computeroutput>ori</computeroutput>). <computeroutput>pos</computeroutput> and <computeroutput>ori</computeroutput> are used to apply the appropriate translation and rotation to the bucket relative to its reference pose. The center of rotation is assumed to be the bucket origin. The orientation is provided using the quaternion definition. </para>
+The bucket position is calculated based on its reference pose stored in the <computeroutput><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></computeroutput> class, as well as the provided position (<computeroutput>pos</computeroutput>) and orientation (<computeroutput>ori</computeroutput>). <computeroutput>pos</computeroutput> and <computeroutput>ori</computeroutput> are used to apply the appropriate translation and rotation to the bucket relative to its reference pose. The centre of rotation is assumed to be the bucket origin. The orientation is provided using the quaternion definition. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="22" bodyend="114" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="23" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="22" bodyend="120" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="23" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="bucket__pos_8hpp_1a2179535c3816696c99c48313caf203f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -209,7 +209,7 @@ The bucket position is calculated based on its reference pose stored in the <com
 <simplesect kind="return"><para>Collection of cells indices where the rectangle is located. Result is not sorted and duplicates may be present.</para>
 </simplesect>
 The rectangle is defined by providing the Cartesian coordinates of its four vertices in the proper order.</para>
-<para>To optimize performance, the function iterates over a portion of the horizontal grid where the rectangle is located. For each cell, the function calculates the height of the plane formed by the rectangle at the top right corner of the cell. If the cell is within the rectangle area, the calcualted height is added to the results for the four neighboring cells.</para>
+<para>To optimize performance, the function iterates over a portion of the horizontal grid where the rectangle is located. For each cell, the function calculates the height of the plane formed by the rectangle at the top right corner of the cell. If the cell is within the rectangle area, the calculated height is added to the results for the four neighbouring cells.</para>
 <para>This method works because when a plane intersects with a rectangular cell, the minimum and maximum height of the plane within the cell occurs at one of the cell corners. By iterating through all the cells, the function ensures that all the corners of each cell are investigated.</para>
 <para>However, this approach does not work when the rectangle is perpendicular to the XY plane. To handle this case, the function uses the <computeroutput>CalcLinePos</computeroutput> function to include the cells that lie on the four edges of the rectangle.</para>
 <para>Note:<itemizedlist>
@@ -221,7 +221,7 @@ The rectangle is defined by providing the Cartesian coordinates of its four vert
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="39" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="142" bodyend="249" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="39" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="39" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="148" bodyend="255" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="39" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="bucket__pos_8hpp_1a548c40b2efad17e1de1cefd5213b180d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt;</type>
@@ -353,7 +353,7 @@ The position of the rectangle is defined by its edges AB and AD, while the speci
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="65" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="299" bodyend="347" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="65" declcolumn="1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="65" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="305" bodyend="350" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="65" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="bucket__pos_8hpp_1a368a653cb44e842ab5be588a7a9ee7ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -428,7 +428,7 @@ The position of the rectangle is defined by its edges AB and AD, while the speci
 <simplesect kind="return"><para>Collection of cells indices where the triangle is located. Result is not sorted and duplicates may be present.</para>
 </simplesect>
 The triangle is defined by providing the Cartesian coordinates of its three vertices in the proper order.</para>
-<para>To optimize performance, the function iterates over a portion of the horizontal grid where the triangle is located. For each cell, the function calculates the height of the plane formed by the triangle at the top right corner of the cell. If the cell is within the triangle area, the calcualted height is added to the results for the four neighboring cells.</para>
+<para>To optimize performance, the function iterates over a portion of the horizontal grid where the triangle is located. For each cell, the function calculates the height of the plane formed by the triangle at the top right corner of the cell. If the cell is within the triangle area, the calculated height is added to the results for the four neighbouring cells.</para>
 <para>This method works because when a plane intersects with a rectangular cell, the minimum and maximum height of the plane within the cell occurs at one of the cell corners. By iterating through all the cells, the function ensures that all the corners of each cell are investigated.</para>
 <para>However, this approach does not work when the triangle is perpendicular to the XY plane. To handle this case, the function uses the <computeroutput>CalcLinePos</computeroutput> function to include the cells that lie on the three edges of the triangle.</para>
 <para>Note:<itemizedlist>
@@ -440,7 +440,7 @@ The triangle is defined by providing the Cartesian coordinates of its three vert
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="81" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="375" bodyend="476" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="81" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="81" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="378" bodyend="479" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="81" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="bucket__pos_8hpp_1a324a3b394c8ea1a119572a05fddf37b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt;</type>
@@ -572,7 +572,7 @@ The position of the triangle is defined by its edges AB and AC, while the specif
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="107" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="527" bodyend="575" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="107" declcolumn="1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" line="107" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp" bodystart="530" bodyend="575" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp" declline="107" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="bucket__pos_8hpp_1a6b80177a1390bc07e10bfdaf0f7a594c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -623,7 +623,7 @@ The position of the triangle is defined by its edges AB and AC, while the specif
 <simplesect kind="return"><para>Collection of cells indices where the line is located.</para>
 </simplesect>
 The algorithm implemented in this function comes from the article: &quot;A Fast Voxel Traversal Algorithm for Ray Tracing&quot; by J. Amanatides and A. Woo.</para>
-<para>The floating-point values are rounded to obtain the cell indices in the X, Y, Z directions. As the center of each cell is considered to be on the center of the top surface, <computeroutput>round</computeroutput> should be used for getting the cell indices in the X and Y direction, while <computeroutput>ceil</computeroutput> should be used for the Z direction.</para>
+<para>The floating-point values are rounded to obtain the cell indices in the X, Y, Z directions. As the centre of each cell is considered to be on the centre of the top surface, <computeroutput>round</computeroutput> should be used for getting the cell indices in the X and Y direction, while <computeroutput>ceil</computeroutput> should be used for the Z direction.</para>
 <para>Note: When the line follows a cell border, the exact location of the line becomes ambiguous. It is assumed that the caller resolves this ambiguity. </para>
         </detaileddescription>
         <inbodydescription>
@@ -871,7 +871,7 @@ In this function, the movement applied to the base of the soil column is calcula
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.cpp" bodystart="35" bodyend="214" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.hpp" declline="23" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.cpp" bodystart="35" bodyend="217" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.hpp" declline="23" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1afdb9198c080cbbb11947488a88e1d5bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -997,13 +997,13 @@ Note that <computeroutput>MoveIntersectingBodySoil</computeroutput> must be call
 </parameterlist>
 This function checks the eight lateral directions surrounding the intersecting soil column and moves the soil to available spaces.</para>
 <para>The algorithm follows an incremental approach, checking directions farther from the intersecting soil column until it reaches a bucket wall blocking the movement or until all the soil has been moved. If the movement is blocked by a bucket wall, the algorithm explores another direction.</para>
-<para>In cases where the soil should be moved to the terrain, all soil is moved regardless of the available space. If this movement induces intersecting soil cells, it will be resolved by the <computeroutput>MoveIntersectingBody!</computeroutput> function.</para>
+<para>In cases where the soil should be moved to the terrain, all soil is moved regardless of the available space. If this movement induces intersecting soil cells, it will be resolved by the <computeroutput>MoveIntersectingBody</computeroutput> function.</para>
 <para>In rare situations where there is insufficient space to accommodate all the intersecting soil, the algorithm currently handles it by allowing the excess soil to simply disappear. This compromise seems to be reasonable as long as the amount of soil disappearing remains negligible.</para>
 <para>Note that the order in which the directions are checked is randomized in order to avoid asymmetrical results. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="34" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="48" bodyend="158" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="34" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="34" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="48" bodyend="161" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="34" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1af3ee72c596b5a2a237b4b95f7ffe51a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1048,7 +1048,7 @@ This function checks the eight lateral directions surrounding the intersecting s
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="42" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="174" bodyend="273" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="42" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="42" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="177" bodyend="276" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="42" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1ab896aae726451fe99f98d6519f6f927f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; int, int, int, float, bool &gt;</type>
@@ -1217,7 +1217,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="66" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="293" bodyend="507" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="66" declcolumn="12"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="66" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="296" bodyend="508" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="66" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="intersecting__cells_8hpp_1a440356f5f2e5b422bf5ba55bb8b74d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -1257,7 +1257,7 @@ This function can be separated into three main scenarios:<itemizedlist>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="76" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="509" bodyend="539" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="76" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" line="76" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp" bodystart="510" bodyend="540" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.hpp" declline="76" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="relax_8hpp_1af120fcc95c5971ab8730777ff218daca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1329,11 +1329,11 @@ This function can be separated into three main scenarios:<itemizedlist>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The soil stability is determined by the <computeroutput>repose_angle_</computeroutput>. If the slope formed by two neighboring soil columns exceeds the <computeroutput>repose_angle_</computeroutput>, it is considered unstable, and the soil from the higher column should avalanche to the neighboring column to reach an equilibrium state.</para>
+The soil stability is determined by the <computeroutput>repose_angle_</computeroutput>. If the slope formed by two neighbouring soil columns exceeds the <computeroutput>repose_angle_</computeroutput>, it is considered unstable, and the soil from the higher column should avalanche to the neighbouring column to reach an equilibrium state.</para>
 <para>By convention, this function only checks the stability of the soil in the four adjacent cells: ↑ ← O → ↓</para>
 <para>The diagonal directions are not checked for simplicity and performance reasons.</para>
 <para>This function only moves the soil when the following conditions are met:</para>
-<para>(1) The soil column in the neighboring cell is low enough. (2) Either: (a) The bucket is not on the soil, meaning there is space between the <computeroutput>terrain_</computeroutput> and the bucket, or there is no bucket. (b) The bucket is on the <computeroutput>terrain_</computeroutput>, but the combination of the bucket and bucket soil is not high enough to prevent soil avalanche.</para>
+<para>(1) The soil column in the neighbouring cell is low enough. (2) Either: (a) The bucket is not on the soil, meaning there is space between the <computeroutput>terrain_</computeroutput> and the bucket, or there is no bucket. (b) The bucket is on the <computeroutput>terrain_</computeroutput>, but the combination of the bucket and bucket soil is not high enough to prevent soil avalanche.</para>
 <para>In case (2a), the soil will avalanche on the <computeroutput>terrain_</computeroutput>, while in case (2b), the soil will avalanche on the bucket. </para>
         </detaileddescription>
         <inbodydescription>
@@ -1410,11 +1410,11 @@ The soil stability is determined by the <computeroutput>repose_angle_</computero
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The soil stability is determined by the <computeroutput>repose_angle_</computeroutput>. If the slope formed by two neighboring soil columns exceeds the <computeroutput>repose_angle_</computeroutput>, it is considered unstable, and the soil from the higher column should avalanche to the neighboring column to reach an equilibrium state.</para>
+The soil stability is determined by the <computeroutput>repose_angle_</computeroutput>. If the slope formed by two neighbouring soil columns exceeds the <computeroutput>repose_angle_</computeroutput>, it is considered unstable, and the soil from the higher column should avalanche to the neighbouring column to reach an equilibrium state.</para>
 <para>By convention, this function only checks the stability of the soil in the four adjacent cells: ↑ ← O → ↓</para>
 <para>The diagonal directions are not checked for simplicity and performance reasons.</para>
 <para>This function only moves the soil when the following conditions are met:</para>
-<para>(1) The soil column in the neighboring cell is low enough. (2) There is space on the top of the neighboring soil column. </para>
+<para>(1) The soil column in the neighbouring cell is low enough. (2) There is space on the top of the neighbouring soil column. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -1438,7 +1438,7 @@ The soil stability is determined by the <computeroutput>repose_angle_</computero
           <declname>tol</declname>
         </param>
         <briefdescription>
-<para>This function locates all the cells in <computeroutput>terrain_</computeroutput> that have a height difference larger than <computeroutput>dh_max</computeroutput> with at least one neighboring cell. </para>
+<para>This function locates all the cells in <computeroutput>terrain_</computeroutput> that have a height difference larger than <computeroutput>dh_max</computeroutput> with at least one neighbouring cell. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1454,7 +1454,7 @@ The soil stability is determined by the <computeroutput>repose_angle_</computero
 <parametername>dh_max</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Maximum height difference allowed between two neighboring cells. [m] </para>
+<para>Maximum height difference allowed between two neighbouring cells. [m] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1500,7 +1500,7 @@ It is important to note that the cells selected by this function are not necessa
           <declname>tol</declname>
         </param>
         <briefdescription>
-<para>This function checks the stability of a soil column in <computeroutput>terrain_</computeroutput> compared to one of its neighbor (<computeroutput>ii_c</computeroutput>, <computeroutput>jj_c</computeroutput>) </para>
+<para>This function checks the stability of a soil column in <computeroutput>terrain_</computeroutput> compared to one of its neighbour (<computeroutput>ii_c</computeroutput>, <computeroutput>jj_c</computeroutput>) </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1516,7 +1516,7 @@ It is important to note that the cells selected by this function are not necessa
 <parametername>ii_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the X direction. </para>
+<para>Index of the neighbouring cell in the X direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1524,7 +1524,7 @@ It is important to note that the cells selected by this function are not necessa
 <parametername>jj_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the Y direction. </para>
+<para>Index of the neighbouring cell in the Y direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1555,7 +1555,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 </listitem></itemizedlist>
 </para>
 <para>The second digit indicates the layer where the soil should avalanche:<itemizedlist>
-<listitem><para>0 when it is the terrai` (no bucket is present).</para>
+<listitem><para>0 when it is the terrain` (no bucket is present).</para>
 </listitem><listitem><para>1 when it is the second bucket soil layer.</para>
 </listitem><listitem><para>2 when it is the second bucket layer.</para>
 </listitem><listitem><para>3 when it is the first bucket soil layer.</para>
@@ -1607,7 +1607,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
           <declname>tol</declname>
         </param>
         <briefdescription>
-<para>This function checks the stability of a soil column in the soil layer <computeroutput>ind</computeroutput> of <computeroutput>body_soil_</computeroutput> at (<computeroutput>ii</computeroutput>, <computeroutput>jj</computeroutput>) compared to one of its neighbor at (<computeroutput>ii_c</computeroutput>, <computeroutput>jj_c</computeroutput>). </para>
+<para>This function checks the stability of a soil column in the soil layer <computeroutput>ind</computeroutput> of <computeroutput>body_soil_</computeroutput> at (<computeroutput>ii</computeroutput>, <computeroutput>jj</computeroutput>) compared to one of its neighbour at (<computeroutput>ii_c</computeroutput>, <computeroutput>jj_c</computeroutput>). </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1647,7 +1647,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 <parametername>ii_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the X direction. </para>
+<para>Index of the neighbouring cell in the X direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1655,7 +1655,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 <parametername>jj_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the Y direction. </para>
+<para>Index of the neighbouring cell in the Y direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1770,7 +1770,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 <parametername>dh_max</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Maximum height difference allowed between two neighboring cells. [m] </para>
+<para>Maximum height difference allowed between two neighbouring cells. [m] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1794,7 +1794,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 <parametername>ii_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the X direction. </para>
+<para>Index of the neighbouring cell in the X direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1802,7 +1802,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 <parametername>jj_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the Y direction. </para>
+<para>Index of the neighbouring cell in the Y direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1831,7 +1831,7 @@ In case of instability, this function returns a two-digit number (<computeroutpu
 </parameteritem>
 </parameterlist>
 The precise movement applied to the soil cell depends on the <computeroutput>status</computeroutput> number provided by the <computeroutput>CheckUnstableTerrainCell</computeroutput> function.</para>
-<para>The soil is moved such that the slope formed by the two neighboring soil columns is equal to the <computeroutput>repose_angle_</computeroutput>. When the bucket is preventing this configuration, the soil avalanche below the bucket to fill the space under it.</para>
+<para>The soil is moved such that the slope formed by the two neighbouring soil columns is equal to the <computeroutput>repose_angle_</computeroutput>. When the bucket is preventing this configuration, the soil avalanche below the bucket to fill the space under it.</para>
 <para>Note that it is assumed that the given <computeroutput>status</computeroutput> is accurate, so no extra checks are present. </para>
         </detaileddescription>
         <inbodydescription>
@@ -1928,7 +1928,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
 <parametername>dh_max</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Maximum height difference allowed between two neighboring cells. [m] </para>
+<para>Maximum height difference allowed between two neighbouring cells. [m] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1968,7 +1968,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
 <parametername>ii_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the X direction. </para>
+<para>Index of the neighbouring cell in the X direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1976,7 +1976,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
 <parametername>jj_c</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Index of the neighboring cell in the Y direction. </para>
+<para>Index of the neighbouring cell in the Y direction. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -2005,7 +2005,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
 </parameteritem>
 </parameterlist>
 The precise movement applied to the soil cell depends on the <computeroutput>status</computeroutput> number provided by the <computeroutput>CheckUnstableBodyCell</computeroutput> function.</para>
-<para>The soil is moved such that the slope formed by the two neighboring soil columns is equal to the <computeroutput>repose_angle_</computeroutput>, provided that the bucket is not preventing this configuration.</para>
+<para>The soil is moved such that the slope formed by the two neighbouring soil columns is equal to the <computeroutput>repose_angle_</computeroutput>, provided that the bucket is not preventing this configuration.</para>
 <para>Note that it is assumed that the given <computeroutput>status</computeroutput> is accurate, so no extra checks are present. </para>
         </detaileddescription>
         <inbodydescription>
@@ -2088,7 +2088,7 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
           <declname>bucket</declname>
         </param>
         <briefdescription>
-<para>This function calculates how far the bucket has traveled since the last soil update and checks whether it is necessary to update the soil. </para>
+<para>This function calculates how far the bucket has travelled since the last soil update and checks whether it is necessary to update the soil. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -2126,8 +2126,8 @@ The precise movement applied to the soil cell depends on the <computeroutput>sta
 </parameterlist>
 <simplesect kind="return"><para>A boolean indicating whether the soil should be updated.</para>
 </simplesect>
-This function calculates the maximum distance traveled by any part of the bucket since the last soil update. The position of the bucket during the last soil update is stored in the <computeroutput>bucket</computeroutput> class.</para>
-<para>If the maximum distance traveled is lower than 50% of the cell size, the function returns <computeroutput>false</computeroutput> otherwise it returns <computeroutput>true</computeroutput>. Note that if the distance traveled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </para>
+This function calculates the maximum distance travelled by any part of the bucket since the last soil update. The position of the bucket during the last soil update is stored in the <computeroutput>bucket</computeroutput> class.</para>
+<para>If the maximum distance travelled is lower than 50% of the cell size, the function returns <computeroutput>false</computeroutput> otherwise it returns <computeroutput>true</computeroutput>. Note that if the distance travelled exceeds twice the cell size, a warning is issued to indicate a potential problem with the soil update. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -2213,7 +2213,7 @@ This function calculates the maximum distance traveled by any part of the bucket
           <declname>bucket</declname>
         </param>
         <briefdescription>
-<para>This function calculates the position of a considered cell in the bucket frame assuming that the bucket is in its reference psoition. </para>
+<para>This function calculates the position of a considered cell in the bucket frame assuming that the bucket is in its reference position. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -2257,7 +2257,7 @@ This function calculates the maximum distance traveled by any part of the bucket
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Cartesian coordinate of the considered position in the reference bucket frame. </para>
+<simplesect kind="return"><para>Cartesian coordinates of the considered position in the reference bucket frame. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -2353,7 +2353,7 @@ The mathematical reasoning behind this implementation can be easily found in the
           <declname>q2</declname>
         </param>
         <briefdescription>
-<para>This function calculates the product of two Quaternions. </para>
+<para>This function calculates the product of two quaternions. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -2534,7 +2534,7 @@ The conventions that are checked by this function include:<itemizedlist>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<computeroutput>terrain</computeroutput> and <computeroutput><ref refid="structsoil__simulator_1_1body__soil" kindref="compound">body_soil</ref></computeroutput> are saved into files named <computeroutput>terrain</computeroutput> and <computeroutput><ref refid="structsoil__simulator_1_1body__soil" kindref="compound">body_soil</ref></computeroutput>, respectively, followed by the file number. </para>
+<computeroutput>terrain_</computeroutput> and <computeroutput>body_soil_</computeroutput> are saved into files named <computeroutput>terrain</computeroutput> and <computeroutput><ref refid="structsoil__simulator_1_1body__soil" kindref="compound">body_soil</ref></computeroutput>, respectively, followed by the file number. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -2566,7 +2566,7 @@ The bucket corners are saved into a file named <computeroutput>bucket</computero
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="132" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="570" bodyend="669" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="132" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="132" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="570" bodyend="639" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="132" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a49474b2c040ba18a18540424f4a72819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -2614,13 +2614,13 @@ The bucket corners are saved into a file named <computeroutput>bucket</computero
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>float: Simplex noise.</para>
+<simplesect kind="return"><para>A float representing the Simplex noise.</para>
 </simplesect>
 This function implements 2D Simplex noise. A lot of material can be found online concerning this implementation so that the details would not be explicited here. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="143" column="7" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="674" bodyend="742" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="143" declcolumn="7"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="143" column="7" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="644" bodyend="712" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="143" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="soil__evolution_8hpp_1a3f5b0d4194a5c9e074306089e81c71ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2692,7 +2692,7 @@ This function implements 2D Simplex noise. A lot of material can be found online
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-This example script simulates a bucket performing a simple digging scoop in the XZ plane following a parabolic trajectory. There is an option to randomize the parabolic trajectory by selecting the initial position (<computeroutput>x_i</computeroutput>, <computeroutput>z_i</computeroutput>) of the bucket and the deepest point of the scoop (<computeroutput>x_min</computeroutput>, <computeroutput>z_min</computeroutput>) wihtin reasonable ranges.</para>
+This example script simulates a bucket performing a simple digging scoop in the XZ plane following a parabolic trajectory. There is an option to randomize the parabolic trajectory by selecting the initial position (<computeroutput>x_i</computeroutput>, <computeroutput>z_i</computeroutput>) of the bucket and the deepest point of the scoop (<computeroutput>x_min</computeroutput>, <computeroutput>z_min</computeroutput>) within reasonable ranges.</para>
 <para>Note that the parabolic trajectory assumes that the orientation of the bucket follows the gradient of the trajectory. While it may not be fully accurate, it provides a good approximation for testing the simulator. </para>
         </detaileddescription>
         <inbodydescription>

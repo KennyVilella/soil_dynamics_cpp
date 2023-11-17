@@ -279,7 +279,7 @@
 <para><programlisting><codeline><highlight class="normal">AE<sp/>=<sp/>BF<sp/>=<sp/>CG<sp/>=<sp/>DH<sp/>&lt;=<sp/>AB.</highlight></codeline>
 </programlisting></para>
 <para><itemizedlist>
-<listitem><para>The center of each cell (O) is considered to be at the center of the top surface.</para>
+<listitem><para>The centre of each cell (O) is considered to be at the centre of the top surface.</para>
 </listitem><listitem><para>The considered reference frame follows the right-hand rule, with the Z direction pointing upward.</para>
 </listitem></itemizedlist>
 </para>
