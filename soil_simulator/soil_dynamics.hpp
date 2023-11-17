@@ -50,4 +50,5 @@ class SoilDynamics {
      /// \brief Write the simulation outputs into files.
      void WriteOutputs(SimOut* sim_out, Grid grid, Bucket* bucket);
 };
+
 }  // namespace soil_simulator

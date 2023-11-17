@@ -382,4 +382,5 @@ class SimOut {
      /// \brief Destructor
     ~SimOut() {}
 };
+
 }  // namespace soil_simulator
