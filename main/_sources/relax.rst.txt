@@ -6,7 +6,7 @@ Documentation for the soil relaxation
 The fourth task of this simulator is to model soil dynamics.
 Various models of different complexities have been developed over the years for this purpose.
 As this simulator focuses on performance, a simplified model is therefore employed.
-The model assumes that when the local slope of the soil exceeds its repose angle, the soil becomes unstable and needs to avalanche to neighboring cells to achieve a stable state where the local slope matches the repose angle.
+The model assumes that when the local slope of the soil exceeds its repose angle, the soil becomes unstable and needs to avalanche to neighbouring cells to achieve a stable state where the local slope matches the repose angle.
 This action is referred to as "relaxation" in this simulator.
 
 This soil relaxation process consists of two main steps:
@@ -14,7 +14,7 @@ This soil relaxation process consists of two main steps:
 * Terrain relaxation, where unstable soil cells on the terrain are relaxed, potentially causing avalanches onto the bucket.
 * Bucket soil relaxation, where unstable soil cells on the bucket are relaxed, potentially causing avalanches onto the terrain.
 
-It is important to note that the relaxation of soil cells can sometimes trigger instability in neighboring cells.
+It is important to note that the relaxation of soil cells can sometimes trigger instability in neighbouring cells.
 As a result, the relaxation process needs to be repeated multiple times to achieve an equilibrium state.
 In practice, several thousand iterations may be required to reach full equilibrium, although the overall shape of the terrain can often be obtained after just a few iterations.
 To balance computational efficiency and accuracy, the algorithm does not wait for a complete equilibrium state and instead stops after a set number of iterations, which can be specified by the :code:`max_iterations_` field of the :code:`SimParam` class.
@@ -33,12 +33,12 @@ This initial selection is not intended to be precise but rather to exclude cells
 To avoid asymmetrical results, the list of potential unstable cells is randomized.
 The soil cells in this list are then processed iteratively.
 
-The second step is to check the stability of each considered soil cell in relation to its neighboring cells.
+The second step is to check the stability of each considered soil cell in relation to its neighbouring cells.
 By convention, relaxation is only performed in the X and Y directions, involving four adjacent cells and excluding diagonal cells.
 This choice is based on initial testing, which revealed that relaxing soil in 4 or 8 directions produced visually identical results.
 Relaxing in 8 directions allows for convergence to full equilibrium in less iterations than when relaxing in 4 directions, while requiring more computational time to perform each iteration.
 As a result, relaxing only in the X and Y directions produces a faster and simpler code.
-To avoid asymmetrical results, the order in which neighboring soil cells are checked is randomized.
+To avoid asymmetrical results, the order in which neighbouring soil cells are checked is randomized.
 The result of this check is a status code consisting of two digits, providing a detailed indication of the condition of the soil cell.
 
 The third step is the actual relaxation, which occurs only if the soil cell is determined to be unstable based on the status code obtained in the previous step.
@@ -60,12 +60,12 @@ Description of the different cases
 
 Mainly four different cases are possible, as illustrated in the vertical slice diagram below.
 Note that, for illustration purposes, it is assumed that the repose angle allows only for one cell difference between
-neighboring cells.
+neighbouring cells.
 
 .. image:: _asset/relax_terrain.png
 
 (a) In this case, there is no bucket.
-The soil can freely avalanche to the neighboring cell, reaching a stable configuration.
+The soil can freely avalanche to the neighbouring cell, reaching a stable configuration.
 
 (b) In this case, there is some space available below the bucket.
 The soil can avalanche into that position to fill the gap.
@@ -101,12 +101,12 @@ Description of the different cases
 
 Mainly four different cases are possible, as illustrated in the vertical slice diagram below.
 Note that, for illustration purposes, it is assumed that the repose angle allows only for one cell difference between
-neighboring cells.
+neighbouring cells.
 
 .. image:: _asset/relax_body_soil.png
 
 (a) In this case, there is no bucket.
-The soil can freely avalanche to the neighboring cell, reaching a stable configuration.
+The soil can freely avalanche to the neighbouring cell, reaching a stable configuration.
 
 (b) In this case, there is one bucket layer.
 The soil can freely avalanche onto the bucket, forming a stable configuration.
