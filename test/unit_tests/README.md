@@ -1003,15 +1003,19 @@ As a result, for the previous location, only the identity of the bottom layer is
 
 In addition to these basic unit tests, a few extra edge cases are checked.
 
-| Test name  | Description of the unit test                                                                     |
-| ---------- | ------------------------------------------------------------------------------------------------ |
-| IC-MIBS-60 | Testing when a lot of soil is present in the first bucket layer but soil is still avalanching.   |
-| IC-MIBS-61 | Testing when a lot of soil is present in the second bucket layer but soil is still avalanching.  |
-| IC-MIBS-62 | Testing when the bucket is totally underground but the soil is still avalanching on the terrain. |
-| IC-MIBS-63 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
-| IC-MIBS-64 | Testing when there is no intersecting cell                                                       |
-| IC-MIBS-65 | Testing the randomness of the investigated direction for the soil movement.                      |
-| IC-MIBS-66 | Testing that a warning is issued if all soil cannot be moved.                                    |
+| Test name   | Description of the unit test                                                                     |
+| ----------- | ------------------------------------------------------------------------------------------------ |
+| IC-MIBS-267 | Testing when a lot of soil is present in the first bucket layer but soil is still avalanching.   |
+| IC-MIBS-268 | Testing when a lot of soil is present in the second bucket layer but soil is still avalanching.  |
+| IC-MIBS-269 | Testing when the bucket is totally underground but the soil is still avalanching on the terrain. |
+| IC-MIBS-270 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
+| IC-MIBS-271 | Testing when there is no intersecting cell                                                       |
+| IC-MIBS-    | Testing that all directions are investigated.                                                    |
+| IC-MIBS-273 | Testing the randomness of the investigated direction for the soil movement.                      |
+| IC-MIBS-274 | Testing that a warning is issued if all soil cannot be moved.                                    |
+
+Test all directions are investigated
+
 
 ### `LocateIntersectingCells`
 
