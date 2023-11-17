@@ -78,6 +78,7 @@ static void BM_UpdateBodySoil(benchmark::State& state) {
     for (auto _ : state)
         soil_simulator::UpdateBodySoil(
             sim_out, pos_2, ori_1, grid, bucket, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }

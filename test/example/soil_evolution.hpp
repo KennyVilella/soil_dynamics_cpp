@@ -43,4 +43,5 @@ std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>
 > CalcTrajectory(
     float x_i, float z_i, float x_min, float z_min, float origin_angle, int nn);
+
 }  // namespace soil_simulator

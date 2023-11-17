@@ -32,7 +32,7 @@ soil_simulator::Grid::Grid(
 
     if (cell_size_z > cell_size_xy)
         throw std::invalid_argument("cell_size_z should be lower than or equal"
-            "to cell_size_xy");
+            " to cell_size_xy");
 
     if (grid_size_x < cell_size_xy)
         throw std::invalid_argument("cell_size_xy should be lower than or equal"
@@ -91,16 +91,16 @@ soil_simulator::Bucket::Bucket(
         throw std::invalid_argument("t_pos_init should be a vector of size 3");
 
     if (j_pos_init == b_pos_init)
-        throw std::invalid_argument("j_pos_init should not be equal to "
-            "b_pos_init");
+        throw std::invalid_argument("j_pos_init should not be equal to"
+            " b_pos_init");
 
     if (j_pos_init == t_pos_init)
-        throw std::invalid_argument("j_pos_init should not be equal to "
-            "t_pos_init");
+        throw std::invalid_argument("j_pos_init should not be equal to"
+            " t_pos_init");
 
     if (b_pos_init == t_pos_init)
-        throw std::invalid_argument("b_pos_init should not be equal to "
-            "t_pos_init");
+        throw std::invalid_argument("b_pos_init should not be equal to"
+            " t_pos_init");
 
     if (width <= 0.0)
         throw std::invalid_argument("width should be greater than zero");
@@ -138,8 +138,8 @@ soil_simulator::SimParam::SimParam(
             " to zero");
 
     if (cell_buffer < 2.0)
-        throw std::invalid_argument("cell_buffer should be greater or equal to "
-            "2");
+        throw std::invalid_argument("cell_buffer should be greater or equal to"
+            " 2");
 
     repose_angle_ = repose_angle;
     max_iterations_ = max_iterations;

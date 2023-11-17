@@ -20,10 +20,15 @@ static void BM_CalcBucketPos(benchmark::State& state) {
         o_pos, j_pos, b_pos, t_pos, 0.5);
     std::vector<float> ori = {0.707107, 0.0, -0.707107, 0.0};
     std::vector<float> pos = {0.0, 0.0, -0.1};
+    sim_out->bucket_area_[0][0] = 65;
+    sim_out->bucket_area_[0][1] = 85;
+    sim_out->bucket_area_[1][0] = 70;
+    sim_out->bucket_area_[1][1] = 90;
 
     for (auto _ : state)
         soil_simulator::CalcBucketPos(
             sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+
     delete sim_out;
     delete bucket;
 }
@@ -106,6 +111,7 @@ static void BM_UpdateBody(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::UpdateBody(tri_pos, sim_out, grid, 1.e-5);
+
     delete sim_out;
 }
 BENCHMARK(BM_UpdateBody)->Unit(benchmark::kMicrosecond);
@@ -118,6 +124,7 @@ static void BM_IncludeNewBodyPos(benchmark::State& state) {
 
     for (auto _ : state)
         soil_simulator::IncludeNewBodyPos(sim_out, 10, 15, 0.5, 0.6, 1.e-5);
+
     delete sim_out;
 }
 BENCHMARK(BM_IncludeNewBodyPos);

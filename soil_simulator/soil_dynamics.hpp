@@ -18,7 +18,12 @@ extern std::mt19937 rng;
 class SoilDynamics {
  public:
      /// \brief Initialize the simulator.
-     void init(SimOut* sim_out, Grid grid, float amp_noise);
+     ///
+     /// \param sim_out: Class that stores simulation outputs.
+     /// \param grid: Class that stores information related to the
+     ///              simulation grid.
+     /// \param amp_noise: Amplitude of the Simplex noise. [m]
+     void Init(SimOut* sim_out, Grid grid, float amp_noise);
 
      /// \brief Step the simulation.
      ///
@@ -34,7 +39,7 @@ class SoilDynamics {
      /// \param tol: Small number used to handle numerical approximation errors.
      ///
      /// \return A boolean indicating whether soil update has been done.
-     bool step(
+     bool Step(
          SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
          Grid grid, Bucket* bucket, SimParam sim_param, float tol);
 
@@ -45,9 +50,16 @@ class SoilDynamics {
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
      /// \param tol: Small number used to handle numerical approximation errors.
-     void check(SimOut* sim_out, float init_volume, Grid grid, float tol);
+     void Check(SimOut* sim_out, float init_volume, Grid grid, float tol);
 
      /// \brief Write the simulation outputs into files.
+     ///
+     /// \param sim_out: Class that stores simulation outputs.
+     /// \param grid: Class that stores information related to the
+     ///              simulation grid.
+     /// \param bucket: Class that stores information related to the
+     ///                bucket object.
      void WriteOutputs(SimOut* sim_out, Grid grid, Bucket* bucket);
 };
+
 }  // namespace soil_simulator

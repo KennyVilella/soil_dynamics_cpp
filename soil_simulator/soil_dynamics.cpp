@@ -15,7 +15,7 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/relax.hpp"
 #include "soil_simulator/utils.hpp"
 
-void soil_simulator::SoilDynamics::init(
+void soil_simulator::SoilDynamics::Init(
     SimOut* sim_out, Grid grid, float amp_noise
 ) {
     // Generating a random permutation table
@@ -58,7 +58,7 @@ void soil_simulator::SoilDynamics::init(
     }
 }
 
-bool soil_simulator::SoilDynamics::step(
+bool soil_simulator::SoilDynamics::Step(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
     Grid grid, Bucket* bucket, SimParam sim_param, float tol
 ) {
@@ -102,7 +102,7 @@ bool soil_simulator::SoilDynamics::step(
         // Relaxing the terrain
         RelaxTerrain(sim_out, grid, bucket, sim_param, tol);
 
-        // Randomizing body_soil_pos to reduce asymmetry
+        // Randomizing body_soil_pos_ to reduce asymmetry
         // random_suffle is not used because it is machine dependent,
         // which makes unit testing difficult
         for (int aa = sim_out->body_soil_pos_.size() - 1; aa > 0; aa--) {
@@ -117,7 +117,7 @@ bool soil_simulator::SoilDynamics::step(
     return true;
 }
 
-void soil_simulator::SoilDynamics::check(
+void soil_simulator::SoilDynamics::Check(
     SimOut* sim_out, float init_volume, Grid grid, float tol
 ) {
     // Checking mass conservation

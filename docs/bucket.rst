@@ -24,7 +24,7 @@ The different parts of the bucket are labeled as follows:
 * The surface defined by the vertices :math:`J_lJ_rT_rT_l` is referred to as the bucket front. Note that it does not correspond to a bucket wall.
 
 The reference pose of the bucket is specified when creating the :code:`Bucket` class and is defined by the fields :code:`j_pos_init_`, :code:`b_pos_init_`, and :code:`t_pos_init_`, which correspond to the positions of the bucket joint, base, and teeth, respectively.
-The center of rotation for the bucket is typically the bucket joint, but it can be a different point depending on the specific bucket design.
+The centre of rotation for the bucket is typically the bucket joint, but it can be a different point depending on the specific bucket design.
 In that case, a different bucket origin (:code:`o_pos_init`) can be provided when building :code:`Bucket`.
 The position of the bucket joint, base, and teeth are generally defined relative to the bucket origin.
 

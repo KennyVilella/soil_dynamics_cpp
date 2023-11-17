@@ -57,14 +57,14 @@ soil_simulator::CalcBucketCornerPos(
     return {j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos};
 }
 
-/// This function calculates the maximum distance traveled by any part of the
+/// This function calculates the maximum distance travelled by any part of the
 /// bucket since the last soil update. The position of the bucket during the
 /// last soil update is stored in the `bucket` class.
 ///
-/// If the maximum distance traveled is lower than 50% of the cell size,
+/// If the maximum distance travelled is lower than 50% of the cell size,
 /// the function returns `false` otherwise it returns `true`.
-/// Note that if the distance traveled exceeds twice the cell size, a warning is
-/// issued to indicate a potential problem with the soil update.
+/// Note that if the distance travelled exceeds twice the cell size, a warning
+/// is issued to indicate a potential problem with the soil update.
 bool soil_simulator::CheckBucketMovement(
     std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket
 ) {
@@ -76,7 +76,7 @@ bool soil_simulator::CheckBucketMovement(
     auto [j_r_pos_f, j_l_pos_f, b_r_pos_f, b_l_pos_f, t_r_pos_f, t_l_pos_f] =
         soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
 
-    // Calculating distance traveled
+    // Calculating distance travelled
     float j_r_dist = std::sqrt(
         (j_r_pos_f[0] - j_r_pos_n[0]) * (j_r_pos_f[0] - j_r_pos_n[0]) +
         (j_r_pos_f[1] - j_r_pos_n[1]) * (j_r_pos_f[1] - j_r_pos_n[1])+
@@ -102,7 +102,7 @@ bool soil_simulator::CheckBucketMovement(
         (t_l_pos_f[1] - t_l_pos_n[1]) * (t_l_pos_f[1] - t_l_pos_n[1]) +
         (t_l_pos_f[2] - t_l_pos_n[2]) * (t_l_pos_f[2] - t_l_pos_n[2]));
 
-    // Calculating max distance traveled
+    // Calculating max distance travelled
     float max_dist = std::max(
         {j_r_dist, j_l_dist, b_r_dist, b_l_dist, t_r_dist, t_l_dist});
 
@@ -488,7 +488,7 @@ bool soil_simulator::CheckSoil(
     return true;
 }
 
-/// `terrain` and `body_soil` are saved into files named `terrain` and
+/// `terrain_` and `body_soil_` are saved into files named `terrain` and
 /// `body_soil`, respectively, followed by the file number.
 void soil_simulator::WriteSoil(
     SimOut* sim_out, Grid grid
@@ -570,39 +570,9 @@ void soil_simulator::WriteSoil(
 void soil_simulator::WriteBucket(
     Bucket* bucket
 ) {
-    // Calculating position of the bucket points
-    auto j_pos = soil_simulator::CalcRotationQuaternion(
-        bucket->ori_, bucket->j_pos_init_);
-    auto b_pos = soil_simulator::CalcRotationQuaternion(
-        bucket->ori_, bucket->b_pos_init_);
-    auto t_pos = soil_simulator::CalcRotationQuaternion(
-        bucket->ori_, bucket->t_pos_init_);
-
-    // Unit vector normal to the side of the bucket
-    auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
-
-    // Declaring vectors for each vertex of the bucket
-    std::vector<float> j_r_pos(3);
-    std::vector<float> j_l_pos(3);
-    std::vector<float> b_r_pos(3);
-    std::vector<float> b_l_pos(3);
-    std::vector<float> t_r_pos(3);
-    std::vector<float> t_l_pos(3);
-
-    for (auto ii = 0; ii < 3; ii++) {
-        // Adding position of the bucket origin
-        j_pos[ii] += bucket->pos_[ii];
-        b_pos[ii] += bucket->pos_[ii];
-        t_pos[ii] += bucket->pos_[ii];
-
-        // Position of each vertex of the bucket
-        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-    }
+    // Calculating position of bucket corners
+    auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
+        soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
 
     // Finding next filename for the bucket file
     std::source_location location = std::source_location::current();

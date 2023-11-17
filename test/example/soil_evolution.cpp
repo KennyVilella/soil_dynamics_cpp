@@ -22,7 +22,7 @@ Copyright, 2023, Vilella Kenny.
 /// the XZ plane following a parabolic trajectory. There is an option to
 /// randomize the parabolic trajectory by selecting the initial position
 /// (`x_i`, `z_i`) of the bucket and the deepest point of the scoop
-/// (`x_min`, `z_min`) wihtin reasonable ranges.
+/// (`x_min`, `z_min`) within reasonable ranges.
 ///
 /// Note that the parabolic trajectory assumes that the orientation of the
 /// bucket follows the gradient of the trajectory. While it may not be fully
@@ -283,7 +283,7 @@ void soil_simulator::SoilEvolution(
         {ori[nn][0], ori[nn][1], ori[nn][2]}));
 
     // Initializing the terrain
-    sim.init(sim_out, grid, 32.0);
+    sim.Init(sim_out, grid, 32.0);
 
     float init_volume = 0.0;
     if (check_outputs) {
@@ -299,12 +299,12 @@ void soil_simulator::SoilEvolution(
             LOG(INFO) << "Step " << ii << " / " << time_vec.size()-1;
 
         // Stepping the soil dynamics
-        sim.step(
+        sim.Step(
             sim_out, pos_vec[ii], ori_vec[ii], grid, bucket, sim_param, 1e-5);
 
         // Checking consistency of simulation outputs
         if (check_outputs)
-            sim.check(sim_out, init_volume, grid, 1e-5);
+            sim.Check(sim_out, init_volume, grid, 1e-5);
 
         // Writing simulation outputs into csv files
         if (write_outputs)

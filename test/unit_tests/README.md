@@ -341,9 +341,9 @@ The tests are separated into two categories:
 | BS-UBS-11 | Testing for a pi/2 rotation around the Y axis when `body_` and one `body_soil_` are on the second body layer, while a second `body_soil_` is on the first body layer. The two `body_soil_` are avalanching to the same position. |
 | BS-UBS-12 | Testing that soil column shorter than `cell_size_z_` is not moved. `body_` and `body_soil_` are on the first body layer. No movement is applied. |
 | BS-UBS-13 | Testing that `h_soil` is properly rounded. `body_` and `body_soil_` are on the first body layer. No movement is applied. |
-| BS-UBS-14 | Testing that the direction in which the neighboring cells are investigated is correct. To do so, the neighboring cells are blocked one by one until all the neighboring cells are investigated. `body_` and `body_soil_` are on the first body layer. A one cell translation following the X axis is applied. |
-| BS-UBS-15 | Testing that the direction in which the neighboring cells are investigated is correct. To do so, the neighboring cells are blocked one by one until all the neighboring cells are investigated. `body_` and `body_soil_` are on the first body layer. A one cell translation following the -Y axis is applied. |
-| BS-UBS-16 | Testing that soil is moved to a neighboring cell if vertical distance is low enough. `body_` and `body_soil_` are on the first body layer. A one cell translation following the X axis is applied. |
+| BS-UBS-14 | Testing that the direction in which the neighbouring cells are investigated is correct. To do so, the neighbouring cells are blocked one by one until all the neighbouring cells are investigated. `body_` and `body_soil_` are on the first body layer. A one cell translation following the X axis is applied. |
+| BS-UBS-15 | Testing that the direction in which the neighbouring cells are investigated is correct. To do so, the neighbouring cells are blocked one by one until all the neighbouring cells are investigated. `body_` and `body_soil_` are on the first body layer. A one cell translation following the -Y axis is applied. |
+| BS-UBS-16 | Testing that soil is moved to a neighbouring cell if vertical distance is low enough. `body_` and `body_soil_` are on the first body layer. A one cell translation following the X axis is applied. |
 | BS-UBS-17 | The same as BS-UBS-16 except that the new body location is lower than the previous location. |
 
 ## `test_intersecting_cells.cpp`

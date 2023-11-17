@@ -40,11 +40,13 @@ void soil_simulator::UpdateBodySoil(
     auto old_body_soil_pos = sim_out->body_soil_pos_;
 
     // Resetting body_soil
-    for (auto ii = 0 ; ii < sim_out->body_soil_.size(); ii++)
-        for (auto jj = 0 ; jj < sim_out->body_soil_[0].size(); jj++)
-            std::fill(
-                sim_out->body_soil_[ii][jj].begin(),
-                sim_out->body_soil_[ii][jj].end(), 0.0);
+    for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
+        int ind = old_body_soil_pos[nn].ind;
+        int ii = old_body_soil_pos[nn].ii;
+        int jj = old_body_soil_pos[nn].jj;
+        sim_out->body_soil_[ind][ii][jj] = 0.0;
+        sim_out->body_soil_[ind+1][ii][jj] = 0.0;
+    }
 
     // Resetting body_soil_pos
     sim_out->body_soil_pos_.erase(
@@ -53,7 +55,6 @@ void soil_simulator::UpdateBodySoil(
     // Iterating over all XY positions where body_soil is present
     float min_cell_height_diff = grid.cell_size_z_ + tol;
     for (auto nn = 0; nn < old_body_soil_pos.size(); nn++) {
-        int ind = old_body_soil_pos[nn].ind;
         int ii = old_body_soil_pos[nn].ii;
         int jj = old_body_soil_pos[nn].jj;
         float x_b = old_body_soil_pos[nn].x_b;
@@ -63,6 +64,8 @@ void soil_simulator::UpdateBodySoil(
 
         if (h_soil < 0.9 * grid.cell_size_z_) {
             // No soil to be moved
+            // 0.9 has been chosen arbitrarily to account for potential
+            // numerical errors, another value could be used
             continue;
         }
 
@@ -201,7 +204,7 @@ void soil_simulator::UpdateBodySoil(
                 // This should normally not happen, it is only for safety
                 // Moving body_soil to terrain
                 sim_out->terrain_[ii_n][jj_n] += h_soil;
-                LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n "
+                LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n"
                     "Soil is moved to the terrain to maintain mass "
                     "conservation.";
             }

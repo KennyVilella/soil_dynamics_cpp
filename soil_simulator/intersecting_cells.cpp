@@ -36,7 +36,7 @@ void soil_simulator::MoveIntersectingCells(
 ///
 /// In cases where the soil should be moved to the terrain, all soil is moved
 /// regardless of the available space. If this movement induces intersecting
-/// soil cells, it will be resolved by the `MoveIntersectingBody!` function.
+/// soil cells, it will be resolved by the `MoveIntersectingBody` function.
 ///
 /// In rare situations where there is insufficient space to accommodate all the
 /// intersecting soil, the algorithm currently handles it by allowing the excess
@@ -77,10 +77,9 @@ void soil_simulator::MoveIntersectingBodySoil(
 
         float h_soil = 0.0;
         if (
+            (sim_out->body_[ind_t][ii][jj] > sim_out->body_[ind][ii][jj]) &&
             (sim_out->body_soil_[ind+1][ii][jj] - tol >
-                sim_out->body_[ind_t][ii][jj]) &&
-            (sim_out->body_[ind_t+1][ii][jj] - tol >
-                sim_out->body_soil_[ind][ii][jj])) {
+                sim_out->body_[ind_t][ii][jj])) {
             // Bucket soil intersects with bucket
             h_soil = (
                 sim_out->body_soil_[ind+1][ii][jj] -
@@ -150,6 +149,10 @@ void soil_simulator::MoveIntersectingBodySoil(
         }
 
         if (h_soil > tol) {
+            // For cases where the soil cannot be moved
+            // For instance, this happens when the bucket is going straight
+            // underground with soil trapped inside.
+            // This should not happen when soil reaction force is considered.
             LOG(WARNING) << "WARNING\nNot all soil intersecting with a bucket "
                 "layer could be moved.\nThe extra soil has been arbitrarily "
                 "removed.";
@@ -329,8 +332,7 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             (sim_out->body_soil_[3][ii_n][jj_n] != 0.0));
 
         // The only option left is that there is space for the intersecting soil
-        // Note that there is necessarily enough space for all the soil,
-        // otherwise the soil column would block the movement
+        // Note that there is necessarily enough space for all the soil.
         if (bucket_soil_presence_3) {
             // Soil should go into the existing bucket soil layer
             sim_out->body_soil_[3][ii_n][jj_n] += h_soil;
@@ -372,8 +374,7 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
             (sim_out->body_soil_[1][ii_n][jj_n] != 0.0));
 
         // The only option left is that there is space for the intersecting soil
-        // Note that there is necessarily enough space for all the soil,
-        // otherwise the soil column would block the movement
+        // Note that there is necessarily enough space for all the soil
         if (bucket_soil_presence_1) {
             // Soil should go into the existing bucket soil layer
             sim_out->body_soil_[1][ii_n][jj_n] += h_soil;

@@ -66,7 +66,7 @@ struct body_soil{
 ///     AE = BF = CG = DH <= AB.
 /// \endcode
 ///
-/// - The center of each cell (O) is considered to be at the center of the top
+/// - The centre of each cell (O) is considered to be at the centre of the top
 ///   surface.
 /// - The considered reference frame follows the right-hand rule,
 ///   with the Z direction pointing upward.
@@ -179,7 +179,7 @@ class Grid {
 ///    AD = BE = CF = `width_`.
 /// \endcode
 ///
-/// - The center of rotation of the bucket is assumed to be at the bucket
+/// - The centre of rotation of the bucket is assumed to be at the bucket
 ///   origin (not shown in the figure) and the bucket vertices are given
 ///   relative to this origin.
 /// - The provided coordinates are assumed to be the reference pose of the
@@ -195,7 +195,7 @@ class Grid {
 ///    soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
 /// \endcode
 ///
-/// This would create a bucket ABCDEF with its center of rotation at the
+/// This would create a bucket ABCDEF with its centre of rotation at the
 /// bucket joint and with:
 /// - `A = [0.0, -0.25, 0.0]`
 /// - `B = [1.0, -0.25, -0.5]`
@@ -264,7 +264,6 @@ class Bucket {
 ///   each time step, but it may impact significantly the performance of the
 ///   simulator. A value of 3 is suggested.
 ///
-///
 /// Usage:
 /// \code
 ///    soil_simulator::SimParam sim_param(0.85, 5, 4);
@@ -319,20 +318,17 @@ class SimParam {
 ///   vector should be equal to four times the number of bucket.
 /// - Similarly, `body_soil_` stores the location of the soil resting on a
 ///   bucket wall. The structure of `body_soil_` is identical to `body_`. An
-///   additionnal restriction is that the minimum height of the soil resting on
+///   additional restriction is that the minimum height of the soil resting on
 ///   the bucket must correspond to the maximum height of a bucket wall.
 /// - The locations where there is soil resting on the bucket are stored in
-///   `body_soil_pos_` as 3-elements vectors. The first element corresponds to
-///   the index where the minimum height of the soil is stored, while the second
-///   and third element correspond to the index of the X and Y position,
-///   respectively.
+///   `body_soil_pos_` as a vector of `body_soil` struct.
 /// - The active areas (`bucket_area_`, `relax_area_` and `impact_area_`) are
 ///   assumed to be rectangular and to follow the grid geometry. They are thus
 ///   stored as 2x2 Matrices where:
-///   [1, 1] corresponds to the minimum X index.
-///   [1, 2] corresponds to the maximum X index.
-///   [2, 1] corresponds to the minimum Y index.
-///   [2, 2] corresponds to the maximum Y index.
+///   [0, 0] corresponds to the minimum X index.
+///   [0, 1] corresponds to the maximum X index.
+///   [1, 0] corresponds to the minimum Y index.
+///   [1, 1] corresponds to the maximum Y index.
 ///
 /// Note:
 /// - Currently, only one bucket at a time is supported, but this restriction
@@ -386,4 +382,5 @@ class SimOut {
      /// \brief Destructor
     ~SimOut() {}
 };
+
 }  // namespace soil_simulator
