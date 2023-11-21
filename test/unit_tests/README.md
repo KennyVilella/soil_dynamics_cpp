@@ -189,9 +189,9 @@ At the end of each unit test, the environment is set to a proper setup and it is
 | UT-CS-11  | Testing when two `body_` layers are intersecting.                     |
 | UT-CS-12  | Testing when the `body_soil_` on the bottom layer is intersecting with the top `body_` layer. |
 
-## `test_bucket_pos.cpp`
+## `test_body_pos.cpp`
 
-This file implements unit tests for the functions in the `bucket_pos.cpp` file.
+This file implements unit tests for the functions in the `body_pos.cpp` file.
 
 ### `CalcLinePos`
 

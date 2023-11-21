@@ -1,11 +1,11 @@
 /*
-This file implements unit tests for the functions in bucket_pos.cpp.
+This file implements unit tests for the functions in body_pos.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
 #include <cmath>
 #include "gtest/gtest.h"
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 #include "test/unit_tests/utility.hpp"
 
 // To make the function call holds in a single line.

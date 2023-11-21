@@ -1,10 +1,10 @@
 /*
-This file implements benchmarking for the functions in bucket_pos.cpp.
+This file implements benchmarking for the functions in body_pos.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 
 // -- CalcBucketPos --
 static void BM_CalcBucketPos(benchmark::State& state) {

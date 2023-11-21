@@ -9,7 +9,7 @@ Copyright, 2023, Vilella Kenny.
 #include <stdexcept>
 #include <tuple>
 #include <vector>
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 #include "soil_simulator/types.hpp"
 #include "soil_simulator/utils.hpp"
 

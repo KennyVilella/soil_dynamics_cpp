@@ -5,7 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
 #include "soil_simulator/body_soil.hpp"
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 
 // -- UpdateBodySoil --
 static void BM_UpdateBodySoil(benchmark::State& state) {
