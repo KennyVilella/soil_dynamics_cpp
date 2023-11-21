@@ -14,7 +14,7 @@ Copyright, 2023, Vilella Kenny.
 using test_soil_simulator::SetHeight;
 using test_soil_simulator::PushBodySoilPos;
 
-TEST(UnitTestUtils, CalcBucketCornerPos) {
+TEST(UnitTestUtils, CalcBodyCornerPos) {
     // Setting up the environment
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
     std::vector<float> j_pos = {0.0, 0.0, 0.0};
@@ -37,7 +37,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.0, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.0, -0.25, 0.0}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {0.0, 0.25, 0.0}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.0, -0.25, -0.5}));
@@ -49,7 +49,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.1, -0.1, 0.2};
     ori = {1.0, 0.0, 0.0, 0.0};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.1, -0.35, 0.2}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {0.1, 0.15, 0.2}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.1, -0.35, -0.3}));
@@ -61,7 +61,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.0, 0.0, 0.0};
     ori = {0.707107, 0.0, 0.0, -0.707107};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.25, 0.0, 0.0}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {-0.25, 0.0, 0.0}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.25, 0.0, -0.5}));
@@ -78,7 +78,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.1, -0.1, 0.2};
     ori = {0.707107, 0.0, 0.0, -0.707107};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.35, -0.1, 0.2}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {-0.15, -0.1, 0.2}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.35, -0.1, -0.3}));

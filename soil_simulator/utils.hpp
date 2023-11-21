@@ -26,7 +26,7 @@ namespace soil_simulator {
 std::tuple<
     std::vector<float>, std::vector<float>, std::vector<float>,
     std::vector<float>, std::vector<float>, std::vector<float>>
-CalcBucketCornerPos(
+CalcBodyCornerPos(
     std::vector<float> pos, std::vector<float> ori, Body* body);
 
 /// \brief This function calculates how far the body has travelled since the

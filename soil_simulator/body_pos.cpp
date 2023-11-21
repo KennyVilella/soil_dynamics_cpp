@@ -38,7 +38,7 @@ void soil_simulator::CalcBodyPos(
 
     // Calculating position of the body corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
-        soil_simulator::CalcBucketCornerPos(pos, ori, body);
+        soil_simulator::CalcBodyCornerPos(pos, ori, body);
 
     for (auto ii = 0; ii < 3; ii++) {
         // Adding a small increment to all vertices

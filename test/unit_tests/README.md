@@ -70,9 +70,9 @@ Unit tests for the `SimOut` class and its constructor.
 This file implements unit tests for the functions in the `utils.cpp` file.
 It should be tested before the main functionalities of the simulator since the utility functions are used throughout the simulator.
 
-### `CalcBucketCornerPos`
+### `CalcBodyCornerPos`
 
-Unit tests for the `CalcBucketCornerPos` function.
+Unit tests for the `CalcBodyCornerPos` function.
 
 | Test name | Description of the unit test                                              |
 | --------- | ------------------------------------------------------------------------- |

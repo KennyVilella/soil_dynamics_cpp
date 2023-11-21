@@ -17,7 +17,7 @@ Copyright, 2023, Vilella Kenny.
 std::tuple<
     std::vector<float>, std::vector<float>, std::vector<float>,
     std::vector<float>, std::vector<float>, std::vector<float>>
-soil_simulator::CalcBucketCornerPos(
+soil_simulator::CalcBodyCornerPos(
     std::vector<float> pos, std::vector<float> ori, Body* body
 ) {
     // Calculating position of the body vertices
@@ -70,11 +70,11 @@ bool soil_simulator::CheckBodyMovement(
 ) {
     // Calculating new position of body corners
     auto [j_r_pos_n, j_l_pos_n, b_r_pos_n, b_l_pos_n, t_r_pos_n, t_l_pos_n] =
-        soil_simulator::CalcBucketCornerPos(pos, ori, body);
+        soil_simulator::CalcBodyCornerPos(pos, ori, body);
 
     // Calculating former position of body corners
     auto [j_r_pos_f, j_l_pos_f, b_r_pos_f, b_l_pos_f, t_r_pos_f, t_l_pos_f] =
-        soil_simulator::CalcBucketCornerPos(body->pos_, body->ori_, body);
+        soil_simulator::CalcBodyCornerPos(body->pos_, body->ori_, body);
 
     // Calculating distance travelled
     float j_r_dist = std::sqrt(
@@ -571,7 +571,7 @@ void soil_simulator::WriteBody(
 ) {
     // Calculating position of body corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
-        soil_simulator::CalcBucketCornerPos(body->pos_, body->ori_, body);
+        soil_simulator::CalcBodyCornerPos(body->pos_, body->ori_, body);
 
     // Finding next filename for the bucket file
     std::source_location location = std::source_location::current();
