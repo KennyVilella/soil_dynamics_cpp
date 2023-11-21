@@ -514,7 +514,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-5
-    exp_msg = "Terrain is above the bucket";
+    exp_msg = "Terrain is above the body";
     sim_out->terrain_[1][1] = 0.5;
     CheckSoilWarning();
     sim_out->terrain_[1][1] = -0.2;
@@ -524,7 +524,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-6
-    exp_msg = "Min height of the bucket is above its max height";
+    exp_msg = "Min height of the body is above its max height";
     SetHeight(sim_out, 1, 1, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
@@ -542,7 +542,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-7
-    exp_msg = "Min height of the bucket soil is above its max height";
+    exp_msg = "Min height of the body soil is above its max height";
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.2, 0.0, NAN, NAN, NAN, NAN);
@@ -554,7 +554,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-8
-    exp_msg = "Bucket is above the bucket soil";
+    exp_msg = "Body is above the body soil";
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.05, NAN, NAN, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.00, NAN, NAN, NAN, NAN, NAN, NAN);
@@ -566,7 +566,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-9
-    exp_msg = "Bucket soil is not resting on the bucket";
+    exp_msg = "Body soil is not resting on the body";
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.05, 0.1, NAN, NAN, NAN, NAN);
@@ -578,7 +578,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-10
-    exp_msg = "Bucket soil is present but there is no bucket";
+    exp_msg = "Body soil is present but there is no body";
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.0, 0.0, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN);
@@ -588,7 +588,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-11
-    exp_msg = "Two bucket layers are intersecting";
+    exp_msg = "Two body layers are intersecting";
     sim_out->terrain_[3][2] = -0.2;
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.1, NAN, NAN, 0.0, 0.2, NAN, NAN);
     CheckSoilWarning();
@@ -602,7 +602,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-12
-    exp_msg = "A bucket and bucket soil layer are intersecting";
+    exp_msg = "A body and body soil layer are intersecting";
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.0, 0.0, 0.15, 0.1, 0.2, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, 0.1, 0.2, 0.0, 0.0, -0.15, 0.0, 0.0, 0.15);
