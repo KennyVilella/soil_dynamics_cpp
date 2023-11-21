@@ -64,7 +64,7 @@ Note that it is straightforward to change the terrain initialization implementat
 Determine whether soil should be updated
 ----------------------------------------
 
-The function :code:`CheckBucketMovement` can be used before the soil update to verify whether the soil should be updated.
+The function :code:`CheckBodyMovement` can be used before the soil update to verify whether the soil should be updated.
 This function calculates the distance travelled by the six bucket corners since the last soil update.
 If the maximum distance is lower than 50% of the cell size (vertical AND lateral), then the function returns :code:`false` and the soil should not be updated, otherwise the function returns :code:`true`.
 

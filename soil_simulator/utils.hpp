@@ -39,7 +39,7 @@ CalcBucketCornerPos(
 /// \param body: Class that stores information related to the body object.
 ///
 /// \return A boolean indicating whether the soil should be updated.
-bool CheckBucketMovement(
+bool CheckBodyMovement(
     std::vector<float> pos, std::vector<float> ori, Grid grid, Body* body);
 
 /// \brief This function calculates the unit normal vector of a plane formed by

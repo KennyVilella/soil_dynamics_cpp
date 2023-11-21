@@ -89,7 +89,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     delete bucket;
 }
 
-TEST(UnitTestUtils, CheckBucketMovement) {
+TEST(UnitTestUtils, CheckBodyMovement) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
@@ -109,56 +109,56 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     // Test: UT-CBM-1
     pos = {0.1, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-2
     pos = {0.05, 0.02, -0.05};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-3
     pos = {0.0, 0.0, 0.0};
     ori = {0.997, 0.0, 0.07, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-4
     pos = {0.05, 0.0, 0.0};
     ori = {0.997, 0.0, 0.07, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-5
     pos = {0.005, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-6
     pos = {0.001, 0.002, -0.003};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-7
     pos = {0.0, 0.0, 0.0};
     ori = {0.999, 0.0, 0.0029, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-8
     pos = {0.001, 0.0, 0.0};
     ori = {0.999, 0.0, 0.0029, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-9
     pos = {0.3, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
     testing::internal::CaptureStdout();
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     std::string warning_msg = testing::internal::GetCapturedStdout();
     std::string exp_msg = "Movement made by the body is larger than two"
         " cell size.";

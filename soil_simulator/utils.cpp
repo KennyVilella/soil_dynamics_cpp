@@ -65,7 +65,7 @@ soil_simulator::CalcBucketCornerPos(
 /// the function returns `false` otherwise it returns `true`.
 /// Note that if the distance travelled exceeds twice the cell size, a warning
 /// is issued to indicate a potential problem with the soil update.
-bool soil_simulator::CheckBucketMovement(
+bool soil_simulator::CheckBodyMovement(
     std::vector<float> pos, std::vector<float> ori, Grid grid, Body* body
 ) {
     // Calculating new position of body corners

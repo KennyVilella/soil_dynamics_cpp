@@ -63,7 +63,7 @@ bool soil_simulator::SoilDynamics::Step(
     Grid grid, Body* body, SimParam sim_param, float tol
 ) {
     // Checking movement made by the body
-    auto soil_update = soil_simulator::CheckBucketMovement(
+    auto soil_update = soil_simulator::CheckBodyMovement(
         pos, ori, grid, body);
 
     if (!soil_update) {

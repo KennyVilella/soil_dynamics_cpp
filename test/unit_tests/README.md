@@ -81,9 +81,9 @@ Unit tests for the `CalcBucketCornerPos` function.
 | UT-CBC-3  | Testing for a bucket with a simple rotation applied.                      |
 | UT-CBC-4  | Testing for a bucket with both a simple rotation and translation applied. |
 
-### `CheckBucketMovement`
+### `CheckBodyMovement`
 
-Unit tests for the `CheckBucketMovement` function.
+Unit tests for the `CheckBodyMovement` function.
 
 | Test name | Description of the unit test                                                    |
 | --------- | ------------------------------------------------------------------------------- |
