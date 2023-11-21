@@ -72,7 +72,7 @@ cmake --build <path_to_repository>/build --target benchmarks
 
 The example script provides options to write the results into CSV files.
 The following options can be enabled to write the results at each time-step:
-- `WriteBucket`: Write the bucket corners.
+- `WriteBody`: Write the body corners.
 - `WriteSoil`: Write the terrain and the soil resting on the bucket.
 
 [ParaView][] can be used to visualize the results.

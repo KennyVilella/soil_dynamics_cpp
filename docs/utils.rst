@@ -22,15 +22,15 @@ Therefore, it is recommended to use them primarily for debugging and testing pur
 Writing functions
 -----------------
 
-This corresponds to the functions :code:`WriteSoil` and :code:`WriteBucket`, which can be used to write the outputs into csv files.
-The :code:`WriteBucket` function generates files starting with :code:`bucket`, containing the Cartesian coordinates of the four bucket walls' edges.
+This corresponds to the functions :code:`WriteSoil` and :code:`WriteBody`, which can be used to write the outputs into csv files.
+The :code:`WriteBody` function generates files starting with :code:`bucket`, containing the Cartesian coordinates of the four bucket walls' edges.
 The :code:`WriteSoil` function generates files starting with :code:`terrain` for the terrain height and :code:`body_soil` for the bucket soil height.
 All the output files are saved in the :code:`results` folder, with sequentially increasing numbers appended to the filenames.
 
 Note that these functions are primarily designed to be used in the example script provided.
 Consequently, they have potential limitations that should be considered by the user.
 Firstly, the file numbers are assigned sequentially.
-If the :code:`WriteBucket` and :code:`WriteSoil` functions are not called together consistently, the file numbers of the :code:`bucket` and :code:`terrain` may not correspond.
+If the :code:`WriteBody` and :code:`WriteSoil` functions are not called together consistently, the file numbers of the :code:`bucket` and :code:`terrain` may not correspond.
 As a result, the two functions are always called together by the :code:`WriteOutputs` function of the simulator.
 Additionally, this may cause issues if existing files are present in the :code:`results` folder.
 

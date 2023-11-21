@@ -129,7 +129,7 @@ void WriteSoil(SimOut* sim_out, Grid grid);
 ///        located in the `results` directory.
 ///
 /// \param body: Class that stores information related to the body object.
-void WriteBucket(Body* body);
+void WriteBody(Body* body);
 
 /// \brief This function creates simplex noise for more realistic terrain
 ///        generation.

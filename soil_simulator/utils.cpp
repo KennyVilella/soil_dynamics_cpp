@@ -566,7 +566,7 @@ void soil_simulator::WriteSoil(
 
 /// The body corners are saved into a file named `bucket` followed by
 /// the file number.
-void soil_simulator::WriteBucket(
+void soil_simulator::WriteBody(
     Body* body
 ) {
     // Calculating position of body corners

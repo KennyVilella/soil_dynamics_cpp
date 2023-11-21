@@ -134,5 +134,5 @@ void soil_simulator::SoilDynamics::WriteOutputs(
     soil_simulator::WriteSoil(sim_out, grid);
 
     // Writing body corners
-    soil_simulator::WriteBucket(body);
+    soil_simulator::WriteBody(body);
 }
