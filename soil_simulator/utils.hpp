@@ -54,39 +54,39 @@ std::vector<float> CalcNormal(
     std::vector<float> a, std::vector<float> b, std::vector<float> c);
 
 /// \brief This function calculates the position of a considered cell in the
-///        bucket frame assuming that the bucket is in its reference position.
+///        body frame assuming that the body is in its reference position.
 ///
 /// \param ii: Index of the considered cell in the X direction.
 /// \param jj: Index of the considered cell in the Y direction.
 /// \param z: Height of the considered position. [m]
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param body: Class that stores information related to the body object.
 ///
 /// \return Cartesian coordinates of the considered position in the reference
-///         bucket frame.
+///         body frame.
 std::vector<float> CalcBucketFramePos(
-    int ii, int jj, float z, Grid grid, Bucket* bucket);
+    int ii, int jj, float z, Grid grid, Body* body);
 
 /// \brief This function applies a rotation `ori` to the Cartesian
 ///        coordinates `pos`.
 ///
 /// The Quaternion convention is used for 3D rotation.
 ///
-/// \param ori: Orientation of the bucket. [Quaternion]
-/// \param pos: Cartesian coordinates of one point of the bucket in its
-///             reference pose relative to the bucket origin. [m]
+/// \param ori: Orientation of the body. [Quaternion]
+/// \param pos: Cartesian coordinates of one point of the body in its
+///             reference pose relative to the body origin. [m]
 ///
 /// \return Rotated Cartesian coordinates of the input `pos` relative to the
-///         bucket origin. [m]
+///         body origin. [m]
 std::vector<float> CalcRotationQuaternion(
     std::vector<float> ori, std::vector<float> pos);
 
 /// \brief This function converts Euler angles following the ZYX convention to
 ///        a quaternion.
 ///
-/// \param ori: Orientation of the bucket. [Euler angles, ZYX sequence]
+/// \param ori: Orientation of the body. [Euler angles, ZYX sequence]
 ///
-/// \return Orientation of the bucket. [Quaternion]
+/// \return Orientation of the body. [Quaternion]
 std::vector<float> AngleToQuat(std::vector<float> ori);
 
 /// \brief This function calculates the product of two quaternions.
@@ -118,7 +118,7 @@ bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid, float tol);
 /// \return Boolean indicating whether the simulation outputs are consistent.
 bool CheckSoil(SimOut* sim_out, float tol);
 
-/// \brief This function writes the terrain and the bucket soil into a csv
+/// \brief This function writes the terrain and the body soil into a csv
 ///        located in the `results` directory.
 ///
 /// \param sim_out: Class that stores simulation outputs.
