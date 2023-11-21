@@ -141,6 +141,38 @@ class Grid {
      ~Grid() {}
 };
 
+/// \brief Base class for objects interacting with soil.
+///
+/// This class is not meant to be used directly. Derived classes should be
+/// used instead.
+class Body {
+ public:
+     /// Cartesian coordinates of the body joint in its reference pose. [m]
+     std::vector<float> j_pos_init_;
+
+     /// Cartesian coordinates of the body base in its reference pose. [m]
+     std::vector<float> b_pos_init_;
+
+     /// Cartesian coordinates of the body teeth in its reference pose. [m]
+     std::vector<float> t_pos_init_;
+
+     /// Width of the body. [m]
+     float width_;
+
+     /// Cartesian coordinates of the body origin. [m]
+     std::vector<float> pos_;
+
+     /// Orientation of the body. [Quaternion]
+     std::vector<float> ori_;
+
+ protected:
+     /// \brief Constructor
+     Body() {}
+
+     /// \brief Destructor
+     ~Body() {}
+};
+
 /// \brief Store all parameters related to a bucket object.
 ///
 /// Convention:
@@ -203,26 +235,8 @@ class Grid {
 /// - `D = [0.0, 0.25, 0.0]`,
 /// - `E = [1.0, 0.25, -0.5]`
 /// - `F = [0.0, 0.25, -0.5]`
-class Bucket {
+class Bucket : public Body {
  public:
-     /// Cartesian coordinates of the bucket joint in its reference pose. [m]
-     std::vector<float> j_pos_init_;
-
-     /// Cartesian coordinates of the bucket base in its reference pose. [m]
-     std::vector<float> b_pos_init_;
-
-     /// Cartesian coordinates of the bucket teeth in its reference pose. [m]
-     std::vector<float> t_pos_init_;
-
-     /// Width of the bucket. [m]
-     float width_;
-
-     /// Cartesian coordinates of the bucket origin. [m]
-     std::vector<float> pos_;
-
-     /// Orientation of the bucket. [Quaternion]
-     std::vector<float> ori_;
-
      /// \brief Create a new instance of `Bucket` using the reference positions
      ///        of the bucket origin, joint, base, and teeth as well as the
      ///        bucket width.
