@@ -9,27 +9,27 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
-/// \brief Store information related to the position of the bucket soil.
+/// \brief Store information related to the position of the body soil.
 struct body_soil{
-    /// Index of the bucket soil layer.
+    /// Index of the body soil layer.
     int ind;
 
-    /// Index of the bucket soil position in the X direction.
+    /// Index of the body soil position in the X direction.
     int ii;
 
-    /// Index of the bucket soil position in the Y direction.
+    /// Index of the body soil position in the Y direction.
     int jj;
 
-    /// Cartesian coordinate in the X direction of the bucket soil in the
-    /// reference bucket frame. [m]
+    /// Cartesian coordinate in the X direction of the body soil in the
+    /// reference body frame. [m]
     float x_b;
 
-    /// Cartesian coordinate in the Y direction of the bucket soil in the
-    /// reference bucket frame. [m]
+    /// Cartesian coordinate in the Y direction of the body soil in the
+    /// reference body frame. [m]
     float y_b;
 
-    /// Cartesian coordinate in the Z direction of the bucket soil in the
-    /// reference bucket frame. [m]
+    /// Cartesian coordinate in the Z direction of the body soil in the
+    /// reference body frame. [m]
     float z_b;
 
     /// Vertical extent of the soil column. [m]
@@ -290,7 +290,7 @@ class SimParam {
      /// The maximum number of relaxation iterations per step.
      int max_iterations_;
 
-     /// The number of buffer cells surrounding the bucket and the relaxed
+     /// The number of buffer cells surrounding the body and the relaxed
      /// terrain where soil equilibrium is checked.
      int cell_buffer_;
 
@@ -305,7 +305,7 @@ class SimParam {
      /// \param repose_angle: The repose angle of the considered soil. [rad]
      /// \param max_iterations: The maximum number of relaxation iterations
      ///                        per step.
-     /// \param cell_buffer: The number of buffer cells surrounding the bucket
+     /// \param cell_buffer: The number of buffer cells surrounding the body
      ///                     and the relaxed terrain where soil equilibrium
      ///                     is checked.
      SimParam(
@@ -321,22 +321,22 @@ class SimParam {
 /// Convention
 /// - The `terrain_` Matrix stores the height of the terrain at each XY
 ///   position, see the `Grid` class for more details on the simulation grid.
-/// - The cells where a bucket wall is located is stored in `body_`. At each
-///   XY position, the first layer indicates the lowest height where a bucket
+/// - The cells where a body wall is located is stored in `body_`. At each
+///   XY position, the first layer indicates the lowest height where a body
 ///   wall is located while the second layer indicates the maximum height of
-///   this bucket wall. If a second bucket wall is located at the same XY
+///   this body wall. If a second body wall is located at the same XY
 ///   position, its minimum and maximum height are indicated in the third and
 ///   fourth layers, respectively.
-/// - For each bucket, there can be only two distinct bucket walls located at
+/// - For each body, there can be only two distinct body walls located at
 ///   the same XY position. As a result, the number of layers in the `body_`
-///   vector should be equal to four times the number of bucket.
+///   vector should be equal to four times the number of body.
 /// - Similarly, `body_soil_` stores the location of the soil resting on a
-///   bucket wall. The structure of `body_soil_` is identical to `body_`. An
+///   body wall. The structure of `body_soil_` is identical to `body_`. An
 ///   additional restriction is that the minimum height of the soil resting on
-///   the bucket must correspond to the maximum height of a bucket wall.
-/// - The locations where there is soil resting on the bucket are stored in
+///   the body must correspond to the maximum height of a body wall.
+/// - The locations where there is soil resting on the body are stored in
 ///   `body_soil_pos_` as a vector of `body_soil` struct.
-/// - The active areas (`bucket_area_`, `relax_area_` and `impact_area_`) are
+/// - The active areas (`body_area_`, `relax_area_` and `impact_area_`) are
 ///   assumed to be rectangular and to follow the grid geometry. They are thus
 ///   stored as 2x2 Matrices where:
 ///   [0, 0] corresponds to the minimum X index.
@@ -345,7 +345,7 @@ class SimParam {
 ///   [1, 1] corresponds to the maximum Y index.
 ///
 /// Note:
-/// - Currently, only one bucket at a time is supported, but this restriction
+/// - Currently, only one body at a time is supported, but this restriction
 ///   may be removed in the future.
 ///
 /// Usage:
@@ -364,18 +364,18 @@ class SimOut {
      /// Height of the terrain. [m]
      std::vector<std::vector<float>> terrain_;
 
-     /// Store the vertical extension of all bucket walls for each XY
+     /// Store the vertical extension of all body walls for each XY
      /// position. [m]
      std::vector<std::vector<std::vector<float>>> body_;
 
-     /// Store the vertical extension of all soil resting on a bucket wall for
+     /// Store the vertical extension of all soil resting on a body wall for
      /// each XY position. [m]
      std::vector<std::vector<std::vector<float>>> body_soil_;
 
-     /// Store the information related to the soil resting on the bucket.
+     /// Store the information related to the soil resting on the body.
      std::vector<body_soil> body_soil_pos_;
 
-     /// Store the 2D bounding box of the bucket with a buffer determined
+     /// Store the 2D bounding box of the body with a buffer determined
      /// by the parameter `cell_buffer_` of `SimParam`.
      int bucket_area_[2][2];
 

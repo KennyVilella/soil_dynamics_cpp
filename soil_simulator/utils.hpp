@@ -12,35 +12,35 @@ Copyright, 2023, Vilella Kenny.
 namespace soil_simulator {
 
 /// \brief This function calculates the global position of the six corners of
-///        the bucket.
+///        the body.
 ///
-/// \param pos: Cartesian coordinates of the bucket origin. [m]
-/// \param ori: Orientation of the bucket. [Quaternion]
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param pos: Cartesian coordinates of the body origin. [m]
+/// \param ori: Orientation of the body. [Quaternion]
+/// \param body: Class that stores information related to the body object.
 ///
 /// \return A tuple composed of six vectors giving the Cartesian coordinates
-///         of the bucket corners in that order: right side of the bucket joint,
-///         left side of the bucket joint, right side of the bucket base, left
-///         side of the bucket base, right side of the bucket teeth, left side
-///         of the bucket teeth. [m]
+///         of the body corners in that order: right side of the body joint,
+///         left side of the body joint, right side of the body base, left
+///         side of the body base, right side of the body teeth, left side
+///         of the body teeth. [m]
 std::tuple<
     std::vector<float>, std::vector<float>, std::vector<float>,
     std::vector<float>, std::vector<float>, std::vector<float>>
 CalcBucketCornerPos(
-    std::vector<float> pos, std::vector<float> ori, Bucket* bucket);
+    std::vector<float> pos, std::vector<float> ori, Body* body);
 
-/// \brief This function calculates how far the bucket has travelled since the
+/// \brief This function calculates how far the body has travelled since the
 ///        last soil update and checks whether it is necessary to update the
 ///        soil.
 ///
-/// \param pos: Cartesian coordinates of the bucket origin. [m]
-/// \param ori: Orientation of the bucket. [Quaternion]
+/// \param pos: Cartesian coordinates of the body origin. [m]
+/// \param ori: Orientation of the body. [Quaternion]
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param body: Class that stores information related to the body object.
 ///
 /// \return A boolean indicating whether the soil should be updated.
 bool CheckBucketMovement(
-    std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket);
+    std::vector<float> pos, std::vector<float> ori, Grid grid, Body* body);
 
 /// \brief This function calculates the unit normal vector of a plane formed by
 ///        three points using the right-hand rule.
@@ -125,11 +125,11 @@ bool CheckSoil(SimOut* sim_out, float tol);
 /// \param grid: Class that stores information related to the simulation grid.
 void WriteSoil(SimOut* sim_out, Grid grid);
 
-/// \brief This function writes the position of all bucket faces into a csv
+/// \brief This function writes the position of all body faces into a csv
 ///        located in the `results` directory.
 ///
-/// \param bucket: Class that stores information related to the bucket object.
-void WriteBucket(Bucket* bucket);
+/// \param body: Class that stores information related to the body object.
+void WriteBucket(Body* body);
 
 /// \brief This function creates simplex noise for more realistic terrain
 ///        generation.

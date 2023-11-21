@@ -18,20 +18,20 @@ std::tuple<
     std::vector<float>, std::vector<float>, std::vector<float>,
     std::vector<float>, std::vector<float>, std::vector<float>>
 soil_simulator::CalcBucketCornerPos(
-    std::vector<float> pos, std::vector<float> ori, Bucket* bucket
+    std::vector<float> pos, std::vector<float> ori, Body* body
 ) {
-    // Calculating position of the bucket vertices
+    // Calculating position of the body vertices
     auto j_pos = soil_simulator::CalcRotationQuaternion(
-        ori, bucket->j_pos_init_);
+        ori, body->j_pos_init_);
     auto b_pos = soil_simulator::CalcRotationQuaternion(
-        ori, bucket->b_pos_init_);
+        ori, body->b_pos_init_);
     auto t_pos = soil_simulator::CalcRotationQuaternion(
-        ori, bucket->t_pos_init_);
+        ori, body->t_pos_init_);
 
-    // Unit vector normal to the side of the bucket
+    // Unit vector normal to the side of the body
     auto normal_side = soil_simulator::CalcNormal(j_pos, b_pos, t_pos);
 
-    // Declaring vectors for each vertex of the bucket
+    // Declaring vectors for each vertex of the body
     std::vector<float> j_r_pos(3);
     std::vector<float> j_l_pos(3);
     std::vector<float> b_r_pos(3);
@@ -40,41 +40,41 @@ soil_simulator::CalcBucketCornerPos(
     std::vector<float> t_l_pos(3);
 
     for (auto ii = 0; ii < 3; ii++) {
-        // Adding position of the bucket origin
+        // Adding position of the body origin
         j_pos[ii] += pos[ii];
         b_pos[ii] += pos[ii];
         t_pos[ii] += pos[ii];
 
-        // Position of each vertex of the bucket
-        j_r_pos[ii] = j_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        j_l_pos[ii] = j_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-        b_r_pos[ii] = b_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        b_l_pos[ii] = b_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
-        t_r_pos[ii] = t_pos[ii] + 0.5 * bucket->width_ * normal_side[ii];
-        t_l_pos[ii] = t_pos[ii] - 0.5 * bucket->width_ * normal_side[ii];
+        // Position of each vertex of the body
+        j_r_pos[ii] = j_pos[ii] + 0.5 * body->width_ * normal_side[ii];
+        j_l_pos[ii] = j_pos[ii] - 0.5 * body->width_ * normal_side[ii];
+        b_r_pos[ii] = b_pos[ii] + 0.5 * body->width_ * normal_side[ii];
+        b_l_pos[ii] = b_pos[ii] - 0.5 * body->width_ * normal_side[ii];
+        t_r_pos[ii] = t_pos[ii] + 0.5 * body->width_ * normal_side[ii];
+        t_l_pos[ii] = t_pos[ii] - 0.5 * body->width_ * normal_side[ii];
     }
 
     return {j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos};
 }
 
 /// This function calculates the maximum distance travelled by any part of the
-/// bucket since the last soil update. The position of the bucket during the
-/// last soil update is stored in the `bucket` class.
+/// body since the last soil update. The position of the body during the
+/// last soil update is stored in the `body` class.
 ///
 /// If the maximum distance travelled is lower than 50% of the cell size,
 /// the function returns `false` otherwise it returns `true`.
 /// Note that if the distance travelled exceeds twice the cell size, a warning
 /// is issued to indicate a potential problem with the soil update.
 bool soil_simulator::CheckBucketMovement(
-    std::vector<float> pos, std::vector<float> ori, Grid grid, Bucket* bucket
+    std::vector<float> pos, std::vector<float> ori, Grid grid, Body* body
 ) {
-    // Calculating new position of bucket corners
+    // Calculating new position of body corners
     auto [j_r_pos_n, j_l_pos_n, b_r_pos_n, b_l_pos_n, t_r_pos_n, t_l_pos_n] =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBucketCornerPos(pos, ori, body);
 
-    // Calculating former position of bucket corners
+    // Calculating former position of body corners
     auto [j_r_pos_f, j_l_pos_f, b_r_pos_f, b_l_pos_f, t_r_pos_f, t_l_pos_f] =
-        soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
+        soil_simulator::CalcBucketCornerPos(body->pos_, body->ori_, body);
 
     // Calculating distance travelled
     float j_r_dist = std::sqrt(
@@ -110,10 +110,10 @@ bool soil_simulator::CheckBucketMovement(
     float min_cell_size = std::min(grid.cell_size_xy_, grid.cell_size_z_);
 
     if (max_dist < 0.5 * min_cell_size) {
-        // Bucket has only slightly moved since last update
+        // Body has only slightly moved since last update
         return false;
     } else if (max_dist > 2 * min_cell_size) {
-        LOG(WARNING) << "WARNING\nMovement made by the bucket is larger than "
+        LOG(WARNING) << "WARNING\nMovement made by the body is larger than "
             "two cell size.\nThe validity of the soil update is not ensured.";
     }
 
@@ -547,7 +547,7 @@ void soil_simulator::WriteSoil(
                 if (
                     (sim_out->body_soil_[0][ii][jj] != 0.0) ||
                     (sim_out->body_soil_[1][ii][jj] != 0.0)) {
-                    // Bucket soil is present
+                    // Body soil is present
                     body_soil_file << grid.vect_x_[ii] << "," <<
                         grid.vect_y_[jj] << "," <<
                         sim_out->body_soil_[1][ii][jj] << "\n";
@@ -555,7 +555,7 @@ void soil_simulator::WriteSoil(
                 if (
                     (sim_out->body_soil_[2][ii][jj] != 0.0) ||
                     (sim_out->body_soil_[3][ii][jj] != 0.0)) {
-                    // Bucket soil is present
+                    // Body soil is present
                     body_soil_file << grid.vect_x_[ii] << "," <<
                         grid.vect_y_[jj] << "," <<
                         sim_out->body_soil_[3][ii][jj] << "\n";
@@ -564,14 +564,14 @@ void soil_simulator::WriteSoil(
     }
 }
 
-/// The bucket corners are saved into a file named `bucket` followed by
+/// The body corners are saved into a file named `bucket` followed by
 /// the file number.
 void soil_simulator::WriteBucket(
-    Bucket* bucket
+    Body* body
 ) {
-    // Calculating position of bucket corners
+    // Calculating position of body corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
-        soil_simulator::CalcBucketCornerPos(bucket->pos_, bucket->ori_, bucket);
+        soil_simulator::CalcBucketCornerPos(body->pos_, body->ori_, body);
 
     // Finding next filename for the bucket file
     std::source_location location = std::source_location::current();

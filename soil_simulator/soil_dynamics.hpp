@@ -28,12 +28,12 @@ class SoilDynamics {
      /// \brief Step the simulation.
      ///
      /// \param sim_out: Class that stores simulation outputs.
-     /// \param pos: Cartesian coordinates of the bucket origin. [m]
-     /// \param ori: Orientation of the bucket. [Quaternion]
+     /// \param pos: Cartesian coordinates of the body origin. [m]
+     /// \param ori: Orientation of the body. [Quaternion]
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
-     /// \param bucket: Class that stores information related to the
-     ///                bucket object.
+     /// \param body: Class that stores information related to the
+     ///              body object.
      /// \param sim_param: Class that stores information related to
      ///                   the simulation.
      /// \param tol: Small number used to handle numerical approximation errors.
@@ -41,7 +41,7 @@ class SoilDynamics {
      /// \return A boolean indicating whether soil update has been done.
      bool Step(
          SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
-         Grid grid, Bucket* bucket, SimParam sim_param, float tol);
+         Grid grid, Body* body, SimParam sim_param, float tol);
 
      /// \brief Check the validity of the simulation outputs.
      ///
@@ -57,9 +57,9 @@ class SoilDynamics {
      /// \param sim_out: Class that stores simulation outputs.
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
-     /// \param bucket: Class that stores information related to the
-     ///                bucket object.
-     void WriteOutputs(SimOut* sim_out, Grid grid, Bucket* bucket);
+     /// \param body: Class that stores information related to the
+     ///              body object.
+     void WriteOutputs(SimOut* sim_out, Grid grid, Body* body);
 };
 
 }  // namespace soil_simulator
