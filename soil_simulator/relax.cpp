@@ -663,7 +663,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
         sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, body);
 
         // Adding new body soil position to body_soil_pos
@@ -701,7 +701,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
         sim_out->body_soil_[3][ii_c][jj_c] = h_new_c;
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, body);
 
         // Adding new body soil position to body_soil_pos
@@ -739,7 +739,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
         sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, body);
 
         // Adding new body soil position to body_soil_pos
@@ -777,7 +777,7 @@ void soil_simulator::RelaxUnstableTerrainCell(
         sim_out->body_soil_[1][ii_c][jj_c] = h_new_c;
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, body);
 
         // Adding new body soil position to body_soil_pos
@@ -888,7 +888,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             sim_out->body_soil_[1][ii_c][jj_c] += h_soil;
 
             // Calculating pos of cell in body frame
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, body);
 
             // Adding new body soil position to body_soil_pos
@@ -925,7 +925,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                     sim_out->body_[1][ii_c][jj_c] + h_soil);
 
             // Calculating pos of cell in body frame
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, body);
 
             // Adding new body soil position to body_soil_pos
@@ -963,7 +963,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             sim_out->body_soil_[3][ii_c][jj_c] += h_soil;
 
             // Calculating pos of cell in body frame
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, body);
 
             // Adding new body soil position to body_soil_pos
@@ -1000,7 +1000,7 @@ void soil_simulator::RelaxUnstableBodyCell(
                 sim_out->body_[3][ii_c][jj_c] + h_soil);
 
             // Calculating pos of cell in body frame
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, body);
 
             // Adding new body soil position to body_soil_pos
@@ -1070,7 +1070,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             }
             if (h_soil > tol) {
                 // Calculating pos of cell in body frame
-                auto pos = soil_simulator::CalcBucketFramePos(
+                auto pos = soil_simulator::CalcBodyFramePos(
                     ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, body);
 
                 // Adding new body soil position to body_soil_pos
@@ -1139,7 +1139,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             }
 
             // Calculating pos of cell in body frame
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii_c, jj_c, sim_out->body_[3][ii_c][jj_c], grid, body);
 
             // Adding new body soil position to body_soil_pos
@@ -1206,7 +1206,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             }
             if (h_soil > tol) {
                 // Calculating pos of cell in body frame
-                auto pos = soil_simulator::CalcBucketFramePos(
+                auto pos = soil_simulator::CalcBodyFramePos(
                     ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, body);
 
                 // Adding new body soil position to body_soil_pos
@@ -1279,7 +1279,7 @@ void soil_simulator::RelaxUnstableBodyCell(
             }
 
             // Calculating pos of cell in body frame
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii_c, jj_c, sim_out->body_[1][ii_c][jj_c], grid, body);
 
             // Adding new body soil position to body_soil_pos

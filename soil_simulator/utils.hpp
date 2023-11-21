@@ -64,7 +64,7 @@ std::vector<float> CalcNormal(
 ///
 /// \return Cartesian coordinates of the considered position in the reference
 ///         body frame.
-std::vector<float> CalcBucketFramePos(
+std::vector<float> CalcBodyFramePos(
     int ii, int jj, float z, Grid grid, Body* body);
 
 /// \brief This function applies a rotation `ori` to the Cartesian

@@ -332,7 +332,7 @@ TEST(UnitTestUtils, AngleToQuat) {
     EXPECT_NEAR(quat[3], 0.295169, 1e-5);
 }
 
-TEST(UnitTestUtils, CalcBucketFramePos) {
+TEST(UnitTestUtils, CalcBodyFramePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
@@ -348,14 +348,14 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
     std::vector<float> pos;
 
     // Test: UT-CBF-1
-    pos = soil_simulator::CalcBucketFramePos(11, 11, 0.2, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 11, 0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], 0.1, 1e-5);
     EXPECT_NEAR(pos[2], 0.2, 1e-5);
 
     // Test: UT-CBF-2
     bucket->pos_ = {-0.1, 0.2, 0.3};
-    pos = soil_simulator::CalcBucketFramePos(10, 12, -0.2, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(10, 12, -0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], 0.0, 1e-5);
     EXPECT_NEAR(pos[2], -0.5, 1e-5);
@@ -363,7 +363,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
 
     // Test: UT-CBF-3
     bucket->ori_ = {0.707107, 0.0, 0.0, -0.707107};
-    pos = soil_simulator::CalcBucketFramePos(11, 12, 0.3, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], 0.2, 1e-5);
     EXPECT_NEAR(pos[1], -0.1, 1e-5);
     EXPECT_NEAR(pos[2], 0.3, 1e-5);
@@ -371,7 +371,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
 
     // Test: UT-CBF-4
     bucket->ori_ = {0.707107, 0.0, -0.707107, 0.0};
-    pos = soil_simulator::CalcBucketFramePos(11, 12, 0.3, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], -0.3, 1e-5);
     EXPECT_NEAR(pos[1], 0.2, 1e-5);
     EXPECT_NEAR(pos[2], 0.1, 1e-5);
@@ -379,7 +379,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
 
     // Test: UT-CBF-5
     bucket->ori_ = {0.707107, 0.707107, 0.0, 0.0};
-    pos = soil_simulator::CalcBucketFramePos(11, 12, 0.3, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], -0.3, 1e-5);
     EXPECT_NEAR(pos[2], 0.2, 1e-5);
@@ -388,7 +388,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
     // Test: UT-CBF-6
     bucket->pos_ = {-0.1, 0.2, 0.3};
     bucket->ori_ = {0.707107, 0.0, 0.0, -0.707107};
-    pos = soil_simulator::CalcBucketFramePos(10, 12, -0.2, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(10, 12, -0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.0, 1e-5);
     EXPECT_NEAR(pos[1], -0.1, 1e-5);
     EXPECT_NEAR(pos[2], -0.5, 1e-5);

@@ -142,7 +142,7 @@ std::vector<float> soil_simulator::CalcNormal(
     return normal;
 }
 
-std::vector<float> soil_simulator::CalcBucketFramePos(
+std::vector<float> soil_simulator::CalcBodyFramePos(
     int ii, int jj, float z, Grid grid, Body* body
 ) {
     // Calculating cell's position in body frame

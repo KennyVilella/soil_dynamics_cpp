@@ -48,7 +48,7 @@ This function is used in :code:`CalcRotationQuaternion` to apply the rotation gi
 Second, the function :code:`AngleToQuat` converts Euler angles following the :code:`ZYX` convention to a Quaternion.
 Note that other conventions are currently not supported.
 
-Lastly, the function :code:`CalcBucketFramePos` calculates the position of a given cell in the reference frame of the bucket.
+Lastly, the function :code:`CalcBodyFramePos` calculates the position of a given cell in the reference frame of the bucket.
 To do so, the inverse of the bucket orientation is applied to the position.
 This is used to keep the position where the soil has initially landed on the bucket.
 

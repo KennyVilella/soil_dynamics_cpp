@@ -142,9 +142,9 @@ Unit tests for the `AngleToQuat` function.
 | UT-AQ-3   | Testing the conversion of a pi/2 rotation around the X axis.      |
 | UT-AQ-4   | Testing the conversion of an arbitrary rotation. The result has been checked with the `ReferenceFrameRotations` library in Julia. |
 
-### `CalcBucketFramePos`
+### `CalcBodyFramePos`
 
-Unit tests for the `CalcBucketFramePos` function.
+Unit tests for the `CalcBodyFramePos` function.
 
 | Test name | Description of the unit test                                       |
 | --------- | ------------------------------------------------------------------ |

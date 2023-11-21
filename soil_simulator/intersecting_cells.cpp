@@ -344,7 +344,7 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
         }
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_n, jj_n, sim_out->body_[3][ii_n][jj_n], grid, body);
 
         // Adding new body soil position to body_soil_pos
@@ -386,7 +386,7 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
         }
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_n, jj_n, sim_out->body_[1][ii_n][jj_n], grid, body);
 
         // Adding new body soil position to body_soil_pos
@@ -423,7 +423,7 @@ std::tuple<int, int, int, float, bool> soil_simulator::MoveBodySoil(
         }
 
         // Calculating pos of cell in body frame
-        auto pos = soil_simulator::CalcBucketFramePos(
+        auto pos = soil_simulator::CalcBodyFramePos(
             ii_n, jj_n, sim_out->body_[ind_b_n+1][ii_n][jj_n], grid, body);
 
         // Only option left is that there is space for the intersecting soil
