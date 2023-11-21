@@ -19,7 +19,7 @@ Copyright, 2023, Vilella Kenny.
 /// rotation to the bucket relative to its reference pose. The centre of
 /// rotation is assumed to be the bucket origin. The orientation is provided
 /// using the quaternion definition.
-void soil_simulator::CalcBucketPos(
+void soil_simulator::CalcBodyPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, SimParam sim_param, float tol
 ) {

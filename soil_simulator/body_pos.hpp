@@ -20,7 +20,7 @@ namespace soil_simulator {
 /// \param bucket: Class that stores information related to the bucket object.
 /// \param sim_param: Class that stores information related to the simulation.
 /// \param tol: Small number used to handle numerical approximation errors.
-void CalcBucketPos(
+void CalcBodyPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Bucket* bucket, SimParam sim_param, float tol);
 

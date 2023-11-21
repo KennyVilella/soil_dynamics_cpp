@@ -304,9 +304,9 @@ Unit tests for the `UpdateBody` function.
 | BP-UB-3   | Testing to add a third arbitrary body wall. The case where two body positions are merged into one is tested. |
 | BP-UB-4   | Testing to add a fourth arbitrary body wall. The case where a new body position is added distinct from the two existing positions is tested. |
 
-### `CalcBucketPos`
+### `CalcBodyPos`
 
-Unit tests for the `CalcBucketPos` function.
+Unit tests for the `CalcBodyPos` function.
 
 | Test name | Description of the unit test                                           |
 | --------- | ---------------------------------------------------------------------- |

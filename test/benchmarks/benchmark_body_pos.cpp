@@ -6,8 +6,8 @@ Copyright, 2023, Vilella Kenny.
 #include <benchmark/benchmark.h>
 #include "soil_simulator/body_pos.hpp"
 
-// -- CalcBucketPos --
-static void BM_CalcBucketPos(benchmark::State& state) {
+// -- CalcBodyPos --
+static void BM_CalcBodyPos(benchmark::State& state) {
     // Defining inputs
     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
     soil_simulator::SimParam sim_param(0.85, 3, 4);
@@ -26,13 +26,13 @@ static void BM_CalcBucketPos(benchmark::State& state) {
     sim_out->bucket_area_[1][1] = 90;
 
     for (auto _ : state)
-        soil_simulator::CalcBucketPos(
+        soil_simulator::CalcBodyPos(
             sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
 
     delete sim_out;
     delete bucket;
 }
-BENCHMARK(BM_CalcBucketPos)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BM_CalcBodyPos)->Unit(benchmark::kMicrosecond);
 
 // -- CalcRectanglePos --
 static void BM_CalcRectanglePos(benchmark::State& state) {

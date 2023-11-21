@@ -12,7 +12,7 @@ Copyright, 2023, Vilella Kenny.
 // It greatly improves readability.
 using test_soil_simulator::SetHeight;
 using test_soil_simulator::ResetValueAndTest;
-using soil_simulator::CalcBucketPos;
+using soil_simulator::CalcBodyPos;
 
 TEST(UnitTestBucketPos, CalcLinePos) {
     // Setting up the environment
@@ -897,7 +897,7 @@ TEST(UnitTestBucketPos, UpdateBody) {
     delete sim_out;
 }
 
-TEST(UnitTestBucketPos, CalcBucketPos) {
+TEST(UnitTestBucketPos, CalcBodyPos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimParam sim_param(0.785, 4, 4);
@@ -921,7 +921,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {1.0, 0.0, 0.0, 0.0};
     pos = {0.0, 0.0, 0.0};
-    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBodyPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][10][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][10][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][11][10], -0.3, 1.e-5);
@@ -948,7 +948,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
-    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBodyPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
             for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
@@ -981,7 +981,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {0.707107, 0.0, -0.707107, 0.0};  // -pi/2 rotation around the Y axis
     pos = {0.0, 0.0, -0.1};
-    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBodyPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto jj = 5; jj < 11; jj++)
         for (auto kk = 8; kk < 13; kk++)
             EXPECT_NEAR(sim_out->body_[1][jj][kk], -0.1, 1.e-5);

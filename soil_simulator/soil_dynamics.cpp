@@ -72,7 +72,7 @@ bool soil_simulator::SoilDynamics::Step(
     }
 
     // Updating bucket position
-    soil_simulator::CalcBucketPos(
+    soil_simulator::CalcBodyPos(
         sim_out, pos, ori, grid, bucket, sim_param, tol);
 
     // Updating position of soil resting on the bucket
