@@ -1,5 +1,5 @@
 /*
-This file implements the functions used to calculate the bucket position.
+This file implements the functions used to calculate the body position.
 
 Copyright, 2023, Vilella Kenny.
 */
@@ -685,8 +685,8 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
 }
 
 /// For each XY position, the first cell found in `area_pos` corresponds to
-/// the minimum height of the bucket, while the last one provides the maximum
-/// height. As a result, this function must be called separately for each bucket
+/// the minimum height of the body, while the last one provides the maximum
+/// height. As a result, this function must be called separately for each body
 /// wall and `area_pos` must be sorted.
 void soil_simulator::UpdateBody(
     std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid,
@@ -702,7 +702,7 @@ void soil_simulator::UpdateBody(
     for (auto nn = 0; nn < area_pos.size(); nn++) {
         if ((ii != area_pos[nn][0]) || (jj != area_pos[nn][1])) {
             // New XY position
-            // Updating bucket position for the previous XY position
+            // Updating body position for the previous XY position
             soil_simulator::IncludeNewBodyPos(
                 sim_out, ii, jj, min_h, max_h, tol);
 
@@ -718,11 +718,11 @@ void soil_simulator::UpdateBody(
         }
     }
 
-    // Updating bucket position for the last XY position
+    // Updating body position for the last XY position
     soil_simulator::IncludeNewBodyPos(sim_out, ii, jj, min_h, max_h, tol);
 }
 
-/// The minimum and maximum heights of the bucket at that position are given by
+/// The minimum and maximum heights of the body at that position are given by
 /// `min_h` and `max_h`, respectively.
 /// If the given position overlaps with an existing position, then the existing
 /// position is updated as the union of the two positions. Otherwise, a new
@@ -731,7 +731,7 @@ void soil_simulator::IncludeNewBodyPos(
     SimOut* sim_out, int ii, int jj, float min_h, float max_h, float tol
 ) {
     std::vector<int> status(2);
-    // Iterating over the two bucket layers and storing their status
+    // Iterating over the two body layers and storing their status
     for (auto nn = 0; nn < 2; nn++) {
         int ind = 2 * nn;
         if (
@@ -761,7 +761,7 @@ void soil_simulator::IncludeNewBodyPos(
         }
     }
 
-    // Updating the bucket position
+    // Updating the body position
     if ((status[0] == 1) && (status[1] == 1)) {
         // New position is overlapping with the two existing positions
         sim_out->body_[0][ii][jj] = std::min(
@@ -769,7 +769,7 @@ void soil_simulator::IncludeNewBodyPos(
         sim_out->body_[1][ii][jj] = std::max(
             {sim_out->body_[1][ii][jj], sim_out->body_[3][ii][jj], max_h});
 
-        // Resetting obsolete bucket position
+        // Resetting obsolete body position
         sim_out->body_[2][ii][jj] = 0.0;
         sim_out->body_[3][ii][jj] = 0.0;
     } else if (status[0] == 1) {
@@ -791,15 +791,15 @@ void soil_simulator::IncludeNewBodyPos(
     } else {
         // New position is not overlapping with the two existing positions
         // This may be due to an edge case, in that case we try to fix the issue
-        // Calculating distance to the two bucket layers
+        // Calculating distance to the two body layers
         float dist_0b = std::abs(sim_out->body_[0][ii][jj] - max_h);
         float dist_0t = std::abs(min_h - sim_out->body_[1][ii][jj]);
         float dist_2b = std::abs(sim_out->body_[2][ii][jj] - max_h);
         float dist_2t = std::abs(min_h - sim_out->body_[3][ii][jj]);
 
-        // Checking what bucket layer is closer
+        // Checking what body layer is closer
         if (std::min(dist_0b, dist_0t) < std::min(dist_2b, dist_2t)) {
-            // Merging with first bucket layer
+            // Merging with first body layer
             if (dist_0b < dist_0t) {
                 // Merging down
                 sim_out->body_[0][ii][jj] = min_h;
@@ -808,7 +808,7 @@ void soil_simulator::IncludeNewBodyPos(
                 sim_out->body_[1][ii][jj] = max_h;
             }
         } else {
-            // Merging with second bucket layer
+            // Merging with second body layer
             if (dist_2b < dist_2t) {
                 // Merging down
                 sim_out->body_[2][ii][jj] = min_h;

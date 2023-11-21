@@ -1,5 +1,5 @@
 /*
-This file declares the functions used to calculate the bucket position.
+This file declares the functions used to calculate the body position.
 
 Copyright, 2023, Vilella Kenny.
 */
@@ -120,10 +120,10 @@ DecomposeVectorTriangle(
 std::vector<std::vector<int>> CalcLinePos(
     std::vector<float> a, std::vector<float> b, Grid grid);
 
-/// \brief This function updates the bucket position in `body` following the
+/// \brief This function updates the body position in `body` following the
 ///        cells composing `area_pos`.
 ///
-/// \param area_pos: A collection of cell indices specifying where a bucket wall
+/// \param area_pos: A collection of cell indices specifying where a body wall
 ///                  is located.
 /// \param sim_out: Class that stores simulation outputs.
 /// \param grid: Class that stores information related to the simulation grid.
@@ -131,14 +131,14 @@ std::vector<std::vector<int>> CalcLinePos(
 void UpdateBody(std::vector<std::vector<int>> area_pos, SimOut* sim_out,
     Grid grid, float tol);
 
-/// \brief This function updates the bucket position in `body` at the
+/// \brief This function updates the body position in `body` at the
 ///        coordinates (`ii`, `jj`).
 ///
 /// \param sim_out: Class that stores simulation outputs.
 /// \param ii: Index of the considered position in the X direction.
 /// \param jj: Index of the considered position in the Y direction.
-/// \param min_h: Minimum height of the bucket. [m]
-/// \param max_h: Maximum height of the bucket. [m]
+/// \param min_h: Minimum height of the body. [m]
+/// \param max_h: Maximum height of the body. [m]
 /// \param tol: Small number used to handle numerical approximation errors.
 void IncludeNewBodyPos(SimOut* sim_out, int ii, int jj, float min_h,
     float max_h, float tol);
