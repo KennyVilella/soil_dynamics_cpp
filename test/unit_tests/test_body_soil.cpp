@@ -147,7 +147,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     testing::internal::CaptureStdout();
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     std::string warning_msg = testing::internal::GetCapturedStdout();
-    std::string exp_msg = "Bucket soil could not be updated.";
+    std::string exp_msg = "Body soil could not be updated.";
     size_t string_loc = warning_msg.find(exp_msg);
     EXPECT_TRUE(string_loc != std::string::npos);
     EXPECT_NEAR(sim_out->terrain_[9][10], 0.1, 1.e-5);
