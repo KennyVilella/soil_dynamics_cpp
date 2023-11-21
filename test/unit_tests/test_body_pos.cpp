@@ -14,7 +14,7 @@ using test_soil_simulator::SetHeight;
 using test_soil_simulator::ResetValueAndTest;
 using soil_simulator::CalcBodyPos;
 
-TEST(UnitTestBucketPos, CalcLinePos) {
+TEST(UnitTestBodyPos, CalcLinePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
 
@@ -95,7 +95,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     CheckResults();
 }
 
-TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
+TEST(UnitTestBodyPos, DecomposeVectorRectangle) {
     // Setting up the environment
     float tol = 1.e-5;
 
@@ -286,7 +286,7 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
             EXPECT_EQ(in_rec[ii][jj], false);
 }
 
-TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
+TEST(UnitTestBodyPos, DecomposeVectorTriangle) {
     // Setting up the environment
     float tol = 1.e-5;
 
@@ -498,7 +498,7 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
             EXPECT_EQ(in_tri[ii][jj], false);
 }
 
-TEST(UnitTestBucketPos, CalcRectanglePos) {
+TEST(UnitTestBodyPos, CalcRectanglePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
@@ -622,7 +622,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     CheckResults();
 }
 
-TEST(UnitTestBucketPos, CalcTrianglePos) {
+TEST(UnitTestBodyPos, CalcTrianglePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
@@ -733,7 +733,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     CheckResults();
 }
 
-TEST(UnitTestBucketPos, IncludeNewBodyPos) {
+TEST(UnitTestBodyPos, IncludeNewBodyPos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
@@ -828,7 +828,7 @@ TEST(UnitTestBucketPos, IncludeNewBodyPos) {
     delete sim_out;
 }
 
-TEST(UnitTestBucketPos, UpdateBody) {
+TEST(UnitTestBodyPos, UpdateBody) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
@@ -897,7 +897,7 @@ TEST(UnitTestBucketPos, UpdateBody) {
     delete sim_out;
 }
 
-TEST(UnitTestBucketPos, CalcBodyPos) {
+TEST(UnitTestBodyPos, CalcBodyPos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimParam sim_param(0.785, 4, 4);
