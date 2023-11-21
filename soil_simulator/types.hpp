@@ -377,13 +377,13 @@ class SimOut {
 
      /// Store the 2D bounding box of the body with a buffer determined
      /// by the parameter `cell_buffer_` of `SimParam`.
-     int bucket_area_[2][2];
+     int body_area_[2][2];
 
      /// Store the 2D bounding box of the area where soil has been relaxed with
      /// a buffer determined by the parameter `cell_buffer_` of `SimParam`.
      int relax_area_[2][2];
 
-     /// Store the union of `bucket_area_` and `relax_area_`. It corresponds
+     /// Store the union of `body_area_` and `relax_area_`. It corresponds
      /// to the area where the soil equilibrium is checked.
      int impact_area_[2][2];
 

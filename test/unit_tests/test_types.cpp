@@ -211,16 +211,16 @@ TEST(UnitTestTypes, SimOut) {
     EXPECT_EQ(sim_out.body_soil_.size(), 4);
     EXPECT_EQ(sim_out.body_soil_[0].size(), 5);
     EXPECT_EQ(sim_out.body_soil_[0][0].size(), 5);
-    EXPECT_EQ(sim_out.bucket_area_[0][0], 1);
+    EXPECT_EQ(sim_out.body_area_[0][0], 1);
     EXPECT_EQ(sim_out.relax_area_[0][0], 1);
     EXPECT_EQ(sim_out.impact_area_[0][0], 1);
-    EXPECT_EQ(sim_out.bucket_area_[0][1], 4);
+    EXPECT_EQ(sim_out.body_area_[0][1], 4);
     EXPECT_EQ(sim_out.relax_area_[0][1], 4);
     EXPECT_EQ(sim_out.impact_area_[0][1], 4);
-    EXPECT_EQ(sim_out.bucket_area_[1][0], 1);
+    EXPECT_EQ(sim_out.body_area_[1][0], 1);
     EXPECT_EQ(sim_out.relax_area_[1][0], 1);
     EXPECT_EQ(sim_out.impact_area_[1][0], 1);
-    EXPECT_EQ(sim_out.bucket_area_[1][1], 4);
+    EXPECT_EQ(sim_out.body_area_[1][1], 4);
     EXPECT_EQ(sim_out.relax_area_[1][1], 4);
     EXPECT_EQ(sim_out.impact_area_[1][1], 4);
 }

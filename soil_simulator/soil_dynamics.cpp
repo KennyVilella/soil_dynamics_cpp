@@ -91,13 +91,13 @@ bool soil_simulator::SoilDynamics::Step(
 
         // Updating impact_area
         sim_out->impact_area_[0][0] = std::min(
-            sim_out->bucket_area_[0][0], sim_out->relax_area_[0][0]);
+            sim_out->body_area_[0][0], sim_out->relax_area_[0][0]);
         sim_out->impact_area_[1][0] = std::min(
-            sim_out->bucket_area_[1][0], sim_out->relax_area_[1][0]);
+            sim_out->body_area_[1][0], sim_out->relax_area_[1][0]);
         sim_out->impact_area_[0][1] = std::max(
-            sim_out->bucket_area_[0][1], sim_out->relax_area_[0][1]);
+            sim_out->body_area_[0][1], sim_out->relax_area_[0][1]);
         sim_out->impact_area_[1][1] = std::max(
-            sim_out->bucket_area_[1][1], sim_out->relax_area_[1][1]);
+            sim_out->body_area_[1][1], sim_out->relax_area_[1][1]);
 
         // Relaxing the terrain
         RelaxTerrain(sim_out, grid, body, sim_param, tol);

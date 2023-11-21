@@ -326,10 +326,10 @@ bool soil_simulator::CheckSoil(
     SimOut* sim_out, float tol
 ) {
     // Iterating over all cells in the body area
-    int ii_min = sim_out->bucket_area_[0][0];
-    int ii_max = sim_out->bucket_area_[0][1];
-    int jj_min = sim_out->bucket_area_[1][0];
-    int jj_max = sim_out->bucket_area_[1][1];
+    int ii_min = sim_out->body_area_[0][0];
+    int ii_max = sim_out->body_area_[0][1];
+    int jj_min = sim_out->body_area_[1][0];
+    int jj_max = sim_out->body_area_[1][1];
     for (auto ii = ii_min; ii < ii_max; ii++)
         for (auto jj = jj_min; jj < jj_max; jj++) {
             // Renaming for convenience

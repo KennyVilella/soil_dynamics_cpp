@@ -7495,10 +7495,10 @@ TEST(UnitTestIntersectingCells, LocateIntersectingCells) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    sim_out->bucket_area_[0][0] = 4;
-    sim_out->bucket_area_[0][1] = 12;
-    sim_out->bucket_area_[1][0] = 8;
-    sim_out->bucket_area_[1][1] = 17;
+    sim_out->body_area_[0][0] = 4;
+    sim_out->body_area_[0][1] = 12;
+    sim_out->body_area_[1][0] = 8;
+    sim_out->body_area_[1][1] = 17;
 
     // Declaring variables
     std::vector<std::vector<int>> intersecting_cells;
@@ -7578,10 +7578,10 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
-    sim_out->bucket_area_[0][0] = 1;
-    sim_out->bucket_area_[0][1] = 20;
-    sim_out->bucket_area_[1][0] = 1;
-    sim_out->bucket_area_[1][1] = 20;
+    sim_out->body_area_[0][0] = 1;
+    sim_out->body_area_[0][1] = 20;
+    sim_out->body_area_[1][0] = 1;
+    sim_out->body_area_[1][1] = 20;
 
     // Declaring variables
     std::vector<std::vector<int>> body_pos;

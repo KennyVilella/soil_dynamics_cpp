@@ -514,11 +514,11 @@ std::vector<std::vector<int>> soil_simulator::LocateIntersectingCells(
     std::vector<std::vector<int>> intersecting_cells;
 
     // Iterating over all body position
-    for (auto ii = sim_out->bucket_area_[0][0];
-        ii < sim_out->bucket_area_[0][1]; ii++
+    for (auto ii = sim_out->body_area_[0][0];
+        ii < sim_out->body_area_[0][1]; ii++
     )
-        for (auto jj = sim_out->bucket_area_[1][0];
-            jj < sim_out->bucket_area_[1][1]; jj++
+        for (auto jj = sim_out->body_area_[1][0];
+            jj < sim_out->body_area_[1][1]; jj++
         ) {
             if (
                ((sim_out->body_[0][ii][jj] != 0.0) ||

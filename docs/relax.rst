@@ -86,7 +86,7 @@ Impact area
 ^^^^^^^^^^^
 
 For performance optimization, the simulator only checks for soil instability within the lateral area specified by the :code:`impact_area_` field of the :code:`SimOut` class.
-The :code:`impact_area_` is a union of two areas: the :code:`bucket_area_`, which corresponds to the lateral area where the bucket is located, and the :code:`relax_area_`, which corresponds to the lateral area where unstable soil has been identified in the previous step.
+The :code:`impact_area_` is a union of two areas: the :code:`body_area_`, which corresponds to the lateral area where the bucket is located, and the :code:`relax_area_`, which corresponds to the lateral area where unstable soil has been identified in the previous step.
 By limiting the analysis to this specific region, the simulator achieves significant performance gains and becomes almost independent of the grid size.
 
 Bucket soil relaxation

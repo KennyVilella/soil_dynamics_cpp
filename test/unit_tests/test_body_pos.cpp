@@ -934,10 +934,10 @@ TEST(UnitTestBucketPos, CalcBodyPos) {
     EXPECT_NEAR(sim_out->body_[1][14][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][15][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][15][10], 0.3, 1.e-5);
-    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
-    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
-    EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
-    EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
+    EXPECT_EQ(sim_out->body_area_[0][0], 6);
+    EXPECT_EQ(sim_out->body_area_[0][1], 19);
+    EXPECT_EQ(sim_out->body_area_[1][0], 6);
+    EXPECT_EQ(sim_out->body_area_[1][1], 14);
     // Resetting values
     body_pos = {
         {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
@@ -961,10 +961,10 @@ TEST(UnitTestBucketPos, CalcBodyPos) {
                 } else {
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
                 }
-    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
-    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
-    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
-    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    EXPECT_EQ(sim_out->body_area_[0][0], 6);
+    EXPECT_EQ(sim_out->body_area_[0][1], 19);
+    EXPECT_EQ(sim_out->body_area_[1][0], 4);
+    EXPECT_EQ(sim_out->body_area_[1][1], 16);
     // Resetting values
     body_pos = {
         {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12},
@@ -1000,10 +1000,10 @@ TEST(UnitTestBucketPos, CalcBodyPos) {
     EXPECT_NEAR(sim_out->body_[0][8][12], -0.4, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][9][8], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][9][12], -0.3, 1.e-5);
-    EXPECT_EQ(sim_out->bucket_area_[0][0], 1);
-    EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
-    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
-    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    EXPECT_EQ(sim_out->body_area_[0][0], 1);
+    EXPECT_EQ(sim_out->body_area_[0][1], 14);
+    EXPECT_EQ(sim_out->body_area_[1][0], 4);
+    EXPECT_EQ(sim_out->body_area_[1][1], 16);
     // Resetting values
     body_pos = {
         {0, 5, 8}, {0, 5, 9}, {0, 5, 10}, {0, 5, 11}, {0, 5, 12},

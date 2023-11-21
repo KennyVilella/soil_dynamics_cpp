@@ -24,12 +24,12 @@ void soil_simulator::CalcBodyPos(
     Body* body, SimParam sim_param, float tol
 ) {
     // Reinitializing body position
-    int bucket_min_x = sim_out->bucket_area_[0][0];
-    int bucket_max_x = sim_out->bucket_area_[0][1];
-    int bucket_min_y = sim_out->bucket_area_[1][0];
-    int bucket_max_y = sim_out->bucket_area_[1][1];
-    for (auto ii = bucket_min_x; ii < bucket_max_x; ii++)
-        for (auto jj = bucket_min_y; jj < bucket_max_y; jj++) {
+    int body_min_x = sim_out->body_area_[0][0];
+    int body_max_x = sim_out->body_area_[0][1];
+    int body_min_y = sim_out->body_area_[1][0];
+    int body_max_y = sim_out->body_area_[1][1];
+    for (auto ii = body_min_x; ii < body_max_x; ii++)
+        for (auto jj = body_min_y; jj < body_max_y; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
             sim_out->body_[1][ii][jj] = 0.0;
             sim_out->body_[2][ii][jj] = 0.0;
@@ -65,34 +65,34 @@ void soil_simulator::CalcBodyPos(
     }
 
     // Calculating the 2D bounding box of the body
-    float bucket_x_min = std::min({
+    float body_x_min = std::min({
         j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
     });
-    float bucket_x_max = std::max({
+    float body_x_max = std::max({
         j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
     });
-    float bucket_y_min = std::min({
+    float body_y_min = std::min({
         j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
     });
-    float bucket_y_max = std::max({
+    float body_y_max = std::max({
         j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
     });
 
-    // Updating bucket_area
-    sim_out->bucket_area_[0][0] = static_cast<int>(std::max(
-        round(bucket_x_min / grid.cell_size_xy_ +
+    // Updating body_area
+    sim_out->body_area_[0][0] = static_cast<int>(std::max(
+        round(body_x_min / grid.cell_size_xy_ +
             grid.half_length_x_ - sim_param.cell_buffer_)
         , 1.0));
-    sim_out->bucket_area_[0][1] = static_cast<int>(std::min(
-        round(bucket_x_max / grid.cell_size_xy_ +
+    sim_out->body_area_[0][1] = static_cast<int>(std::min(
+        round(body_x_max / grid.cell_size_xy_ +
             grid.half_length_x_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_x_));
-    sim_out->bucket_area_[1][0] = static_cast<int>(std::max(
-        round(bucket_y_min / grid.cell_size_xy_ +
+    sim_out->body_area_[1][0] = static_cast<int>(std::max(
+        round(body_y_min / grid.cell_size_xy_ +
             grid.half_length_y_ - sim_param.cell_buffer_)
         , 1.0));
-    sim_out->bucket_area_[1][1] = static_cast<int>(std::min(
-        round(bucket_y_max / grid.cell_size_xy_ +
+    sim_out->body_area_[1][1] = static_cast<int>(std::min(
+        round(body_y_max / grid.cell_size_xy_ +
             grid.half_length_y_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_y_));
 
