@@ -11,8 +11,8 @@ This action is referred to as "relaxation" in this simulator.
 
 This soil relaxation process consists of two main steps:
 
-* Terrain relaxation, where unstable soil cells on the terrain are relaxed, potentially causing avalanches onto the bucket.
-* Bucket soil relaxation, where unstable soil cells on the bucket are relaxed, potentially causing avalanches onto the terrain.
+* Terrain relaxation, where unstable soil cells on the terrain are relaxed, potentially causing avalanches onto the body.
+* Body soil relaxation, where unstable soil cells on the body are relaxed, potentially causing avalanches onto the terrain.
 
 It is important to note that the relaxation of soil cells can sometimes trigger instability in neighbouring cells.
 As a result, the relaxation process needs to be repeated multiple times to achieve an equilibrium state.
@@ -24,7 +24,7 @@ It is worth noting that increasing the value of :code:`max_iterations_` impacts 
 General description
 -------------------
 
-While the detailed implementation of the relaxation process differs for terrain relaxation and bucket soil relaxation, the core algorithm remains the same and will be described in this section.
+While the detailed implementation of the relaxation process differs for terrain relaxation and body soil relaxation, the core algorithm remains the same and will be described in this section.
 
 The relaxation process consists of three steps.
 
@@ -43,7 +43,7 @@ The result of this check is a status code consisting of two digits, providing a 
 
 The third step is the actual relaxation, which occurs only if the soil cell is determined to be unstable based on the status code obtained in the previous step.
 The relaxation process follows the specific instructions defined by the status code.
-The relaxation techniques for terrain relaxation and bucket soil relaxation will be explained separately in the following sections.
+The relaxation techniques for terrain relaxation and body soil relaxation will be explained separately in the following sections.
 
 It is worth noting that the second and third steps could potentially be merged.
 However, separating these two steps improves code testability and maintainability.
@@ -64,33 +64,33 @@ neighbouring cells.
 
 .. image:: _asset/relax_terrain.png
 
-(a) In this case, there is no bucket.
+(a) In this case, there is no body.
 The soil can freely avalanche to the neighbouring cell, reaching a stable configuration.
 
-(b) In this case, there is some space available below the bucket.
+(b) In this case, there is some space available below the body.
 The soil can avalanche into that position to fill the gap.
 Note that the soil column would still be unstable after this movement, requiring a second iteration to reach a stable configuration.
 
-(c) In this case, there is enough space available below the bucket to reach a stable configuration.
+(c) In this case, there is enough space available below the body to reach a stable configuration.
 The soil fully avalanches to that position.
 
-(d) In this case, the soil can avalanche on the top of the bucket and reach a stable configuration.
-Note that this is the only case in the simulator where soil from the terrain can be transferred to the bucket.
-Consequently, all bucket soil is generated from this case.
+(d) In this case, the soil can avalanche on the top of the body and reach a stable configuration.
+Note that this is the only case in the simulator where soil from the terrain can be transferred to the body.
+Consequently, all body soil is generated from this case.
 
 It is worth mentioning that the order of these cases is important, as case (d) will only occur if cases (b) and (c) are not possible.
-Moreover, if two bucket layers are present, soil avalanches on the top bucket layer only if there is no space available between the two bucket layers.
+Moreover, if two body layers are present, soil avalanches on the top body layer only if there is no space available between the two body layers.
 In other words, avalanching on the bottom layer has priority over avalanching on the top layer.
 
 Impact area
 ^^^^^^^^^^^
 
 For performance optimization, the simulator only checks for soil instability within the lateral area specified by the :code:`impact_area_` field of the :code:`SimOut` class.
-The :code:`impact_area_` is a union of two areas: the :code:`body_area_`, which corresponds to the lateral area where the bucket is located, and the :code:`relax_area_`, which corresponds to the lateral area where unstable soil has been identified in the previous step.
+The :code:`impact_area_` is a union of two areas: the :code:`body_area_`, which corresponds to the lateral area where the body is located, and the :code:`relax_area_`, which corresponds to the lateral area where unstable soil has been identified in the previous step.
 By limiting the analysis to this specific region, the simulator achieves significant performance gains and becomes almost independent of the grid size.
 
-Bucket soil relaxation
-----------------------
+Body soil relaxation
+--------------------
 
 This is done by the :code:`RelaxBodySoil` function in the :code:`relax.cpp` file.
 Note that the meaning of the two-digit codes given by the function :code:`CheckUnstableBodyCell` and used by the function :code:`RelaxUnstableBodyBell` is explained in the docstring of the function :code:`CheckUnstableBodyCell`.
@@ -105,19 +105,19 @@ neighbouring cells.
 
 .. image:: _asset/relax_body_soil.png
 
-(a) In this case, there is no bucket.
+(a) In this case, there is no body.
 The soil can freely avalanche to the neighbouring cell, reaching a stable configuration.
 
-(b) In this case, there is one bucket layer.
-The soil can freely avalanche onto the bucket, forming a stable configuration.
+(b) In this case, there is one body layer.
+The soil can freely avalanche onto the body, forming a stable configuration.
 
-(c) In this case, there is one bucket layer.
-The soil can avalanche from one bucket layer to another, forming a stable configuration.
+(c) In this case, there is one body layer.
+The soil can avalanche from one body layer to another, forming a stable configuration.
 
-(d) In this case, there are two bucket layers.
-The soil can avalanche to one of the two adjacent bucket layer.
-Note that the top bucket layer has priority in the case where the soil can avalanche to both bucket layer, while, in the case where the soil should avalanche on the bottom layer, there may not be enough space for all the soil to avalanche, leading to a final state that may not be in equilibrium.
+(d) In this case, there are two body layers.
+The soil can avalanche to one of the two adjacent body layer.
+Note that the top body layer has priority in the case where the soil can avalanche to both body layer, while, in the case where the soil should avalanche on the bottom layer, there may not be enough space for all the soil to avalanche, leading to a final state that may not be in equilibrium.
 
-It is important to note that the presence of the bucket at the base of the soil column adds complexity to the relaxation process.
-There are cases where all the soil on a bucket layer can avalanche, while in other cases, only a portion of the soil may avalanche.
+It is important to note that the presence of the body at the base of the soil column adds complexity to the relaxation process.
+There are cases where all the soil on a body layer can avalanche, while in other cases, only a portion of the soil may avalanche.
 It is crucial to handle these cases appropriately to ensure mass conservation during the relaxation process.
