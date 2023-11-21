@@ -76,10 +76,10 @@ Unit tests for the `CalcBodyCornerPos` function.
 
 | Test name | Description of the unit test                                              |
 | --------- | ------------------------------------------------------------------------- |
-| UT-CBC-1  | Testing for a bucket in its reference pose.                               |
-| UT-CBC-2  | Testing for a bucket with a simple translation applied.                   |
-| UT-CBC-3  | Testing for a bucket with a simple rotation applied.                      |
-| UT-CBC-4  | Testing for a bucket with both a simple rotation and translation applied. |
+| UT-CBC-1  | Testing for a body in its reference pose.                               |
+| UT-CBC-2  | Testing for a body with a simple translation applied.                   |
+| UT-CBC-3  | Testing for a body with a simple rotation applied.                      |
+| UT-CBC-4  | Testing for a body with both a simple rotation and translation applied. |
 
 ### `CheckBodyMovement`
 
@@ -148,12 +148,12 @@ Unit tests for the `CalcBodyFramePos` function.
 
 | Test name | Description of the unit test                                       |
 | --------- | ------------------------------------------------------------------ |
-| UT-CBF-1  | Testing for a bucket in its reference position and orientation. Input cell has an arbitrary position. |
-| UT-CBF-2  | Testing for a bucket in its reference orientation and an arbitrary position. Input cell has an arbitrary position. |
-| UT-CBF-3  | Testing for a bucket in its reference position and rotated by pi/2 around the Z axis. Input cell has an arbitrary position. |
-| UT-CBF-4  | Testing for a bucket in its reference position and rotated by pi/2 around the Y axis. Input cell has an arbitrary position. |
-| UT-CBF-5  | Testing for a bucket in its reference position and rotated by pi/2 around the X axis. Input cell has an arbitrary position. |
-| UT-CBF-6  | Testing for a bucket rotated by pi/2 around the Z axis and an arbitrary position. Input cell has an arbitrary position. |
+| UT-CBF-1  | Testing for a body in its reference position and orientation. Input cell has an arbitrary position. |
+| UT-CBF-2  | Testing for a body in its reference orientation and an arbitrary position. Input cell has an arbitrary position. |
+| UT-CBF-3  | Testing for a body in its reference position and rotated by pi/2 around the Z axis. Input cell has an arbitrary position. |
+| UT-CBF-4  | Testing for a body in its reference position and rotated by pi/2 around the Y axis. Input cell has an arbitrary position. |
+| UT-CBF-5  | Testing for a body in its reference position and rotated by pi/2 around the X axis. Input cell has an arbitrary position. |
+| UT-CBF-6  | Testing for a body rotated by pi/2 around the Z axis and an arbitrary position. Input cell has an arbitrary position. |
 
 ### `CheckVolume`
 
@@ -281,16 +281,16 @@ Unit tests for the `IncludeNewBodyPos` function.
 | Test name | Description of the unit test                                                                       |
 | --------- | -------------------------------------------------------------------------------------------------- |
 | BP-INB-1  | Testing to add a new body position where there is no existing position.                            |
-| BP-INB-2  | Testing to add a new body position distinct from the existing position on the first bucket layer.  |
-| BP-INB-3  | Testing to add a new body position distinct from the existing position on the second bucket layer. |
-| BP-INB-4  | Testing to add a new body position overlapping with the top of an existing position on the second bucket layer. |
-| BP-INB-5  | Testing to add a new body position overlapping with the bottom of an existing position on the second bucket layer. |
-| BP-INB-6  | Testing to add a new body position overlapping with the top of an existing position on the first bucket layer. |
-| BP-INB-7  | Testing to add a new body position overlapping with the bottom of an existing position on the first bucket layer. |
-| BP-INB-8  | Testing to add a new body position fully overlapping with an existing position on the second bucket layer. |
+| BP-INB-2  | Testing to add a new body position distinct from the existing position on the first body layer.  |
+| BP-INB-3  | Testing to add a new body position distinct from the existing position on the second body layer. |
+| BP-INB-4  | Testing to add a new body position overlapping with the top of an existing position on the second body layer. |
+| BP-INB-5  | Testing to add a new body position overlapping with the bottom of an existing position on the second body layer. |
+| BP-INB-6  | Testing to add a new body position overlapping with the top of an existing position on the first body layer. |
+| BP-INB-7  | Testing to add a new body position overlapping with the bottom of an existing position on the first body layer. |
+| BP-INB-8  | Testing to add a new body position fully overlapping with an existing position on the second body layer. |
 | BP-INB-9  | Testing to add a new body position overlapping with the two existing positions.            |
-| BP-INB-10 | Testing to add a new body position within an existing position on the first bucket layer.  |
-| BP-INB-11 | Testing to add a new body position within an existing position on the second bucket layer. |
+| BP-INB-10 | Testing to add a new body position within an existing position on the first body layer.  |
+| BP-INB-11 | Testing to add a new body position within an existing position on the second body layer. |
 | BP-INB-12 | Testing to add a new body position distinct from the two existing positions.               |
 
 ### `UpdateBody`
@@ -310,9 +310,9 @@ Unit tests for the `CalcBodyPos` function.
 
 | Test name | Description of the unit test                                           |
 | --------- | ---------------------------------------------------------------------- |
-| BP-CB-1   | Testing for a simple flat bucket in the XZ plane.                      |
-| BP-CB-2   | Testing for a simple flat bucket in the XY plane.                      |
-| BP-CB-3   | Testing for an arbitrary bucket. Results were obtained with a drawing. |
+| BP-CB-1   | Testing for a simple flat body in the XZ plane.                      |
+| BP-CB-2   | Testing for a simple flat body in the XY plane.                      |
+| BP-CB-3   | Testing for an arbitrary body. Results were obtained with a drawing. |
 
 ## `test_body_soil.cpp`
 
@@ -1005,9 +1005,9 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name   | Description of the unit test                                                                     |
 | ----------- | ------------------------------------------------------------------------------------------------ |
-| IC-MIBS-267 | Testing when a lot of soil is present in the first bucket layer but soil is still avalanching.   |
-| IC-MIBS-268 | Testing when a lot of soil is present in the second bucket layer but soil is still avalanching.  |
-| IC-MIBS-269 | Testing when the bucket is totally underground but the soil is still avalanching on the terrain. |
+| IC-MIBS-267 | Testing when a lot of soil is present in the first body layer but soil is still avalanching.   |
+| IC-MIBS-268 | Testing when a lot of soil is present in the second body layer but soil is still avalanching.  |
+| IC-MIBS-269 | Testing when the body is totally underground but the soil is still avalanching on the terrain. |
 | IC-MIBS-270 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
 | IC-MIBS-271 | Testing when there is no intersecting cell                                                       |
 | IC-MIBS-    | Testing that all directions are investigated.                                                    |
@@ -1023,16 +1023,16 @@ Unit test for the `LocateIntersectingCells` function.
 
 | Test name | Description of the unit test                                                      |
 | --------- | --------------------------------------------------------------------------------- |
-| IC-LIC-1  | Testing with first bucket layer and no intersecting cell.                         |
-| IC-LIC-2  | Testing with first bucket layer and no intersecting cell. (2)                     |
-| IC-LIC-3  | Testing with second bucket layer and no intersecting cell.                        |
-| IC-LIC-4  | Testing with first and second bucket layer and no intersecting cell.              |
-| IC-LIC-5  | Testing with first bucket layer fully intersecting with the terrain.              |
-| IC-LIC-6  | Testing with second bucket layer fully intersecting with the terrain.             |
-| IC-LIC-7  | Testing with first bucket layer fully intersecting with the terrain and second bucket layer partially intersecting.   |
-| IC-LIC-8  | Testing with second bucket layer fully intersecting with the terrain and first bucket layer not intersecting.   |
-| IC-LIC-9  | Testing  with first bucket layer fully intersecting with the terrain and second bucket layer not intersecting.  |
-| IC-LIC-10 | Testing with first and second bucket layer fully intersecting with the terrain.   |
+| IC-LIC-1  | Testing with first body layer and no intersecting cell.                         |
+| IC-LIC-2  | Testing with first body layer and no intersecting cell. (2)                     |
+| IC-LIC-3  | Testing with second body layer and no intersecting cell.                        |
+| IC-LIC-4  | Testing with first and second body layer and no intersecting cell.              |
+| IC-LIC-5  | Testing with first body layer fully intersecting with the terrain.              |
+| IC-LIC-6  | Testing with second body layer fully intersecting with the terrain.             |
+| IC-LIC-7  | Testing with first body layer fully intersecting with the terrain and second body layer partially intersecting.   |
+| IC-LIC-8  | Testing with second body layer fully intersecting with the terrain and first body layer not intersecting.   |
+| IC-LIC-9  | Testing  with first body layer fully intersecting with the terrain and second body layer not intersecting.  |
+| IC-LIC-10 | Testing with first and second body layer fully intersecting with the terrain.   |
 
 ### `MoveIntersectingBody`
 
@@ -1048,13 +1048,13 @@ Unit tests for the `MoveIntersectingBody` function.
 | IC-MIB-6  | Testing for a single intersecting cell in the +X-Y direction.                            |
 | IC-MIB-7  | Testing for a single intersecting cell in the -X+Y direction.                            |
 | IC-MIB-8  | Testing for a single intersecting cell in the +X+Y direction.                            |
-| IC-MIB-9  | Testing for a single intersecting cell with the second bucket layer.                     |
-| IC-MIB-10 | Testing for a single intersecting cells with various bucket layers.                      |
-| IC-MIB-11 | Testing for a single intersecting cell with all the bucket under the terrain.            |
-| IC-MIB-12 | Testing for a single intersecting cell under a large bucket.                             |
-| IC-MIB-13 | Testing when soil is moved in several steps. All the soil is fitting under the bucket.   |
-| IC-MIB-14 | Testing when soil is moved in several steps. Some soil going outside the bucket.         |
-| IC-MIB-15 | Testing when soil is moved in several steps. Soil is perfectly fitting under the bucket. |
+| IC-MIB-9  | Testing for a single intersecting cell with the second body layer.                     |
+| IC-MIB-10 | Testing for a single intersecting cells with various body layers.                      |
+| IC-MIB-11 | Testing for a single intersecting cell with all the body under the terrain.            |
+| IC-MIB-12 | Testing for a single intersecting cell under a large body.                             |
+| IC-MIB-13 | Testing when soil is moved in several steps. All the soil is fitting under the body.   |
+| IC-MIB-14 | Testing when soil is moved in several steps. Some soil going outside the body.         |
+| IC-MIB-15 | Testing when soil is moved in several steps. Soil is perfectly fitting under the body. |
 | IC-MIB-16 | Testing when there is no intersecting cell.                                              |
 | IC-MIB-17 | Testing the randomness of the investigated direction for the soil movement.              |
 
@@ -1147,8 +1147,8 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name | Description of the unit test                                               |
 | --------- | -------------------------------------------------------------------------- |
-| RE-CUT-51 | Testing edge case where a lot of space under the bucket is present.        |
-| RE-CUT-52 | Testing edge case where bucket height is equal to minimum allowed height.  |
+| RE-CUT-51 | Testing edge case where a lot of space under the body is present.        |
+| RE-CUT-52 | Testing edge case where body height is equal to minimum allowed height.  |
 | RE-CUT-53 | Testing edge case where terrain height is equal to minimum allowed height. |
 
 ### `RelaxUnstableTerrainCell`
@@ -1267,7 +1267,7 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name | Description of the unit test                                                |
 | --------- | --------------------------------------------------------------------------- |
-| RE-RT-39  | Testing edge case where a lot of space under the bucket is present.         |
+| RE-RT-39  | Testing edge case where a lot of space under the body is present.         |
 | RE-RT-40  | Testing edge case where multiple avalanches are required.                   |
 | RE-RT-41  | Testing the randomness of the investigated direction for the soil movement. |
 
@@ -1279,7 +1279,7 @@ The tested function checks the configuration in a specified location and return 
 The purpose of these tests is to check all possible configurations.
 The description of the unit tests can therefore be done with a simple table describing the configuration at the specified location.
 
-For all the unit tests, the initial position has soil on the first bucket layer.
+For all the unit tests, the initial position has soil on the first body layer.
 The configuration of the inital position should not impact the result of this function.
 
 | Test name | Bottom layer | Soil    | Until top | Accessible | Top layer    | Soil    | Accessible | Avalanche    |
@@ -1395,7 +1395,7 @@ It is thus required to have avalanching soil.
 The purpose of these tests is to check all possible configurations.
 The description of the unit tests can therefore be done with a simple table describing the configuration.
 
-For all the unit tests, the initial position has soil on the first bucket layer.
+For all the unit tests, the initial position has soil on the first body layer.
 The configuration of the inital position should not impact the result of this function.
 
 | Test name | Bottom layer | Soil    | Until top | Top layer    | Soil    | Avalanche    | Enough soil | Enough space | Status       |
@@ -1489,7 +1489,7 @@ However, several movements can be investigated within a single unit test.
 By convention, multiples rows are present within a unit test when the avalanche occurs in several steps.
 Each unit test is constructed such that soil is only avalanching to a single position (`10`, `15`).
 
-For all the unit tests, the initial position has soil on the first bucket layer.
+For all the unit tests, the initial position has soil on the first body layer.
 The configuration of the inital position should not impact the result of this function.
 
 | Test name | Bottom layer | Soil    | Until top | Top layer    | Soil    | Avalanche    | Enough soil | Enough space | Status       |
