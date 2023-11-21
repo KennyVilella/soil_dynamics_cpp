@@ -18,22 +18,22 @@ extern std::mt19937 rng;
 ///
 /// \param sim_out: Class that stores simulation outputs.
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param body: Class that stores information related to the body object.
 /// \param sim_param: Class that stores information related to the simulation.
 /// \param tol: Small number used to handle numerical approximation errors.
 void RelaxTerrain(
-    SimOut* sim_out, Grid grid, Bucket* bucket, SimParam sim_param, float tol);
+    SimOut* sim_out, Grid grid, Body* body, SimParam sim_param, float tol);
 
 /// \brief This function moves the soil in `body_soil_` towards a state closer
 ///        to equilibrium.
 ///
 /// \param sim_out: Class that stores simulation outputs.
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param body: Class that stores information related to the body object.
 /// \param sim_param: Class that stores information related to the simulation.
 /// \param tol: Small number used to handle numerical approximation errors.
 void RelaxBodySoil(
-    SimOut* sim_out, Grid grid, Bucket* bucket, SimParam sim_param, float tol);
+    SimOut* sim_out, Grid grid, Body* body, SimParam sim_param, float tol);
 
 /// \brief This function locates all the cells in `terrain_` that have a height
 ///        difference larger than `dh_max` with at least one neighbouring cell.
@@ -92,11 +92,11 @@ int CheckUnstableBodyCell(
 /// \param ii_c: Index of the neighbouring cell in the X direction.
 /// \param jj_c: Index of the neighbouring cell in the Y direction.
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param body: Class that stores information related to the body object.
 /// \param tol: Small number used to handle numerical approximation errors.
 void RelaxUnstableTerrainCell(
     SimOut* sim_out, int status, float dh_max, int ii, int jj, int ii_c,
-    int jj_c, Grid grid, Bucket* bucket, float tol);
+    int jj_c, Grid grid, Body* body, float tol);
 
 /// \brief This function moves the soil from the soil layer `ind` of
 ///        `body_soil_` at (`ii`, `jj`) to the soil column in (`ii_c`, `jj_c`).
@@ -113,11 +113,11 @@ void RelaxUnstableTerrainCell(
 /// \param ii_c: Index of the neighbouring cell in the X direction.
 /// \param jj_c: Index of the neighbouring cell in the Y direction.
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param bucket: Class that stores information related to the bucket object.
+/// \param body: Class that stores information related to the body object.
 /// \param tol: Small number used to handle numerical approximation errors.
 void RelaxUnstableBodyCell(
     SimOut* sim_out, int status, std::vector<body_soil>* body_soil_pos,
     float dh_max, int nn, int ii, int jj, int ind, int ii_c, int jj_c,
-    Grid grid, Bucket* bucket, float tol);
+    Grid grid, Body* body, float tol);
 
 }  // namespace soil_simulator
