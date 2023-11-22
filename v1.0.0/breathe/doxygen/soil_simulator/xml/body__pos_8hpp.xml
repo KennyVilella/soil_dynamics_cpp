@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
-  <compounddef id="bucket__pos_8hpp" kind="file" language="C++">
-    <compoundname>bucket_pos.hpp</compoundname>
+  <compounddef id="body__pos_8hpp" kind="file" language="C++">
+    <compoundname>body_pos.hpp</compoundname>
     <includes local="no">tuple</includes>
     <includes local="no">vector</includes>
     <includes refid="types_8hpp" local="yes">soil_simulator/types.hpp</includes>
     <includedby refid="soil__dynamics_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp</includedby>
-    <includedby refid="bucket__pos_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp</includedby>
+    <includedby refid="body__pos_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp</includedby>
     <includedby refid="soil__evolution_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.cpp</includedby>
     <incdepgraph>
       <node id="1">
-        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp</label>
-        <link refid="bucket__pos_8hpp"/>
+        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp</label>
+        <link refid="body__pos_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
@@ -39,7 +39,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>declares<sp/>the<sp/>functions<sp/>used<sp/>to<sp/>calculate<sp/>the<sp/>bucket<sp/>position.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>declares<sp/>the<sp/>functions<sp/>used<sp/>to<sp/>calculate<sp/>the<sp/>body<sp/>position.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment"></highlight></codeline>
 <codeline lineno="4"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
@@ -51,9 +51,9 @@
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">soil_simulator<sp/>{</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CalcBucketPos(</highlight></codeline>
+<codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CalcBodyPos(</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket*<sp/>bucket,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Body*<sp/>body,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcRectanglePos(</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c,</highlight></codeline>
@@ -90,6 +90,6 @@
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
 <codeline lineno="146"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.hpp"/>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp"/>
   </compounddef>
 </doxygen>

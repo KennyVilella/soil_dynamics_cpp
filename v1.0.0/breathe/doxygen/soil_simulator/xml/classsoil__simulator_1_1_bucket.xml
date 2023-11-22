@@ -2,93 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classsoil__simulator_1_1_bucket" kind="class" language="C++" prot="public">
     <compoundname>soil_simulator::Bucket</compoundname>
+    <basecompoundref refid="classsoil__simulator_1_1_body" prot="public" virt="non-virtual">soil_simulator::Body</basecompoundref>
     <includes refid="types_8hpp" local="no">types.hpp</includes>
-      <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a6d2a5e7b19d8ec29b700f2d0b2ded393" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::j_pos_init_</definition>
-        <argsstring></argsstring>
-        <name>j_pos_init_</name>
-        <briefdescription>
-<para>Cartesian coordinates of the bucket joint in its reference pose. [m]. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="209" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="209" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a1f09a690072731b1a2ade43fae38e440" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::b_pos_init_</definition>
-        <argsstring></argsstring>
-        <name>b_pos_init_</name>
-        <briefdescription>
-<para>Cartesian coordinates of the bucket base in its reference pose. [m]. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="212" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="212" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a4196b7b5cec05e159e3db453a45abb0d" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::t_pos_init_</definition>
-        <argsstring></argsstring>
-        <name>t_pos_init_</name>
-        <briefdescription>
-<para>Cartesian coordinates of the bucket teeth in its reference pose. [m]. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="215" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="215" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1ada6ec30903927b006cab61c07e15a263" prot="public" static="no" mutable="no">
-        <type>float</type>
-        <definition>float soil_simulator::Bucket::width_</definition>
-        <argsstring></argsstring>
-        <name>width_</name>
-        <briefdescription>
-<para>Width of the bucket. [m]. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="218" column="12" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="218" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1ad8997213c92e4f0c8aef5326a75f64c8" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::pos_</definition>
-        <argsstring></argsstring>
-        <name>pos_</name>
-        <briefdescription>
-<para>Cartesian coordinates of the bucket origin. [m]. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="221" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="221" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classsoil__simulator_1_1_bucket_1a4da542d0e026b878da691b6eef390977" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; float &gt;</type>
-        <definition>std::vector&lt;float&gt; soil_simulator::Bucket::ori_</definition>
-        <argsstring></argsstring>
-        <name>ori_</name>
-        <briefdescription>
-<para>Orientation of the bucket. [Quaternion]. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="224" column="18" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="224" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -176,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="248" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp" bodystart="76" bodyend="127"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="262" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.cpp" bodystart="76" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -190,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="256" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="256" bodyend="256"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="270" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="270" bodyend="270"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -250,15 +165,41 @@ B ____________________ E
 </listitem></itemizedlist>
 </para>
     </detaileddescription>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="206" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="206" bodyend="257"/>
+    <inheritancegraph>
+      <node id="2">
+        <label>soil_simulator::Body</label>
+        <link refid="classsoil__simulator_1_1_body"/>
+      </node>
+      <node id="1">
+        <label>soil_simulator::Bucket</label>
+        <link refid="classsoil__simulator_1_1_bucket"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>soil_simulator::Body</label>
+        <link refid="classsoil__simulator_1_1_body"/>
+      </node>
+      <node id="1">
+        <label>soil_simulator::Bucket</label>
+        <link refid="classsoil__simulator_1_1_bucket"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="238" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="238" bodyend="271"/>
     <listofallmembers>
-      <member refid="classsoil__simulator_1_1_bucket_1a1f09a690072731b1a2ade43fae38e440" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>b_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1ac9419a149d2f7471f589f88adcb36656" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>b_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a8229d3a5b4a91fb838e3cb79ea4115dc" prot="protected" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>Body</name></member>
       <member refid="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>Bucket</name></member>
-      <member refid="classsoil__simulator_1_1_bucket_1a6d2a5e7b19d8ec29b700f2d0b2ded393" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>j_pos_init_</name></member>
-      <member refid="classsoil__simulator_1_1_bucket_1a4da542d0e026b878da691b6eef390977" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>ori_</name></member>
-      <member refid="classsoil__simulator_1_1_bucket_1ad8997213c92e4f0c8aef5326a75f64c8" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>pos_</name></member>
-      <member refid="classsoil__simulator_1_1_bucket_1a4196b7b5cec05e159e3db453a45abb0d" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>t_pos_init_</name></member>
-      <member refid="classsoil__simulator_1_1_bucket_1ada6ec30903927b006cab61c07e15a263" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>width_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a16ce7428871ee9ee9a0dbc76c2696e97" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>j_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a20c6539db12f1f9c468d38f809b730da" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>ori_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a1c41709549cfc7c20fc0e9ba9180732f" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>pos_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1ad210b19a01ac69f53b4883f23b99173a" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>t_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a73226afec70dc512fb0f1268ca9290c3" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>width_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a3f54d8e188e3dd03145c93133fb3be2d" prot="protected" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>~Body</name></member>
       <member refid="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53" prot="public" virt="non-virtual"><scope>soil_simulator::Bucket</scope><name>~Bucket</name></member>
     </listofallmembers>
   </compounddef>

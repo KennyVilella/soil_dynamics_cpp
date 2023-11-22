@@ -2,10 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_c8b030eeb6c4dd4399c6e2cc2ce683bb" kind="dir">
     <compoundname>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator</compoundname>
+    <innerfile refid="body__pos_8cpp">body_pos.cpp</innerfile>
+    <innerfile refid="body__pos_8hpp">body_pos.hpp</innerfile>
     <innerfile refid="body__soil_8cpp">body_soil.cpp</innerfile>
     <innerfile refid="body__soil_8hpp">body_soil.hpp</innerfile>
-    <innerfile refid="bucket__pos_8cpp">bucket_pos.cpp</innerfile>
-    <innerfile refid="bucket__pos_8hpp">bucket_pos.hpp</innerfile>
     <innerfile refid="intersecting__cells_8cpp">intersecting_cells.cpp</innerfile>
     <innerfile refid="intersecting__cells_8hpp">intersecting_cells.hpp</innerfile>
     <innerfile refid="relax_8cpp">relax.cpp</innerfile>

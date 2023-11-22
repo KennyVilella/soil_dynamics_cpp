@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
-  <compounddef id="bucket__pos_8cpp" kind="file" language="C++">
-    <compoundname>bucket_pos.cpp</compoundname>
+  <compounddef id="body__pos_8cpp" kind="file" language="C++">
+    <compoundname>body_pos.cpp</compoundname>
     <includes local="no">algorithm</includes>
     <includes local="no">cmath</includes>
     <includes local="no">iostream</includes>
     <includes local="no">stdexcept</includes>
     <includes local="no">tuple</includes>
     <includes local="no">vector</includes>
-    <includes refid="bucket__pos_8hpp" local="yes">soil_simulator/bucket_pos.hpp</includes>
+    <includes refid="body__pos_8hpp" local="yes">soil_simulator/body_pos.hpp</includes>
     <includes refid="types_8hpp" local="yes">soil_simulator/types.hpp</includes>
     <includes refid="utils_8hpp" local="yes">soil_simulator/utils.hpp</includes>
     <incdepgraph>
       <node id="8">
-        <label>soil_simulator/bucket_pos.hpp</label>
-        <link refid="bucket__pos_8hpp_source"/>
+        <label>soil_simulator/body_pos.hpp</label>
+        <link refid="body__pos_8hpp_source"/>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
@@ -38,24 +38,9 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>tuple</label>
-      </node>
-      <node id="7">
-        <label>vector</label>
-      </node>
-      <node id="4">
-        <label>iostream</label>
-      </node>
-      <node id="9">
-        <label>soil_simulator/types.hpp</label>
-        <link refid="types_8hpp_source"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
       <node id="1">
-        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp</label>
-        <link refid="bucket__pos_8cpp"/>
+        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp</label>
+        <link refid="body__pos_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
@@ -75,6 +60,21 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
+      <node id="6">
+        <label>tuple</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="9">
+        <label>soil_simulator/types.hpp</label>
+        <link refid="types_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="2">
         <label>algorithm</label>
       </node>
@@ -85,7 +85,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>implements<sp/>the<sp/>functions<sp/>used<sp/>to<sp/>calculate<sp/>the<sp/>bucket<sp/>position.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>implements<sp/>the<sp/>functions<sp/>used<sp/>to<sp/>calculate<sp/>the<sp/>body<sp/>position.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment"></highlight></codeline>
 <codeline lineno="4"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
@@ -95,30 +95,30 @@
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/bucket_pos.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/body_pos.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/utils.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>soil_simulator::CalcBucketPos(</highlight></codeline>
+<codeline lineno="22"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>soil_simulator::CalcBodyPos(</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket*<sp/>bucket,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>Body*<sp/>body,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Reinitializing<sp/>bucket<sp/>position</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bucket_min_x<sp/>=<sp/>sim_out-&gt;bucket_area_[0][0];</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bucket_max_x<sp/>=<sp/>sim_out-&gt;bucket_area_[0][1];</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bucket_min_y<sp/>=<sp/>sim_out-&gt;bucket_area_[1][0];</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bucket_max_y<sp/>=<sp/>sim_out-&gt;bucket_area_[1][1];</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>bucket_min_x;<sp/>ii<sp/>&lt;<sp/>bucket_max_x;<sp/>ii++)</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>jj<sp/>=<sp/>bucket_min_y;<sp/>jj<sp/>&lt;<sp/>bucket_max_y;<sp/>jj++)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Reinitializing<sp/>body<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>body_min_x<sp/>=<sp/>sim_out-&gt;body_area_[0][0];</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>body_max_x<sp/>=<sp/>sim_out-&gt;body_area_[0][1];</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>body_min_y<sp/>=<sp/>sim_out-&gt;body_area_[1][0];</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>body_max_y<sp/>=<sp/>sim_out-&gt;body_area_[1][1];</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>body_min_x;<sp/>ii<sp/>&lt;<sp/>body_max_x;<sp/>ii++)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>jj<sp/>=<sp/>body_min_y;<sp/>jj<sp/>&lt;<sp/>body_max_y;<sp/>jj++)<sp/>{</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[0][ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[1][ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[2][ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[3][ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>position<sp/>of<sp/>the<sp/>bucket<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>position<sp/>of<sp/>the<sp/>body<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[j_r_pos,<sp/>j_l_pos,<sp/>b_r_pos,<sp/>b_l_pos,<sp/>t_r_pos,<sp/>t_l_pos]<sp/>=</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>soil_simulator::CalcBucketCornerPos(pos,<sp/>ori,<sp/>bucket);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>soil_simulator::CalcBodyCornerPos(pos,<sp/>ori,<sp/>body);</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>0;<sp/>ii<sp/>&lt;<sp/>3;<sp/>ii++)<sp/>{</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Adding<sp/>a<sp/>small<sp/>increment<sp/>to<sp/>all<sp/>vertices</highlight><highlight class="normal"></highlight></codeline>
@@ -144,39 +144,39 @@
 <codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(b_l_pos[ii]<sp/>-<sp/>t_l_pos[ii]));</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>2D<sp/>bounding<sp/>box<sp/>of<sp/>the<sp/>bucket</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bucket_x_min<sp/>=<sp/>std::min({</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>2D<sp/>bounding<sp/>box<sp/>of<sp/>the<sp/>body</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>body_x_min<sp/>=<sp/>std::min({</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_r_pos[0],<sp/>j_l_pos[0],<sp/>b_r_pos[0],<sp/>b_l_pos[0],<sp/>t_r_pos[0],<sp/>t_l_pos[0]</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bucket_x_max<sp/>=<sp/>std::max({</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>body_x_max<sp/>=<sp/>std::max({</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_r_pos[0],<sp/>j_l_pos[0],<sp/>b_r_pos[0],<sp/>b_l_pos[0],<sp/>t_r_pos[0],<sp/>t_l_pos[0]</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bucket_y_min<sp/>=<sp/>std::min({</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>body_y_min<sp/>=<sp/>std::min({</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_r_pos[1],<sp/>j_l_pos[1],<sp/>b_r_pos[1],<sp/>b_l_pos[1],<sp/>t_r_pos[1],<sp/>t_l_pos[1]</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bucket_y_max<sp/>=<sp/>std::max({</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>body_y_max<sp/>=<sp/>std::max({</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_r_pos[1],<sp/>j_l_pos[1],<sp/>b_r_pos[1],<sp/>b_l_pos[1],<sp/>t_r_pos[1],<sp/>t_l_pos[1]</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>bucket_area</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;bucket_area_[0][0]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::max(</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(bucket_x_min<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>body_area</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;body_area_[0][0]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::max(</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(body_x_min<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid.half_length_x_<sp/>-<sp/>sim_param.cell_buffer_)</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>1.0));</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;bucket_area_[0][1]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::min(</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(bucket_x_max<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;body_area_[0][1]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::min(</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(body_x_max<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid.half_length_x_<sp/>+<sp/>sim_param.cell_buffer_)</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>2.0<sp/>*<sp/>grid.half_length_x_));</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;bucket_area_[1][0]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::max(</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(bucket_y_min<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;body_area_[1][0]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::max(</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(body_y_min<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid.half_length_y_<sp/>-<sp/>sim_param.cell_buffer_)</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>1.0));</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;bucket_area_[1][1]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::min(</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(bucket_y_max<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>sim_out-&gt;body_area_[1][1]<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::min(</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>round(body_y_max<sp/>/<sp/>grid.cell_size_xy_<sp/>+</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grid.half_length_y_<sp/>+<sp/>sim_param.cell_buffer_)</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>2.0<sp/>*<sp/>grid.half_length_y_));</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Determining<sp/>where<sp/>each<sp/>surface<sp/>of<sp/>the<sp/>bucket<sp/>is<sp/>located</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Determining<sp/>where<sp/>each<sp/>surface<sp/>of<sp/>the<sp/>body<sp/>is<sp/>located</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>base_pos<sp/>=<sp/>soil_simulator::CalcRectanglePos(</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b_r_pos,<sp/>b_l_pos,<sp/>t_l_pos,<sp/>t_r_pos,<sp/>grid,<sp/>tol);</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>back_pos<sp/>=<sp/>soil_simulator::CalcRectanglePos(</highlight></codeline>
@@ -186,13 +186,13 @@
 <codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>left_side_pos<sp/>=<sp/>soil_simulator::CalcTrianglePos(</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j_l_pos,<sp/>b_l_pos,<sp/>t_l_pos,<sp/>grid,<sp/>tol);</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sorting<sp/>all<sp/>list<sp/>of<sp/>cells<sp/>indices<sp/>where<sp/>the<sp/>bucket<sp/>is<sp/>located</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sorting<sp/>all<sp/>list<sp/>of<sp/>cells<sp/>indices<sp/>where<sp/>the<sp/>body<sp/>is<sp/>located</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>sort(base_pos.begin(),<sp/>base_pos.end());</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>sort(back_pos.begin(),<sp/>back_pos.end());</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>sort(right_side_pos.begin(),<sp/>right_side_pos.end());</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>sort(left_side_pos.begin(),<sp/>left_side_pos.end());</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>the<sp/>bucket<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>the<sp/>body<sp/>position</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::UpdateBody(base_pos,<sp/>sim_out,<sp/>grid,<sp/>tol);</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::UpdateBody(back_pos,<sp/>sim_out,<sp/>grid,<sp/>tol);</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::UpdateBody(right_side_pos,<sp/>sim_out,<sp/>grid,<sp/>tol);</highlight></codeline>
@@ -622,7 +622,7 @@
 <codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>nn<sp/>=<sp/>0;<sp/>nn<sp/>&lt;<sp/>area_pos.size();<sp/>nn++)<sp/>{</highlight></codeline>
 <codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ii<sp/>!=<sp/>area_pos[nn][0])<sp/>||<sp/>(jj<sp/>!=<sp/>area_pos[nn][1]))<sp/>{</highlight></codeline>
 <codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>New<sp/>XY<sp/>position</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>bucket<sp/>position<sp/>for<sp/>the<sp/>previous<sp/>XY<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>body<sp/>position<sp/>for<sp/>the<sp/>previous<sp/>XY<sp/>position</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>soil_simulator::IncludeNewBodyPos(</highlight></codeline>
 <codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out,<sp/>ii,<sp/>jj,<sp/>min_h,<sp/>max_h,<sp/>tol);</highlight></codeline>
 <codeline lineno="708"><highlight class="normal"></highlight></codeline>
@@ -638,7 +638,7 @@
 <codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="720"><highlight class="normal"></highlight></codeline>
-<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>bucket<sp/>position<sp/>for<sp/>the<sp/>last<sp/>XY<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>body<sp/>position<sp/>for<sp/>the<sp/>last<sp/>XY<sp/>position</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/>soil_simulator::IncludeNewBodyPos(sim_out,<sp/>ii,<sp/>jj,<sp/>min_h,<sp/>max_h,<sp/>tol);</highlight></codeline>
 <codeline lineno="723"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="724"><highlight class="normal"></highlight></codeline>
@@ -646,7 +646,7 @@
 <codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>min_h,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_h,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol</highlight></codeline>
 <codeline lineno="732"><highlight class="normal">)<sp/>{</highlight></codeline>
 <codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;int&gt;<sp/>status(2);</highlight></codeline>
-<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Iterating<sp/>over<sp/>the<sp/>two<sp/>bucket<sp/>layers<sp/>and<sp/>storing<sp/>their<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Iterating<sp/>over<sp/>the<sp/>two<sp/>body<sp/>layers<sp/>and<sp/>storing<sp/>their<sp/>status</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>nn<sp/>=<sp/>0;<sp/>nn<sp/>&lt;<sp/>2;<sp/>nn++)<sp/>{</highlight></codeline>
 <codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ind<sp/>=<sp/>2<sp/>*<sp/>nn;</highlight></codeline>
 <codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight></codeline>
@@ -676,7 +676,7 @@
 <codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="763"><highlight class="normal"></highlight></codeline>
-<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>the<sp/>bucket<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Updating<sp/>the<sp/>body<sp/>position</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((status[0]<sp/>==<sp/>1)<sp/>&amp;&amp;<sp/>(status[1]<sp/>==<sp/>1))<sp/>{</highlight></codeline>
 <codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>New<sp/>position<sp/>is<sp/>overlapping<sp/>with<sp/>the<sp/>two<sp/>existing<sp/>positions</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[0][ii][jj]<sp/>=<sp/>std::min(</highlight></codeline>
@@ -684,7 +684,7 @@
 <codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[1][ii][jj]<sp/>=<sp/>std::max(</highlight></codeline>
 <codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{sim_out-&gt;body_[1][ii][jj],<sp/>sim_out-&gt;body_[3][ii][jj],<sp/>max_h});</highlight></codeline>
 <codeline lineno="771"><highlight class="normal"></highlight></codeline>
-<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Resetting<sp/>obsolete<sp/>bucket<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Resetting<sp/>obsolete<sp/>body<sp/>position</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[2][ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[3][ii][jj]<sp/>=<sp/>0.0;</highlight></codeline>
 <codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status[0]<sp/>==<sp/>1)<sp/>{</highlight></codeline>
@@ -706,15 +706,15 @@
 <codeline lineno="791"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline lineno="792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>New<sp/>position<sp/>is<sp/>not<sp/>overlapping<sp/>with<sp/>the<sp/>two<sp/>existing<sp/>positions</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>may<sp/>be<sp/>due<sp/>to<sp/>an<sp/>edge<sp/>case,<sp/>in<sp/>that<sp/>case<sp/>we<sp/>try<sp/>to<sp/>fix<sp/>the<sp/>issue</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>distance<sp/>to<sp/>the<sp/>two<sp/>bucket<sp/>layers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>distance<sp/>to<sp/>the<sp/>two<sp/>body<sp/>layers</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dist_0b<sp/>=<sp/>std::abs(sim_out-&gt;body_[0][ii][jj]<sp/>-<sp/>max_h);</highlight></codeline>
 <codeline lineno="796"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dist_0t<sp/>=<sp/>std::abs(min_h<sp/>-<sp/>sim_out-&gt;body_[1][ii][jj]);</highlight></codeline>
 <codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dist_2b<sp/>=<sp/>std::abs(sim_out-&gt;body_[2][ii][jj]<sp/>-<sp/>max_h);</highlight></codeline>
 <codeline lineno="798"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dist_2t<sp/>=<sp/>std::abs(min_h<sp/>-<sp/>sim_out-&gt;body_[3][ii][jj]);</highlight></codeline>
 <codeline lineno="799"><highlight class="normal"></highlight></codeline>
-<codeline lineno="800"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Checking<sp/>what<sp/>bucket<sp/>layer<sp/>is<sp/>closer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="800"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Checking<sp/>what<sp/>body<sp/>layer<sp/>is<sp/>closer</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="801"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::min(dist_0b,<sp/>dist_0t)<sp/>&lt;<sp/>std::min(dist_2b,<sp/>dist_2t))<sp/>{</highlight></codeline>
-<codeline lineno="802"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Merging<sp/>with<sp/>first<sp/>bucket<sp/>layer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="802"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Merging<sp/>with<sp/>first<sp/>body<sp/>layer</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="803"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dist_0b<sp/>&lt;<sp/>dist_0t)<sp/>{</highlight></codeline>
 <codeline lineno="804"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Merging<sp/>down</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="805"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[0][ii][jj]<sp/>=<sp/>min_h;</highlight></codeline>
@@ -723,7 +723,7 @@
 <codeline lineno="808"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[1][ii][jj]<sp/>=<sp/>max_h;</highlight></codeline>
 <codeline lineno="809"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="811"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Merging<sp/>with<sp/>second<sp/>bucket<sp/>layer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="811"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Merging<sp/>with<sp/>second<sp/>body<sp/>layer</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dist_2b<sp/>&lt;<sp/>dist_2t)<sp/>{</highlight></codeline>
 <codeline lineno="813"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Merging<sp/>down</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="814"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out-&gt;body_[2][ii][jj]<sp/>=<sp/>min_h;</highlight></codeline>
@@ -735,6 +735,6 @@
 <codeline lineno="820"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="821"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp"/>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp"/>
   </compounddef>
 </doxygen>

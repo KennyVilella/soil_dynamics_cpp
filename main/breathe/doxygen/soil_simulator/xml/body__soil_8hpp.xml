@@ -33,7 +33,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>declares<sp/>the<sp/>functions<sp/>used<sp/>to<sp/>move<sp/>the<sp/>soil<sp/>resting<sp/>on<sp/>the<sp/>bucket</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>declares<sp/>the<sp/>functions<sp/>used<sp/>to<sp/>move<sp/>the<sp/>soil<sp/>resting<sp/>on<sp/>the<sp/>body</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">following<sp/>its<sp/>movement.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment"></highlight></codeline>
 <codeline lineno="5"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
@@ -47,7 +47,7 @@
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UpdateBodySoil(</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket*<sp/>bucket,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Body*<sp/>body,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>

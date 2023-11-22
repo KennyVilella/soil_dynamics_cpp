@@ -56,10 +56,10 @@
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="26" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="18" bodyend="59"/>
       </memberdef>
-      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a1eeeb5a2ca5050bdb488cf5d301a146d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a665ad7e721c8fc051bb6dbe789b3e1da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool soil_simulator::SoilDynamics::Step</definition>
-        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Bucket *bucket, SimParam sim_param, float tol)</argsstring>
+        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Body *body, SimParam sim_param, float tol)</argsstring>
         <name>Step</name>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
@@ -78,8 +78,8 @@
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
-          <declname>bucket</declname>
+          <type><ref refid="classsoil__simulator_1_1_body" kindref="compound">Body</ref> *</type>
+          <declname>body</declname>
         </param>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref></type>
@@ -106,7 +106,7 @@
 <parametername>pos</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Cartesian coordinates of the bucket origin. [m] </para>
+<para>Cartesian coordinates of the body origin. [m] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -114,7 +114,7 @@
 <parametername>ori</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Orientation of the bucket. [Quaternion] </para>
+<para>Orientation of the body. [Quaternion] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -127,10 +127,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>bucket</parametername>
+<parametername>body</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Class that stores information related to the bucket object. </para>
+<para>Class that stores information related to the body object. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="42" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="61" bodyend="118"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="41" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="61" bodyend="117"/>
       </memberdef>
       <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1a3fb2d0179bbaacf11b0ab24ca83f36ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -220,12 +220,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="53" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="120" bodyend="128"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="52" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="119" bodyend="127"/>
       </memberdef>
-      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classsoil__simulator_1_1_soil_dynamics_1aa71e6b28ffbda531bb8e680ebbb63004" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void soil_simulator::SoilDynamics::WriteOutputs</definition>
-        <argsstring>(SimOut *sim_out, Grid grid, Bucket *bucket)</argsstring>
+        <argsstring>(SimOut *sim_out, Grid grid, Body *body)</argsstring>
         <name>WriteOutputs</name>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
@@ -236,8 +236,8 @@
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
-          <declname>bucket</declname>
+          <type><ref refid="classsoil__simulator_1_1_body" kindref="compound">Body</ref> *</type>
+          <declname>body</declname>
         </param>
         <briefdescription>
 <para>Write the simulation outputs into files. </para>
@@ -261,10 +261,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>bucket</parametername>
+<parametername>body</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Class that stores information related to the bucket object. </para>
+<para>Class that stores information related to the body object. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -272,7 +272,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="62" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="130" bodyend="138"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="60" column="11" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp" bodystart="129" bodyend="137"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -280,12 +280,12 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="18" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" bodystart="18" bodyend="63"/>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" line="18" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.hpp" bodystart="18" bodyend="61"/>
     <listofallmembers>
       <member refid="classsoil__simulator_1_1_soil_dynamics_1a3fb2d0179bbaacf11b0ab24ca83f36ac" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>Check</name></member>
       <member refid="classsoil__simulator_1_1_soil_dynamics_1a0e8aedf7573bbdf9fab4d04233c1c99b" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>Init</name></member>
-      <member refid="classsoil__simulator_1_1_soil_dynamics_1a1eeeb5a2ca5050bdb488cf5d301a146d" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>Step</name></member>
-      <member refid="classsoil__simulator_1_1_soil_dynamics_1ad98dfb874a628d15bd86f9be9f8de380" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>WriteOutputs</name></member>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1a665ad7e721c8fc051bb6dbe789b3e1da" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>Step</name></member>
+      <member refid="classsoil__simulator_1_1_soil_dynamics_1aa71e6b28ffbda531bb8e680ebbb63004" prot="public" virt="non-virtual"><scope>soil_simulator::SoilDynamics</scope><name>WriteOutputs</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

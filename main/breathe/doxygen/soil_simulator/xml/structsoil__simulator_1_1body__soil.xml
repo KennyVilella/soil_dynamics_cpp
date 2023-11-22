@@ -10,7 +10,7 @@
         <argsstring></argsstring>
         <name>ind</name>
         <briefdescription>
-<para>Index of the bucket soil layer. </para>
+<para>Index of the body soil layer. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -24,7 +24,7 @@
         <argsstring></argsstring>
         <name>ii</name>
         <briefdescription>
-<para>Index of the bucket soil position in the X direction. </para>
+<para>Index of the body soil position in the X direction. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -38,7 +38,7 @@
         <argsstring></argsstring>
         <name>jj</name>
         <briefdescription>
-<para>Index of the bucket soil position in the Y direction. </para>
+<para>Index of the body soil position in the Y direction. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -54,7 +54,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Cartesian coordinate in the X direction of the bucket soil in the reference bucket frame. [m] </para>
+<para>Cartesian coordinate in the X direction of the body soil in the reference body frame. [m] </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -68,7 +68,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Cartesian coordinate in the Y direction of the bucket soil in the reference bucket frame. [m] </para>
+<para>Cartesian coordinate in the Y direction of the body soil in the reference body frame. [m] </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -82,7 +82,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Cartesian coordinate in the Z direction of the bucket soil in the reference bucket frame. [m] </para>
+<para>Cartesian coordinate in the Z direction of the body soil in the reference body frame. [m] </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -104,7 +104,7 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Store information related to the position of the bucket soil. </para>
+<para>Store information related to the position of the body soil. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>

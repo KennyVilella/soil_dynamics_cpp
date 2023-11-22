@@ -6,7 +6,7 @@
     <includes local="no">vector</includes>
     <includes refid="types_8hpp" local="yes">soil_simulator/types.hpp</includes>
     <includedby refid="soil__dynamics_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp</includedby>
-    <includedby refid="bucket__pos_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/bucket_pos.cpp</includedby>
+    <includedby refid="body__pos_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp</includedby>
     <includedby refid="body__soil_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.cpp</includedby>
     <includedby refid="intersecting__cells_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp</includedby>
     <includedby refid="relax_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/relax.cpp</includedby>
@@ -58,17 +58,17 @@
 <codeline lineno="26"><highlight class="normal">std::tuple&lt;</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;,</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;&gt;</highlight></codeline>
-<codeline lineno="29"><highlight class="normal">CalcBucketCornerPos(</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Bucket*<sp/>bucket);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">CalcBodyCornerPos(</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Body*<sp/>body);</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CheckBucketMovement(</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,<sp/>Bucket*<sp/>bucket);</highlight></codeline>
+<codeline lineno="42"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CheckBodyMovement(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,<sp/>Body*<sp/>body);</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcNormal(</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcBucketFramePos(</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z,<sp/>Grid<sp/>grid,<sp/>Bucket*<sp/>bucket);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcBodyFramePos(</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z,<sp/>Grid<sp/>grid,<sp/>Body*<sp/>body);</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
 <codeline lineno="81"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcRotationQuaternion(</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>std::vector&lt;float&gt;<sp/>pos);</highlight></codeline>
@@ -84,7 +84,7 @@
 <codeline lineno="120"><highlight class="normal"></highlight></codeline>
 <codeline lineno="126"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteSoil(SimOut*<sp/>sim_out,<sp/>Grid<sp/>grid);</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBucket(Bucket*<sp/>bucket);</highlight></codeline>
+<codeline lineno="132"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBody(Body*<sp/>body);</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight></codeline>
 <codeline lineno="143"><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>simplex_noise(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/>std::vector&lt;int&gt;<sp/>perm_table);</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"></highlight></codeline>
