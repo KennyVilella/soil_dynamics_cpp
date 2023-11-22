@@ -420,17 +420,17 @@ bool soil_simulator::CheckSoil(
             }
 
             if ((body_soil_presence_0) && (body_soil_0 > body_soil_1 + tol)) {
-                LOG(WARNING) << "WARNING\nMin height of the body soil is "
-                    "above its max height.\nLocation: (" << ii << ", " << jj <<
-                     ")\nBody soil 1 min height: " << body_soil_0 << "\n"
+                LOG(WARNING) << "WARNING\nMin height of the body soil is above "
+                    "its max height.\nLocation: (" << ii << ", " << jj << ")\n"
+                    "Body soil 1 min height: " << body_soil_0 << "\n"
                     "Body soil 1 max height: " << body_soil_1;
                 return false;
             }
 
             if ((body_soil_presence_2) && (body_soil_2 > body_soil_3 + tol)) {
-                LOG(WARNING) << "WARNING\nMin height of the body soil is "
-                    "above its max height.\nLocation: (" << ii << ", " << jj <<
-                    ")\nBody soil 2 min height: " << body_soil_2 << "\n"
+                LOG(WARNING) << "WARNING\nMin height of the body soil is above "
+                    "its max height.\nLocation: (" << ii << ", " << jj << ")\n"
+                    "Body soil 2 min height: " << body_soil_2 << "\n"
                     "Body soil 2 max height: " << body_soil_3;
                 return false;
             }
@@ -468,16 +468,16 @@ bool soil_simulator::CheckSoil(
             }
 
             if ((body_soil_presence_0) && (body_soil_0 != body_1)) {
-                LOG(WARNING) << "WARNING\nBody soil is not resting on the "
-                    "body.\nLocation: (" << ii << ", " << jj << ")\n"
+                LOG(WARNING) << "WARNING\nBody soil is not resting on the body."
+                    "\nLocation: (" << ii << ", " << jj << ")\n"
                     "Body 1 max height: " << body_1 << "\n"
                     "Body soil 1 min height: " << body_soil_0;
                 return false;
             }
 
             if ((body_soil_presence_2) && (body_soil_2 != body_3)) {
-                LOG(WARNING) << "WARNING\nBody soil is not resting on the "
-                    "body.\nLocation: (" << ii << ", " << jj << ")\n"
+                LOG(WARNING) << "WARNING\nBody soil is not resting on the body."
+                    "\nLocation: (" << ii << ", " << jj << ")\n"
                     "Body 2 max height: " << body_3 << "\n"
                     "Body soil 2 min height: " << body_soil_2;
                 return false;

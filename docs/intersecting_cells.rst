@@ -32,8 +32,8 @@ Note:
 Description of the different cases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-No body is present
-""""""""""""""""""
+Body is not present
+"""""""""""""""""""
 
 In this case, the intersecting soil cells are simply moved to the terrain.
 
@@ -112,5 +112,5 @@ Soil is moved to that position to fill the gap.
 Concluding remarks
 ------------------
 
-When the simulator would have the ability to handle multiple bodys, it may be necessary to handle the movement of soil resting on a body that intersects with a different body separately.
+When the simulator would have the ability to handle multiple bodies, it may be necessary to handle the movement of soil resting on a body that intersects with a different body separately.
 Additionally, the case where a different body blocks the movement of soil to the terrain would need to be addressed.

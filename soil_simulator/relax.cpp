@@ -808,7 +808,7 @@ void soil_simulator::RelaxUnstableBodyCell(
     float h_new_c;
     float h_soil;
     if (st[1] == '0') {
-        // No Body
+        // No body
         // Calculating new height values
         h_new = 0.5 * (
             dh_max + sim_out->body_soil_[ind+1][ii][jj] +

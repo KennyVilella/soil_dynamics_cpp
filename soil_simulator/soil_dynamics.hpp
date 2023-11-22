@@ -32,8 +32,7 @@ class SoilDynamics {
      /// \param ori: Orientation of the body. [Quaternion]
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
-     /// \param body: Class that stores information related to the
-     ///              body object.
+     /// \param body: Class that stores information related to the body object.
      /// \param sim_param: Class that stores information related to
      ///                   the simulation.
      /// \param tol: Small number used to handle numerical approximation errors.
@@ -57,8 +56,7 @@ class SoilDynamics {
      /// \param sim_out: Class that stores simulation outputs.
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
-     /// \param body: Class that stores information related to the
-     ///              body object.
+     /// \param body: Class that stores information related to the body object.
      void WriteOutputs(SimOut* sim_out, Grid grid, Body* body);
 };
 
