@@ -3,10 +3,11 @@
 [![Build status](https://github.com/KennyVilella/soil_dynamics_cpp/workflows/CI/badge.svg)](https://github.com/KennyVilella/soil_dynamics_cpp/actions)
 [![](https://img.shields.io/badge/docs-main-blue.svg)][docs-main]
 
-This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of an excavator bucket.
+This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of a rigid body.
 It employs a cellular automata approach to model the behaviour of the soil.
+Currently, the only rigid body supported by this simulator is the typical bucket used by hydraulic excavators.
 The bucket geometry is assumed to be a simple triangular prism, and the simulator operates on a grid composed of rectangular cells with equal length in the X and Y directions, and a height that is less than or equal to the cell's length.
-A crucial requirement of the simulator is that the terrain must be updated every time the bucket moves by more than one cell.
+A crucial requirement of the simulator is that the terrain must be updated every time the body moves by more than one cell.
 
 The primary objective of the simulator is to provide terrain updates in less than 1 ms, making it suitable for real-time applications.
 
@@ -19,7 +20,7 @@ There are several important features that are yet to be implemented.
 These include, in order of priority:
 
 - Integration testing: Conduct thorough integration tests to ensure the functionality of the simulator.
-- Multiple digging buckets: Add support for simulating the behaviour of multiple digging buckets simultaneously.
+- Multiple moving bodies: Add support for simulating the behaviour of multiple bodies simultaneously.
 - Force calculation: Incorporate force calculation methods for better integration with rigid body engines.
 - Heterogeneous soil properties: Extend the simulator to handle soil properties that vary across the terrain.
 
@@ -72,8 +73,8 @@ cmake --build <path_to_repository>/build --target benchmarks
 
 The example script provides options to write the results into CSV files.
 The following options can be enabled to write the results at each time-step:
-- `WriteBucket`: Write the bucket corners.
-- `WriteSoil`: Write the terrain and the soil resting on the bucket.
+- `WriteBody`: Write the body corners.
+- `WriteSoil`: Write the terrain and the soil resting on the body.
 
 [ParaView][] can be used to visualize the results.
 To do so, follow these steps in Paraview

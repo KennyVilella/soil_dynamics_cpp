@@ -1,5 +1,5 @@
 /*
-This file implements the functions used to calculate the bucket position.
+This file implements the functions used to calculate the body position.
 
 Copyright, 2023, Vilella Kenny.
 */
@@ -9,36 +9,36 @@ Copyright, 2023, Vilella Kenny.
 #include <stdexcept>
 #include <tuple>
 #include <vector>
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 #include "soil_simulator/types.hpp"
 #include "soil_simulator/utils.hpp"
 
-/// The bucket position is calculated based on its reference pose stored in
-/// the `Bucket` class, as well as the provided position (`pos`) and orientation
+/// The body position is calculated based on its reference pose stored in
+/// the `Body` class, as well as the provided position (`pos`) and orientation
 /// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
-/// rotation to the bucket relative to its reference pose. The centre of
-/// rotation is assumed to be the bucket origin. The orientation is provided
+/// rotation to the body relative to its reference pose. The centre of
+/// rotation is assumed to be the body origin. The orientation is provided
 /// using the quaternion definition.
-void soil_simulator::CalcBucketPos(
+void soil_simulator::CalcBodyPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
-    Bucket* bucket, SimParam sim_param, float tol
+    Body* body, SimParam sim_param, float tol
 ) {
-    // Reinitializing bucket position
-    int bucket_min_x = sim_out->bucket_area_[0][0];
-    int bucket_max_x = sim_out->bucket_area_[0][1];
-    int bucket_min_y = sim_out->bucket_area_[1][0];
-    int bucket_max_y = sim_out->bucket_area_[1][1];
-    for (auto ii = bucket_min_x; ii < bucket_max_x; ii++)
-        for (auto jj = bucket_min_y; jj < bucket_max_y; jj++) {
+    // Reinitializing body position
+    int body_min_x = sim_out->body_area_[0][0];
+    int body_max_x = sim_out->body_area_[0][1];
+    int body_min_y = sim_out->body_area_[1][0];
+    int body_max_y = sim_out->body_area_[1][1];
+    for (auto ii = body_min_x; ii < body_max_x; ii++)
+        for (auto jj = body_min_y; jj < body_max_y; jj++) {
             sim_out->body_[0][ii][jj] = 0.0;
             sim_out->body_[1][ii][jj] = 0.0;
             sim_out->body_[2][ii][jj] = 0.0;
             sim_out->body_[3][ii][jj] = 0.0;
         }
 
-    // Calculating position of the bucket corners
+    // Calculating position of the body corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, body);
 
     for (auto ii = 0; ii < 3; ii++) {
         // Adding a small increment to all vertices
@@ -64,39 +64,39 @@ void soil_simulator::CalcBucketPos(
             (b_l_pos[ii] - t_l_pos[ii]));
     }
 
-    // Calculating the 2D bounding box of the bucket
-    float bucket_x_min = std::min({
+    // Calculating the 2D bounding box of the body
+    float body_x_min = std::min({
         j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
     });
-    float bucket_x_max = std::max({
+    float body_x_max = std::max({
         j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
     });
-    float bucket_y_min = std::min({
+    float body_y_min = std::min({
         j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
     });
-    float bucket_y_max = std::max({
+    float body_y_max = std::max({
         j_r_pos[1], j_l_pos[1], b_r_pos[1], b_l_pos[1], t_r_pos[1], t_l_pos[1]
     });
 
-    // Updating bucket_area
-    sim_out->bucket_area_[0][0] = static_cast<int>(std::max(
-        round(bucket_x_min / grid.cell_size_xy_ +
+    // Updating body_area
+    sim_out->body_area_[0][0] = static_cast<int>(std::max(
+        round(body_x_min / grid.cell_size_xy_ +
             grid.half_length_x_ - sim_param.cell_buffer_)
         , 1.0));
-    sim_out->bucket_area_[0][1] = static_cast<int>(std::min(
-        round(bucket_x_max / grid.cell_size_xy_ +
+    sim_out->body_area_[0][1] = static_cast<int>(std::min(
+        round(body_x_max / grid.cell_size_xy_ +
             grid.half_length_x_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_x_));
-    sim_out->bucket_area_[1][0] = static_cast<int>(std::max(
-        round(bucket_y_min / grid.cell_size_xy_ +
+    sim_out->body_area_[1][0] = static_cast<int>(std::max(
+        round(body_y_min / grid.cell_size_xy_ +
             grid.half_length_y_ - sim_param.cell_buffer_)
         , 1.0));
-    sim_out->bucket_area_[1][1] = static_cast<int>(std::min(
-        round(bucket_y_max / grid.cell_size_xy_ +
+    sim_out->body_area_[1][1] = static_cast<int>(std::min(
+        round(body_y_max / grid.cell_size_xy_ +
             grid.half_length_y_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_y_));
 
-    // Determining where each surface of the bucket is located
+    // Determining where each surface of the body is located
     auto base_pos = soil_simulator::CalcRectanglePos(
         b_r_pos, b_l_pos, t_l_pos, t_r_pos, grid, tol);
     auto back_pos = soil_simulator::CalcRectanglePos(
@@ -106,13 +106,13 @@ void soil_simulator::CalcBucketPos(
     auto left_side_pos = soil_simulator::CalcTrianglePos(
         j_l_pos, b_l_pos, t_l_pos, grid, tol);
 
-    // Sorting all list of cells indices where the bucket is located
+    // Sorting all list of cells indices where the body is located
     sort(base_pos.begin(), base_pos.end());
     sort(back_pos.begin(), back_pos.end());
     sort(right_side_pos.begin(), right_side_pos.end());
     sort(left_side_pos.begin(), left_side_pos.end());
 
-    // Updating the bucket position
+    // Updating the body position
     soil_simulator::UpdateBody(base_pos, sim_out, grid, tol);
     soil_simulator::UpdateBody(back_pos, sim_out, grid, tol);
     soil_simulator::UpdateBody(right_side_pos, sim_out, grid, tol);
@@ -685,8 +685,8 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
 }
 
 /// For each XY position, the first cell found in `area_pos` corresponds to
-/// the minimum height of the bucket, while the last one provides the maximum
-/// height. As a result, this function must be called separately for each bucket
+/// the minimum height of the body, while the last one provides the maximum
+/// height. As a result, this function must be called separately for each body
 /// wall and `area_pos` must be sorted.
 void soil_simulator::UpdateBody(
     std::vector<std::vector<int>> area_pos, SimOut* sim_out, Grid grid,
@@ -702,7 +702,7 @@ void soil_simulator::UpdateBody(
     for (auto nn = 0; nn < area_pos.size(); nn++) {
         if ((ii != area_pos[nn][0]) || (jj != area_pos[nn][1])) {
             // New XY position
-            // Updating bucket position for the previous XY position
+            // Updating body position for the previous XY position
             soil_simulator::IncludeNewBodyPos(
                 sim_out, ii, jj, min_h, max_h, tol);
 
@@ -718,11 +718,11 @@ void soil_simulator::UpdateBody(
         }
     }
 
-    // Updating bucket position for the last XY position
+    // Updating body position for the last XY position
     soil_simulator::IncludeNewBodyPos(sim_out, ii, jj, min_h, max_h, tol);
 }
 
-/// The minimum and maximum heights of the bucket at that position are given by
+/// The minimum and maximum heights of the body at that position are given by
 /// `min_h` and `max_h`, respectively.
 /// If the given position overlaps with an existing position, then the existing
 /// position is updated as the union of the two positions. Otherwise, a new
@@ -731,7 +731,7 @@ void soil_simulator::IncludeNewBodyPos(
     SimOut* sim_out, int ii, int jj, float min_h, float max_h, float tol
 ) {
     std::vector<int> status(2);
-    // Iterating over the two bucket layers and storing their status
+    // Iterating over the two body layers and storing their status
     for (auto nn = 0; nn < 2; nn++) {
         int ind = 2 * nn;
         if (
@@ -761,7 +761,7 @@ void soil_simulator::IncludeNewBodyPos(
         }
     }
 
-    // Updating the bucket position
+    // Updating the body position
     if ((status[0] == 1) && (status[1] == 1)) {
         // New position is overlapping with the two existing positions
         sim_out->body_[0][ii][jj] = std::min(
@@ -769,7 +769,7 @@ void soil_simulator::IncludeNewBodyPos(
         sim_out->body_[1][ii][jj] = std::max(
             {sim_out->body_[1][ii][jj], sim_out->body_[3][ii][jj], max_h});
 
-        // Resetting obsolete bucket position
+        // Resetting obsolete body position
         sim_out->body_[2][ii][jj] = 0.0;
         sim_out->body_[3][ii][jj] = 0.0;
     } else if (status[0] == 1) {
@@ -791,15 +791,15 @@ void soil_simulator::IncludeNewBodyPos(
     } else {
         // New position is not overlapping with the two existing positions
         // This may be due to an edge case, in that case we try to fix the issue
-        // Calculating distance to the two bucket layers
+        // Calculating distance to the two body layers
         float dist_0b = std::abs(sim_out->body_[0][ii][jj] - max_h);
         float dist_0t = std::abs(min_h - sim_out->body_[1][ii][jj]);
         float dist_2b = std::abs(sim_out->body_[2][ii][jj] - max_h);
         float dist_2t = std::abs(min_h - sim_out->body_[3][ii][jj]);
 
-        // Checking what bucket layer is closer
+        // Checking what body layer is closer
         if (std::min(dist_0b, dist_0t) < std::min(dist_2b, dist_2t)) {
-            // Merging with first bucket layer
+            // Merging with first body layer
             if (dist_0b < dist_0t) {
                 // Merging down
                 sim_out->body_[0][ii][jj] = min_h;
@@ -808,7 +808,7 @@ void soil_simulator::IncludeNewBodyPos(
                 sim_out->body_[1][ii][jj] = max_h;
             }
         } else {
-            // Merging with second bucket layer
+            // Merging with second body layer
             if (dist_2b < dist_2t) {
                 // Merging down
                 sim_out->body_[2][ii][jj] = min_h;

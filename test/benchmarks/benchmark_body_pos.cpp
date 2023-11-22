@@ -1,13 +1,13 @@
 /*
-This file implements benchmarking for the functions in bucket_pos.cpp.
+This file implements benchmarking for the functions in body_pos.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 
-// -- CalcBucketPos --
-static void BM_CalcBucketPos(benchmark::State& state) {
+// -- CalcBodyPos --
+static void BM_CalcBodyPos(benchmark::State& state) {
     // Defining inputs
     soil_simulator::Grid grid(4.0, 4.0, 3.0, 0.05, 0.01);
     soil_simulator::SimParam sim_param(0.85, 3, 4);
@@ -20,19 +20,19 @@ static void BM_CalcBucketPos(benchmark::State& state) {
         o_pos, j_pos, b_pos, t_pos, 0.5);
     std::vector<float> ori = {0.707107, 0.0, -0.707107, 0.0};
     std::vector<float> pos = {0.0, 0.0, -0.1};
-    sim_out->bucket_area_[0][0] = 65;
-    sim_out->bucket_area_[0][1] = 85;
-    sim_out->bucket_area_[1][0] = 70;
-    sim_out->bucket_area_[1][1] = 90;
+    sim_out->body_area_[0][0] = 65;
+    sim_out->body_area_[0][1] = 85;
+    sim_out->body_area_[1][0] = 70;
+    sim_out->body_area_[1][1] = 90;
 
     for (auto _ : state)
-        soil_simulator::CalcBucketPos(
+        soil_simulator::CalcBodyPos(
             sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
 
     delete sim_out;
     delete bucket;
 }
-BENCHMARK(BM_CalcBucketPos)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BM_CalcBodyPos)->Unit(benchmark::kMicrosecond);
 
 // -- CalcRectanglePos --
 static void BM_CalcRectanglePos(benchmark::State& state) {

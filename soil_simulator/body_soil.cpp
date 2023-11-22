@@ -1,5 +1,5 @@
 /*
-This file implements the functions used to move the soil resting on the bucket
+This file implements the functions used to move the soil resting on the body
 following its movement.
 
 Copyright, 2023, Vilella Kenny.
@@ -15,26 +15,26 @@ Copyright, 2023, Vilella Kenny.
 
 /// In this function, the movement applied to the base of the soil column is
 /// calculated and the soil is moved to this new location. The original
-/// position of the soil column in the bucket frame is stored in the
+/// position of the soil column in the body frame is stored in the
 /// `body_soil_pos_` member of the `SimOut` class.
 ///
-/// It is difficult to track accurately each bucket wall. This is currently done
+/// It is difficult to track accurately each body wall. This is currently done
 /// by determining the most likely location considering the movement made, and
 /// moving the soil to this location if the vertical distance is lower than a
 /// cell height. If it is not, the nine neighbouring cells are investigated.
-/// If no neighbouring cell has a bucket wall located at a distance lower than
+/// If no neighbouring cell has a body wall located at a distance lower than
 /// a cell height, the soil is moved to the cell with the lowest vertical
 /// distance. Note that it may still potentially lead to an incorrect choice.
 ///
-/// If no bucket wall is present, the soil is moved down to the terrain and a
+/// If no body wall is present, the soil is moved down to the terrain and a
 /// warning is issued as it should normally not happen.
 ///
-/// The new positions of the soil resting on the bucket are collected into
+/// The new positions of the soil resting on the body are collected into
 /// `sim_out.body_soil_pos_` along with the required information using the
 /// `body_soil` struct.
 void soil_simulator::UpdateBodySoil(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
-    Bucket* bucket, float tol
+    Body* body, float tol
 ) {
     // Copying previous body_soil locations
     auto old_body_soil_pos = sim_out->body_soil_pos_;
@@ -78,15 +78,15 @@ void soil_simulator::UpdateBodySoil(
         auto new_cell_pos = soil_simulator::CalcRotationQuaternion(
             ori, cell_pos);
         auto old_cell_pos = soil_simulator::CalcRotationQuaternion(
-            bucket->ori_, cell_pos);
+            body->ori_, cell_pos);
 
         // Calculating new cell position in global frame
         new_cell_pos[0] += pos[0];
         new_cell_pos[1] += pos[1];
         new_cell_pos[2] += pos[2];
-        old_cell_pos[0] += bucket->pos_[0];
-        old_cell_pos[1] += bucket->pos_[1];
-        old_cell_pos[2] += bucket->pos_[2];
+        old_cell_pos[0] += body->pos_[0];
+        old_cell_pos[1] += body->pos_[1];
+        old_cell_pos[2] += body->pos_[2];
 
         // Establishing order of exploration
         std::vector<std::vector<int>> directions;
@@ -125,16 +125,16 @@ void soil_simulator::UpdateBodySoil(
             int ii_t = ii_n + directions[xy][0];
             int jj_t = jj_n + directions[xy][1];
 
-            // Detecting presence of bucket
-            bool bucket_presence_1 = (
+            // Detecting presence of body
+            bool body_presence_1 = (
                 (sim_out->body_[0][ii_t][jj_t] != 0.0) ||
                 (sim_out->body_[1][ii_t][jj_t] != 0.0));
-            bool bucket_presence_3 = (
+            bool body_presence_3 = (
                 (sim_out->body_[2][ii_t][jj_t] != 0.0) ||
                 (sim_out->body_[3][ii_t][jj_t] != 0.0));
 
-            if (bucket_presence_1) {
-                // First bucket layer is present
+            if (body_presence_1) {
+                // First body layer is present
                 float dist = (
                     std::abs(new_cell_pos[2] - sim_out->body_[1][ii_t][jj_t]));
                 if (dist < min_cell_height_diff) {
@@ -159,8 +159,8 @@ void soil_simulator::UpdateBodySoil(
                     ind_s = 1;
                 }
             }
-            if (bucket_presence_3) {
-                // Second bucket layer is present
+            if (body_presence_3) {
+                // Second body layer is present
                 float dist = (
                     std::abs(new_cell_pos[2] - sim_out->body_[3][ii_t][jj_t]));
                 if (dist < min_cell_height_diff) {
@@ -204,14 +204,14 @@ void soil_simulator::UpdateBodySoil(
                 // This should normally not happen, it is only for safety
                 // Moving body_soil to terrain
                 sim_out->terrain_[ii_n][jj_n] += h_soil;
-                LOG(WARNING) << "WARNING\nBucket soil could not be updated.\n"
+                LOG(WARNING) << "WARNING\nBody soil could not be updated.\n"
                     "Soil is moved to the terrain to maintain mass "
                     "conservation.";
             }
         }
     }
 
-    // Updating new bucket position
-    bucket->pos_ = pos;
-    bucket->ori_ = ori;
+    // Updating new body position
+    body->pos_ = pos;
+    body->ori_ = ori;
 }

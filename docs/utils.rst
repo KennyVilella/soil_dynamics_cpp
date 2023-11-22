@@ -13,7 +13,7 @@ This corresponds to the functions :code:`CheckVolume` and :code:`CheckSoil`, whi
 It is important to call these functions either before or after the simulation stepping process, as the outputs may be temporarily invalid during the stepping.
 
 The :code:`CheckVolume` function verifies mass conservation, ensuring that the total mass of soil is properly conserved throughout the simulation, and that the amount of soil in the :code:`body_soil_` and :code:`body_soil_pos_` fields of the :code:`SimOut` class are consistent.
-The :code:`CheckSoil` function checks the coherence and integrity of the terrain, bucket soil, and bucket.
+The :code:`CheckSoil` function checks the coherence and integrity of the terrain, body soil, and body.
 It ensures that there are no intersections or conflicting cell assignments between these three groups.
 
 Note that these functions are computationally intensive and may slow down the simulation.
@@ -22,15 +22,15 @@ Therefore, it is recommended to use them primarily for debugging and testing pur
 Writing functions
 -----------------
 
-This corresponds to the functions :code:`WriteSoil` and :code:`WriteBucket`, which can be used to write the outputs into csv files.
-The :code:`WriteBucket` function generates files starting with :code:`bucket`, containing the Cartesian coordinates of the four bucket walls' edges.
-The :code:`WriteSoil` function generates files starting with :code:`terrain` for the terrain height and :code:`body_soil` for the bucket soil height.
+This corresponds to the functions :code:`WriteSoil` and :code:`WriteBody`, which can be used to write the outputs into csv files.
+The :code:`WriteBody` function generates files starting with :code:`bucket`, containing the Cartesian coordinates of the four body walls' edges.
+The :code:`WriteSoil` function generates files starting with :code:`terrain` for the terrain height and :code:`body_soil` for the body soil height.
 All the output files are saved in the :code:`results` folder, with sequentially increasing numbers appended to the filenames.
 
 Note that these functions are primarily designed to be used in the example script provided.
 Consequently, they have potential limitations that should be considered by the user.
 Firstly, the file numbers are assigned sequentially.
-If the :code:`WriteBucket` and :code:`WriteSoil` functions are not called together consistently, the file numbers of the :code:`bucket` and :code:`terrain` may not correspond.
+If the :code:`WriteBody` and :code:`WriteSoil` functions are not called together consistently, the file numbers of the :code:`bucket` and :code:`terrain` may not correspond.
 As a result, the two functions are always called together by the :code:`WriteOutputs` function of the simulator.
 Additionally, this may cause issues if existing files are present in the :code:`results` folder.
 
@@ -48,9 +48,9 @@ This function is used in :code:`CalcRotationQuaternion` to apply the rotation gi
 Second, the function :code:`AngleToQuat` converts Euler angles following the :code:`ZYX` convention to a Quaternion.
 Note that other conventions are currently not supported.
 
-Lastly, the function :code:`CalcBucketFramePos` calculates the position of a given cell in the reference frame of the bucket.
-To do so, the inverse of the bucket orientation is applied to the position.
-This is used to keep the position where the soil has initially landed on the bucket.
+Lastly, the function :code:`CalcBodyFramePos` calculates the position of a given cell in the reference frame of the body.
+To do so, the inverse of the body orientation is applied to the position.
+This is used to keep the position where the soil has initially landed on the body.
 
 Terrain initialization
 ----------------------
@@ -64,8 +64,8 @@ Note that it is straightforward to change the terrain initialization implementat
 Determine whether soil should be updated
 ----------------------------------------
 
-The function :code:`CheckBucketMovement` can be used before the soil update to verify whether the soil should be updated.
-This function calculates the distance travelled by the six bucket corners since the last soil update.
+The function :code:`CheckBodyMovement` can be used before the soil update to verify whether the soil should be updated.
+This function calculates the distance travelled by the six body corners since the last soil update.
 If the maximum distance is lower than 50% of the cell size (vertical AND lateral), then the function returns :code:`false` and the soil should not be updated, otherwise the function returns :code:`true`.
 
 Note that if the distance is larger than twice the cell size (vertical OR lateral), a warning is sent mentioning that the integrity of the simulation cannot be guaranteed.

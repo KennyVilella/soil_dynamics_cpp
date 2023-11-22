@@ -1,20 +1,20 @@
 /*
-This file implements unit tests for the functions in bucket_pos.cpp.
+This file implements unit tests for the functions in body_pos.cpp.
 
 Copyright, 2023, Vilella Kenny.
 */
 #include <cmath>
 #include "gtest/gtest.h"
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 #include "test/unit_tests/utility.hpp"
 
 // To make the function call holds in a single line.
 // It greatly improves readability.
 using test_soil_simulator::SetHeight;
 using test_soil_simulator::ResetValueAndTest;
-using soil_simulator::CalcBucketPos;
+using soil_simulator::CalcBodyPos;
 
-TEST(UnitTestBucketPos, CalcLinePos) {
+TEST(UnitTestBodyPos, CalcLinePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
 
@@ -95,7 +95,7 @@ TEST(UnitTestBucketPos, CalcLinePos) {
     CheckResults();
 }
 
-TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
+TEST(UnitTestBodyPos, DecomposeVectorRectangle) {
     // Setting up the environment
     float tol = 1.e-5;
 
@@ -286,7 +286,7 @@ TEST(UnitTestBucketPos, DecomposeVectorRectangle) {
             EXPECT_EQ(in_rec[ii][jj], false);
 }
 
-TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
+TEST(UnitTestBodyPos, DecomposeVectorTriangle) {
     // Setting up the environment
     float tol = 1.e-5;
 
@@ -498,7 +498,7 @@ TEST(UnitTestBucketPos, DecomposeVectorTriangle) {
             EXPECT_EQ(in_tri[ii][jj], false);
 }
 
-TEST(UnitTestBucketPos, CalcRectanglePos) {
+TEST(UnitTestBodyPos, CalcRectanglePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
@@ -622,7 +622,7 @@ TEST(UnitTestBucketPos, CalcRectanglePos) {
     CheckResults();
 }
 
-TEST(UnitTestBucketPos, CalcTrianglePos) {
+TEST(UnitTestBodyPos, CalcTrianglePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     float tol = 1e-5;
@@ -733,7 +733,7 @@ TEST(UnitTestBucketPos, CalcTrianglePos) {
     CheckResults();
 }
 
-TEST(UnitTestBucketPos, IncludeNewBodyPos) {
+TEST(UnitTestBodyPos, IncludeNewBodyPos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
@@ -828,7 +828,7 @@ TEST(UnitTestBucketPos, IncludeNewBodyPos) {
     delete sim_out;
 }
 
-TEST(UnitTestBucketPos, UpdateBody) {
+TEST(UnitTestBodyPos, UpdateBody) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
@@ -897,7 +897,7 @@ TEST(UnitTestBucketPos, UpdateBody) {
     delete sim_out;
 }
 
-TEST(UnitTestBucketPos, CalcBucketPos) {
+TEST(UnitTestBodyPos, CalcBodyPos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimParam sim_param(0.785, 4, 4);
@@ -921,7 +921,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {1.0, 0.0, 0.0, 0.0};
     pos = {0.0, 0.0, 0.0};
-    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBodyPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][10][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][10][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][11][10], -0.3, 1.e-5);
@@ -934,10 +934,10 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_NEAR(sim_out->body_[1][14][10], 0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][15][10], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[1][15][10], 0.3, 1.e-5);
-    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
-    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
-    EXPECT_EQ(sim_out->bucket_area_[1][0], 6);
-    EXPECT_EQ(sim_out->bucket_area_[1][1], 14);
+    EXPECT_EQ(sim_out->body_area_[0][0], 6);
+    EXPECT_EQ(sim_out->body_area_[0][1], 19);
+    EXPECT_EQ(sim_out->body_area_[1][0], 6);
+    EXPECT_EQ(sim_out->body_area_[1][1], 14);
     // Resetting values
     body_pos = {
         {0, 10, 10}, {0, 11, 10}, {0, 12, 10}, {0, 13, 10}, {0, 14, 10},
@@ -948,7 +948,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
-    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBodyPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto ii = 0; ii < sim_out->body_.size(); ii++)
         for (auto jj = 0; jj < sim_out->body_[0].size(); jj++)
             for (auto kk = 0; kk < sim_out->body_[0][0].size(); kk++)
@@ -961,10 +961,10 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
                 } else {
                     EXPECT_NEAR(sim_out->body_[ii][jj][kk], 0.0, 1.e-5);
                 }
-    EXPECT_EQ(sim_out->bucket_area_[0][0], 6);
-    EXPECT_EQ(sim_out->bucket_area_[0][1], 19);
-    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
-    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    EXPECT_EQ(sim_out->body_area_[0][0], 6);
+    EXPECT_EQ(sim_out->body_area_[0][1], 19);
+    EXPECT_EQ(sim_out->body_area_[1][0], 4);
+    EXPECT_EQ(sim_out->body_area_[1][1], 16);
     // Resetting values
     body_pos = {
         {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12},
@@ -981,7 +981,7 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     ori = {0.707107, 0.0, -0.707107, 0.0};  // -pi/2 rotation around the Y axis
     pos = {0.0, 0.0, -0.1};
-    CalcBucketPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
+    CalcBodyPos(sim_out, pos, ori, grid, bucket, sim_param, 1.e-5);
     for (auto jj = 5; jj < 11; jj++)
         for (auto kk = 8; kk < 13; kk++)
             EXPECT_NEAR(sim_out->body_[1][jj][kk], -0.1, 1.e-5);
@@ -1000,10 +1000,10 @@ TEST(UnitTestBucketPos, CalcBucketPos) {
     EXPECT_NEAR(sim_out->body_[0][8][12], -0.4, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][9][8], -0.3, 1.e-5);
     EXPECT_NEAR(sim_out->body_[0][9][12], -0.3, 1.e-5);
-    EXPECT_EQ(sim_out->bucket_area_[0][0], 1);
-    EXPECT_EQ(sim_out->bucket_area_[0][1], 14);
-    EXPECT_EQ(sim_out->bucket_area_[1][0], 4);
-    EXPECT_EQ(sim_out->bucket_area_[1][1], 16);
+    EXPECT_EQ(sim_out->body_area_[0][0], 1);
+    EXPECT_EQ(sim_out->body_area_[0][1], 14);
+    EXPECT_EQ(sim_out->body_area_[1][0], 4);
+    EXPECT_EQ(sim_out->body_area_[1][1], 16);
     // Resetting values
     body_pos = {
         {0, 5, 8}, {0, 5, 9}, {0, 5, 10}, {0, 5, 11}, {0, 5, 12},

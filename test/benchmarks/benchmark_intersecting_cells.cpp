@@ -7,7 +7,7 @@ Copyright, 2023, Vilella Kenny.
 #include <glog/logging.h>
 #include <random>
 #include "soil_simulator/intersecting_cells.hpp"
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 
 // -- MoveIntersectingCells --
 static void BM_MoveIntersectingCells(benchmark::State& state) {
@@ -26,7 +26,7 @@ static void BM_MoveIntersectingCells(benchmark::State& state) {
         o_pos, j_pos, b_pos, t_pos, 0.5);
     std::vector<float> ori = {0.707107, 0.707107, 0.0, 0.0};
     std::vector<float> pos = {0.0, 0.0, 0.0};
-    soil_simulator::CalcBucketPos(
+    soil_simulator::CalcBodyPos(
         sim_out, pos, ori, grid, bucket, sim_param, 1e-5);
 
     for (auto _ : state)
@@ -51,7 +51,7 @@ static void BM_MoveIntersectingBody(benchmark::State& state) {
         o_pos, j_pos, b_pos, t_pos, 0.5);
     std::vector<float> ori = {0.707107, 0.707107, 0.0, 0.0};
     std::vector<float> pos = {0.0, 0.0, 0.0};
-    soil_simulator::CalcBucketPos(
+    soil_simulator::CalcBodyPos(
         sim_out, pos, ori, grid, bucket, sim_param, 1e-5);
 
     for (auto _ : state)
@@ -116,7 +116,7 @@ static void BM_LocateIntersectingCells(benchmark::State& state) {
         o_pos, j_pos, b_pos, t_pos, 0.5);
     std::vector<float> ori = {0.707107, 0.707107, 0.0, 0.0};
     std::vector<float> pos = {0.0, 0.0, 0.0};
-    soil_simulator::CalcBucketPos(
+    soil_simulator::CalcBodyPos(
         sim_out, pos, ori, grid, bucket, sim_param, 1e-5);
 
     for (auto _ : state)

@@ -68,7 +68,7 @@ static void BM_RelaxBodySoil(benchmark::State& state) {
             sim_out->body_[1][ii][jj] = 0.1;
             sim_out->body_soil_[0][ii][jj] = 0.1;
             sim_out->body_soil_[1][ii][jj] = 0.4;
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii, jj, 0.1, grid, bucket);
             sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
                  {0, ii, jj, pos[0], pos[1], pos[2], 0.3});
@@ -78,7 +78,7 @@ static void BM_RelaxBodySoil(benchmark::State& state) {
             sim_out->body_[1][ii][jj] = 0.4;
             sim_out->body_soil_[0][ii][jj] = 0.4;
             sim_out->body_soil_[1][ii][jj] = 0.7;
-            auto pos = soil_simulator::CalcBucketFramePos(
+            auto pos = soil_simulator::CalcBodyFramePos(
                 ii, jj, 0.1, grid, bucket);
             sim_out->body_soil_pos_.push_back(soil_simulator::body_soil
                 {0, ii, jj, pos[0], pos[1], pos[2], 0.3});
@@ -179,10 +179,10 @@ static void BM_CheckUnstableBodyCell(benchmark::State& state) {
     sim_out->body_[1][50][60] = 0.1;
     sim_out->body_soil_[0][50][60] = 0.1;
     sim_out->body_soil_[1][50][60] = 0.4;
-    auto pos = soil_simulator::CalcBucketFramePos(50, 61, 0.4, grid, bucket);
+    auto pos = soil_simulator::CalcBodyFramePos(50, 61, 0.4, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 50, 61, pos[0], pos[1], pos[2], 0.3});
-    pos = soil_simulator::CalcBucketFramePos(50, 60, 0.1, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(50, 60, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 50, 60, pos[0], pos[1], pos[2], 0.3});
 
@@ -217,10 +217,10 @@ static void BM_RelaxUnstableBodyCell(benchmark::State& state) {
     sim_out->body_[1][50][60] = 0.1;
     sim_out->body_soil_[0][50][60] = 0.1;
     sim_out->body_soil_[1][50][60] = 0.4;
-    auto pos = soil_simulator::CalcBucketFramePos(50, 61, 0.4, grid, bucket);
+    auto pos = soil_simulator::CalcBodyFramePos(50, 61, 0.4, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 50, 61, pos[0], pos[1], pos[2], 0.3});
-    pos = soil_simulator::CalcBucketFramePos(50, 60, 0.1, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(50, 60, 0.1, grid, bucket);
     sim_out->body_soil_pos_.push_back(
         soil_simulator::body_soil {0, 50, 60, pos[0], pos[1], pos[2], 0.3});
     std::vector<soil_simulator::body_soil> *body_soil_pos = (

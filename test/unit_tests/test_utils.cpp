@@ -14,7 +14,7 @@ Copyright, 2023, Vilella Kenny.
 using test_soil_simulator::SetHeight;
 using test_soil_simulator::PushBodySoilPos;
 
-TEST(UnitTestUtils, CalcBucketCornerPos) {
+TEST(UnitTestUtils, CalcBodyCornerPos) {
     // Setting up the environment
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
     std::vector<float> j_pos = {0.0, 0.0, 0.0};
@@ -37,7 +37,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.0, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.0, -0.25, 0.0}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {0.0, 0.25, 0.0}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.0, -0.25, -0.5}));
@@ -49,7 +49,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.1, -0.1, 0.2};
     ori = {1.0, 0.0, 0.0, 0.0};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.1, -0.35, 0.2}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {0.1, 0.15, 0.2}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.1, -0.35, -0.3}));
@@ -61,7 +61,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.0, 0.0, 0.0};
     ori = {0.707107, 0.0, 0.0, -0.707107};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.25, 0.0, 0.0}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {-0.25, 0.0, 0.0}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.25, 0.0, -0.5}));
@@ -78,7 +78,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     pos = {0.1, -0.1, 0.2};
     ori = {0.707107, 0.0, 0.0, -0.707107};
     std::tie(j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos) =
-        soil_simulator::CalcBucketCornerPos(pos, ori, bucket);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
     EXPECT_TRUE((j_r_pos == std::vector<float> {0.35, -0.1, 0.2}));
     EXPECT_TRUE((j_l_pos == std::vector<float> {-0.15, -0.1, 0.2}));
     EXPECT_TRUE((b_r_pos == std::vector<float> {0.35, -0.1, -0.3}));
@@ -89,7 +89,7 @@ TEST(UnitTestUtils, CalcBucketCornerPos) {
     delete bucket;
 }
 
-TEST(UnitTestUtils, CheckBucketMovement) {
+TEST(UnitTestUtils, CheckBodyMovement) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
@@ -109,58 +109,58 @@ TEST(UnitTestUtils, CheckBucketMovement) {
     // Test: UT-CBM-1
     pos = {0.1, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-2
     pos = {0.05, 0.02, -0.05};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-3
     pos = {0.0, 0.0, 0.0};
     ori = {0.997, 0.0, 0.07, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-4
     pos = {0.05, 0.0, 0.0};
     ori = {0.997, 0.0, 0.07, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_TRUE(status);
 
     // Test: UT-CBM-5
     pos = {0.005, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-6
     pos = {0.001, 0.002, -0.003};
     ori = {1.0, 0.0, 0.0, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-7
     pos = {0.0, 0.0, 0.0};
     ori = {0.999, 0.0, 0.0029, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-8
     pos = {0.001, 0.0, 0.0};
     ori = {0.999, 0.0, 0.0029, 0.0};
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     EXPECT_FALSE(status);
 
     // Test: UT-CBM-9
     pos = {0.3, 0.0, 0.0};
     ori = {1.0, 0.0, 0.0, 0.0};
     testing::internal::CaptureStdout();
-    status = soil_simulator::CheckBucketMovement(pos, ori, grid, bucket);
+    status = soil_simulator::CheckBodyMovement(pos, ori, grid, bucket);
     std::string warning_msg = testing::internal::GetCapturedStdout();
-    std::string exp_msg = "Movement made by the bucket is larger than two"
+    std::string exp_msg = "Movement made by the body is larger than two"
         " cell size.";
     size_t string_loc = warning_msg.find(exp_msg);
     EXPECT_TRUE(string_loc != std::string::npos);
@@ -332,7 +332,7 @@ TEST(UnitTestUtils, AngleToQuat) {
     EXPECT_NEAR(quat[3], 0.295169, 1e-5);
 }
 
-TEST(UnitTestUtils, CalcBucketFramePos) {
+TEST(UnitTestUtils, CalcBodyFramePos) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     std::vector<float> o_pos = {0.0, 0.0, 0.0};
@@ -348,14 +348,14 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
     std::vector<float> pos;
 
     // Test: UT-CBF-1
-    pos = soil_simulator::CalcBucketFramePos(11, 11, 0.2, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 11, 0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], 0.1, 1e-5);
     EXPECT_NEAR(pos[2], 0.2, 1e-5);
 
     // Test: UT-CBF-2
     bucket->pos_ = {-0.1, 0.2, 0.3};
-    pos = soil_simulator::CalcBucketFramePos(10, 12, -0.2, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(10, 12, -0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], 0.0, 1e-5);
     EXPECT_NEAR(pos[2], -0.5, 1e-5);
@@ -363,7 +363,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
 
     // Test: UT-CBF-3
     bucket->ori_ = {0.707107, 0.0, 0.0, -0.707107};
-    pos = soil_simulator::CalcBucketFramePos(11, 12, 0.3, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], 0.2, 1e-5);
     EXPECT_NEAR(pos[1], -0.1, 1e-5);
     EXPECT_NEAR(pos[2], 0.3, 1e-5);
@@ -371,7 +371,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
 
     // Test: UT-CBF-4
     bucket->ori_ = {0.707107, 0.0, -0.707107, 0.0};
-    pos = soil_simulator::CalcBucketFramePos(11, 12, 0.3, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], -0.3, 1e-5);
     EXPECT_NEAR(pos[1], 0.2, 1e-5);
     EXPECT_NEAR(pos[2], 0.1, 1e-5);
@@ -379,7 +379,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
 
     // Test: UT-CBF-5
     bucket->ori_ = {0.707107, 0.707107, 0.0, 0.0};
-    pos = soil_simulator::CalcBucketFramePos(11, 12, 0.3, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(11, 12, 0.3, grid, bucket);
     EXPECT_NEAR(pos[0], 0.1, 1e-5);
     EXPECT_NEAR(pos[1], -0.3, 1e-5);
     EXPECT_NEAR(pos[2], 0.2, 1e-5);
@@ -388,7 +388,7 @@ TEST(UnitTestUtils, CalcBucketFramePos) {
     // Test: UT-CBF-6
     bucket->pos_ = {-0.1, 0.2, 0.3};
     bucket->ori_ = {0.707107, 0.0, 0.0, -0.707107};
-    pos = soil_simulator::CalcBucketFramePos(10, 12, -0.2, grid, bucket);
+    pos = soil_simulator::CalcBodyFramePos(10, 12, -0.2, grid, bucket);
     EXPECT_NEAR(pos[0], 0.0, 1e-5);
     EXPECT_NEAR(pos[1], -0.1, 1e-5);
     EXPECT_NEAR(pos[2], -0.5, 1e-5);
@@ -514,7 +514,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-5
-    exp_msg = "Terrain is above the bucket";
+    exp_msg = "Terrain is above the body";
     sim_out->terrain_[1][1] = 0.5;
     CheckSoilWarning();
     sim_out->terrain_[1][1] = -0.2;
@@ -524,7 +524,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-6
-    exp_msg = "Min height of the bucket is above its max height";
+    exp_msg = "Min height of the body is above its max height";
     SetHeight(sim_out, 1, 1, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
@@ -542,7 +542,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-7
-    exp_msg = "Min height of the bucket soil is above its max height";
+    exp_msg = "Min height of the body soil is above its max height";
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, -0.1, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.2, 0.0, NAN, NAN, NAN, NAN);
@@ -554,7 +554,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-8
-    exp_msg = "Bucket is above the bucket soil";
+    exp_msg = "Body is above the body soil";
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.05, NAN, NAN, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, -0.2, 0.00, NAN, NAN, NAN, NAN, NAN, NAN);
@@ -566,7 +566,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-9
-    exp_msg = "Bucket soil is not resting on the bucket";
+    exp_msg = "Body soil is not resting on the body";
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.1, 0.1, NAN, NAN, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.05, 0.1, NAN, NAN, NAN, NAN);
@@ -578,7 +578,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-10
-    exp_msg = "Bucket soil is present but there is no bucket";
+    exp_msg = "Body soil is present but there is no body";
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.0, 0.0, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 1, 2, NAN, NAN, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN);
@@ -588,7 +588,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-11
-    exp_msg = "Two bucket layers are intersecting";
+    exp_msg = "Two body layers are intersecting";
     sim_out->terrain_[3][2] = -0.2;
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.1, NAN, NAN, 0.0, 0.2, NAN, NAN);
     CheckSoilWarning();
@@ -602,7 +602,7 @@ TEST(UnitTestUtils, CheckSoil) {
     EXPECT_TRUE(soil_simulator::CheckSoil(sim_out, 1e-5));
 
     // Test: UT-CS-12
-    exp_msg = "A bucket and bucket soil layer are intersecting";
+    exp_msg = "A body and body soil layer are intersecting";
     SetHeight(sim_out, 3, 2, NAN, -0.15, 0.0, 0.0, 0.15, 0.1, 0.2, NAN, NAN);
     CheckSoilWarning();
     SetHeight(sim_out, 3, 2, NAN, 0.1, 0.2, 0.0, 0.0, -0.15, 0.0, 0.0, 0.15);

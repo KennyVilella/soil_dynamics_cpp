@@ -12,8 +12,8 @@ target_sources(soil_evolution
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/types.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/bucket_pos.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/bucket_pos.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/body_pos.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/body_pos.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/body_soil.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/body_soil.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/../../soil_simulator/intersecting_cells.cpp

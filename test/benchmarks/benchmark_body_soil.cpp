@@ -5,7 +5,7 @@ Copyright, 2023, Vilella Kenny.
 */
 #include <benchmark/benchmark.h>
 #include "soil_simulator/body_soil.hpp"
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 
 // -- UpdateBodySoil --
 static void BM_UpdateBodySoil(benchmark::State& state) {
@@ -23,7 +23,7 @@ static void BM_UpdateBodySoil(benchmark::State& state) {
     // Setting previous bucket position
     std::vector<float> ori_1 = {0.707107, 0.707107, 0.0, 0.0};
     std::vector<float> pos_1 = {0.5, 0.0, 0.0};
-    soil_simulator::CalcBucketPos(
+    soil_simulator::CalcBodyPos(
         sim_out, pos_1, ori_1, grid, bucket, sim_param, 1e-5);
     for (auto ii = 90; ii < 105; ii++) {
         sim_out->body_soil_[0][ii][70] = sim_out->body_[1][ii][70];
@@ -72,7 +72,7 @@ static void BM_UpdateBodySoil(benchmark::State& state) {
 
     // Setting new bucket position
     std::vector<float> pos_2 = {0.55, 0.0, 0.0};
-    soil_simulator::CalcBucketPos(
+    soil_simulator::CalcBodyPos(
         sim_out, pos_1, ori_1, grid, bucket, sim_param, 1e-5);
 
     for (auto _ : state)

@@ -34,7 +34,7 @@ Determination of the bucket position
 ------------------------------------
 
 The first task of the simulator is to determine the position of the excavator bucket within the 3D grid.
-This is done by the :code:`CalcBucketPos` function in the :code:`bucket_pos.cpp` file.
+This is done by the :code:`CalcBodyPos` function in the :code:`body_pos.cpp` file.
 Specifically, it aims to identify, for each XY position in the grid, the minimum and maximum height of the bucket walls if present at that location.
 The algorithm used for this task has been optimized for performance, resulting in an efficient implementation.
 However, due to the optimization, the algorithm may appear complex or unintuitive.

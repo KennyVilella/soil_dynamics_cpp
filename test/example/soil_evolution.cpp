@@ -12,7 +12,7 @@ Copyright, 2023, Vilella Kenny.
 #include "test/example/soil_evolution.hpp"
 #include "soil_simulator/soil_dynamics.hpp"
 #include "soil_simulator/types.hpp"
-#include "soil_simulator/bucket_pos.hpp"
+#include "soil_simulator/body_pos.hpp"
 #include "soil_simulator/body_soil.hpp"
 #include "soil_simulator/intersecting_cells.hpp"
 #include "soil_simulator/relax.hpp"

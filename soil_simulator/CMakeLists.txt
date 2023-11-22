@@ -8,8 +8,8 @@ set(SOIL_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/types.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/types.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/bucket_pos.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/bucket_pos.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/body_pos.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/body_pos.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/body_soil.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/body_soil.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/intersecting_cells.cpp
@@ -24,7 +24,7 @@ set(SOIL_SRCS
 set(SOIL_INCLUDE
         ${CMAKE_CURRENT_SOURCE_DIR}/soil_dynamics.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/types.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/bucket_pos.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/body_pos.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/body_soil.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/intersecting_cells.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/relax.hpp
