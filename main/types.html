@@ -90,15 +90,18 @@ These new types are implemented in the <code class="code docutils literal notran
 <p>To ensure the integrity and validity of the input parameters, the classes are constructed using constructors that perform appropriate checks.
 This guarantees that the simulator operates under the assumption of correct and consistent input data.
 If incorrect parameters are provided, the user will be alerted through appropriate warnings or error messages.</p>
-<p>The current implementation includes four distinct classes:</p>
+<p>The current implementation includes the following classes:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">Grid</span></code>: Aggregates all the properties related to the simulation grid.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">Bucket</span></code>: Aggregates all the properties associated with the bucket.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">SimParam</span></code>: Aggregates the general parameters and settings for the simulation.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">SimOut</span></code>: Aggregates and manages the output data generated during the simulation.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Body</span></code>: Base class for the implementation of the various body types interacting with the soil.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Bucket</span></code>: Derived from the <code class="code docutils literal notranslate"><span class="pre">Body</span></code> class. Aggregates all the properties associated with an excavator bucket.</p></li>
 </ul>
+<p>Note that the <code class="code docutils literal notranslate"><span class="pre">Body</span></code> base class should not be used directly.
+Instead, the user should use the derived classes available.</p>
 <p>These classes play a crucial role in organizing and encapsulating the various aspects of the simulator, providing a convenient and structured way to work with the simulation inputs and outputs.</p>
-<p>In addition to these classes, the <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> struct is used to store information related to the soil resting on the bucket.
+<p>In addition to these classes, the <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> struct is used to store information related to the soil resting on the body.
 This is used to populate the field <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> of the <code class="code docutils literal notranslate"><span class="pre">SimOut</span></code> class.</p>
 </section>
 
@@ -137,7 +140,6 @@ This is used to populate the field <code class="code docutils literal notranslat
     
     <dl>
       <dt>Versions</dt>
-      <dd><a href="../v1.0.0/types.html">v1.0.0</a></dd>
       <dd><a href="types.html">main</a></dd>
   </div>
 </div><script>

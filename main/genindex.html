@@ -89,7 +89,7 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_api/body_soil.html#_CPPv414soil_simulator">soil_simulator (C++ type)</a>, <a href="_api/intersecting_cells.html#_CPPv414soil_simulator">[1]</a>, <a href="_api/relax.html#_CPPv414soil_simulator">[2]</a>, <a href="_api/soil_dynamics.html#_CPPv414soil_simulator">[3]</a>, <a href="_api/soil_evolution.html#_CPPv414soil_simulator">[4]</a>, <a href="_api/types.html#_CPPv414soil_simulator">[5]</a>, <a href="_api/utils.html#_CPPv414soil_simulator">[6]</a>
+      <li><a href="_api/body_pos.html#_CPPv414soil_simulator">soil_simulator (C++ type)</a>, <a href="_api/body_soil.html#_CPPv414soil_simulator">[1]</a>, <a href="_api/intersecting_cells.html#_CPPv414soil_simulator">[2]</a>, <a href="_api/relax.html#_CPPv414soil_simulator">[3]</a>, <a href="_api/soil_dynamics.html#_CPPv414soil_simulator">[4]</a>, <a href="_api/soil_evolution.html#_CPPv414soil_simulator">[5]</a>, <a href="_api/types.html#_CPPv414soil_simulator">[6]</a>, <a href="_api/utils.html#_CPPv414soil_simulator">[7]</a>
 </li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator11AngleToQuatENSt6vectorIfEE">soil_simulator::AngleToQuat (C++ function)</a>
 </li>
@@ -137,11 +137,19 @@
 </li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator16CalcBodyFramePosEiif4GridP4Body">soil_simulator::CalcBodyFramePos (C++ function)</a>
 </li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator11CalcBodyPosEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP4Body8SimParamf">soil_simulator::CalcBodyPos (C++ function)</a>
+</li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator11CalcLinePosENSt6vectorIfEENSt6vectorIfEE4Grid">soil_simulator::CalcLinePos (C++ function)</a>
+</li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator10CalcNormalENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE">soil_simulator::CalcNormal (C++ function)</a>
+</li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator16CalcRectanglePosENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE4Gridf">soil_simulator::CalcRectanglePos (C++ function)</a>
 </li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator22CalcRotationQuaternionENSt6vectorIfEENSt6vectorIfEE">soil_simulator::CalcRotationQuaternion (C++ function)</a>
 </li>
       <li><a href="_api/soil_evolution.html#_CPPv4N14soil_simulator14CalcTrajectoryEfffffi">soil_simulator::CalcTrajectory (C++ function)</a>
+</li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator15CalcTrianglePosENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEE4Gridf">soil_simulator::CalcTrianglePos (C++ function)</a>
 </li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator17CheckBodyMovementENSt6vectorIfEENSt6vectorIfEE4GridP4Body">soil_simulator::CheckBodyMovement (C++ function)</a>
 </li>
@@ -152,6 +160,10 @@
       <li><a href="_api/relax.html#_CPPv4N14soil_simulator24CheckUnstableTerrainCellEP6SimOutiiff">soil_simulator::CheckUnstableTerrainCell (C++ function)</a>
 </li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Gridf">soil_simulator::CheckVolume (C++ function)</a>
+</li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator24DecomposeVectorRectangleENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEiiiif">soil_simulator::DecomposeVectorRectangle (C++ function)</a>
+</li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator23DecomposeVectorTriangleENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEiiiif">soil_simulator::DecomposeVectorTriangle (C++ function)</a>
 </li>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4GridE">soil_simulator::Grid (C++ class)</a>
 </li>
@@ -169,17 +181,19 @@
 </li>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4Grid14half_length_y_E">soil_simulator::Grid::half_length_y_ (C++ member)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4Grid14half_length_z_E">soil_simulator::Grid::half_length_z_ (C++ member)</a>
 </li>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4Grid7vect_x_E">soil_simulator::Grid::vect_x_ (C++ member)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4Grid7vect_y_E">soil_simulator::Grid::vect_y_ (C++ member)</a>
 </li>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4Grid7vect_z_E">soil_simulator::Grid::vect_z_ (C++ member)</a>
 </li>
       <li><a href="_api/types.html#_CPPv4N14soil_simulator4GridD0Ev">soil_simulator::Grid::~Grid (C++ function)</a>
+</li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator17IncludeNewBodyPosEP6SimOutiifff">soil_simulator::IncludeNewBodyPos (C++ function)</a>
 </li>
       <li><a href="_api/intersecting_cells.html#_CPPv4N14soil_simulator23LocateIntersectingCellsEP6SimOutf">soil_simulator::LocateIntersectingCells (C++ function)</a>
 </li>
@@ -253,6 +267,8 @@
 </li>
       <li><a href="_api/soil_evolution.html#_CPPv4N14soil_simulator13SoilEvolutionEbbbbb">soil_simulator::SoilEvolution (C++ function)</a>
 </li>
+      <li><a href="_api/body_pos.html#_CPPv4N14soil_simulator10UpdateBodyENSt6vectorINSt6vectorIiEEEEP6SimOut4Gridf">soil_simulator::UpdateBody (C++ function)</a>
+</li>
       <li><a href="_api/body_soil.html#_CPPv4N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP4Bodyf">soil_simulator::UpdateBodySoil (C++ function)</a>
 </li>
       <li><a href="_api/utils.html#_CPPv4N14soil_simulator9WriteBodyEP4Body">soil_simulator::WriteBody (C++ function)</a>
@@ -295,7 +311,6 @@
     
     <dl>
       <dt>Versions</dt>
-      <dd><a href="../v1.0.0/index.html">v1.0.0</a></dd>
       <dd><a href="genindex.html">main</a></dd>
   </div>
 </div><script>

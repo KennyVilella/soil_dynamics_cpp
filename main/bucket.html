@@ -116,7 +116,7 @@ The position of the bucket joint, base, and teeth are generally defined relative
 <section id="determination-of-the-bucket-position">
 <h2>Determination of the bucket position<a class="headerlink" href="#determination-of-the-bucket-position" title="Permalink to this heading"></a></h2>
 <p>The first task of the simulator is to determine the position of the excavator bucket within the 3D grid.
-This is done by the <code class="code docutils literal notranslate"><span class="pre">CalcBucketPos</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">bucket_pos.cpp</span></code> file.
+This is done by the <code class="code docutils literal notranslate"><span class="pre">CalcBodyPos</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">body_pos.cpp</span></code> file.
 Specifically, it aims to identify, for each XY position in the grid, the minimum and maximum height of the bucket walls if present at that location.
 The algorithm used for this task has been optimized for performance, resulting in an efficient implementation.
 However, due to the optimization, the algorithm may appear complex or unintuitive.</p>
@@ -176,7 +176,6 @@ Knowing this information, it is then possible to travel along the line while ide
     
     <dl>
       <dt>Versions</dt>
-      <dd><a href="../v1.0.0/bucket.html">v1.0.0</a></dd>
       <dd><a href="bucket.html">main</a></dd>
   </div>
 </div><script>
