@@ -73,7 +73,7 @@ soil_simulator::Grid::Grid(
         vect_z_[ii] = vect_z_[ii-1] + cell_size_z;
 }
 
-soil_simulator::Bucket::Bucket(
+soil_simulator::Body::Body(
     std::vector<float> o_pos_init, std::vector<float> j_pos_init,
     std::vector<float> b_pos_init, std::vector<float> t_pos_init,
     float width
