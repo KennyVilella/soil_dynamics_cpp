@@ -137,14 +137,14 @@ class Grid {
          float grid_size_z = 4.0, float cell_size_xy = 0.05,
          float cell_size_z = 0.01);
 
-     /// \brief Destructor
+     /// \brief Destructor.
      ~Grid() {}
 };
 
 /// \brief Base class for objects interacting with soil.
 ///
-/// This class is not meant to be used directly. Derived classes should be
-/// used instead.
+/// This class is not meant to be used directly. Instead, derived classes should
+/// be used.
 class Body {
  public:
      /// Cartesian coordinates of the body joint in its reference pose. [m]
@@ -166,11 +166,35 @@ class Body {
      std::vector<float> ori_;
 
  protected:
-     /// \brief Constructor
-     Body() {}
+     /// \brief Create a new instance of `Body` using the reference positions
+     ///        of the body origin, joint, base, and teeth as well as the
+     ///        body width.
+     ///
+     /// The position of the body joint, base, and teeth are given relative
+     /// to the position of the body origin.
+     ///
+     /// Requirements:
+     /// - All provided Cartesian coordinates should be a vector of size 3.
+     /// - The body joint, base and teeth should have strictly different
+     ///   location.
+     /// - The body width should be greater than zero.
+     ///
+     /// \param o_pos_init: Cartesian coordinates of the body origin in its
+     ///                    reference pose. [m]
+     /// \param j_pos_init: Cartesian coordinates of the body joint in its
+     ///                    reference pose. [m]
+     /// \param b_pos_init: Cartesian coordinates of the body base in its
+     ///                    reference pose. [m]
+     /// \param t_pos_init: Cartesian coordinates of the body teeth in its
+     ///                    reference pose. [m]
+     /// \param width: Width of the body. [m]
+     Body(
+         std::vector<float> o_pos_init, std::vector<float> j_pos_init,
+         std::vector<float> b_pos_init, std::vector<float> t_pos_init,
+         float width);
 
-     /// \brief Destructor
-     ~Body() {}
+     /// \brief Destructor.
+     virtual ~Body() {}
 };
 
 /// \brief Store all parameters related to a bucket object.
@@ -232,42 +256,105 @@ class Body {
 /// - `A = [0.0, -0.25, 0.0]`
 /// - `B = [1.0, -0.25, -0.5]`
 /// - `C = [0.0, -0.25, -0.5]`
-/// - `D = [0.0, 0.25, 0.0]`,
+/// - `D = [0.0, 0.25, 0.0]`
 /// - `E = [1.0, 0.25, -0.5]`
 /// - `F = [0.0, 0.25, -0.5]`
 class Bucket : public Body {
  public:
-     /// \brief Create a new instance of `Bucket` using the reference positions
-     ///        of the bucket origin, joint, base, and teeth as well as the
-     ///        bucket width.
-     ///
-     /// The position of the bucket joint, base, and teeth are given relative
-     /// to the position of the bucket origin.
-     ///
-     /// Requirements:
-     /// - All provided Cartesian coordinates should be a vector of size 3.
-     /// - The bucket joint, base and teeth should have strictly different
-     ///   location.
-     /// - The bucket width should be greater than zero.
-     ///
-     /// \param o_pos_init: Cartesian coordinates of the bucket origin in its
-     ///                    reference pose. [m]
-     /// \param j_pos_init: Cartesian coordinates of the bucket joint in its
-     ///                    reference pose. [m]
-     /// \param b_pos_init: Cartesian coordinates of the bucket base in its
-     ///                    reference pose. [m]
-     /// \param t_pos_init: Cartesian coordinates of the bucket teeth in its
-     ///                    reference pose. [m]
-     /// \param width: Width of the bucket. [m]
+     /// \brief Constructor.
      Bucket(
          std::vector<float> o_pos_init = {0.0, 0.0, 0.0},
          std::vector<float> j_pos_init = {0.0, 0.0, 0.0},
          std::vector<float> b_pos_init = {0.0, 0.0, -0.5},
          std::vector<float> t_pos_init = {0.7, 0.0, -0.5},
-         float width = 0.5);
+         float width = 0.5) :
+         Body(o_pos_init, j_pos_init, b_pos_init, t_pos_init, width) {}
 
-     /// \brief Destructor
+     /// \brief Destructor.
      ~Bucket() {}
+};
+
+/// \brief Store all parameters related to a blade object.
+///
+/// Convention:
+/// - The blade is approximated with the following shape
+///
+///                                    A __ B
+///                                    ̸ .   ̸  \
+///                                  ̸     ̸.    \
+///                                ̸     ̸   .    \
+///                              ̸     ̸      .    \
+///                           C __ D         .    \
+///                            \    \         .    \
+///                             \    \         .    \
+///                              \    \         .    \
+///                               \    \         E __ F
+///                                \    \      .  .   ̸  ⟍
+///                                 \    \   .      ̸.     ⟍
+///                                  \    \.      ̸    .     ⟍
+///                                   \ .  \   ̸         .     ⟍
+///                                    G __ H             I __ J
+///                                      ⟍    ⟍         .      ̸
+///                                        ⟍    ⟍     .      ̸
+///                                          ⟍    ⟍ .      ̸
+///                                            ⟍  .  ⟍    ̸
+///                                              K __ L
+///
+/// - The middle of the segment FH is referred to as the blade joint.
+/// - The middle of the segment BD is referred to as the blade base.
+/// - The middle of the segment JL is referred to as the blade teeth.
+/// - The shape ABCDEFGH is referred to as the blade base.
+/// - The shape EFGHIJKL is referred to as the blade front.
+/// - The blade has a constant width, denoted as
+///
+/// \code
+///    AC = BD = EG = FH = IK = JL = `width_`.
+/// \endcode
+///
+/// - The blade has a constant thickness of two cell lengths
+///
+/// \code
+///    AB = CD = EF = GH = IJ = KL = 2 * `cell_size_xy_`.
+/// \endcode
+///
+/// - The centre of rotation of the blade is assumed to be at the blade
+///   origin (not shown in the figure) and the blade vertices are given
+///   relative to this origin.
+/// - The provided coordinates are assumed to be the reference pose of the
+///   blade, from which the blade pose is calculated throughout the code.
+///
+/// Usage:
+/// \code
+///    std::vector<float> o_pos = {0.0, 0.0, 0.0};
+///    std::vector<float> j_pos = {0.9, 0.0, 0.2};
+///    std::vector<float> b_pos = {0.75, 0.0, 1.5};
+///    std::vector<float> t_pos = {1.6, 0.0, -0.4};
+///
+///    soil_simulator::Blade blade(o_pos, j_pos, b_pos, t_pos, 4.5);
+/// \endcode
+///
+/// This would create a blade ABCDEFGHIJKL with:
+/// - `B = [0.75, -2.25, 1.5]`
+/// - `F = [0.9, -2.25, 0.2]`
+/// - `J = [1.6, -2.25, -0.4]`
+/// - `D = [0.75, 2.25, 1.5]`
+/// - `H = [0.9, 2.25, 0.2]`
+/// - `L = [1.6, 2.25, -0.4]`
+/// and ACEGIK located at the same Y and Z coordinates that their corresponding
+/// vertex but with minus two cell lengths in the X direction.
+class Blade : public Body {
+ public:
+     /// \brief Constructor.
+     Blade(
+         std::vector<float> o_pos_init = {0.0, 0.0, 0.0},
+         std::vector<float> j_pos_init = {0.9, 0.0, 0.2},
+         std::vector<float> b_pos_init = {0.75, 0.0, 1.5},
+         std::vector<float> t_pos_init = {1.6, 0.0, -0.4},
+         float width = 4.5) :
+         Body(o_pos_init, j_pos_init, b_pos_init, t_pos_init, width) {}
+
+     /// \brief Destructor.
+     ~Blade() {}
 };
 
 /// \brief Store all parameters related to the simulation.
@@ -312,7 +399,7 @@ class SimParam {
          float repose_angle = 0.85, int max_iterations = 10,
          int cell_buffer = 4);
 
-     /// \brief Destructor
+     /// \brief Destructor.
      ~SimParam() {}
 };
 
@@ -393,7 +480,7 @@ class SimOut {
      ///              grid.
      explicit SimOut(Grid grid = Grid());
 
-     /// \brief Destructor
+     /// \brief Destructor.
     ~SimOut() {}
 };
 
