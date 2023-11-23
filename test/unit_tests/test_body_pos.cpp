@@ -1075,6 +1075,46 @@ TEST(UnitTestBodyPos, CalcBodyPos_blade) {
         {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12}};
     ResetValueAndTest(sim_out, {}, body_pos, {});
 
+    // Test: BP-CB-Bl-2
+    o_pos = {0.0, 0.0, 0.0};
+    j_pos = {0.0, 0.0, 0.0};
+    b_pos = {0.0, 0.0, 0.1};
+    t_pos = {0.0, 0.01, -0.1};
+    *blade = soil_simulator::Blade(o_pos, j_pos, b_pos, t_pos, 0.4);
+    ori = {1.0, 0.0, 0.0, 0.0};
+    pos = {0.0, 0.0, 0.0};
+    CalcBodyPos(sim_out, pos, ori, grid, blade, sim_param, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][8][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][11][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][11][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][12][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][12][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][8][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][8][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][11][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][11][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][12][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][12][10], 0.1, 1.e-5);
+    EXPECT_EQ(sim_out->body_area_[0][0], 4);
+    EXPECT_EQ(sim_out->body_area_[0][1], 16);
+    EXPECT_EQ(sim_out->body_area_[1][0], 5);
+    EXPECT_EQ(sim_out->body_area_[1][1], 14);
+    // Resetting values
+    body_pos = {
+        {0, 8, 9}, {0, 9, 9}, {0, 10, 9}, {0, 11, 9}, {0, 12, 9},
+        {0, 8, 10}, {0, 9, 10}, {0, 10, 10}, {0, 11, 10}, {0, 12, 10}};
+    ResetValueAndTest(sim_out, {}, body_pos, {});
+
+
     delete blade;
     delete sim_out;
 }
