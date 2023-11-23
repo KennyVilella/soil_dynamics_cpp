@@ -146,15 +146,25 @@ void soil_simulator::CalcBodyPos(
     auto [j_rf_pos, j_lf_pos, b_rf_pos, b_lf_pos, t_rf_pos, t_lf_pos] =
         soil_simulator::CalcBodyCornerPos(pos, ori, blade);
 
+    // Unit vector normal to the blade
+    auto normal_side = soil_simulator::CalcNormal(
+        j_rf_pos, j_lf_pos, b_lf_pos);
+
     // Calculating position of the back blade corners
-    blade->j_pos_init_[0] -= grid.cell_size_xy_;
-    blade->b_pos_init_[0] -= grid.cell_size_xy_;
-    blade->t_pos_init_[0] -= grid.cell_size_xy_;
-    auto [j_rb_pos, j_lb_pos, b_rb_pos, b_lb_pos, t_rb_pos, t_lb_pos] =
-        soil_simulator::CalcBodyCornerPos(pos, ori, blade);
-    blade->j_pos_init_[0] += grid.cell_size_xy_;
-    blade->b_pos_init_[0] += grid.cell_size_xy_;
-    blade->t_pos_init_[0] += grid.cell_size_xy_;
+    std::vector<float> j_rb_pos(3);
+    std::vector<float> j_lb_pos(3);
+    std::vector<float> b_rb_pos(3);
+    std::vector<float> b_lb_pos(3);
+    std::vector<float> t_rb_pos(3);
+    std::vector<float> t_lb_pos(3);
+    for (auto ii = 0; ii < 3; ii++) {
+        j_rb_pos[ii] = j_rf_pos[ii] + grid.cell_size_xy_ * normal_side[ii];
+        j_lb_pos[ii] = j_lf_pos[ii] + grid.cell_size_xy_ * normal_side[ii];
+        b_rb_pos[ii] = b_rf_pos[ii] + grid.cell_size_xy_ * normal_side[ii];
+        b_lb_pos[ii] = b_lf_pos[ii] + grid.cell_size_xy_ * normal_side[ii];
+        t_rb_pos[ii] = t_rf_pos[ii] + grid.cell_size_xy_ * normal_side[ii];
+        t_lb_pos[ii] = t_lf_pos[ii] + grid.cell_size_xy_ * normal_side[ii];
+    }
 
     for (auto ii = 0; ii < 3; ii++) {
         // Adding a small increment to all vertices
