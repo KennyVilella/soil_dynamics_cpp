@@ -897,7 +897,8 @@ TEST(UnitTestBodyPos, UpdateBody) {
     delete sim_out;
 }
 
-TEST(UnitTestBodyPos, CalcBodyPos) {
+/// This is for the Bucket class.
+TEST(UnitTestBodyPos, CalcBodyPos_bucket) {
     // Setting up the environment
     soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
     soil_simulator::SimParam sim_param(0.785, 4, 4);
@@ -913,7 +914,7 @@ TEST(UnitTestBodyPos, CalcBodyPos) {
     std::vector<std::vector<int>> body_pos;
     soil_simulator::Bucket *bucket = new soil_simulator::Bucket();
 
-    // Test: BP-CB-1
+    // Test: BP-CB-Bu-1
     o_pos = {0.0, 0.0, 0.0};
     j_pos = {0.0, 0.0, 0.0};
     b_pos = {0.5, 0.01, 0.0};
@@ -944,7 +945,7 @@ TEST(UnitTestBodyPos, CalcBodyPos) {
         {0, 15, 10}};
     ResetValueAndTest(sim_out, {}, body_pos, {});
 
-    // Test: BP-CB-2
+    // Test: BP-CB-Bu-2
     b_pos = {0.5, 0.0, -0.01};
     t_pos = {0.5, 0.0, 0.0};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
@@ -975,7 +976,7 @@ TEST(UnitTestBodyPos, CalcBodyPos) {
         {0, 15, 8}, {0, 15, 9}, {0, 15, 10}, {0, 15, 11}, {0, 15, 12}};
     ResetValueAndTest(sim_out, {}, body_pos, {});
 
-    // Test: BP-CB-3
+    // Test: BP-CB-Bu-3
     b_pos = {0.0, 0.0, -0.5};
     t_pos = {0.5, 0.0, -0.5};
     *bucket = soil_simulator::Bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
@@ -1015,5 +1016,65 @@ TEST(UnitTestBodyPos, CalcBodyPos) {
     ResetValueAndTest(sim_out, {}, body_pos, {});
 
     delete bucket;
+    delete sim_out;
+}
+
+/// This is for the Blade class.
+TEST(UnitTestBodyPos, CalcBodyPos_blade) {
+    // Setting up the environment
+    soil_simulator::Grid grid(1.0, 1.0, 1.0, 0.1, 0.1);
+    soil_simulator::SimParam sim_param(0.785, 4, 4);
+    soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
+
+    // Declaring variables
+    std::vector<float> o_pos;
+    std::vector<float> j_pos;
+    std::vector<float> b_pos;
+    std::vector<float> t_pos;
+    std::vector<float> ori;
+    std::vector<float> pos;
+    std::vector<std::vector<int>> body_pos;
+    soil_simulator::Blade *blade = new soil_simulator::Blade();
+
+    // Test: BP-CB-Bl-1
+    o_pos = {0.0, 0.0, 0.0};
+    j_pos = {0.0, 0.0, 0.0};
+    b_pos = {0.0, 0.0, 0.1};
+    t_pos = {0.01, 0.0, -0.1};
+    *blade = soil_simulator::Blade(o_pos, j_pos, b_pos, t_pos, 0.4);
+    ori = {1.0, 0.0, 0.0, 0.0};
+    pos = {0.0, 0.0, 0.0};
+    CalcBodyPos(sim_out, pos, ori, grid, blade, sim_param, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][8], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][8], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][11], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][11], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][9][12], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][9][12], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][8], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][8], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][9], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][9], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][10], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][10], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][11], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][11], 0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[0][10][12], -0.1, 1.e-5);
+    EXPECT_NEAR(sim_out->body_[1][10][12], 0.1, 1.e-5);
+    EXPECT_EQ(sim_out->body_area_[0][0], 5);
+    EXPECT_EQ(sim_out->body_area_[0][1], 14);
+    EXPECT_EQ(sim_out->body_area_[1][0], 4);
+    EXPECT_EQ(sim_out->body_area_[1][1], 16);
+    // Resetting values
+    body_pos = {
+        {0, 9, 8}, {0, 9, 9}, {0, 9, 10}, {0, 9, 11}, {0, 9, 12},
+        {0, 10, 8}, {0, 10, 9}, {0, 10, 10}, {0, 10, 11}, {0, 10, 12}};
+    ResetValueAndTest(sim_out, {}, body_pos, {});
+
+    delete blade;
     delete sim_out;
 }
