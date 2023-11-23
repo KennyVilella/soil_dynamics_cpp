@@ -13,17 +13,17 @@ Copyright, 2023, Vilella Kenny.
 #include "soil_simulator/types.hpp"
 #include "soil_simulator/utils.hpp"
 
-/// The body position is calculated based on its reference pose stored in
-/// the `Body` class, as well as the provided position (`pos`) and orientation
+/// The bucket position is calculated based on its reference pose stored in
+/// the `Bucket` class, as well as the provided position (`pos`) and orientation
 /// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
-/// rotation to the body relative to its reference pose. The centre of
-/// rotation is assumed to be the body origin. The orientation is provided
+/// rotation to the bucket relative to its reference pose. The centre of
+/// rotation is assumed to be the bucket origin. The orientation is provided
 /// using the quaternion definition.
 void soil_simulator::CalcBodyPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
-    Body* body, SimParam sim_param, float tol
+    Bucket* bucket, SimParam sim_param, float tol
 ) {
-    // Reinitializing body position
+    // Reinitializing bucket position
     int body_min_x = sim_out->body_area_[0][0];
     int body_max_x = sim_out->body_area_[0][1];
     int body_min_y = sim_out->body_area_[1][0];
@@ -36,9 +36,9 @@ void soil_simulator::CalcBodyPos(
             sim_out->body_[3][ii][jj] = 0.0;
         }
 
-    // Calculating position of the body corners
+    // Calculating position of the bucket corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
-        soil_simulator::CalcBodyCornerPos(pos, ori, body);
+        soil_simulator::CalcBodyCornerPos(pos, ori, bucket);
 
     for (auto ii = 0; ii < 3; ii++) {
         // Adding a small increment to all vertices
@@ -64,7 +64,7 @@ void soil_simulator::CalcBodyPos(
             (b_l_pos[ii] - t_l_pos[ii]));
     }
 
-    // Calculating the 2D bounding box of the body
+    // Calculating the 2D bounding box of the bucket
     float body_x_min = std::min({
         j_r_pos[0], j_l_pos[0], b_r_pos[0], b_l_pos[0], t_r_pos[0], t_l_pos[0]
     });
@@ -96,7 +96,7 @@ void soil_simulator::CalcBodyPos(
             grid.half_length_y_ + sim_param.cell_buffer_)
         , 2.0 * grid.half_length_y_));
 
-    // Determining where each surface of the body is located
+    // Determining where each surface of the bucket is located
     auto base_pos = soil_simulator::CalcRectanglePos(
         b_r_pos, b_l_pos, t_l_pos, t_r_pos, grid, tol);
     auto back_pos = soil_simulator::CalcRectanglePos(
@@ -106,17 +106,30 @@ void soil_simulator::CalcBodyPos(
     auto left_side_pos = soil_simulator::CalcTrianglePos(
         j_l_pos, b_l_pos, t_l_pos, grid, tol);
 
-    // Sorting all list of cells indices where the body is located
+    // Sorting all list of cells indices where the bucket is located
     sort(base_pos.begin(), base_pos.end());
     sort(back_pos.begin(), back_pos.end());
     sort(right_side_pos.begin(), right_side_pos.end());
     sort(left_side_pos.begin(), left_side_pos.end());
 
-    // Updating the body position
+    // Updating the bucket position
     soil_simulator::UpdateBody(base_pos, sim_out, grid, tol);
     soil_simulator::UpdateBody(back_pos, sim_out, grid, tol);
     soil_simulator::UpdateBody(right_side_pos, sim_out, grid, tol);
     soil_simulator::UpdateBody(left_side_pos, sim_out, grid, tol);
+}
+
+/// The blade position is calculated based on its reference pose stored in
+/// the `Blade` class, as well as the provided position (`pos`) and orientation
+/// (`ori`). `pos` and `ori` are used to apply the appropriate translation and
+/// rotation to the blade relative to its reference pose. The centre of
+/// rotation is assumed to be the blade origin. The orientation is provided
+/// using the quaternion definition.
+void soil_simulator::CalcBodyPos(
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    Blade* blade, SimParam sim_param, float tol
+) {
+    throw std::invalid_argument("The Blade class is not yet supported");
 }
 
 /// The rectangle is defined by providing the Cartesian coordinates of its four
