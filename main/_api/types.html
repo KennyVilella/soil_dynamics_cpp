@@ -301,8 +301,8 @@
 <dd><div class="docutils container">
 <em>#include &lt;types.hpp&gt;</em></div>
 <p>Base class for objects interacting with soil. </p>
-<p>This class is not meant to be used directly. Derived classes should be used instead. </p>
-<p>Subclassed by <a class="reference internal" href="#classsoil__simulator_1_1_bucket"><span class="std std-ref">soil_simulator::Bucket</span></a></p>
+<p>This class is not meant to be used directly. Instead, derived classes should be used. </p>
+<p>Subclassed by <a class="reference internal" href="#classsoil__simulator_1_1_blade"><span class="std std-ref">soil_simulator::Blade</span></a>, <a class="reference internal" href="#classsoil__simulator_1_1_bucket"><span class="std std-ref">soil_simulator::Bucket</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
@@ -345,14 +345,32 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Body4BodyEv">
-<span id="_CPPv3N14soil_simulator4Body4BodyEv"></span><span id="_CPPv2N14soil_simulator4Body4BodyEv"></span><span id="soil_simulator::Body::Body"></span><span class="target" id="classsoil__simulator_1_1_body_1a8229d3a5b4a91fb838e3cb79ea4115dc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Body</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator4Body4BodyEv" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Constructor. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4Body4BodyENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf">
+<span id="_CPPv3N14soil_simulator4Body4BodyENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="_CPPv2N14soil_simulator4Body4BodyENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="soil_simulator::Body::Body__std::vector:float:.std::vector:float:.std::vector:float:.std::vector:float:.float"></span><span class="target" id="classsoil__simulator_1_1_body_1a5fda709d75ce0d55f318924c71e452f0"></span><span class="sig-name descname"><span class="n"><span class="pre">Body</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o_pos_init</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j_pos_init</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b_pos_init</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t_pos_init</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator4Body4BodyENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a new instance of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_body"><span class="std std-ref"><span class="pre">Body</span></span></a></code> using the reference positions of the body origin, joint, base, and teeth as well as the body width. </p>
+<p>The position of the body joint, base, and teeth are given relative to the position of the body origin.</p>
+<p>Requirements:<ul class="simple">
+<li><p>All provided Cartesian coordinates should be a vector of size 3.</p></li>
+<li><p>The body joint, base and teeth should have strictly different location.</p></li>
+<li><p>The body width should be greater than zero.</p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>o_pos_init</strong> – Cartesian coordinates of the body origin in its reference pose. [m] </p></li>
+<li><p><strong>j_pos_init</strong> – Cartesian coordinates of the body joint in its reference pose. [m] </p></li>
+<li><p><strong>b_pos_init</strong> – Cartesian coordinates of the body base in its reference pose. [m] </p></li>
+<li><p><strong>t_pos_init</strong> – Cartesian coordinates of the body teeth in its reference pose. [m] </p></li>
+<li><p><strong>width</strong> – Width of the body. [m] </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator4BodyD0Ev">
-<span id="_CPPv3N14soil_simulator4BodyD0Ev"></span><span id="_CPPv2N14soil_simulator4BodyD0Ev"></span><span id="soil_simulator::Body::~Body"></span><span class="target" id="classsoil__simulator_1_1_body_1a3f54d8e188e3dd03145c93133fb3be2d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Body</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator4BodyD0Ev" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N14soil_simulator4BodyD0Ev"></span><span id="_CPPv2N14soil_simulator4BodyD0Ev"></span><span id="soil_simulator::Body::~Body"></span><span class="target" id="classsoil__simulator_1_1_body_1a4432e038a7b1ad57e2111ef15a54eead"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Body</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator4BodyD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Destructor. </p>
 </dd></dl>
 
@@ -417,7 +435,7 @@ B ____________________ E
 <li><p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">-0.25,</span> <span class="pre">0.0]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">=</span> <span class="pre">[1.0,</span> <span class="pre">-0.25,</span> <span class="pre">-0.5]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">-0.25,</span> <span class="pre">-0.5]</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">0.25,</span> <span class="pre">0.0]</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">0.25,</span> <span class="pre">0.0]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">E</span> <span class="pre">=</span> <span class="pre">[1.0,</span> <span class="pre">0.25,</span> <span class="pre">-0.5]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">[0.0,</span> <span class="pre">0.25,</span> <span class="pre">-0.5]</span></code></p></li>
 </ul>
@@ -426,31 +444,101 @@ B ____________________ E
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf">
-<span id="_CPPv3N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="_CPPv2N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="soil_simulator::Bucket::Bucket__std::vector:float:.std::vector:float:.std::vector:float:.std::vector:float:.float"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f"></span><span class="sig-name descname"><span class="n"><span class="pre">Bucket</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.7</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.5</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Create a new instance of <code class="docutils literal notranslate"><a class="reference internal" href="#classsoil__simulator_1_1_bucket"><span class="std std-ref"><span class="pre">Bucket</span></span></a></code> using the reference positions of the bucket origin, joint, base, and teeth as well as the bucket width. </p>
-<p>The position of the bucket joint, base, and teeth are given relative to the position of the bucket origin.</p>
-<p>Requirements:<ul class="simple">
-<li><p>All provided Cartesian coordinates should be a vector of size 3.</p></li>
-<li><p>The bucket joint, base and teeth should have strictly different location.</p></li>
-<li><p>The bucket width should be greater than zero.</p></li>
-</ul>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>o_pos_init</strong> – Cartesian coordinates of the bucket origin in its reference pose. [m] </p></li>
-<li><p><strong>j_pos_init</strong> – Cartesian coordinates of the bucket joint in its reference pose. [m] </p></li>
-<li><p><strong>b_pos_init</strong> – Cartesian coordinates of the bucket base in its reference pose. [m] </p></li>
-<li><p><strong>t_pos_init</strong> – Cartesian coordinates of the bucket teeth in its reference pose. [m] </p></li>
-<li><p><strong>width</strong> – Width of the bucket. [m] </p></li>
-</ul>
-</dd>
-</dl>
+<span id="_CPPv3N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="_CPPv2N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="soil_simulator::Bucket::Bucket__std::vector:float:.std::vector:float:.std::vector:float:.std::vector:float:.float"></span><span class="target" id="classsoil__simulator_1_1_bucket_1a53af2488fd65dceea67b81f09edaba3f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bucket</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.7</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.5</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6Bucket6BucketENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator6BucketD0Ev">
 <span id="_CPPv3N14soil_simulator6BucketD0Ev"></span><span id="_CPPv2N14soil_simulator6BucketD0Ev"></span><span id="soil_simulator::Bucket::~Bucket"></span><span class="target" id="classsoil__simulator_1_1_bucket_1ac72f5bab22939a22a6da59caabc79f53"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Bucket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator6BucketD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator5BladeE">
+<span id="_CPPv3N14soil_simulator5BladeE"></span><span id="_CPPv2N14soil_simulator5BladeE"></span><span id="soil_simulator::Blade"></span><span class="target" id="classsoil__simulator_1_1_blade"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Blade</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="body_pos.html#_CPPv414soil_simulator" title="soil_simulator"><span class="n"><span class="pre">soil_simulator</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N14soil_simulator4BodyE" title="soil_simulator::Body"><span class="n"><span class="pre">Body</span></span></a><a class="headerlink" href="#_CPPv4N14soil_simulator5BladeE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;types.hpp&gt;</em></div>
+<p>Store all parameters related to a blade object. </p>
+<p>Convention:<ul class="simple">
+<li><p>The blade is approximated with the following shape <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                             A __ B
+                             ̸ .   ̸  \
+                           ̸     ̸.    \
+                         ̸     ̸   .    \
+                       ̸     ̸      .    \
+                    C __ D         .    \
+                     \    \         .    \
+                      \    \         .    \
+                       \    \         .    \
+                        \    \         E __ F
+                         \    \      .  .   ̸  ⟍
+                          \    \   .      ̸.     ⟍
+                           \    \.      ̸    .     ⟍
+                            \ .  \   ̸         .     ⟍
+                             G __ H             I __ J
+                               ⟍    ⟍         .      ̸
+                                 ⟍    ⟍     .      ̸
+                                   ⟍    ⟍ .      ̸
+                                     ⟍  .  ⟍    ̸
+                                       K __ L
+</pre></div>
+</div>
+</p></li>
+<li><p>The middle of the segment FH is referred to as the blade joint.</p></li>
+<li><p>The middle of the segment BD is referred to as the blade base.</p></li>
+<li><p>The middle of the segment JL is referred to as the blade teeth.</p></li>
+<li><p>The shape ABCDEFGH is referred to as the blade base.</p></li>
+<li><p>The shape EFGHIJKL is referred to as the blade front.</p></li>
+<li><p>The blade has a constant width, denoted as</p></li>
+</ul>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AC = BD = EG = FH = IK = JL = `width_`.
+</pre></div>
+</div>
+<p><ul class="simple">
+<li><p>The blade has a constant thickness of two cell lengths</p></li>
+</ul>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AB = CD = EF = GH = IJ = KL = 2 * `cell_size_xy_`.
+</pre></div>
+</div>
+<p><ul class="simple">
+<li><p>The centre of rotation of the blade is assumed to be at the blade origin (not shown in the figure) and the blade vertices are given relative to this origin.</p></li>
+<li><p>The provided coordinates are assumed to be the reference pose of the blade, from which the blade pose is calculated throughout the code.</p></li>
+</ul>
+</p>
+<p>Usage: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">o_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">};</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">j_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">};</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">b_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">};</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">t_pos</span> <span class="o">=</span> <span class="p">{</span><span class="mf">1.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">};</span>
+
+<span class="n">soil_simulator</span><span class="p">::</span><span class="n">Blade</span> <span class="n">blade</span><span class="p">(</span><span class="n">o_pos</span><span class="p">,</span> <span class="n">j_pos</span><span class="p">,</span> <span class="n">b_pos</span><span class="p">,</span> <span class="n">t_pos</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>This would create a blade ABCDEFGHIJKL with:<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">=</span> <span class="pre">[0.75,</span> <span class="pre">-2.25,</span> <span class="pre">1.5]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">[0.9,</span> <span class="pre">-2.25,</span> <span class="pre">0.2]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">J</span> <span class="pre">=</span> <span class="pre">[1.6,</span> <span class="pre">-2.25,</span> <span class="pre">-0.4]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D</span> <span class="pre">=</span> <span class="pre">[0.75,</span> <span class="pre">2.25,</span> <span class="pre">1.5]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">H</span> <span class="pre">=</span> <span class="pre">[0.9,</span> <span class="pre">2.25,</span> <span class="pre">0.2]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L</span> <span class="pre">=</span> <span class="pre">[1.6,</span> <span class="pre">2.25,</span> <span class="pre">-0.4]</span></code> and ACEGIK located at the same Y and Z coordinates that their corresponding vertex but with minus two cell lengths in the X direction. </p></li>
+</ul>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator5Blade5BladeENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf">
+<span id="_CPPv3N14soil_simulator5Blade5BladeENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="_CPPv2N14soil_simulator5Blade5BladeENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf"></span><span id="soil_simulator::Blade::Blade__std::vector:float:.std::vector:float:.std::vector:float:.std::vector:float:.float"></span><span class="target" id="classsoil__simulator_1_1_blade_1a98f92e39736f5c7a8b4606e3e96f17b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Blade</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.9</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.2</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.75</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1.5</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t_pos_init</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1.6</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">0.4</span></span><span class="p"><span class="pre">}</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4.5</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator5Blade5BladeENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEENSt6vectorIfEEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator5BladeD0Ev">
+<span id="_CPPv3N14soil_simulator5BladeD0Ev"></span><span id="_CPPv2N14soil_simulator5BladeD0Ev"></span><span id="soil_simulator::Blade::~Blade"></span><span class="target" id="classsoil__simulator_1_1_blade_1ac0a51f5b5856f00fd75001bcdc78e965"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Blade</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator5BladeD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Destructor. </p>
 </dd></dl>
 
@@ -662,6 +750,7 @@ B ____________________ E
     
     <dl>
       <dt>Versions</dt>
+      <dd><a href="../../v1.0.0/_api/types.html">v1.0.0</a></dd>
       <dd><a href="types.html">main</a></dd>
   </div>
 </div><script>
