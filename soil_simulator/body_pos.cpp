@@ -240,9 +240,9 @@ void soil_simulator::CalcBodyPos(
     auto base_b_pos = soil_simulator::CalcRectanglePos(
         b_rb_pos, b_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
     auto front_f_pos = soil_simulator::CalcRectanglePos(
-        b_rf_pos, b_lf_pos, j_lf_pos, j_rf_pos, grid, tol);
+        t_rf_pos, t_lf_pos, j_lf_pos, j_rf_pos, grid, tol);
     auto front_b_pos = soil_simulator::CalcRectanglePos(
-        b_rb_pos, b_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
+        t_rb_pos, t_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
 
     // Sorting all list of cells indices where the blade is located
     sort(base_f_pos.begin(), base_f_pos.end());
@@ -746,14 +746,6 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     float dy = y2 - y1;
     float dz = z2 - z1;
 
-    // Avoiding issue when line is 2D
-    if (dx == 0.0)
-        dx = 1e-10;
-    if (dy == 0.0)
-        dy = 1e-10;
-    if (dz == 0.0)
-        dz = 1e-10;
-
     // Determining the offset to first cell boundary
     float t_max_x;
     float t_max_y;
@@ -773,6 +765,22 @@ std::vector<std::vector<int>> soil_simulator::CalcLinePos(
     } else {
         t_max_z = z1 - std::floor(z1);
     }
+
+    // Avoiding issue when line is 2D
+    if (dx == 0.0)
+        dx = 1e-10;
+    if (dy == 0.0)
+        dy = 1e-10;
+    if (dz == 0.0)
+        dz = 1e-10;
+
+    // Avoiding issue when at cell boundary
+    if (t_max_x == 0.0)
+        t_max_x = 1;
+    if (t_max_y == 0.0)
+        t_max_y = 1;
+    if (t_max_z == 0.0)
+        t_max_z = 1;
 
     // Determining how long on the line to cross the cell
     float t_delta_x = std::sqrt(1.0 + (dy * dy + dz * dz) / (dx * dx));
