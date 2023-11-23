@@ -189,11 +189,9 @@ class Body {
      ///                    reference pose. [m]
      /// \param width: Width of the body. [m]
      Body(
-         std::vector<float> o_pos_init = {0.0, 0.0, 0.0},
-         std::vector<float> j_pos_init = {0.0, 0.0, 0.0},
-         std::vector<float> b_pos_init = {0.0, 0.0, -0.5},
-         std::vector<float> t_pos_init = {0.7, 0.0, -0.5},
-         float width = 0.5);
+         std::vector<float> o_pos_init, std::vector<float> j_pos_init,
+         std::vector<float> b_pos_init, std::vector<float> t_pos_init,
+         float width);
 
      /// \brief Destructor.
      virtual ~Body() {}
