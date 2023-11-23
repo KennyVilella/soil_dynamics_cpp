@@ -129,7 +129,132 @@ void soil_simulator::CalcBodyPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
     Blade* blade, SimParam sim_param, float tol
 ) {
-    throw std::invalid_argument("The Blade class is not yet supported");
+    // Reinitializing blade position
+    int body_min_x = sim_out->body_area_[0][0];
+    int body_max_x = sim_out->body_area_[0][1];
+    int body_min_y = sim_out->body_area_[1][0];
+    int body_max_y = sim_out->body_area_[1][1];
+    for (auto ii = body_min_x; ii < body_max_x; ii++)
+        for (auto jj = body_min_y; jj < body_max_y; jj++) {
+            sim_out->body_[0][ii][jj] = 0.0;
+            sim_out->body_[1][ii][jj] = 0.0;
+            sim_out->body_[2][ii][jj] = 0.0;
+            sim_out->body_[3][ii][jj] = 0.0;
+        }
+
+    // Calculating position of the front blade corners
+    auto [j_rf_pos, j_lf_pos, b_rf_pos, b_lf_pos, t_rf_pos, t_lf_pos] =
+        soil_simulator::CalcBodyCornerPos(pos, ori, blade);
+
+    // Calculating position of the back blade corners
+    blade->j_pos_init_[0] -= grid.cell_size_xy_;
+    blade->b_pos_init_[0] -= grid.cell_size_xy_;
+    blade->t_pos_init_[0] -= grid.cell_size_xy_;
+    auto [j_rb_pos, j_lb_pos, b_rb_pos, b_lb_pos, t_rb_pos, t_lb_pos] =
+        soil_simulator::CalcBodyCornerPos(pos, ori, blade);
+    blade->j_pos_init_[0] += grid.cell_size_xy_;
+    blade->b_pos_init_[0] += grid.cell_size_xy_;
+    blade->t_pos_init_[0] += grid.cell_size_xy_;
+
+    for (auto ii = 0; ii < 3; ii++) {
+        // Adding a small increment to all vertices
+        // This is to account for the edge case where one of the vertex is at
+        // cell border. In that case, the increment would remove any ambiguity
+        j_rf_pos[ii] += tol * (
+            (j_lf_pos[ii] - j_rf_pos[ii]) + (b_rf_pos[ii] - j_rf_pos[ii]) +
+            (t_rf_pos[ii] - j_rf_pos[ii]));
+        j_lf_pos[ii] += tol * (
+            (j_rf_pos[ii] - j_lf_pos[ii]) + (b_lf_pos[ii] - j_lf_pos[ii]) +
+            (t_lf_pos[ii] - j_lf_pos[ii]));
+        b_rf_pos[ii] += tol * (
+            (b_lf_pos[ii] - b_rf_pos[ii]) + (j_rf_pos[ii] - b_rf_pos[ii]) +
+            (t_rf_pos[ii] - b_rf_pos[ii]));
+        b_lf_pos[ii] += tol * (
+            (b_rf_pos[ii] - b_lf_pos[ii]) + (j_lf_pos[ii] - b_lf_pos[ii]) +
+            (t_lf_pos[ii] - b_lf_pos[ii]));
+        t_rf_pos[ii] += tol * (
+            (t_lf_pos[ii] - t_rf_pos[ii]) + (j_rf_pos[ii] - t_rf_pos[ii]) +
+            (b_rf_pos[ii] - t_rf_pos[ii]));
+        t_lf_pos[ii] += tol * (
+            (t_rf_pos[ii] - t_lf_pos[ii]) + (j_lf_pos[ii] - t_lf_pos[ii]) +
+            (b_lf_pos[ii] - t_lf_pos[ii]));
+        j_rb_pos[ii] += tol * (
+            (j_lb_pos[ii] - j_rb_pos[ii]) + (b_rb_pos[ii] - j_rb_pos[ii]) +
+            (t_rb_pos[ii] - j_rb_pos[ii]));
+        j_lb_pos[ii] += tol * (
+            (j_rb_pos[ii] - j_lb_pos[ii]) + (b_lb_pos[ii] - j_lb_pos[ii]) +
+            (t_lb_pos[ii] - j_lb_pos[ii]));
+        b_rb_pos[ii] += tol * (
+            (b_lb_pos[ii] - b_rb_pos[ii]) + (j_rb_pos[ii] - b_rb_pos[ii]) +
+            (t_rb_pos[ii] - b_rb_pos[ii]));
+        b_lb_pos[ii] += tol * (
+            (b_rb_pos[ii] - b_lb_pos[ii]) + (j_lb_pos[ii] - b_lb_pos[ii]) +
+            (t_lb_pos[ii] - b_lb_pos[ii]));
+        t_rb_pos[ii] += tol * (
+            (t_lb_pos[ii] - t_rb_pos[ii]) + (j_rb_pos[ii] - t_rb_pos[ii]) +
+            (b_rb_pos[ii] - t_rb_pos[ii]));
+        t_lb_pos[ii] += tol * (
+            (t_rb_pos[ii] - t_lb_pos[ii]) + (j_lb_pos[ii] - t_lb_pos[ii]) +
+            (b_lb_pos[ii] - t_lb_pos[ii]));
+    }
+
+    // Calculating the 2D bounding box of the blade
+    float body_x_min = std::min({
+        j_rf_pos[0], j_lf_pos[0], b_rf_pos[0], b_lf_pos[0], t_rf_pos[0],
+        t_lf_pos[0], j_rb_pos[0], j_lb_pos[0], b_rb_pos[0], b_lb_pos[0],
+        t_rb_pos[0], t_lb_pos[0]});
+    float body_x_max = std::max({
+        j_rf_pos[0], j_lf_pos[0], b_rf_pos[0], b_lf_pos[0], t_rf_pos[0],
+        t_lf_pos[0], j_rb_pos[0], j_lb_pos[0], b_rb_pos[0], b_lb_pos[0],
+        t_rb_pos[0], t_lb_pos[0]});
+    float body_y_min = std::min({
+        j_rf_pos[1], j_lf_pos[1], b_rf_pos[1], b_lf_pos[1], t_rf_pos[1],
+        t_lf_pos[1], j_rb_pos[1], j_lb_pos[1], b_rb_pos[1], b_lb_pos[1],
+        t_rb_pos[1], t_lb_pos[1]});
+    float body_y_max = std::max({
+        j_rf_pos[1], j_lf_pos[1], b_rf_pos[1], b_lf_pos[1], t_rf_pos[1],
+        t_lf_pos[1], j_rb_pos[1], j_lb_pos[1], b_rb_pos[1], b_lb_pos[1],
+        t_rb_pos[1], t_lb_pos[1]});
+
+    // Updating body_area
+    sim_out->body_area_[0][0] = static_cast<int>(std::max(
+        round(body_x_min / grid.cell_size_xy_ +
+            grid.half_length_x_ - sim_param.cell_buffer_)
+        , 1.0));
+    sim_out->body_area_[0][1] = static_cast<int>(std::min(
+        round(body_x_max / grid.cell_size_xy_ +
+            grid.half_length_x_ + sim_param.cell_buffer_)
+        , 2.0 * grid.half_length_x_));
+    sim_out->body_area_[1][0] = static_cast<int>(std::max(
+        round(body_y_min / grid.cell_size_xy_ +
+            grid.half_length_y_ - sim_param.cell_buffer_)
+        , 1.0));
+    sim_out->body_area_[1][1] = static_cast<int>(std::min(
+        round(body_y_max / grid.cell_size_xy_ +
+            grid.half_length_y_ + sim_param.cell_buffer_)
+        , 2.0 * grid.half_length_y_));
+
+    // Determining where each surface of the blade is located
+    auto base_f_pos = soil_simulator::CalcRectanglePos(
+        b_rf_pos, b_lf_pos, j_lf_pos, j_rf_pos, grid, tol);
+    auto base_b_pos = soil_simulator::CalcRectanglePos(
+        b_rb_pos, b_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
+    auto front_f_pos = soil_simulator::CalcRectanglePos(
+        b_rf_pos, b_lf_pos, j_lf_pos, j_rf_pos, grid, tol);
+    auto front_b_pos = soil_simulator::CalcRectanglePos(
+        b_rb_pos, b_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
+
+    // Sorting all list of cells indices where the blade is located
+    sort(base_f_pos.begin(), base_f_pos.end());
+    sort(base_b_pos.begin(), base_b_pos.end());
+    sort(front_f_pos.begin(), front_f_pos.end());
+    sort(front_b_pos.begin(), front_b_pos.end());
+
+    // Updating the blade position
+    soil_simulator::UpdateBody(base_f_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(base_b_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(front_f_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(front_b_pos, sim_out, grid, tol);
 }
 
 /// The rectangle is defined by providing the Cartesian coordinates of its four
