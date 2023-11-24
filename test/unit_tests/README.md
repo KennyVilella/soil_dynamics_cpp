@@ -36,15 +36,31 @@ Unit tests for the `Bucket` class and its constructor.
 
 | Test name | Description of the unit test                                                         |
 | --------- | ------------------------------------------------------------------------------------ |
-| TY-B-1    | Testing that all members of the `Bucket` class are present and properly initialized. |
-| TY-B-2    | Testing that an exception is raised when size of `o_pos` is not 3.                   |
-| TY-B-3    | Testing that an exception is raised when size of `j_pos` is not 3.                   |
-| TY-B-4    | Testing that an exception is raised when size of `b_pos` is not 3.                   |
-| TY-B-5    | Testing that an exception is raised when size of `t_pos` is not 3.                   |
-| TY-B-6    | Testing that an exception is raised when `j_pos` and `b_pos` are the same.           |
-| TY-B-7    | Testing that an exception is raised when `j_pos` and `t_pos` are the same.           |
-| TY-B-8    | Testing that an exception is raised when `b_pos` and `t_pos` are the same.           |
-| TY-B-9    | Testing that an exception is raised when `bucket_width <= 0.0`.                      |
+| TY-Bu-1   | Testing that all members of the `Bucket` class are present and properly initialized. |
+| TY-Bu-2   | Testing that an exception is raised when size of `o_pos` is not 3.                   |
+| TY-Bu-3   | Testing that an exception is raised when size of `j_pos` is not 3.                   |
+| TY-Bu-4   | Testing that an exception is raised when size of `b_pos` is not 3.                   |
+| TY-Bu-5   | Testing that an exception is raised when size of `t_pos` is not 3.                   |
+| TY-Bu-6   | Testing that an exception is raised when `j_pos` and `b_pos` are the same.           |
+| TY-Bu-7   | Testing that an exception is raised when `j_pos` and `t_pos` are the same.           |
+| TY-Bu-8   | Testing that an exception is raised when `b_pos` and `t_pos` are the same.           |
+| TY-Bu-9   | Testing that an exception is raised when `bucket_width <= 0.0`.                      |
+
+### `Blade`
+
+Unit tests for the `Blade` class and its constructor.
+
+| Test name | Description of the unit test                                                        |
+| --------- | ----------------------------------------------------------------------------------- |
+| TY-Bl-1   | Testing that all members of the `Blade` class are present and properly initialized. |
+| TY-Bl-2   | Testing that an exception is raised when size of `o_pos` is not 3.                  |
+| TY-Bl-3   | Testing that an exception is raised when size of `j_pos` is not 3.                  |
+| TY-Bl-4   | Testing that an exception is raised when size of `b_pos` is not 3.                  |
+| TY-Bl-5   | Testing that an exception is raised when size of `t_pos` is not 3.                  |
+| TY-Bl-6   | Testing that an exception is raised when `j_pos` and `b_pos` are the same.          |
+| TY-Bl-7   | Testing that an exception is raised when `j_pos` and `t_pos` are the same.          |
+| TY-Bl-8   | Testing that an exception is raised when `b_pos` and `t_pos` are the same.          |
+| TY-Bl-9   | Testing that an exception is raised when `blade_width <= 0.0`.                      |
 
 ### `SimParam`
 
