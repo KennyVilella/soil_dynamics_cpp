@@ -73,9 +73,6 @@ void soil_simulator::SoilEvolution(
                 -2.0, 1.5, 0.1, 0.25, origin_angle, 10000);
         }
     } else if (typeid(body) == typeid(soil_simulator::Blade*)) {
-        float origin_angle = std::atan2(
-            body->t_pos_init_[2] - body->b_pos_init_[2],
-            body->t_pos_init_[0] - body->b_pos_init_[0]);
         if (random_trajectory) {
             // Random parabolic trajectory
             // Calculating random parameters within a certain range
@@ -87,11 +84,11 @@ void soil_simulator::SoilEvolution(
 
             // Creating the trajectory
             std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-                x_i, z_i, x_min, z_min, origin_angle, 10000);
+                x_i, z_i, x_min, z_min, 0.0, 10000);
         } else {
             // Default parabolic trajectory
             std::tie(pos, ori) = soil_simulator::CalcTrajectory(
-                -2.0, 0.1, 0.1, 0.0, origin_angle, 10000);
+                -2.0, 0.1, 0.1, 0.0, 0.0, 10000);
         }
     } else {
         throw std::invalid_argument("Type of body class is not recognized.");
