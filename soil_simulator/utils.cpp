@@ -564,7 +564,7 @@ void soil_simulator::WriteSoil(
     }
 }
 
-/// The buclet corners are saved into a file named `bucket` followed by
+/// The bucket corners are saved into a file named `bucket` followed by
 /// the file number.
 void soil_simulator::WriteBody(
     Bucket* bucket
