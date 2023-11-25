@@ -38,9 +38,10 @@ class SoilDynamics {
      /// \param tol: Small number used to handle numerical approximation errors.
      ///
      /// \return A boolean indicating whether soil update has been done.
+     template <typename T>
      bool Step(
          SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
-         Grid grid, Body* body, SimParam sim_param, float tol);
+         Grid grid, T* body, SimParam sim_param, float tol);
 
      /// \brief Check the validity of the simulation outputs.
      ///
@@ -57,7 +58,8 @@ class SoilDynamics {
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
      /// \param body: Class that stores information related to the body object.
-     void WriteOutputs(SimOut* sim_out, Grid grid, Body* body);
+     template <typename T>
+     void WriteOutputs(SimOut* sim_out, Grid grid, T* body);
 };
 
 }  // namespace soil_simulator

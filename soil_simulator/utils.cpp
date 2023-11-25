@@ -564,14 +564,14 @@ void soil_simulator::WriteSoil(
     }
 }
 
-/// The body corners are saved into a file named `bucket` followed by
+/// The buclet corners are saved into a file named `bucket` followed by
 /// the file number.
 void soil_simulator::WriteBody(
-    Body* body
+    Bucket* bucket
 ) {
-    // Calculating position of body corners
+    // Calculating position of bucket corners
     auto [j_r_pos, j_l_pos, b_r_pos, b_l_pos, t_r_pos, t_l_pos] =
-        soil_simulator::CalcBodyCornerPos(body->pos_, body->ori_, body);
+        soil_simulator::CalcBodyCornerPos(bucket->pos_, bucket->ori_, bucket);
 
     // Finding next filename for the bucket file
     std::source_location location = std::source_location::current();
@@ -635,6 +635,14 @@ void soil_simulator::WriteBody(
     bucket_file << j_l_pos[0] << "," << j_l_pos[1] << ","
                 <<  j_l_pos[2] << "\n";
     bucket_file.close();
+}
+
+/// The blade corners are saved into a file named `blade` followed by
+/// the file number.
+void soil_simulator::WriteBody(
+    Blade* blade
+) {
+    throw std::invalid_argument("The Blade class is not yet supported");
 }
 
 /// This function implements 2D Simplex noise. A lot of material can be found

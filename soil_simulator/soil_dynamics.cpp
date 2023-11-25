@@ -58,9 +58,10 @@ void soil_simulator::SoilDynamics::Init(
     }
 }
 
+template <typename T>
 bool soil_simulator::SoilDynamics::Step(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
-    Grid grid, Body* body, SimParam sim_param, float tol
+    Grid grid, T* body, SimParam sim_param, float tol
 ) {
     // Checking movement made by the body
     auto soil_update = soil_simulator::CheckBodyMovement(pos, ori, grid, body);
@@ -115,6 +116,12 @@ bool soil_simulator::SoilDynamics::Step(
     }
     return true;
 }
+template bool soil_simulator::SoilDynamics::Step(
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
+    Grid grid, Bucket* body, SimParam sim_param, float tol);
+template bool soil_simulator::SoilDynamics::Step(
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori,
+    Grid grid, Blade* body, SimParam sim_param, float tol);
 
 void soil_simulator::SoilDynamics::Check(
     SimOut* sim_out, float init_volume, Grid grid, float tol
@@ -126,8 +133,9 @@ void soil_simulator::SoilDynamics::Check(
     soil_simulator::CheckSoil(sim_out, tol);
 }
 
+template <typename T>
 void soil_simulator::SoilDynamics::WriteOutputs(
-        SimOut* sim_out, Grid grid, Body* body
+    SimOut* sim_out, Grid grid, T* body
 ) {
     // Writing terrain_ and body_soil_
     soil_simulator::WriteSoil(sim_out, grid);
@@ -135,3 +143,7 @@ void soil_simulator::SoilDynamics::WriteOutputs(
     // Writing body corners
     soil_simulator::WriteBody(body);
 }
+template void soil_simulator::SoilDynamics::WriteOutputs(
+    SimOut* sim_out, Grid grid, Bucket* body);
+template void soil_simulator::SoilDynamics::WriteOutputs(
+    SimOut* sim_out, Grid grid, Blade* body);

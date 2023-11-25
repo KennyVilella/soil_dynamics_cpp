@@ -125,11 +125,17 @@ bool CheckSoil(SimOut* sim_out, float tol);
 /// \param grid: Class that stores information related to the simulation grid.
 void WriteSoil(SimOut* sim_out, Grid grid);
 
-/// \brief This function writes the position of all body faces into a csv
+/// \brief This function writes the position of all bucket faces into a csv
 ///        located in the `results` directory.
 ///
-/// \param body: Class that stores information related to the body object.
-void WriteBody(Body* body);
+/// \param bucket: Class that stores information related to the bucket object.
+void WriteBody(Bucket* bucket);
+
+/// \brief This function writes the position of all blade faces into a csv
+///        located in the `results` directory.
+///
+/// \param blade: Class that stores information related to the blade object.
+void WriteBody(Blade* blade);
 
 /// \brief This function creates simplex noise for more realistic terrain
 ///        generation.

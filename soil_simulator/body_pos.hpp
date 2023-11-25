@@ -11,18 +11,31 @@ Copyright, 2023, Vilella Kenny.
 
 namespace soil_simulator {
 
-/// \brief This function determines all the cells where the body is located.
+/// \brief This function determines all the cells where the bucket is located.
 ///
 /// \param sim_out: Class that stores simulation outputs.
-/// \param pos: Cartesian coordinates of the body origin. [m]
-/// \param ori: Orientation of the body. [Quaternion]
+/// \param pos: Cartesian coordinates of the bucket origin. [m]
+/// \param ori: Orientation of the bucket. [Quaternion]
 /// \param grid: Class that stores information related to the simulation grid.
-/// \param body: Class that stores information related to the body object.
+/// \param bucket: Class that stores information related to the bucket object.
 /// \param sim_param: Class that stores information related to the simulation.
 /// \param tol: Small number used to handle numerical approximation errors.
 void CalcBodyPos(
     SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
-    Body* body, SimParam sim_param, float tol);
+    Bucket* bucket, SimParam sim_param, float tol);
+
+/// \brief This function determines all the cells where the blade is located.
+///
+/// \param sim_out: Class that stores simulation outputs.
+/// \param pos: Cartesian coordinates of the blade origin. [m]
+/// \param ori: Orientation of the blade. [Quaternion]
+/// \param grid: Class that stores information related to the simulation grid.
+/// \param blade: Class that stores information related to the blade object.
+/// \param sim_param: Class that stores information related to the simulation.
+/// \param tol: Small number used to handle numerical approximation errors.
+void CalcBodyPos(
+    SimOut* sim_out, std::vector<float> pos, std::vector<float> ori, Grid grid,
+    Blade* blade, SimParam sim_param, float tol);
 
 /// \brief This function determines the cells where a rectangle surface is
 ///        located.
