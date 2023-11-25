@@ -36,15 +36,31 @@ Unit tests for the `Bucket` class and its constructor.
 
 | Test name | Description of the unit test                                                         |
 | --------- | ------------------------------------------------------------------------------------ |
-| TY-B-1    | Testing that all members of the `Bucket` class are present and properly initialized. |
-| TY-B-2    | Testing that an exception is raised when size of `o_pos` is not 3.                   |
-| TY-B-3    | Testing that an exception is raised when size of `j_pos` is not 3.                   |
-| TY-B-4    | Testing that an exception is raised when size of `b_pos` is not 3.                   |
-| TY-B-5    | Testing that an exception is raised when size of `t_pos` is not 3.                   |
-| TY-B-6    | Testing that an exception is raised when `j_pos` and `b_pos` are the same.           |
-| TY-B-7    | Testing that an exception is raised when `j_pos` and `t_pos` are the same.           |
-| TY-B-8    | Testing that an exception is raised when `b_pos` and `t_pos` are the same.           |
-| TY-B-9    | Testing that an exception is raised when `bucket_width <= 0.0`.                      |
+| TY-Bu-1   | Testing that all members of the `Bucket` class are present and properly initialized. |
+| TY-Bu-2   | Testing that an exception is raised when size of `o_pos` is not 3.                   |
+| TY-Bu-3   | Testing that an exception is raised when size of `j_pos` is not 3.                   |
+| TY-Bu-4   | Testing that an exception is raised when size of `b_pos` is not 3.                   |
+| TY-Bu-5   | Testing that an exception is raised when size of `t_pos` is not 3.                   |
+| TY-Bu-6   | Testing that an exception is raised when `j_pos` and `b_pos` are the same.           |
+| TY-Bu-7   | Testing that an exception is raised when `j_pos` and `t_pos` are the same.           |
+| TY-Bu-8   | Testing that an exception is raised when `b_pos` and `t_pos` are the same.           |
+| TY-Bu-9   | Testing that an exception is raised when `bucket_width <= 0.0`.                      |
+
+### `Blade`
+
+Unit tests for the `Blade` class and its constructor.
+
+| Test name | Description of the unit test                                                        |
+| --------- | ----------------------------------------------------------------------------------- |
+| TY-Bl-1   | Testing that all members of the `Blade` class are present and properly initialized. |
+| TY-Bl-2   | Testing that an exception is raised when size of `o_pos` is not 3.                  |
+| TY-Bl-3   | Testing that an exception is raised when size of `j_pos` is not 3.                  |
+| TY-Bl-4   | Testing that an exception is raised when size of `b_pos` is not 3.                  |
+| TY-Bl-5   | Testing that an exception is raised when size of `t_pos` is not 3.                  |
+| TY-Bl-6   | Testing that an exception is raised when `j_pos` and `b_pos` are the same.          |
+| TY-Bl-7   | Testing that an exception is raised when `j_pos` and `t_pos` are the same.          |
+| TY-Bl-8   | Testing that an exception is raised when `b_pos` and `t_pos` are the same.          |
+| TY-Bl-9   | Testing that an exception is raised when `blade_width <= 0.0`.                      |
 
 ### `SimParam`
 
@@ -74,8 +90,8 @@ It should be tested before the main functionalities of the simulator since the u
 
 Unit tests for the `CalcBodyCornerPos` function.
 
-| Test name | Description of the unit test                                              |
-| --------- | ------------------------------------------------------------------------- |
+| Test name | Description of the unit test                                            |
+| --------- | ----------------------------------------------------------------------- |
 | UT-CBC-1  | Testing for a body in its reference pose.                               |
 | UT-CBC-2  | Testing for a body with a simple translation applied.                   |
 | UT-CBC-3  | Testing for a body with a simple rotation applied.                      |
@@ -278,9 +294,9 @@ For each case, some tests are present to check that the results do not depend on
 
 Unit tests for the `IncludeNewBodyPos` function.
 
-| Test name | Description of the unit test                                                                       |
-| --------- | -------------------------------------------------------------------------------------------------- |
-| BP-INB-1  | Testing to add a new body position where there is no existing position.                            |
+| Test name | Description of the unit test                                                                     |
+| --------- | ------------------------------------------------------------------------------------------------ |
+| BP-INB-1  | Testing to add a new body position where there is no existing position.                          |
 | BP-INB-2  | Testing to add a new body position distinct from the existing position on the first body layer.  |
 | BP-INB-3  | Testing to add a new body position distinct from the existing position on the second body layer. |
 | BP-INB-4  | Testing to add a new body position overlapping with the top of an existing position on the second body layer. |
@@ -288,10 +304,10 @@ Unit tests for the `IncludeNewBodyPos` function.
 | BP-INB-6  | Testing to add a new body position overlapping with the top of an existing position on the first body layer. |
 | BP-INB-7  | Testing to add a new body position overlapping with the bottom of an existing position on the first body layer. |
 | BP-INB-8  | Testing to add a new body position fully overlapping with an existing position on the second body layer. |
-| BP-INB-9  | Testing to add a new body position overlapping with the two existing positions.            |
-| BP-INB-10 | Testing to add a new body position within an existing position on the first body layer.  |
-| BP-INB-11 | Testing to add a new body position within an existing position on the second body layer. |
-| BP-INB-12 | Testing to add a new body position distinct from the two existing positions.               |
+| BP-INB-9  | Testing to add a new body position overlapping with the two existing positions.                  |
+| BP-INB-10 | Testing to add a new body position within an existing position on the first body layer.          |
+| BP-INB-11 | Testing to add a new body position within an existing position on the second body layer.         |
+| BP-INB-12 | Testing to add a new body position distinct from the two existing positions.                     |
 
 ### `UpdateBody`
 
@@ -307,12 +323,28 @@ Unit tests for the `UpdateBody` function.
 ### `CalcBodyPos`
 
 Unit tests for the `CalcBodyPos` function.
+These tests are separated into different sections depending on the type of the `Body` object.
 
-| Test name | Description of the unit test                                           |
-| --------- | ---------------------------------------------------------------------- |
-| BP-CB-1   | Testing for a simple flat body in the XZ plane.                      |
-| BP-CB-2   | Testing for a simple flat body in the XY plane.                      |
-| BP-CB-3   | Testing for an arbitrary body. Results were obtained with a drawing. |
+#### `Bucket`
+
+These tests correspond to a `Bucket` object.
+
+| Test name  | Description of the unit test                                           |
+| ---------- | ---------------------------------------------------------------------- |
+| BP-CB-Bu-1 | Testing for a simple flat bucket in the XZ plane.                      |
+| BP-CB-Bu-2 | Testing for a simple flat bucket in the XY plane.                      |
+| BP-CB-Bu-3 | Testing for an arbitrary bucket. Results were obtained with a drawing. |
+
+#### `Blade`
+
+These tests correspond to a `Blade` object.
+
+| Test name  | Description of the unit test                        |
+| ---------- | --------------------------------------------------- |
+| BP-CB-Bl-1 | Testing for a simple flat blade in the YZ plane.    |
+| BP-CB-Bl-2 | Testing for a simple flat blade in the XZ plane.    |
+| BP-CB-Bl-3 | Testing for a simple flat blade in the XY plane.    |
+| BP-CB-Bl-4 | Testing for a L shape blade following the XZ plane. |
 
 ## `test_body_soil.cpp`
 
@@ -1005,9 +1037,9 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name   | Description of the unit test                                                                     |
 | ----------- | ------------------------------------------------------------------------------------------------ |
-| IC-MIBS-267 | Testing when a lot of soil is present in the first body layer but soil is still avalanching.   |
-| IC-MIBS-268 | Testing when a lot of soil is present in the second body layer but soil is still avalanching.  |
-| IC-MIBS-269 | Testing when the body is totally underground but the soil is still avalanching on the terrain. |
+| IC-MIBS-267 | Testing when a lot of soil is present in the first body layer but soil is still avalanching.     |
+| IC-MIBS-268 | Testing when a lot of soil is present in the second body layer but soil is still avalanching.    |
+| IC-MIBS-269 | Testing when the body is totally underground but the soil is still avalanching on the terrain.   |
 | IC-MIBS-270 | Testing when the soil column is composed of various layers in `body_soil_pos_`.                  |
 | IC-MIBS-271 | Testing when there is no intersecting cell                                                       |
 | IC-MIBS-    | Testing that all directions are investigated.                                                    |
@@ -1021,33 +1053,33 @@ Test all directions are investigated
 
 Unit test for the `LocateIntersectingCells` function.
 
-| Test name | Description of the unit test                                                      |
-| --------- | --------------------------------------------------------------------------------- |
+| Test name | Description of the unit test                                                    |
+| --------- | ------------------------------------------------------------------------------- |
 | IC-LIC-1  | Testing with first body layer and no intersecting cell.                         |
 | IC-LIC-2  | Testing with first body layer and no intersecting cell. (2)                     |
 | IC-LIC-3  | Testing with second body layer and no intersecting cell.                        |
 | IC-LIC-4  | Testing with first and second body layer and no intersecting cell.              |
 | IC-LIC-5  | Testing with first body layer fully intersecting with the terrain.              |
 | IC-LIC-6  | Testing with second body layer fully intersecting with the terrain.             |
-| IC-LIC-7  | Testing with first body layer fully intersecting with the terrain and second body layer partially intersecting.   |
-| IC-LIC-8  | Testing with second body layer fully intersecting with the terrain and first body layer not intersecting.   |
-| IC-LIC-9  | Testing  with first body layer fully intersecting with the terrain and second body layer not intersecting.  |
+| IC-LIC-7  | Testing with first body layer fully intersecting with the terrain and second body layer partially intersecting. |
+| IC-LIC-8  | Testing with second body layer fully intersecting with the terrain and first body layer not intersecting. |
+| IC-LIC-9  | Testing  with first body layer fully intersecting with the terrain and second body layer not intersecting. |
 | IC-LIC-10 | Testing with first and second body layer fully intersecting with the terrain.   |
 
 ### `MoveIntersectingBody`
 
 Unit tests for the `MoveIntersectingBody` function.
 
-| Test name | Description of the unit test                                                             |
-| --------- | ---------------------------------------------------------------------------------------- |
-| IC-MIB-1  | Testing for a single intersecting cell in the -X direction.                              |
-| IC-MIB-2  | Testing for a single intersecting cell in the +X direction.                              |
-| IC-MIB-3  | Testing for a single intersecting cell in the -Y direction.                              |
-| IC-MIB-4  | Testing for a single intersecting cell in the +Y direction.                              |
-| IC-MIB-5  | Testing for a single intersecting cell in the -X-Y direction.                            |
-| IC-MIB-6  | Testing for a single intersecting cell in the +X-Y direction.                            |
-| IC-MIB-7  | Testing for a single intersecting cell in the -X+Y direction.                            |
-| IC-MIB-8  | Testing for a single intersecting cell in the +X+Y direction.                            |
+| Test name | Description of the unit test                                                           |
+| --------- | -------------------------------------------------------------------------------------- |
+| IC-MIB-1  | Testing for a single intersecting cell in the -X direction.                            |
+| IC-MIB-2  | Testing for a single intersecting cell in the +X direction.                            |
+| IC-MIB-3  | Testing for a single intersecting cell in the -Y direction.                            |
+| IC-MIB-4  | Testing for a single intersecting cell in the +Y direction.                            |
+| IC-MIB-5  | Testing for a single intersecting cell in the -X-Y direction.                          |
+| IC-MIB-6  | Testing for a single intersecting cell in the +X-Y direction.                          |
+| IC-MIB-7  | Testing for a single intersecting cell in the -X+Y direction.                          |
+| IC-MIB-8  | Testing for a single intersecting cell in the +X+Y direction.                          |
 | IC-MIB-9  | Testing for a single intersecting cell with the second body layer.                     |
 | IC-MIB-10 | Testing for a single intersecting cells with various body layers.                      |
 | IC-MIB-11 | Testing for a single intersecting cell with all the body under the terrain.            |
@@ -1055,8 +1087,8 @@ Unit tests for the `MoveIntersectingBody` function.
 | IC-MIB-13 | Testing when soil is moved in several steps. All the soil is fitting under the body.   |
 | IC-MIB-14 | Testing when soil is moved in several steps. Some soil going outside the body.         |
 | IC-MIB-15 | Testing when soil is moved in several steps. Soil is perfectly fitting under the body. |
-| IC-MIB-16 | Testing when there is no intersecting cell.                                              |
-| IC-MIB-17 | Testing the randomness of the investigated direction for the soil movement.              |
+| IC-MIB-16 | Testing when there is no intersecting cell.                                            |
+| IC-MIB-17 | Testing the randomness of the investigated direction for the soil movement.            |
 
 ## `test_relax.cpp`
 
@@ -1147,8 +1179,8 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name | Description of the unit test                                               |
 | --------- | -------------------------------------------------------------------------- |
-| RE-CUT-51 | Testing edge case where a lot of space under the body is present.        |
-| RE-CUT-52 | Testing edge case where body height is equal to minimum allowed height.  |
+| RE-CUT-51 | Testing edge case where a lot of space under the body is present.          |
+| RE-CUT-52 | Testing edge case where body height is equal to minimum allowed height.    |
 | RE-CUT-53 | Testing edge case where terrain height is equal to minimum allowed height. |
 
 ### `RelaxUnstableTerrainCell`
@@ -1267,7 +1299,7 @@ In addition to these basic unit tests, a few extra edge cases are checked.
 
 | Test name | Description of the unit test                                                |
 | --------- | --------------------------------------------------------------------------- |
-| RE-RT-39  | Testing edge case where a lot of space under the body is present.         |
+| RE-RT-39  | Testing edge case where a lot of space under the body is present.           |
 | RE-RT-40  | Testing edge case where multiple avalanches are required.                   |
 | RE-RT-41  | Testing the randomness of the investigated direction for the soil movement. |
 

@@ -101,7 +101,7 @@ TEST(UnitTestTypes, Bucket) {
     std::vector<float> b_pos = {0.0, 0.5, 0.5};
     std::vector<float> t_pos = {0.5, 0.5, 0.0};
 
-    // Test: TY-B-1
+    // Test: TY-Bu-1
     soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.5);
     EXPECT_NEAR(bucket.j_pos_init_[0], 0.0, 1e-8);
     EXPECT_NEAR(bucket.j_pos_init_[1], 0.4, 1e-8);
@@ -118,47 +118,118 @@ TEST(UnitTestTypes, Bucket) {
     for (auto ii = 0 ; ii < 4 ; ii++)
         EXPECT_EQ(bucket.ori_[ii], 0.0);
 
-    // Test: TY-B-2
+    // Test: TY-Bu-2
     EXPECT_THROW(
         soil_simulator::Bucket bucket(vect_1, j_pos, b_pos, t_pos, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-3
+    // Test: TY-Bu-3
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, vect_2, b_pos, t_pos, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-4
+    // Test: TY-Bu-4
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, j_pos, vect_4, t_pos, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-5
+    // Test: TY-Bu-5
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, vect_2, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-6
+    // Test: TY-Bu-6
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, b_pos, b_pos, t_pos, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-7
+    // Test: TY-Bu-7
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, t_pos, b_pos, t_pos, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-8
+    // Test: TY-Bu-8
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, b_pos, 0.5),
         std::invalid_argument);
 
-    // Test: TY-B-9
+    // Test: TY-Bu-9
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, 0.0),
         std::invalid_argument);
     EXPECT_THROW(
         soil_simulator::Bucket bucket(o_pos, j_pos, b_pos, t_pos, -0.5),
+        std::invalid_argument);
+}
+
+TEST(UnitTestTypes, Blade) {
+    // Setting up the environment
+    std::vector<float> vect_1 = {0.0};
+    std::vector<float> vect_2 = {0.0, 0.1};
+    std::vector<float> vect_4 = {0.0, 0.1, 0.0, 0.3};
+    std::vector<float> o_pos = {0.0, 0.1, 0.0};
+    std::vector<float> j_pos = {0.0, 0.5, 0.0};
+    std::vector<float> b_pos = {0.0, 0.5, 0.5};
+    std::vector<float> t_pos = {0.5, 0.5, 0.0};
+
+    // Test: TY-Bl-1
+    soil_simulator::Blade blade(o_pos, j_pos, b_pos, t_pos, 0.5);
+    EXPECT_NEAR(blade.j_pos_init_[0], 0.0, 1e-8);
+    EXPECT_NEAR(blade.j_pos_init_[1], 0.4, 1e-8);
+    EXPECT_NEAR(blade.j_pos_init_[2], 0.0, 1e-8);
+    EXPECT_NEAR(blade.b_pos_init_[0], 0.0, 1e-8);
+    EXPECT_NEAR(blade.b_pos_init_[1], 0.4, 1e-8);
+    EXPECT_NEAR(blade.b_pos_init_[2], 0.5, 1e-8);
+    EXPECT_NEAR(blade.t_pos_init_[0], 0.5, 1e-8);
+    EXPECT_NEAR(blade.t_pos_init_[1], 0.4, 1e-8);
+    EXPECT_NEAR(blade.t_pos_init_[2], 0.0, 1e-8);
+    EXPECT_EQ(blade.width_, 0.5);
+    for (auto ii = 0 ; ii < 3 ; ii++)
+        EXPECT_EQ(blade.pos_[ii], 0.0);
+    for (auto ii = 0 ; ii < 4 ; ii++)
+        EXPECT_EQ(blade.ori_[ii], 0.0);
+
+    // Test: TY-Bl-2
+    EXPECT_THROW(
+        soil_simulator::Blade blade(vect_1, j_pos, b_pos, t_pos, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-3
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, vect_2, b_pos, t_pos, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-4
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, j_pos, vect_4, t_pos, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-5
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, j_pos, b_pos, vect_2, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-6
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, b_pos, b_pos, t_pos, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-7
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, t_pos, b_pos, t_pos, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-8
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, j_pos, b_pos, b_pos, 0.5),
+        std::invalid_argument);
+
+    // Test: TY-Bl-9
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, j_pos, b_pos, t_pos, 0.0),
+        std::invalid_argument);
+    EXPECT_THROW(
+        soil_simulator::Blade blade(o_pos, j_pos, b_pos, t_pos, -0.5),
         std::invalid_argument);
 }
 

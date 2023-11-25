@@ -564,7 +564,7 @@ void soil_simulator::WriteSoil(
     }
 }
 
-/// The buclet corners are saved into a file named `bucket` followed by
+/// The bucket corners are saved into a file named `bucket` followed by
 /// the file number.
 void soil_simulator::WriteBody(
     Bucket* bucket
@@ -639,10 +639,62 @@ void soil_simulator::WriteBody(
 
 /// The blade corners are saved into a file named `blade` followed by
 /// the file number.
+/// Note that only the corners from the front of the blade are written.
 void soil_simulator::WriteBody(
     Blade* blade
 ) {
-    throw std::invalid_argument("The Blade class is not yet supported");
+    // Calculating position of the front blade corners
+    auto [j_rf_pos, j_lf_pos, b_rf_pos, b_lf_pos, t_rf_pos, t_lf_pos] =
+        soil_simulator::CalcBodyCornerPos(blade->pos_, blade->ori_, blade);
+
+    // Finding next filename for the blade file
+    std::source_location location = std::source_location::current();
+    std::string filename = location.file_name();
+    std::string path = filename.substr(
+        0, filename.find_last_of("/")) + "/../results/";
+    std::string blade_filename;
+
+    // Iterating until finding a filename that does not exist
+    for (auto ii = 0; ii < 100000; ii++) {
+        std::string file_number = std::to_string(ii);
+        size_t n = 5;  // Number of digit
+        int nn = n - std::min(n, file_number.size());  // Number of leading 0
+
+        // Setting next filename
+        blade_filename = (
+            path + "blade_" + std::string(nn, '0').append(file_number)
+            + ".csv");
+
+        // Checking if file exists
+        std::ifstream infile(blade_filename);
+        if (!infile.good()) {
+            // File does not exist
+            break;
+        }
+    }
+
+    std::ofstream blade_file;
+    blade_file.open(blade_filename);
+    blade_file << "x,y,z\n";
+    // Writing blade base
+    blade_file << b_rf_pos[0] << "," << b_rf_pos[1] << ","
+                <<  b_rf_pos[2] << "\n";
+    blade_file << b_lf_pos[0] << "," << b_lf_pos[1] << ","
+                <<  b_lf_pos[2] << "\n";
+    blade_file << j_lf_pos[0] << "," << j_lf_pos[1] << ","
+                <<  j_lf_pos[2] << "\n";
+    blade_file << j_rf_pos[0] << "," << j_rf_pos[1] << ","
+                <<  j_rf_pos[2] << "\n";
+    // Writing blade front
+    blade_file << j_rf_pos[0] << "," << j_rf_pos[1] << ","
+                <<  j_rf_pos[2] << "\n";
+    blade_file << j_lf_pos[0] << "," << j_lf_pos[1] << ","
+                <<  j_lf_pos[2] << "\n";
+    blade_file << t_lf_pos[0] << "," << t_lf_pos[1] << ","
+                <<  t_lf_pos[2] << "\n";
+    blade_file << t_rf_pos[0] << "," << t_rf_pos[1] << ","
+                <<  t_rf_pos[2] << "\n";
+    blade_file.close();
 }
 
 /// This function implements 2D Simplex noise. A lot of material can be found
