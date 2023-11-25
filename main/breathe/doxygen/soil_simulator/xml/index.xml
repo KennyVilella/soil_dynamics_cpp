@@ -62,13 +62,14 @@
   </compound>
   <compound refid="classsoil__simulator_1_1_soil_dynamics" kind="class"><name>soil_simulator::SoilDynamics</name>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a0e8aedf7573bbdf9fab4d04233c1c99b" kind="function"><name>Init</name></member>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1a665ad7e721c8fc051bb6dbe789b3e1da" kind="function"><name>Step</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1a44645c31db6a5707c876e5d91c957e80" kind="function"><name>Step</name></member>
     <member refid="classsoil__simulator_1_1_soil_dynamics_1a3fb2d0179bbaacf11b0ab24ca83f36ac" kind="function"><name>Check</name></member>
-    <member refid="classsoil__simulator_1_1_soil_dynamics_1aa71e6b28ffbda531bb8e680ebbb63004" kind="function"><name>WriteOutputs</name></member>
+    <member refid="classsoil__simulator_1_1_soil_dynamics_1a3fdb0c6e8e390629283a055c80c4a92a" kind="function"><name>WriteOutputs</name></member>
   </compound>
   <compound refid="namespacesoil__simulator" kind="namespace"><name>soil_simulator</name>
     <member refid="soil__dynamics_8hpp_1abb83f81ddb27ef2a1d88a7993c3f4634" kind="variable"><name>rng</name></member>
-    <member refid="body__pos_8hpp_1a754b57c4a4945e19f810974b77b85f72" kind="function"><name>CalcBodyPos</name></member>
+    <member refid="body__pos_8hpp_1ae2c6c350f6fff2bc54d13ebe42b0c274" kind="function"><name>CalcBodyPos</name></member>
+    <member refid="body__pos_8hpp_1a2d02bdd842030a0b17b8587124b9fb6e" kind="function"><name>CalcBodyPos</name></member>
     <member refid="body__pos_8hpp_1a2179535c3816696c99c48313caf203f9" kind="function"><name>CalcRectanglePos</name></member>
     <member refid="body__pos_8hpp_1a548c40b2efad17e1de1cefd5213b180d" kind="function"><name>DecomposeVectorRectangle</name></member>
     <member refid="body__pos_8hpp_1a368a653cb44e842ab5be588a7a9ee7ec" kind="function"><name>CalcTrianglePos</name></member>
@@ -99,7 +100,8 @@
     <member refid="utils_8hpp_1a4b6389c0d38e8888d00b412dc5c4c8a3" kind="function"><name>CheckVolume</name></member>
     <member refid="utils_8hpp_1a79a35e16ac590fb4b828ea43c7f5b891" kind="function"><name>CheckSoil</name></member>
     <member refid="utils_8hpp_1a3a1312acf11adcd75455909ec81fceb7" kind="function"><name>WriteSoil</name></member>
-    <member refid="utils_8hpp_1a1d4da44619eea754e07f570a9ba62a8e" kind="function"><name>WriteBody</name></member>
+    <member refid="utils_8hpp_1a3230b79b33d5e40b53b8f009ff4cb085" kind="function"><name>WriteBody</name></member>
+    <member refid="utils_8hpp_1a30a7355137ff3894de406a9fc100e1f2" kind="function"><name>WriteBody</name></member>
     <member refid="utils_8hpp_1a49474b2c040ba18a18540424f4a72819" kind="function"><name>simplex_noise</name></member>
     <member refid="soil__evolution_8hpp_1a3f5b0d4194a5c9e074306089e81c71ce" kind="function"><name>SoilEvolution</name></member>
     <member refid="soil__evolution_8hpp_1aa35555d66b277c532fedcee36e34a40d" kind="function"><name>CalcTrajectory</name></member>

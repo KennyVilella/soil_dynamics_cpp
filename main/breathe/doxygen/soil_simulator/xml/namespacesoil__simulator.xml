@@ -26,10 +26,10 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="body__pos_8hpp_1a754b57c4a4945e19f810974b77b85f72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="body__pos_8hpp_1ae2c6c350f6fff2bc54d13ebe42b0c274" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void soil_simulator::CalcBodyPos</definition>
-        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Body *body, SimParam sim_param, float tol)</argsstring>
+        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Bucket *bucket, SimParam sim_param, float tol)</argsstring>
         <name>CalcBodyPos</name>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
@@ -48,8 +48,8 @@
           <declname>grid</declname>
         </param>
         <param>
-          <type><ref refid="classsoil__simulator_1_1_body" kindref="compound">Body</ref> *</type>
-          <declname>body</declname>
+          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
+          <declname>bucket</declname>
         </param>
         <param>
           <type><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref></type>
@@ -60,7 +60,7 @@
           <declname>tol</declname>
         </param>
         <briefdescription>
-<para>This function determines all the cells where the body is located. </para>
+<para>This function determines all the cells where the bucket is located. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -76,7 +76,7 @@
 <parametername>pos</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Cartesian coordinates of the body origin. [m] </para>
+<para>Cartesian coordinates of the bucket origin. [m] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -84,7 +84,7 @@
 <parametername>ori</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Orientation of the body. [Quaternion] </para>
+<para>Orientation of the bucket. [Quaternion] </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -97,10 +97,10 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>body</parametername>
+<parametername>bucket</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Class that stores information related to the body object. </para>
+<para>Class that stores information related to the bucket object. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -120,11 +120,111 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The body position is calculated based on its reference pose stored in the <computeroutput><ref refid="classsoil__simulator_1_1_body" kindref="compound">Body</ref></computeroutput> class, as well as the provided position (<computeroutput>pos</computeroutput>) and orientation (<computeroutput>ori</computeroutput>). <computeroutput>pos</computeroutput> and <computeroutput>ori</computeroutput> are used to apply the appropriate translation and rotation to the body relative to its reference pose. The centre of rotation is assumed to be the body origin. The orientation is provided using the quaternion definition. </para>
+The bucket position is calculated based on its reference pose stored in the <computeroutput><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref></computeroutput> class, as well as the provided position (<computeroutput>pos</computeroutput>) and orientation (<computeroutput>ori</computeroutput>). <computeroutput>pos</computeroutput> and <computeroutput>ori</computeroutput> are used to apply the appropriate translation and rotation to the bucket relative to its reference pose. The centre of rotation is assumed to be the bucket origin. The orientation is provided using the quaternion definition. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="23" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="22" bodyend="120" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="23" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="body__pos_8hpp_1a2d02bdd842030a0b17b8587124b9fb6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::CalcBodyPos</definition>
+        <argsstring>(SimOut *sim_out, std::vector&lt; float &gt; pos, std::vector&lt; float &gt; ori, Grid grid, Blade *blade, SimParam sim_param, float tol)</argsstring>
+        <name>CalcBodyPos</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_out" kindref="compound">SimOut</ref> *</type>
+          <declname>sim_out</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>ori</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_grid" kindref="compound">Grid</ref></type>
+          <declname>grid</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_blade" kindref="compound">Blade</ref> *</type>
+          <declname>blade</declname>
+        </param>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_sim_param" kindref="compound">SimParam</ref></type>
+          <declname>sim_param</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>tol</declname>
+        </param>
+        <briefdescription>
+<para>This function determines all the cells where the blade is located. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sim_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores simulation outputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cartesian coordinates of the blade origin. [m] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ori</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Orientation of the blade. [Quaternion] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation grid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>blade</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the blade object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sim_param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the simulation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Small number used to handle numerical approximation errors.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The blade position is calculated based on its reference pose stored in the <computeroutput><ref refid="classsoil__simulator_1_1_blade" kindref="compound">Blade</ref></computeroutput> class, as well as the provided position (<computeroutput>pos</computeroutput>) and orientation (<computeroutput>ori</computeroutput>). <computeroutput>pos</computeroutput> and <computeroutput>ori</computeroutput> are used to apply the appropriate translation and rotation to the blade relative to its reference pose. The centre of rotation is assumed to be the blade origin. The orientation is provided using the quaternion definition. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="36" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="128" bodyend="133" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="36" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a2179535c3816696c99c48313caf203f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -223,7 +323,7 @@ The rectangle is defined by providing the Cartesian coordinates of its four vert
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="39" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="148" bodyend="255" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="39" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="52" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="161" bodyend="268" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="52" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a548c40b2efad17e1de1cefd5213b180d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt;</type>
@@ -355,7 +455,7 @@ The position of the rectangle is defined by its edges AB and AD, while the speci
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="65" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="305" bodyend="350" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="65" declcolumn="1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="78" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="318" bodyend="363" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="78" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a368a653cb44e842ab5be588a7a9ee7ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -442,7 +542,7 @@ The triangle is defined by providing the Cartesian coordinates of its three vert
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="81" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="378" bodyend="479" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="81" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="94" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="391" bodyend="492" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="94" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a324a3b394c8ea1a119572a05fddf37b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::tuple&lt; std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; float &gt; &gt;, std::vector&lt; std::vector&lt; bool &gt; &gt;, int &gt;</type>
@@ -574,7 +674,7 @@ The position of the triangle is defined by its edges AB and AC, while the specif
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="107" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="530" bodyend="575" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="107" declcolumn="1"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="120" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="543" bodyend="588" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="120" declcolumn="1"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a6b80177a1390bc07e10bfdaf0f7a594c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::vector&lt; int &gt; &gt;</type>
@@ -630,7 +730,7 @@ The algorithm implemented in this function comes from the article: &quot;A Fast 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="120" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="590" bodyend="685" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="120" declcolumn="13"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="133" column="13" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="603" bodyend="698" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="133" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a04a0807350c0592bf1b49aa84dc672ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -694,7 +794,7 @@ For each XY position, the first cell found in <computeroutput>area_pos</computer
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="131" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="691" bodyend="723" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="131" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="144" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="704" bodyend="736" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="144" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="body__pos_8hpp_1a3ea4ec8bd8dc0b85dbdec40a39442bcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -782,7 +882,7 @@ The minimum and maximum heights of the body at that position are given by <compu
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="143" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="730" bodyend="821" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="143" declcolumn="6"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" line="156" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp" bodystart="743" bodyend="834" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp" declline="156" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="body__soil_8hpp_1ac7f139a55ef6a55ead2ff719c34f9ccd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2542,33 +2642,61 @@ The conventions that are checked by this function include:<itemizedlist>
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="126" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="492" bodyend="565" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="126" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="utils_8hpp_1a1d4da44619eea754e07f570a9ba62a8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="utils_8hpp_1a3230b79b33d5e40b53b8f009ff4cb085" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void soil_simulator::WriteBody</definition>
-        <argsstring>(Body *body)</argsstring>
+        <argsstring>(Bucket *bucket)</argsstring>
         <name>WriteBody</name>
         <param>
-          <type><ref refid="classsoil__simulator_1_1_body" kindref="compound">Body</ref> *</type>
-          <declname>body</declname>
+          <type><ref refid="classsoil__simulator_1_1_bucket" kindref="compound">Bucket</ref> *</type>
+          <declname>bucket</declname>
         </param>
         <briefdescription>
-<para>This function writes the position of all body faces into a csv located in the <computeroutput>results</computeroutput> directory. </para>
+<para>This function writes the position of all bucket faces into a csv located in the <computeroutput>results</computeroutput> directory. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>body</parametername>
+<parametername>bucket</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Class that stores information related to the body object.</para>
+<para>Class that stores information related to the bucket object.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The body corners are saved into a file named <computeroutput>bucket</computeroutput> followed by the file number. </para>
+The buclet corners are saved into a file named <computeroutput>bucket</computeroutput> followed by the file number. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="132" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="569" bodyend="638" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="132" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="utils_8hpp_1a30a7355137ff3894de406a9fc100e1f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void soil_simulator::WriteBody</definition>
+        <argsstring>(Blade *blade)</argsstring>
+        <name>WriteBody</name>
+        <param>
+          <type><ref refid="classsoil__simulator_1_1_blade" kindref="compound">Blade</ref> *</type>
+          <declname>blade</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the position of all blade faces into a csv located in the <computeroutput>results</computeroutput> directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>blade</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class that stores information related to the blade object.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+The blade corners are saved into a file named <computeroutput>blade</computeroutput> followed by the file number. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="138" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="642" bodyend="646" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="138" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="utils_8hpp_1a49474b2c040ba18a18540424f4a72819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>float</type>
@@ -2622,7 +2750,7 @@ This function implements 2D Simplex noise. A lot of material can be found online
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="143" column="7" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="643" bodyend="711" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="143" declcolumn="7"/>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" line="149" column="7" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp" bodystart="651" bodyend="719" declfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp" declline="149" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="soil__evolution_8hpp_1a3f5b0d4194a5c9e074306089e81c71ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

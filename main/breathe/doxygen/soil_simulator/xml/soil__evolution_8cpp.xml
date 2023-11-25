@@ -435,7 +435,7 @@
 <codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(INFO)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Step<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>ii<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>/<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>time_vec.size()-1;</highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight></codeline>
 <codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Stepping<sp/>the<sp/>soil<sp/>dynamics</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1a665ad7e721c8fc051bb6dbe789b3e1da" kindref="member">Step</ref>(</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1a44645c31db6a5707c876e5d91c957e80" kindref="member">Step</ref>(</highlight></codeline>
 <codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim_out,<sp/>pos_vec[ii],<sp/>ori_vec[ii],<sp/>grid,<sp/>bucket,<sp/>sim_param,<sp/>1e-5);</highlight></codeline>
 <codeline lineno="304"><highlight class="normal"></highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Checking<sp/>consistency<sp/>of<sp/>simulation<sp/>outputs</highlight><highlight class="normal"></highlight></codeline>
@@ -444,7 +444,7 @@
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
 <codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Writing<sp/>simulation<sp/>outputs<sp/>into<sp/>csv<sp/>files</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(write_outputs)</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1aa71e6b28ffbda531bb8e680ebbb63004" kindref="member">WriteOutputs</ref>(sim_out,<sp/>grid,<sp/>bucket);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sim.<ref refid="classsoil__simulator_1_1_soil_dynamics_1a3fdb0c6e8e390629283a055c80c4a92a" kindref="member">WriteOutputs</ref>(sim_out,<sp/>grid,<sp/>bucket);</highlight></codeline>
 <codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="313"><highlight class="normal"></highlight></codeline>
 <codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>bucket;</highlight></codeline>

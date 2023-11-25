@@ -53,42 +53,46 @@
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CalcBodyPos(</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Body*<sp/>body,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket*<sp/>bucket,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcRectanglePos(</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c,</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>d,<sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal">std::tuple&lt;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;bool&gt;&gt;,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal">DecomposeVectorRectangle(</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ab_ind,<sp/>std::vector&lt;float&gt;<sp/>ad_ind,</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a_ind,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_y,</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcTrianglePos(</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c,</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal">std::tuple&lt;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;bool&gt;&gt;,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="107"><highlight class="normal">DecomposeVectorTriangle(</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ab_ind,<sp/>std::vector&lt;float&gt;<sp/>ac_ind,</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a_ind,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_y,</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcLinePos(</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>Grid<sp/>grid);</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UpdateBody(std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>area_pos,<sp/>SimOut*<sp/>sim_out,</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>IncludeNewBodyPos(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>min_h,</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_h,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CalcBodyPos(</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>SimOut*<sp/>sim_out,<sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>Blade*<sp/>blade,<sp/>SimParam<sp/>sim_param,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcRectanglePos(</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>d,<sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">std::tuple&lt;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;bool&gt;&gt;,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">DecomposeVectorRectangle(</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ab_ind,<sp/>std::vector&lt;float&gt;<sp/>ad_ind,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a_ind,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_y,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcTrianglePos(</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">std::tuple&lt;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,<sp/>std::vector&lt;std::vector&lt;float&gt;&gt;,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;bool&gt;&gt;,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">DecomposeVectorTriangle(</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ab_ind,<sp/>std::vector&lt;float&gt;<sp/>ac_ind,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a_ind,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_min_y,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>area_length_y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>CalcLinePos(</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>Grid<sp/>grid);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UpdateBody(std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>area_pos,<sp/>SimOut*<sp/>sim_out,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>IncludeNewBodyPos(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>min_h,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_h,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.hpp"/>
   </compounddef>

@@ -84,11 +84,13 @@
 <codeline lineno="120"><highlight class="normal"></highlight></codeline>
 <codeline lineno="126"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteSoil(SimOut*<sp/>sim_out,<sp/>Grid<sp/>grid);</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBody(Body*<sp/>body);</highlight></codeline>
+<codeline lineno="132"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBody(Bucket*<sp/>bucket);</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>simplex_noise(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/>std::vector&lt;int&gt;<sp/>perm_table);</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBody(Blade*<sp/>blade);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>simplex_noise(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/>std::vector&lt;int&gt;<sp/>perm_table);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp"/>
   </compounddef>

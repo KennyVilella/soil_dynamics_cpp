@@ -622,11 +622,11 @@
 <codeline lineno="565"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="566"><highlight class="normal"></highlight></codeline>
 <codeline lineno="569"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>soil_simulator::WriteBody(</highlight></codeline>
-<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/>Body*<sp/>body</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/>Bucket*<sp/>bucket</highlight></codeline>
 <codeline lineno="571"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>position<sp/>of<sp/>body<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>position<sp/>of<sp/>bucket<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[j_r_pos,<sp/>j_l_pos,<sp/>b_r_pos,<sp/>b_l_pos,<sp/>t_r_pos,<sp/>t_l_pos]<sp/>=</highlight></codeline>
-<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>soil_simulator::CalcBodyCornerPos(body-&gt;pos_,<sp/>body-&gt;ori_,<sp/>body);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>soil_simulator::CalcBodyCornerPos(bucket-&gt;pos_,<sp/>bucket-&gt;ori_,<sp/>bucket);</highlight></codeline>
 <codeline lineno="575"><highlight class="normal"></highlight></codeline>
 <codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Finding<sp/>next<sp/>filename<sp/>for<sp/>the<sp/>bucket<sp/>file</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/>std::source_location<sp/>location<sp/>=<sp/>std::source_location::current();</highlight></codeline>
@@ -692,75 +692,81 @@
 <codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/>bucket_file.close();</highlight></codeline>
 <codeline lineno="638"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="639"><highlight class="normal"></highlight></codeline>
-<codeline lineno="643"><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>soil_simulator::simplex_noise(</highlight></codeline>
-<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/>std::vector&lt;int&gt;<sp/>perm_table</highlight></codeline>
-<codeline lineno="645"><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>grad_0,<sp/>grad_1,<sp/>grad_2;</highlight></codeline>
+<codeline lineno="642"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>soil_simulator::WriteBody(</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/>Blade*<sp/>blade</highlight></codeline>
+<codeline lineno="644"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::invalid_argument(</highlight><highlight class="stringliteral">&quot;The<sp/>Blade<sp/>class<sp/>is<sp/>not<sp/>yet<sp/>supported&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="646"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="647"><highlight class="normal"></highlight></codeline>
-<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Applying<sp/>coordinates<sp/>skewing</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>s<sp/>=<sp/>(x<sp/>+<sp/>y)<sp/>*<sp/>(std::sqrt(3)<sp/>-<sp/>1)<sp/>/<sp/>2;</highlight></codeline>
-<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>xi<sp/>=<sp/>std::floor(x<sp/>+<sp/>s);</highlight></codeline>
-<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>yi<sp/>=<sp/>std::floor(y<sp/>+<sp/>s);</highlight></codeline>
-<codeline lineno="652"><highlight class="normal"></highlight></codeline>
-<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Reversing<sp/>skewing</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>=<sp/>(xi<sp/>+<sp/>yi)<sp/>*<sp/>(3.0<sp/>-<sp/>std::sqrt(3.0))<sp/>/<sp/>6.0;</highlight></codeline>
-<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x0<sp/>=<sp/>x<sp/>-<sp/>(xi<sp/>-<sp/>s);</highlight></codeline>
-<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y0<sp/>=<sp/>y<sp/>-<sp/>(yi<sp/>-<sp/>s);</highlight></codeline>
-<codeline lineno="657"><highlight class="normal"></highlight></codeline>
-<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i1,<sp/>j1;</highlight></codeline>
-<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(x0<sp/>&gt;<sp/>y0)<sp/>{</highlight></codeline>
-<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>the<sp/>lower<sp/>triangle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i1<sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j1<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>the<sp/>upper<sp/>triangle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i1<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j1<sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="668"><highlight class="normal"></highlight></codeline>
-<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>coordinates<sp/>of<sp/>two<sp/>other<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x1<sp/>=<sp/>x0<sp/>-<sp/>i1<sp/>+<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
-<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y1<sp/>=<sp/>y0<sp/>-<sp/>j1<sp/>+<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
-<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x2<sp/>=<sp/>x0<sp/>-<sp/>1.0<sp/>+<sp/>2.0<sp/>*<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
-<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y2<sp/>=<sp/>y0<sp/>-<sp/>1.0<sp/>+<sp/>2.0<sp/>*<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
-<codeline lineno="674"><highlight class="normal"></highlight></codeline>
-<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>directions<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>directions<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1,<sp/>0},<sp/>{-1,<sp/>0},<sp/>{0,<sp/>1},<sp/>{0,<sp/>-1},</highlight></codeline>
-<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1,<sp/>1},<sp/>{1,<sp/>-1},<sp/>{-1,<sp/>1},<sp/>{-1,<sp/>-1}};</highlight></codeline>
-<codeline lineno="679"><highlight class="normal"></highlight></codeline>
-<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>contribution<sp/>from<sp/>the<sp/>first<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t0<sp/>=<sp/>0.5<sp/>-<sp/>x0<sp/>*<sp/>x0<sp/>-<sp/>y0<sp/>*<sp/>y0;</highlight></codeline>
-<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t0<sp/>&lt;<sp/>0.0)<sp/>{</highlight></codeline>
-<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_0<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t0<sp/>*=<sp/>t0;</highlight></codeline>
-<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>perm_table[xi<sp/>+<sp/>perm_table[yi]<sp/>&amp;<sp/>255]<sp/>&amp;<sp/>7;</highlight></codeline>
-<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_0<sp/>=<sp/>t0<sp/>*<sp/>t0<sp/>*<sp/>(x0<sp/>*<sp/>directions[ii][0]<sp/>+<sp/>y0<sp/>*<sp/>directions[ii][1]);</highlight></codeline>
-<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="689"><highlight class="normal"></highlight></codeline>
-<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>contribution<sp/>from<sp/>the<sp/>second<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t1<sp/>=<sp/>0.5<sp/>-<sp/>x1<sp/>*<sp/>x1<sp/>-<sp/>y1<sp/>*<sp/>y1;</highlight></codeline>
-<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t1<sp/>&lt;<sp/>0.0)<sp/>{</highlight></codeline>
-<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_1<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t1<sp/>*=<sp/>t1;</highlight></codeline>
-<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>perm_table[xi<sp/>+<sp/>i1<sp/>+<sp/>perm_table[yi<sp/>+<sp/>j1]<sp/>&amp;<sp/>255]<sp/>&amp;<sp/>7;</highlight></codeline>
-<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_1<sp/>=<sp/>t1<sp/>*<sp/>t1<sp/>*<sp/>(x1<sp/>*<sp/>directions[ii][0]<sp/>+<sp/>y1<sp/>*<sp/>directions[ii][1]);</highlight></codeline>
-<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="699"><highlight class="normal"></highlight></codeline>
-<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>contribution<sp/>from<sp/>the<sp/>third<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t2<sp/>=<sp/>0.5<sp/>-<sp/>x2<sp/>*<sp/>x2<sp/>-<sp/>y2<sp/>*<sp/>y2;</highlight></codeline>
-<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t2<sp/>&lt;<sp/>0.0)<sp/>{</highlight></codeline>
-<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_2<sp/>=<sp/>0.0;</highlight></codeline>
-<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t2<sp/>*=<sp/>t2;</highlight></codeline>
-<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>perm_table[xi<sp/>+<sp/>1<sp/>+<sp/>perm_table[yi<sp/>+<sp/>1]<sp/>&amp;<sp/>255]<sp/>&amp;<sp/>7;</highlight></codeline>
-<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_2<sp/>=<sp/>t2<sp/>*<sp/>t2<sp/>*<sp/>(x2<sp/>*<sp/>directions[ii][0]<sp/>+<sp/>y2<sp/>*<sp/>directions[ii][1]);</highlight></codeline>
-<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="709"><highlight class="normal"></highlight></codeline>
-<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>grad_0<sp/>+<sp/>grad_1<sp/>+<sp/>grad_2;</highlight></codeline>
-<codeline lineno="711"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="651"><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>soil_simulator::simplex_noise(</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/>std::vector&lt;int&gt;<sp/>perm_table</highlight></codeline>
+<codeline lineno="653"><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>grad_0,<sp/>grad_1,<sp/>grad_2;</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Applying<sp/>coordinates<sp/>skewing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>s<sp/>=<sp/>(x<sp/>+<sp/>y)<sp/>*<sp/>(std::sqrt(3)<sp/>-<sp/>1)<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>xi<sp/>=<sp/>std::floor(x<sp/>+<sp/>s);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>yi<sp/>=<sp/>std::floor(y<sp/>+<sp/>s);</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"></highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Reversing<sp/>skewing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>=<sp/>(xi<sp/>+<sp/>yi)<sp/>*<sp/>(3.0<sp/>-<sp/>std::sqrt(3.0))<sp/>/<sp/>6.0;</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x0<sp/>=<sp/>x<sp/>-<sp/>(xi<sp/>-<sp/>s);</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y0<sp/>=<sp/>y<sp/>-<sp/>(yi<sp/>-<sp/>s);</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i1,<sp/>j1;</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(x0<sp/>&gt;<sp/>y0)<sp/>{</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>the<sp/>lower<sp/>triangle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i1<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j1<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>the<sp/>upper<sp/>triangle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i1<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j1<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>coordinates<sp/>of<sp/>two<sp/>other<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x1<sp/>=<sp/>x0<sp/>-<sp/>i1<sp/>+<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y1<sp/>=<sp/>y0<sp/>-<sp/>j1<sp/>+<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x2<sp/>=<sp/>x0<sp/>-<sp/>1.0<sp/>+<sp/>2.0<sp/>*<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y2<sp/>=<sp/>y0<sp/>-<sp/>1.0<sp/>+<sp/>2.0<sp/>*<sp/>(3<sp/>-<sp/>std::sqrt(3))<sp/>/<sp/>6;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>directions<sp/>corners</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;int&gt;&gt;<sp/>directions<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1,<sp/>0},<sp/>{-1,<sp/>0},<sp/>{0,<sp/>1},<sp/>{0,<sp/>-1},</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{1,<sp/>1},<sp/>{1,<sp/>-1},<sp/>{-1,<sp/>1},<sp/>{-1,<sp/>-1}};</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>contribution<sp/>from<sp/>the<sp/>first<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t0<sp/>=<sp/>0.5<sp/>-<sp/>x0<sp/>*<sp/>x0<sp/>-<sp/>y0<sp/>*<sp/>y0;</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t0<sp/>&lt;<sp/>0.0)<sp/>{</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_0<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t0<sp/>*=<sp/>t0;</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>perm_table[xi<sp/>+<sp/>perm_table[yi]<sp/>&amp;<sp/>255]<sp/>&amp;<sp/>7;</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_0<sp/>=<sp/>t0<sp/>*<sp/>t0<sp/>*<sp/>(x0<sp/>*<sp/>directions[ii][0]<sp/>+<sp/>y0<sp/>*<sp/>directions[ii][1]);</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"></highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>contribution<sp/>from<sp/>the<sp/>second<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t1<sp/>=<sp/>0.5<sp/>-<sp/>x1<sp/>*<sp/>x1<sp/>-<sp/>y1<sp/>*<sp/>y1;</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t1<sp/>&lt;<sp/>0.0)<sp/>{</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_1<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t1<sp/>*=<sp/>t1;</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>perm_table[xi<sp/>+<sp/>i1<sp/>+<sp/>perm_table[yi<sp/>+<sp/>j1]<sp/>&amp;<sp/>255]<sp/>&amp;<sp/>7;</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_1<sp/>=<sp/>t1<sp/>*<sp/>t1<sp/>*<sp/>(x1<sp/>*<sp/>directions[ii][0]<sp/>+<sp/>y1<sp/>*<sp/>directions[ii][1]);</highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"></highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Calculating<sp/>the<sp/>contribution<sp/>from<sp/>the<sp/>third<sp/>corner</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t2<sp/>=<sp/>0.5<sp/>-<sp/>x2<sp/>*<sp/>x2<sp/>-<sp/>y2<sp/>*<sp/>y2;</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t2<sp/>&lt;<sp/>0.0)<sp/>{</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_2<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t2<sp/>*=<sp/>t2;</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii<sp/>=<sp/>perm_table[xi<sp/>+<sp/>1<sp/>+<sp/>perm_table[yi<sp/>+<sp/>1]<sp/>&amp;<sp/>255]<sp/>&amp;<sp/>7;</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>grad_2<sp/>=<sp/>t2<sp/>*<sp/>t2<sp/>*<sp/>(x2<sp/>*<sp/>directions[ii][0]<sp/>+<sp/>y2<sp/>*<sp/>directions[ii][1]);</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"></highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>grad_0<sp/>+<sp/>grad_1<sp/>+<sp/>grad_2;</highlight></codeline>
+<codeline lineno="719"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp"/>
   </compounddef>
