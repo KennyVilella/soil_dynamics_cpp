@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="utils_8hpp" kind="file" language="C++">
+    <compoundname>utils.hpp</compoundname>
+    <includes local="no">tuple</includes>
+    <includes local="no">vector</includes>
+    <includes refid="types_8hpp" local="yes">soil_simulator/types.hpp</includes>
+    <includedby refid="soil__dynamics_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/soil_dynamics.cpp</includedby>
+    <includedby refid="body__pos_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_pos.cpp</includedby>
+    <includedby refid="body__soil_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/body_soil.cpp</includedby>
+    <includedby refid="intersecting__cells_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/intersecting_cells.cpp</includedby>
+    <includedby refid="relax_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/relax.cpp</includedby>
+    <includedby refid="utils_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.cpp</includedby>
+    <includedby refid="soil__evolution_8cpp" local="yes">/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/test/example/soil_evolution.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp</label>
+        <link refid="utils_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>tuple</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+      <node id="4">
+        <label>soil_simulator/types.hpp</label>
+        <link refid="types_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacesoil__simulator">soil_simulator</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">This<sp/>file<sp/>declares<sp/>the<sp/>utility<sp/>functions<sp/>used<sp/>in<sp/>this<sp/>simulator.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"></highlight></codeline>
+<codeline lineno="4"><highlight class="comment">Copyright,<sp/>2023,<sp/>Vilella<sp/>Kenny.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;soil_simulator/types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">soil_simulator<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">std::tuple&lt;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;,<sp/>std::vector&lt;float&gt;&gt;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">CalcBodyCornerPos(</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Body*<sp/>body);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CheckBodyMovement(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>pos,<sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>Grid<sp/>grid,<sp/>Body*<sp/>body);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcNormal(</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>a,<sp/>std::vector&lt;float&gt;<sp/>b,<sp/>std::vector&lt;float&gt;<sp/>c);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcBodyFramePos(</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ii,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>jj,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z,<sp/>Grid<sp/>grid,<sp/>Body*<sp/>body);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">std::vector&lt;float&gt;<sp/>CalcRotationQuaternion(</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>ori,<sp/>std::vector&lt;float&gt;<sp/>pos);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">std::vector&lt;float&gt;<sp/>AngleToQuat(std::vector&lt;float&gt;<sp/>ori);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">std::vector&lt;float&gt;<sp/>MultiplyQuaternion(</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;float&gt;<sp/>q1,<sp/>std::vector&lt;float&gt;<sp/>q2);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CheckVolume(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>init_volume,<sp/>Grid<sp/>grid,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CheckSoil(SimOut*<sp/>sim_out,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteSoil(SimOut*<sp/>sim_out,<sp/>Grid<sp/>grid);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBody(Bucket*<sp/>bucket);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteBody(Blade*<sp/>blade);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>simplex_noise(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/>std::vector&lt;int&gt;<sp/>perm_table);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>soil_simulator</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/utils.hpp"/>
+  </compounddef>
+</doxygen>
