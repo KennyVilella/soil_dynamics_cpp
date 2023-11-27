@@ -12,6 +12,7 @@ namespace soil_simulator {
 
 /// \brief This function provides an example script to run the simulator.
 ///
+/// \param body: Class that stores information related to the body object.
 /// \param set_rng: Indicates whether the RNG seed is set or not.
 /// \param random_trajectory: Indicates whether the default trajectory or a
 ///                           randomized one is used.
@@ -20,9 +21,10 @@ namespace soil_simulator {
 ///                       at every step.
 /// \param write_outputs: Indicates whether the simulation outputs are written
 ///                       into files at every step.
+template <typename T>
 void SoilEvolution(
-    bool set_rng, bool random_trajectory, bool logging, bool check_outputs,
-    bool write_outputs);
+    T* body, bool set_rng, bool random_trajectory, bool logging,
+    bool check_outputs, bool write_outputs);
 
 /// \brief This function calculates a parabolic trajectory given the starting
 ///        position (`x_i`, `z_i`) and the deepest position (`x_min`, `z_min`)
