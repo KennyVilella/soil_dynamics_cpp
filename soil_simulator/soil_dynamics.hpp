@@ -46,11 +46,11 @@ class SoilDynamics {
      /// \brief Check the validity of the simulation outputs.
      ///
      /// \param sim_out: Class that stores simulation outputs.
-     /// \param init_volume: Initial volume of soil in the terrain. [m^3]
+     /// \param init_volume: Initial number of soil cells.
      /// \param grid: Class that stores information related to the
      ///              simulation grid.
      /// \param tol: Small number used to handle numerical approximation errors.
-     void Check(SimOut* sim_out, float init_volume, Grid grid, float tol);
+     void Check(SimOut* sim_out, int init_volume, Grid grid, float tol);
 
      /// \brief Write the simulation outputs into files.
      ///
