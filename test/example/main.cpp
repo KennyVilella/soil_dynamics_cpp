@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     FLAGS_logtostderr = 1;
 
     // Selecting the simulated body object
-    if (false) {
+    if (true) {
         // Simulating a bucket
         // Initalizing the simulated bucket
         std::vector<float> o_pos_init = {0.0, 0.0, 0.0};
