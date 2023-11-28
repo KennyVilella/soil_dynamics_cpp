@@ -56,7 +56,7 @@ An `API <api.html>`_ documentation is available with information on all classes 
    Home <self>
    Types <types>
    Grid <grid>
-   Bucket <bucket>
+   Body <body>
    Body soil <body_soil>
    Intersecting cells <intersecting_cells>
    Relax <relax>
