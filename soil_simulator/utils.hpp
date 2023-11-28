@@ -102,12 +102,12 @@ std::vector<float> MultiplyQuaternion(
 ///        the content of `body_soil_pos_` and `body_soil_` is consistent.
 ///
 /// \param sim_out: Class that stores simulation outputs.
-/// \param init_volume: Initial volume of soil in the terrain. [m^3]
+/// \param init_volume: Initial number of soil cells.
 /// \param grid: Class that stores information related to the simulation grid.
 /// \param tol: Small number used to handle numerical approximation errors.
 ///
 /// \return Boolean indicating whether soil is conserved or not.
-bool CheckVolume(SimOut* sim_out, float init_volume, Grid grid, float tol);
+bool CheckVolume(SimOut* sim_out, int init_volume, Grid grid, float tol);
 
 /// \brief This function checks that all the simulation outputs follow the
 ///        conventions of the simulator.

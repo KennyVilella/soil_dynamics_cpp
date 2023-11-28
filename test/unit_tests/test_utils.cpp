@@ -404,7 +404,7 @@ TEST(UnitTestUtils, CheckVolume) {
     soil_simulator::SimOut *sim_out = new soil_simulator::SimOut(grid);
 
     // Declaring variables
-    float init_volume;
+    int init_volume;
     std::string warning_msg;
     std::string exp_msg;
     size_t string_loc;
@@ -421,33 +421,32 @@ TEST(UnitTestUtils, CheckVolume) {
 
     // Test: UT-CV-1
     exp_msg = "Volume is not conserved!";
-    EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, 0.0, grid, 1e-5));
-    CheckVolumeWarning(1.0);
-    CheckVolumeWarning(-0.6 * grid.cell_volume_);
-    CheckVolumeWarning(0.6 * grid.cell_volume_);
+    EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, 0, grid, 1e-5));
+    CheckVolumeWarning(1);
+    CheckVolumeWarning(-1);
 
     // Test: UT-CV-2
     exp_msg = "Volume is not conserved!";
     sim_out->terrain_[1][2] = 0.2;
-    init_volume =  0.2 * grid.cell_area_;
+    init_volume =  round(0.2 / grid.cell_size_z_);
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
-    CheckVolumeWarning(0.0);
-    CheckVolumeWarning(init_volume - 0.6 * grid.cell_volume_);
-    CheckVolumeWarning(init_volume + 0.6 * grid.cell_volume_);
+    CheckVolumeWarning(0);
+    CheckVolumeWarning(init_volume - 1);
+    CheckVolumeWarning(init_volume + 1);
+    sim_out->terrain_[1][2] = 0.0;
 
     // Test: UT-CV-3
     exp_msg = "Volume is not conserved!";
-    sim_out->terrain_[1][2] = 0.0;
-    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.08, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.15);
-    SetHeight(sim_out, 2, 2, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN, 0.2, 0.27);
-    PushBodySoilPos(sim_out, 0, 1, 1, {0.0, 0.0, 0.0}, 0.08);
-    PushBodySoilPos(sim_out, 2, 2, 1, {0.0, 0.0, 0.0}, 0.15);
+    SetHeight(sim_out, 1, 1, NAN, NAN, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 2, 1, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0.0, 0.2);
+    SetHeight(sim_out, 2, 2, NAN, NAN, NAN, -0.1, 0.0, NAN, NAN, 0.2, 0.3);
+    PushBodySoilPos(sim_out, 0, 1, 1, {0.0, 0.0, 0.0}, 0.1);
+    PushBodySoilPos(sim_out, 2, 2, 1, {0.0, 0.0, 0.0}, 0.2);
     PushBodySoilPos(sim_out, 0, 2, 2, {0.0, 0.0, 0.0}, 0.1);
-    PushBodySoilPos(sim_out, 2, 2, 2, {0.0, 0.0, 0.0}, 0.07);
-    init_volume =  0.4 * grid.cell_area_;
+    PushBodySoilPos(sim_out, 2, 2, 2, {0.0, 0.0, 0.0}, 0.1);
+    init_volume = round(0.5 / grid.cell_size_z_);
     EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
-    CheckVolumeWarning(0.0);
+    CheckVolumeWarning(0);
 
     // Test: UT-CV-4
     exp_msg = "Volume of soil in body_soil_pos_ is not consistent";
@@ -457,8 +456,6 @@ TEST(UnitTestUtils, CheckVolume) {
     PushBodySoilPos(sim_out, 0, 2, 2, {0.0, 0.0, 0.0}, 0.05);
     CheckVolumeWarning(init_volume);
     sim_out->body_soil_[1][2][2] = 0.05;
-    init_volume += 0.05 * grid.cell_area_;
-    EXPECT_TRUE(soil_simulator::CheckVolume(sim_out, init_volume, grid, 1e-5));
     PushBodySoilPos(sim_out, 0, 5, 5, {0.0, 0.0, 0.0}, 0.05);
     CheckVolumeWarning(init_volume);
 

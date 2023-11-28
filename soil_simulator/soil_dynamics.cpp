@@ -114,6 +114,7 @@ bool soil_simulator::SoilDynamics::Step(
         // Relaxing the soil resting on the body
         RelaxBodySoil(sim_out, grid, body, sim_param, tol);
     }
+
     return true;
 }
 template bool soil_simulator::SoilDynamics::Step(
@@ -124,7 +125,7 @@ template bool soil_simulator::SoilDynamics::Step(
     Grid grid, Blade* body, SimParam sim_param, float tol);
 
 void soil_simulator::SoilDynamics::Check(
-    SimOut* sim_out, float init_volume, Grid grid, float tol
+    SimOut* sim_out, int init_volume, Grid grid, float tol
 ) {
     // Checking mass conservation
     soil_simulator::CheckVolume(sim_out, init_volume, grid, tol);

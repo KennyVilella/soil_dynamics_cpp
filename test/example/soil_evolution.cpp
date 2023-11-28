@@ -305,12 +305,12 @@ void soil_simulator::SoilEvolution(
     // Initializing the terrain
     sim.Init(sim_out, grid, 32.0);
 
-    float init_volume = 0.0;
+    int init_volume = 0;
     if (check_outputs) {
         for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
             for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-                init_volume += sim_out->terrain_[ii][jj];
-        init_volume = grid.cell_area_ * init_volume;
+                init_volume += round(
+                    sim_out->terrain_[ii][jj] / grid.cell_size_z_);
     }
 
     // Simulation loop

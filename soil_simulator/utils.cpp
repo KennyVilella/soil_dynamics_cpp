@@ -233,9 +233,11 @@ std::vector<float> soil_simulator::MultiplyQuaternion(
     return quat;
 }
 
-/// The initial volume of soil (`init_volume`) has to be provided.
+/// The initial number of soil cells (`init_volume`) has to be provided.
+/// The number of soil cells is used instead of volume in order to avoid issue
+/// due to floating number approximation.
 bool soil_simulator::CheckVolume(
-    SimOut* sim_out, float init_volume, Grid grid, float tol
+    SimOut* sim_out, int init_volume, Grid grid, float tol
 ) {
     // Copying body_soil location
     auto old_body_soil = sim_out->body_soil_;
@@ -269,43 +271,41 @@ bool soil_simulator::CheckVolume(
         }
     }
 
-    // Calculating volume of soil in the terrain
-    float terrain_volume = 0.0;
+    // Calculating number of soil cells in the terrain
+    int terrain_volume = 0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++)
-            terrain_volume += sim_out->terrain_[ii][jj];
+            terrain_volume += round(
+                sim_out->terrain_[ii][jj] / grid.cell_size_z_);
 
-    terrain_volume = grid.cell_area_ * terrain_volume;
-
-    // Calculating volume of body soil
-    float body_soil_volume = 0.0;
+    // Calculating number of soil cells in body soil
+    int body_soil_volume = 0;
     for (auto ii = 0; ii < sim_out->terrain_.size(); ii++)
         for (auto jj = 0; jj < sim_out->terrain_[0].size(); jj++) {
             if (
                 (sim_out->body_soil_[0][ii][jj] != 0.0) ||
                 (sim_out->body_soil_[1][ii][jj] != 0.0)) {
                 // Body soil is present
-                body_soil_volume += (
+                body_soil_volume += round((
                     sim_out->body_soil_[1][ii][jj] -
-                    sim_out->body_soil_[0][ii][jj]);
+                    sim_out->body_soil_[0][ii][jj]) / grid.cell_size_z_);
             }
             if (
                 (sim_out->body_soil_[2][ii][jj] != 0.0) ||
                 (sim_out->body_soil_[3][ii][jj] != 0.0)) {
                 // Body soil is present
-                body_soil_volume += (
+                body_soil_volume += round((
                     sim_out->body_soil_[3][ii][jj] -
-                    sim_out->body_soil_[2][ii][jj]);
+                    sim_out->body_soil_[2][ii][jj]) / grid.cell_size_z_);
             }
         }
-    body_soil_volume = grid.cell_area_ * body_soil_volume;
 
-    // Calculating total volume of soil
-    float total_volume = terrain_volume + body_soil_volume;
+    // Calculating total number of soil cells
+    int total_volume = terrain_volume + body_soil_volume;
 
-    if (std::abs(total_volume - init_volume) > 0.5 * grid.cell_volume_) {
-        LOG(WARNING) << "WARNING\nVolume is not conserved!\nInitial volume: " <<
-            init_volume << "   Current volume: " << total_volume;
+    if (total_volume != init_volume) {
+        LOG(WARNING) << "WARNING\nVolume is not conserved!\nInitial number of "
+            "soil cell: " << init_volume << " Current number: " << total_volume;
         return false;
     }
     return true;
