@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation for utility functions &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Documentation for the soil relaxation" href="relax.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bucket.html">Bucket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intersecting_cells.html">Intersecting cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relax.html">Relax</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#checking-functions">Checking functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-functions">Writing functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quaternions-operations">Quaternions operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#terrain-initialization">Terrain initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#determine-whether-soil-should-be-updated">Determine whether soil should be updated</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation for utility functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-for-utility-functions">
+<span id="utils"></span><h1>Documentation for utility functions<a class="headerlink" href="#documentation-for-utility-functions" title="Permalink to this heading"></a></h1>
+<p>A number of utility functions are aggregated in the file <code class="code docutils literal notranslate"><span class="pre">utils.cpp</span></code>.
+Information for some of these functions are provided below.</p>
+<section id="checking-functions">
+<h2>Checking functions<a class="headerlink" href="#checking-functions" title="Permalink to this heading"></a></h2>
+<p>This corresponds to the functions <code class="code docutils literal notranslate"><span class="pre">CheckVolume</span></code> and <code class="code docutils literal notranslate"><span class="pre">CheckSoil</span></code>, which can be used to check the validity of the simulation outputs.
+It is important to call these functions either before or after the simulation stepping process, as the outputs may be temporarily invalid during the stepping.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">CheckVolume</span></code> function verifies mass conservation, ensuring that the total mass of soil is properly conserved throughout the simulation, and that the amount of soil in the <code class="code docutils literal notranslate"><span class="pre">body_soil_</span></code> and <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> fields of the <code class="code docutils literal notranslate"><span class="pre">SimOut</span></code> class are consistent.
+The <code class="code docutils literal notranslate"><span class="pre">CheckSoil</span></code> function checks the coherence and integrity of the terrain, bucket soil, and bucket.
+It ensures that there are no intersections or conflicting cell assignments between these three groups.</p>
+<p>Note that these functions are computationally intensive and may slow down the simulation.
+Therefore, it is recommended to use them primarily for debugging and testing purposes.</p>
+</section>
+<section id="writing-functions">
+<h2>Writing functions<a class="headerlink" href="#writing-functions" title="Permalink to this heading"></a></h2>
+<p>This corresponds to the functions <code class="code docutils literal notranslate"><span class="pre">WriteSoil</span></code> and <code class="code docutils literal notranslate"><span class="pre">WriteBucket</span></code>, which can be used to write the outputs into csv files.
+The <code class="code docutils literal notranslate"><span class="pre">WriteBucket</span></code> function generates files starting with <code class="code docutils literal notranslate"><span class="pre">bucket</span></code>, containing the Cartesian coordinates of the four bucket walls’ edges.
+The <code class="code docutils literal notranslate"><span class="pre">WriteSoil</span></code> function generates files starting with <code class="code docutils literal notranslate"><span class="pre">terrain</span></code> for the terrain height and <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> for the bucket soil height.
+All the output files are saved in the <code class="code docutils literal notranslate"><span class="pre">results</span></code> folder, with sequentially increasing numbers appended to the filenames.</p>
+<p>Note that these functions are primarily designed to be used in the example script provided.
+Consequently, they have potential limitations that should be considered by the user.
+Firstly, the file numbers are assigned sequentially.
+If the <code class="code docutils literal notranslate"><span class="pre">WriteBucket</span></code> and <code class="code docutils literal notranslate"><span class="pre">WriteSoil</span></code> functions are not called together consistently, the file numbers of the <code class="code docutils literal notranslate"><span class="pre">bucket</span></code> and <code class="code docutils literal notranslate"><span class="pre">terrain</span></code> may not correspond.
+As a result, the two functions are always called together by the <code class="code docutils literal notranslate"><span class="pre">WriteOutputs</span></code> function of the simulator.
+Additionally, this may cause issues if existing files are present in the <code class="code docutils literal notranslate"><span class="pre">results</span></code> folder.</p>
+<p>Secondly, the file formats generated by these functions are specifically designed for visualization with Paraview.</p>
+</section>
+<section id="quaternions-operations">
+<h2>Quaternions operations<a class="headerlink" href="#quaternions-operations" title="Permalink to this heading"></a></h2>
+<p>Several functions have been implemented to make the use of Quaternions easier.
+All these operations are already extensively described online and would not be explicited here.</p>
+<p>First, the function <code class="code docutils literal notranslate"><span class="pre">MultiplyQuaternion</span></code> simply implements the multiplication of two Quaternions.
+This function is used in <code class="code docutils literal notranslate"><span class="pre">CalcRotationQuaternion</span></code> to apply the rotation given by a Quaternion to a given position.</p>
+<p>Second, the function <code class="code docutils literal notranslate"><span class="pre">AngleToQuat</span></code> converts Euler angles following the <code class="code docutils literal notranslate"><span class="pre">ZYX</span></code> convention to a Quaternion.
+Note that other conventions are currently not supported.</p>
+<p>Lastly, the function <code class="code docutils literal notranslate"><span class="pre">CalcBucketFramePos</span></code> calculates the position of a given cell in the reference frame of the bucket.
+To do so, the inverse of the bucket orientation is applied to the position.
+This is used to keep the position where the soil has initially landed on the bucket.</p>
+</section>
+<section id="terrain-initialization">
+<h2>Terrain initialization<a class="headerlink" href="#terrain-initialization" title="Permalink to this heading"></a></h2>
+<p>The function <code class="code docutils literal notranslate"><span class="pre">SimplexNoise</span></code> provides a way to initialize terrain with realistic random shapes.
+The implementation follows the Simplex noise algorithm that is standard for this type of problem.
+The produced terrain has only slight height variations as the purpose of the terrain initialization is not to reproduce all the diversity of construction site but only to provide simple terrain for testing the simulator.</p>
+<p>Note that it is straightforward to change the terrain initialization implementation to a more advanced algorithm if needed.</p>
+</section>
+<section id="determine-whether-soil-should-be-updated">
+<h2>Determine whether soil should be updated<a class="headerlink" href="#determine-whether-soil-should-be-updated" title="Permalink to this heading"></a></h2>
+<p>The function <code class="code docutils literal notranslate"><span class="pre">CheckBucketMovement</span></code> can be used before the soil update to verify whether the soil should be updated.
+This function calculates the distance travelled by the six bucket corners since the last soil update.
+If the maximum distance is lower than 50% of the cell size (vertical AND lateral), then the function returns <code class="code docutils literal notranslate"><span class="pre">false</span></code> and the soil should not be updated, otherwise the function returns <code class="code docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>Note that if the distance is larger than twice the cell size (vertical OR lateral), a warning is sent mentioning that the integrity of the simulation cannot be guaranteed.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="relax.html" class="btn btn-neutral float-left" title="Documentation for the soil relaxation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.0.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="utils.html">v1.0.0</a></dd>
+      <dd><a href="../main/utils.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
