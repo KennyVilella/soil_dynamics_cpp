@@ -235,21 +235,22 @@ The mathematical reasoning behind this implementation can be easily found in the
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Gridf">
-<span id="_CPPv3N14soil_simulator11CheckVolumeEP6SimOutf4Gridf"></span><span id="_CPPv2N14soil_simulator11CheckVolumeEP6SimOutf4Gridf"></span><span id="soil_simulator::CheckVolume__SimOutP.float.Grid.float"></span><span class="target" id="utils_8hpp_1a4b6389c0d38e8888d00b412dc5c4c8a3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckVolume</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11CheckVolumeEP6SimOutf4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator11CheckVolumeEP6SimOuti4Gridf">
+<span id="_CPPv3N14soil_simulator11CheckVolumeEP6SimOuti4Gridf"></span><span id="_CPPv2N14soil_simulator11CheckVolumeEP6SimOuti4Gridf"></span><span id="soil_simulator::CheckVolume__SimOutP.i.Grid.float"></span><span class="target" id="utils_8hpp_1ab3b3594a04edeb366a2be6231b8b7a08"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckVolume</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator11CheckVolumeEP6SimOuti4Gridf" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This function checks that the volume of soil is conserved and that the content of <code class="docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> and <code class="docutils literal notranslate"><span class="pre">body_soil_</span></code> is consistent. </p>
-<p>The initial volume of soil (<code class="docutils literal notranslate"><span class="pre">init_volume</span></code>) has to be provided.</p>
+<p>
+The initial number of soil cells (<code class="docutils literal notranslate"><span class="pre">init_volume</span></code>) has to be provided. The number of soil cells is used instead of volume in order to avoid issue due to floating number approximation. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
-<li><p><strong>init_volume</strong> – Initial volume of soil in the terrain. [m^3] </p></li>
+<li><p><strong>init_volume</strong> – Initial number of soil cells. </p></li>
 <li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
 <li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Boolean indicating whether soil is conserved or not. </p>
+<dd class="field-even"><p>Boolean indicating whether soil is conserved or not.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -383,6 +384,7 @@ This function implements 2D Simplex noise. A lot of material can be found online
     
     <dl>
       <dt>Versions</dt>
+      <dd><a href="../../v1.0.0/_api/utils.html">v1.0.0</a></dd>
       <dd><a href="utils.html">main</a></dd>
   </div>
 </div><script>

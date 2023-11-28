@@ -153,14 +153,14 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics5CheckEP6SimOutf4Gridf">
-<span id="_CPPv3N14soil_simulator12SoilDynamics5CheckEP6SimOutf4Gridf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics5CheckEP6SimOutf4Gridf"></span><span id="soil_simulator::SoilDynamics::Check__SimOutP.float.Grid.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1a3fb2d0179bbaacf11b0ab24ca83f36ac"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics5CheckEP6SimOutf4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf">
+<span id="_CPPv3N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf"></span><span id="soil_simulator::SoilDynamics::Check__SimOutP.i.Grid.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1aa0932377c1aa3ef470047253289c0ac4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Check the validity of the simulation outputs. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
-<li><p><strong>init_volume</strong> – Initial volume of soil in the terrain. [m^3] </p></li>
+<li><p><strong>init_volume</strong> – Initial number of soil cells. </p></li>
 <li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
 <li><p><strong>tol</strong> – Small number used to handle numerical approximation errors. </p></li>
 </ul>
@@ -225,6 +225,7 @@
     
     <dl>
       <dt>Versions</dt>
+      <dd><a href="../../v1.0.0/_api/soil_dynamics.html">v1.0.0</a></dd>
       <dd><a href="soil_dynamics.html">main</a></dd>
   </div>
 </div><script>

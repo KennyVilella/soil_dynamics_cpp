@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>soil_dynamics: Doxygen documentation &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="types: Doxygen documentation" href="types.html" />
+    <link rel="prev" title="soil_evolution: Doxygen documentation" href="soil_evolution.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bucket.html">Bucket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../body_soil.html">Body soil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intersecting_cells.html">Intersecting cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../relax.html">Relax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utility</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="soil_evolution.html">soil_evolution</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">soil_dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bucket_pos.html">bucket_pos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="body_soil.html">body_soil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intersecting_cells.html">intersecting_cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relax.html">relax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API</a></li>
+      <li class="breadcrumb-item active">soil_dynamics: Doxygen documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_api/soil_dynamics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="soil-dynamics-doxygen-documentation">
+<h1>soil_dynamics: Doxygen documentation<a class="headerlink" href="#soil-dynamics-doxygen-documentation" title="Permalink to this heading"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414soil_simulator">
+<span id="_CPPv314soil_simulator"></span><span id="_CPPv214soil_simulator"></span><span id="soil_simulator"></span><span class="target" id="namespacesoil__simulator"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">soil_simulator</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator3rngE">
+<span id="_CPPv3N14soil_simulator3rngE"></span><span id="_CPPv2N14soil_simulator3rngE"></span><span id="soil_simulator::rng__std::mt19937"></span><span class="target" id="soil__dynamics_8hpp_1abb83f81ddb27ef2a1d88a7993c3f4634"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mt19937</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rng</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator3rngE" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamicsE">
+<span id="_CPPv3N14soil_simulator12SoilDynamicsE"></span><span id="_CPPv2N14soil_simulator12SoilDynamicsE"></span><span id="soil_simulator::SoilDynamics"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SoilDynamics</span></span></span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamicsE" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;soil_dynamics.hpp&gt;</em></div>
+<p>Simulation class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics4InitEP6SimOut4Gridf">
+<span id="_CPPv3N14soil_simulator12SoilDynamics4InitEP6SimOut4Gridf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics4InitEP6SimOut4Gridf"></span><span id="soil_simulator::SoilDynamics::Init__SimOutP.Grid.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1a0e8aedf7573bbdf9fab4d04233c1c99b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Init</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">amp_noise</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics4InitEP6SimOut4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Initialize the simulator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>amp_noise</strong> – Amplitude of the Simplex noise. [m] </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN14soil_simulator12SoilDynamics4StepEbP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP1T8SimParamf">
+<span id="_CPPv3I0EN14soil_simulator12SoilDynamics4StepEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP1T8SimParamf"></span><span id="_CPPv2I0EN14soil_simulator12SoilDynamics4StepEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP1T8SimParamf"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1a44645c31db6a5707c876e5d91c957e80"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Step</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="#_CPPv4I0EN14soil_simulator12SoilDynamics4StepEbP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP1T8SimParamf" title="soil_simulator::SoilDynamics::Step::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">body</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator8SimParamE" title="soil_simulator::SimParam"><span class="n"><span class="pre">SimParam</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">sim_param</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN14soil_simulator12SoilDynamics4StepEbP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP1T8SimParamf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Step the simulation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>pos</strong> – Cartesian coordinates of the body origin. [m] </p></li>
+<li><p><strong>ori</strong> – Orientation of the body. [Quaternion] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>body</strong> – Class that stores information related to the body object. </p></li>
+<li><p><strong>sim_param</strong> – Class that stores information related to the simulation. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A boolean indicating whether soil update has been done. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf">
+<span id="_CPPv3N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf"></span><span id="_CPPv2N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf"></span><span id="soil_simulator::SoilDynamics::Check__SimOutP.i.Grid.float"></span><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1aa0932377c1aa3ef470047253289c0ac4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Check</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_volume</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator12SoilDynamics5CheckEP6SimOuti4Gridf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check the validity of the simulation outputs. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>init_volume</strong> – Initial number of soil cells. </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN14soil_simulator12SoilDynamics12WriteOutputsEvP6SimOut4GridP1T">
+<span id="_CPPv3I0EN14soil_simulator12SoilDynamics12WriteOutputsEP6SimOut4GridP1T"></span><span id="_CPPv2I0EN14soil_simulator12SoilDynamics12WriteOutputsEP6SimOut4GridP1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsoil__simulator_1_1_soil_dynamics_1a3fdb0c6e8e390629283a055c80c4a92a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WriteOutputs</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="#_CPPv4I0EN14soil_simulator12SoilDynamics12WriteOutputsEvP6SimOut4GridP1T" title="soil_simulator::SoilDynamics::WriteOutputs::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">body</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN14soil_simulator12SoilDynamics12WriteOutputsEvP6SimOut4GridP1T" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Write the simulation outputs into files. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>body</strong> – Class that stores information related to the body object. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="soil_evolution.html" class="btn btn-neutral float-left" title="soil_evolution: Doxygen documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="types.html" class="btn btn-neutral float-right" title="types: Doxygen documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.0.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="soil_dynamics.html">v1.0.0</a></dd>
+      <dd><a href="../../main/_api/soil_dynamics.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
