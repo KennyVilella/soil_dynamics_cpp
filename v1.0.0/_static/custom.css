@@ -1,3 +1,0 @@
-/* Changes margin before and after list
-   The !important property is needed to override the default property */
-section ul { margin-top: -12px; margin-bottom: 12px !important;}
