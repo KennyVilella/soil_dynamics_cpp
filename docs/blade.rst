@@ -18,7 +18,7 @@ The naming convention is as follows:
 * :code:`B` represents the blade base, that is the top of the blade.
 * :code:`T` represents the blade teeth.
 * The surface defined by the vertices :math:`T_lT_rJ_rJ_l` is referred to as the blade heel.
-* The surface defined by the vertices :math:`J_lJ_rB_rB_l` is referred to as the blade angle.
+* The surface defined by the vertices :math:`J_lJ_rB_rB_l` is referred to as the blade ankle.
 
 The blade is assumed to have a thickness of two :code:`cell_size_xy_` to ensure that intersecting soil cells are properly moved, that is, moved in the direction of the blade movement.
 Note that this is working under the assumption that the movement made by the blade between two steps is at most one cell size.
