@@ -245,26 +245,26 @@ void soil_simulator::CalcBodyPos(
         , 2.0 * grid.half_length_y_));
 
     // Determining where each surface of the blade is located
-    auto base_f_pos = soil_simulator::CalcRectanglePos(
+    auto ankle_f_pos = soil_simulator::CalcRectanglePos(
         b_rf_pos, b_lf_pos, j_lf_pos, j_rf_pos, grid, tol);
-    auto base_b_pos = soil_simulator::CalcRectanglePos(
+    auto ankle_b_pos = soil_simulator::CalcRectanglePos(
         b_rb_pos, b_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
-    auto front_f_pos = soil_simulator::CalcRectanglePos(
+    auto heel_f_pos = soil_simulator::CalcRectanglePos(
         t_rf_pos, t_lf_pos, j_lf_pos, j_rf_pos, grid, tol);
-    auto front_b_pos = soil_simulator::CalcRectanglePos(
+    auto heel_b_pos = soil_simulator::CalcRectanglePos(
         t_rb_pos, t_lb_pos, j_lb_pos, j_rb_pos, grid, tol);
 
     // Sorting all list of cells indices where the blade is located
-    sort(base_f_pos.begin(), base_f_pos.end());
-    sort(base_b_pos.begin(), base_b_pos.end());
-    sort(front_f_pos.begin(), front_f_pos.end());
-    sort(front_b_pos.begin(), front_b_pos.end());
+    sort(ankle_f_pos.begin(), ankle_f_pos.end());
+    sort(ankle_b_pos.begin(), ankle_b_pos.end());
+    sort(heel_f_pos.begin(), heel_f_pos.end());
+    sort(heel_b_pos.begin(), heel_b_pos.end());
 
     // Updating the blade position
-    soil_simulator::UpdateBody(base_f_pos, sim_out, grid, tol);
-    soil_simulator::UpdateBody(base_b_pos, sim_out, grid, tol);
-    soil_simulator::UpdateBody(front_f_pos, sim_out, grid, tol);
-    soil_simulator::UpdateBody(front_b_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(ankle_f_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(ankle_b_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(heel_f_pos, sim_out, grid, tol);
+    soil_simulator::UpdateBody(heel_b_pos, sim_out, grid, tol);
 }
 
 /// The rectangle is defined by providing the Cartesian coordinates of its four

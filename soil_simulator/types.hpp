@@ -303,8 +303,8 @@ class Bucket : public Body {
 /// - The middle of the segment FH is referred to as the blade joint.
 /// - The middle of the segment BD is referred to as the blade base.
 /// - The middle of the segment JL is referred to as the blade teeth.
-/// - The shape ABCDEFGH is referred to as the blade base.
-/// - The shape EFGHIJKL is referred to as the blade front.
+/// - The shape ABCDEFGH is referred to as the blade ankle.
+/// - The shape EFGHIJKL is referred to as the blade heel.
 /// - The blade has a constant width, denoted as
 ///
 /// \code
