@@ -34,13 +34,13 @@ void SoilEvolution(
 /// \param z_i: Z coordinate of the starting position of the trajectory. [m]
 /// \param x_min: X coordinate of the deepest position of the trajectory. [m]
 /// \param z_min: Z coordinate of the deepest position of the trajectory. [m]
-/// \param origin_angle: Angle to the horizontal plane of the bucket in
+/// \param origin_angle: Angle to the horizontal plane of the body in
 ///                      its reference pose. [rad]
 /// \param nn: Number of increments in the trajectory.
 ///
-/// \return A tuple composed of a vector aggregating the position of the bucket
+/// \return A tuple composed of a vector aggregating the position of the body
 ///         with time in meter, and a vector aggregating the orientation of the
-///         bucket with time following the quaternion convention.
+///         body with time following the quaternion convention.
 std::tuple<
     std::vector<std::vector<float>>, std::vector<std::vector<float>>
 > CalcTrajectory(

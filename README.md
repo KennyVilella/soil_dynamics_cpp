@@ -5,14 +5,13 @@
 
 This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of a rigid body.
 It employs a cellular automata approach to model the behaviour of the soil.
-Currently, the only rigid body supported by this simulator is the typical bucket used by hydraulic excavators.
-The bucket geometry is assumed to be a simple triangular prism, and the simulator operates on a grid composed of rectangular cells with equal length in the X and Y directions, and a height that is less than or equal to the cell's length.
+Currently, two types of rigid body are supported by this simulator: the typical bucket used by hydraulic excavators, and the typical blade used by bulldozers.
 A crucial requirement of the simulator is that the terrain must be updated every time the body moves by more than one cell.
 
 The primary objective of the simulator is to provide terrain updates in less than 1 ms, making it suitable for real-time applications.
 
 <code><b>Note:
-A Julia version of this simulator is available [here](https://github.com/KennyVilella/soil_dynamics_julia).</b></code>
+A deprecated Julia version of this simulator is available [here](https://github.com/KennyVilella/soil_dynamics_julia).</b></code>
 
 ## To-do list
 

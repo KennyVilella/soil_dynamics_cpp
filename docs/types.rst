@@ -17,6 +17,7 @@ The current implementation includes the following classes:
 * :code:`SimOut`: Aggregates and manages the output data generated during the simulation.
 * :code:`Body`: Base class for the implementation of the various body types interacting with the soil.
 * :code:`Bucket`: Derived from the :code:`Body` class. Aggregates all the properties associated with an excavator bucket.
+* :code:`Blade`: Derived from the :code:`Body` class. Aggregates all the properties associated with a bulldozer blade.
 
 Note that the :code:`Body` base class should not be used directly.
 Instead, the user should use the derived classes available.
