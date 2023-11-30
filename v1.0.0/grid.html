@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation for the simulation grid &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation for the excavator bucket" href="bucket.html" />
+    <link rel="prev" title="Documentation for the implemented types" href="types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Grid</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#grid-elements">Grid elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grid-geometry">Grid geometry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bucket.html">Bucket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intersecting_cells.html">Intersecting cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relax.html">Relax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation for the simulation grid</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/grid.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-for-the-simulation-grid">
+<span id="grid"></span><h1>Documentation for the simulation grid<a class="headerlink" href="#documentation-for-the-simulation-grid" title="Permalink to this heading"></a></h1>
+<p>The simulation takes place on a rectangular 3D grid made of rectangular prism cells.
+An illustration of the 3D grid is given below along with the representation of a grid element.</p>
+<img alt="_images/grid.png" src="_images/grid.png" />
+<p>The grid is created by the <code class="code docutils literal notranslate"><span class="pre">Grid</span></code> class by providing the maximum size in the XYZ directions (<code class="code docutils literal notranslate"><span class="pre">grid_size_x</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_y</span></code>, and <code class="code docutils literal notranslate"><span class="pre">grid_size_z</span></code>, respectively) and the size of a grid element (<code class="code docutils literal notranslate"><span class="pre">cell_size_xy</span></code> and <code class="code docutils literal notranslate"><span class="pre">cell_size_z</span></code>).</p>
+<section id="grid-elements">
+<h2>Grid elements<a class="headerlink" href="#grid-elements" title="Permalink to this heading"></a></h2>
+<p>The grid elements have equal size in the X and Y direction (<code class="code docutils literal notranslate"><span class="pre">cell_size_xy_</span></code>), while their height (<code class="code docutils literal notranslate"><span class="pre">cell_size_z_</span></code>) should be lower or equal than their lateral extent.
+By convention, the origin of each cell is assumed to be in the centre of their top surface (red point in the illustration).
+This is particularly important when associating 3D positions to cell indices.</p>
+</section>
+<section id="grid-geometry">
+<h2>Grid geometry<a class="headerlink" href="#grid-geometry" title="Permalink to this heading"></a></h2>
+<p>The extent of the grid in meter is:
+- [<code class="code docutils literal notranslate"><span class="pre">-grid_size_x</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_x</span></code>] in the X direction, corresponding to <code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">half_length_x_</span> <span class="pre">+</span> <span class="pre">1</span></code> grid elements.
+- [<code class="code docutils literal notranslate"><span class="pre">-grid_size_y</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_y</span></code>] in the Y direction, corresponding to <code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">half_length_y_</span> <span class="pre">+</span> <span class="pre">1</span></code> grid elements.
+- [<code class="code docutils literal notranslate"><span class="pre">-grid_size_z</span></code>, <code class="code docutils literal notranslate"><span class="pre">grid_size_z</span></code>] in the Z direction, corresponding to <code class="code docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">half_length_z_</span> <span class="pre">+</span> <span class="pre">1</span></code> grid elements.
+The grid is therefore centred in 0.
+Note that the right-hand rule is used with the Z direction pointing upward.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="types.html" class="btn btn-neutral float-left" title="Documentation for the implemented types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bucket.html" class="btn btn-neutral float-right" title="Documentation for the excavator bucket" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.0.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="grid.html">v1.0.0</a></dd>
+      <dd><a href="../main/grid.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
