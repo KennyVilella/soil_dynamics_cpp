@@ -278,7 +278,7 @@ void soil_simulator::SoilEvolution(
            j_l_vel, j_r_vel, b_l_vel, b_r_vel, t_l_vel, t_r_vel});
 
        if (max_body_vel != 0.0) {
-           // Bucket is moving
+           // Body is moving
            dt_i = std::min(grid.cell_size_xy_, grid.cell_size_z_) /
                max_body_vel;
        } else {
@@ -287,10 +287,10 @@ void soil_simulator::SoilEvolution(
        }
 
        if (dt_i > dt) {
-           // Bucket is moving very slowly
+           // Body is moving very slowly
            time += dt;
        } else {
-           // Bucket is moving
+           // Body is moving
            time += dt_i;
        }
     }

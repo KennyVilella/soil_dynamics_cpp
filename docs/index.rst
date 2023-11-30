@@ -3,14 +3,13 @@ Documentation for soil_dynamics_cpp
 
 .. note::
 
-    A Julia version of this simulator is available `here`_.
+    A deprecated Julia version of this simulator is available `here`_.
 
 This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of a rigid body.
-Currently, the only body supported by this simulator is the typical bucket used by hydraulic excavators.
+Currently, two types of rigid body are supported by this simulator:
 
-
-While excavator buckets have complex shapes to efficiently dig soil, here, for the sake of performance, the bucket is approximated as a simple triangular prism, which is a good representation for its overall shape.
-A detailed description of the model used for the bucket is available on the `Bucket <bucket.html>`_ page of this documentation.
+* The typical bucket used by hydraulic excavators. A detailed description of the model used for the bucket is available on the `Bucket <bucket.html>`_ page of this documentation.
+* The typical blade used by bulldozers. A detailed description of the model used for the blade is available on the `Blade <blade.html>`_ page of this documentation.
 
 
 In this simulator, the movement of soil is modelled using a cellular automata approach on a regular 3D grid.
