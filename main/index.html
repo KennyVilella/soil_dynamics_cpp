@@ -88,12 +88,14 @@
 <h1>Documentation for soil_dynamics_cpp<a class="headerlink" href="#documentation-for-soil-dynamics-cpp" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A Julia version of this simulator is available <a class="reference external" href="https://github.com/KennyVilella/soil_dynamics_julia">here</a>.</p>
+<p>A deprecated Julia version of this simulator is available <a class="reference external" href="https://github.com/KennyVilella/soil_dynamics_julia">here</a>.</p>
 </div>
 <p>This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of a rigid body.
-Currently, the only body supported by this simulator is the typical bucket used by hydraulic excavators.</p>
-<p>While excavator buckets have complex shapes to efficiently dig soil, here, for the sake of performance, the bucket is approximated as a simple triangular prism, which is a good representation for its overall shape.
-A detailed description of the model used for the bucket is available on the <a class="reference external" href="bucket.html">Bucket</a> page of this documentation.</p>
+Currently, two types of rigid body are supported by this simulator:</p>
+<ul class="simple">
+<li><p>The typical bucket used by hydraulic excavators. A detailed description of the model used for the bucket is available on the <a class="reference external" href="bucket.html">Bucket</a> page of this documentation.</p></li>
+<li><p>The typical blade used by bulldozers. A detailed description of the model used for the blade is available on the <a class="reference external" href="blade.html">Blade</a> page of this documentation.</p></li>
+</ul>
 <p>In this simulator, the movement of soil is modelled using a cellular automata approach on a regular 3D grid.
 The simulation grid is composed of rectangular cells with equal length in the X and Y directions, and a height that is less than or equal to the cell’s length (more details are available on the <a class="reference external" href="grid.html">Grid</a> page of this documentation).
 The fundamental idea of cellular automata is to decompose a simulation grid into cells that can have different states.
