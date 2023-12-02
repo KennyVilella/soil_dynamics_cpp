@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classsoil__simulator_1_1_blade" kind="class" language="C++" prot="public">
+    <compoundname>soil_simulator::Blade</compoundname>
+    <basecompoundref refid="classsoil__simulator_1_1_body" prot="public" virt="non-virtual">soil_simulator::Body</basecompoundref>
+    <includes refid="types_8hpp" local="no">types.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsoil__simulator_1_1_blade_1a98f92e39736f5c7a8b4606e3e96f17b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>soil_simulator::Blade::Blade</definition>
+        <argsstring>(std::vector&lt; float &gt; o_pos_init={0.0, 0.0, 0.0}, std::vector&lt; float &gt; j_pos_init={0.9, 0.0, 0.2}, std::vector&lt; float &gt; b_pos_init={0.75, 0.0, 1.5}, std::vector&lt; float &gt; t_pos_init={1.6, 0.0, -0.4}, float width=4.5)</argsstring>
+        <name>Blade</name>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>o_pos_init</declname>
+          <defval>{0.0, 0.0, 0.0}</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>j_pos_init</declname>
+          <defval>{0.9, 0.0, 0.2}</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>b_pos_init</declname>
+          <defval>{0.75, 0.0, 1.5}</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>t_pos_init</declname>
+          <defval>{1.6, 0.0, -0.4}</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>width</declname>
+          <defval>4.5</defval>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="348" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="348" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="classsoil__simulator_1_1_blade_1ac0a51f5b5856f00fd75001bcdc78e965" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>soil_simulator::Blade::~Blade</definition>
+        <argsstring>()</argsstring>
+        <name>~Blade</name>
+        <briefdescription>
+<para>Destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="357" column="6" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="357" bodyend="357"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Store all parameters related to a blade object. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Convention:<itemizedlist>
+<listitem><para>The blade is approximated with the following shape <verbatim>                             A __ B
+                             ̸ .   ̸  \
+                           ̸     ̸.    \
+                         ̸     ̸   .    \
+                       ̸     ̸      .    \
+                    C __ D         .    \
+                     \    \         .    \
+                      \    \         .    \
+                       \    \         .    \
+                        \    \         E __ F
+                         \    \      .  .   ̸  ⟍
+                          \    \   .      ̸.     ⟍
+                           \    \.      ̸    .     ⟍
+                            \ .  \   ̸         .     ⟍
+                             G __ H             I __ J
+                               ⟍    ⟍         .      ̸
+                                 ⟍    ⟍     .      ̸
+                                   ⟍    ⟍ .      ̸
+                                     ⟍  .  ⟍    ̸
+                                       K __ L
+</verbatim></para>
+</listitem><listitem><para>The middle of the segment FH is referred to as the blade joint.</para>
+</listitem><listitem><para>The middle of the segment BD is referred to as the blade base.</para>
+</listitem><listitem><para>The middle of the segment JL is referred to as the blade teeth.</para>
+</listitem><listitem><para>The shape ABCDEFGH is referred to as the blade ankle.</para>
+</listitem><listitem><para>The shape EFGHIJKL is referred to as the blade heel.</para>
+</listitem><listitem><para>The blade has a constant width, denoted as</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting><codeline><highlight class="normal">AC<sp/>=<sp/>BD<sp/>=<sp/>EG<sp/>=<sp/>FH<sp/>=<sp/>IK<sp/>=<sp/>JL<sp/>=<sp/>`width_`.</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>The blade has a constant thickness of two cell lengths</para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting><codeline><highlight class="normal">AB<sp/>=<sp/>CD<sp/>=<sp/>EF<sp/>=<sp/>GH<sp/>=<sp/>IJ<sp/>=<sp/>KL<sp/>=<sp/>2<sp/>*<sp/>`cell_size_xy_`.</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>The centre of rotation of the blade is assumed to be at the blade origin (not shown in the figure) and the blade vertices are given relative to this origin.</para>
+</listitem><listitem><para>The provided coordinates are assumed to be the reference pose of the blade, from which the blade pose is calculated throughout the code.</para>
+</listitem></itemizedlist>
+</para>
+<para>Usage: <programlisting><codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>o_pos<sp/>=<sp/>{0.0,<sp/>0.0,<sp/>0.0};</highlight></codeline>
+<codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>j_pos<sp/>=<sp/>{0.9,<sp/>0.0,<sp/>0.2};</highlight></codeline>
+<codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>b_pos<sp/>=<sp/>{0.75,<sp/>0.0,<sp/>1.5};</highlight></codeline>
+<codeline><highlight class="normal">std::vector&lt;float&gt;<sp/>t_pos<sp/>=<sp/>{1.6,<sp/>0.0,<sp/>-0.4};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">soil_simulator::Blade<sp/>blade(o_pos,<sp/>j_pos,<sp/>b_pos,<sp/>t_pos,<sp/>4.5);</highlight></codeline>
+</programlisting></para>
+<para>This would create a blade ABCDEFGHIJKL with:<itemizedlist>
+<listitem><para><computeroutput>B = [0.75, -2.25, 1.5]</computeroutput></para>
+</listitem><listitem><para><computeroutput>F = [0.9, -2.25, 0.2]</computeroutput></para>
+</listitem><listitem><para><computeroutput>J = [1.6, -2.25, -0.4]</computeroutput></para>
+</listitem><listitem><para><computeroutput>D = [0.75, 2.25, 1.5]</computeroutput></para>
+</listitem><listitem><para><computeroutput>H = [0.9, 2.25, 0.2]</computeroutput></para>
+</listitem><listitem><para><computeroutput>L = [1.6, 2.25, -0.4]</computeroutput> and ACEGIK located at the same Y and Z coordinates that their corresponding vertex but with minus two cell lengths in the X direction. </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>soil_simulator::Body</label>
+        <link refid="classsoil__simulator_1_1_body"/>
+      </node>
+      <node id="1">
+        <label>soil_simulator::Blade</label>
+        <link refid="classsoil__simulator_1_1_blade"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>soil_simulator::Body</label>
+        <link refid="classsoil__simulator_1_1_body"/>
+      </node>
+      <node id="1">
+        <label>soil_simulator::Blade</label>
+        <link refid="classsoil__simulator_1_1_blade"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" line="345" column="1" bodyfile="/home/runner/work/soil_dynamics_cpp/soil_dynamics_cpp/soil_simulator/types.hpp" bodystart="345" bodyend="358"/>
+    <listofallmembers>
+      <member refid="classsoil__simulator_1_1_body_1ac9419a149d2f7471f589f88adcb36656" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>b_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_blade_1a98f92e39736f5c7a8b4606e3e96f17b3" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>Blade</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a5fda709d75ce0d55f318924c71e452f0" prot="protected" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>Body</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a16ce7428871ee9ee9a0dbc76c2696e97" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>j_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a20c6539db12f1f9c468d38f809b730da" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>ori_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a1c41709549cfc7c20fc0e9ba9180732f" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>pos_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1ad210b19a01ac69f53b4883f23b99173a" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>t_pos_init_</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a73226afec70dc512fb0f1268ca9290c3" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>width_</name></member>
+      <member refid="classsoil__simulator_1_1_blade_1ac0a51f5b5856f00fd75001bcdc78e965" prot="public" virt="non-virtual"><scope>soil_simulator::Blade</scope><name>~Blade</name></member>
+      <member refid="classsoil__simulator_1_1_body_1a4432e038a7b1ad57e2111ef15a54eead" prot="protected" virt="virtual"><scope>soil_simulator::Blade</scope><name>~Body</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

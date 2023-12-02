@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation for the movement of intersecting soil cells &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation for the soil relaxation" href="relax.html" />
+    <link rel="prev" title="Documentation for the update of the soil resting on the body" href="body_soil.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body.html">Body</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intersecting cells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#movement-of-soil-cells-on-the-body-intersecting-with-the-body">Movement of soil cells on the body intersecting with the body</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-description">General description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description-of-the-different-cases">Description of the different cases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#body-is-not-present">Body is not present</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#one-body-layer">One body layer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#two-body-layers">Two body layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#movement-of-soil-cells-on-the-terrain-intersecting-with-the-body">Movement of soil cells on the terrain intersecting with the body</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">General description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Description of the different cases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#concluding-remarks">Concluding remarks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="relax.html">Relax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation for the movement of intersecting soil cells</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intersecting_cells.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-for-the-movement-of-intersecting-soil-cells">
+<span id="intersecting-cells"></span><h1>Documentation for the movement of intersecting soil cells<a class="headerlink" href="#documentation-for-the-movement-of-intersecting-soil-cells" title="Permalink to this heading"></a></h1>
+<p>After updating the position of the body and the soil resting on the body, it is possible that some soil cells are located in the same position as a body wall, while it is obviously physically impossible to have both soil and the body at the same position.
+These soil cells are referred to as intersecting cells in the simulator.</p>
+<p>The third task of the simulator is to move these soil cells following a set of rules to ensure a physically valid simulation.
+This is done by the <code class="code docutils literal notranslate"><span class="pre">MoveIntersectingCells</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">intersecting_cells.cpp</span></code> file.
+The process involves two main steps: moving intersecting cells resting on the body and moving intersecting cells from the terrain.
+The order of these steps is crucial, as the movement of intersecting cells resting on the body can create new intersecting cells in the terrain.</p>
+<section id="movement-of-soil-cells-on-the-body-intersecting-with-the-body">
+<h2>Movement of soil cells on the body intersecting with the body<a class="headerlink" href="#movement-of-soil-cells-on-the-body-intersecting-with-the-body" title="Permalink to this heading"></a></h2>
+<section id="general-description">
+<h3>General description<a class="headerlink" href="#general-description" title="Permalink to this heading"></a></h3>
+<p>This step focuses on relocating intersecting soil cells that are resting on the body.
+The process involves selecting randomly one of the eight directions surrounding the intersecting cells and investigating whether the soil can be moved in that direction.
+The algorithm explores positions incrementally farther from the intersecting cells until all the soil has been moved or a body wall blocks the movement.
+If a body wall blocks the movement, another direction is selected for investigation.
+In rare cases where not all soil can be moved after exploring all eight directions, a warning is issued, and the excess soil simply disappears.
+However, this edge case should not occur in normal scenarios.</p>
+<p>Note:</p>
+<ul class="simple">
+<li><p>The investigated directions are randomized in order to avoid asymmetrical results.</p></li>
+<li><p>There are necessarily two body layers where the intersecting soil cells are located.</p></li>
+</ul>
+</section>
+<section id="description-of-the-different-cases">
+<h3>Description of the different cases<a class="headerlink" href="#description-of-the-different-cases" title="Permalink to this heading"></a></h3>
+<section id="body-is-not-present">
+<h4>Body is not present<a class="headerlink" href="#body-is-not-present" title="Permalink to this heading"></a></h4>
+<p>In this case, the intersecting soil cells are simply moved to the terrain.</p>
+</section>
+<section id="one-body-layer">
+<h4>One body layer<a class="headerlink" href="#one-body-layer" title="Permalink to this heading"></a></h4>
+<p>Three different cases are possible, as illustrated in the vertical slice diagram below:</p>
+<img alt="_images/intersecting_cells_1.png" src="_images/intersecting_cells_1.png" />
+<p>(a) In this case, there is an open space below the body layer, and the remaining intersecting soil cells are moved to the terrain.
+This movement is independent of the available space below the body.
+If there is insufficient space, the soil is still moved, and the newly created intersecting soil cells will be addressed in the subsequent step.</p>
+<p>(b) In this case, the remaining intersecting soil cells are moved to the top of the body layer.
+This movement is independent of whether soil is present on this body layer.</p>
+<p>(c) In this case, the body layer in the new position extends over the two body layers from the previous position, creating a wall that prevents soil movement.
+The exploration in this direction is therefore halted.</p>
+<p>Note that in this case the investigation of the considered direction will necessarily stop, either because of the presence of a body wall or because all the soil could be moved.
+That also means that the previous position has necessarily two body layers.</p>
+</section>
+<section id="two-body-layers">
+<h4>Two body layers<a class="headerlink" href="#two-body-layers" title="Permalink to this heading"></a></h4>
+<p>Four different cases are possible, as illustrated in the vertical slice diagram below:</p>
+<img alt="_images/intersecting_cells_2.png" src="_images/intersecting_cells_2.png" />
+<p>(a) In this case, the soil fully fills the space between the two body layers in the new position.
+No soil is moved to this position, but the exploration in this direction can continue.</p>
+<p>(b) In this case, some space is available between the two body layers.
+The intersecting cells are moved to the available space, and the exploration in this direction continues.</p>
+<p>(c) In this case, the combination of the body soil and the bottom body layer in the new position extends over the two body layers from the previous position.
+The intersecting cells are still moved to the available space, and the exploration in this direction continues.</p>
+<p>(d) In this case, enough space is available between the two body layers to accommodate all the intersecting soil cells.
+The remaining intersecting cells are moved to this position.</p>
+</section>
+</section>
+</section>
+<section id="movement-of-soil-cells-on-the-terrain-intersecting-with-the-body">
+<h2>Movement of soil cells on the terrain intersecting with the body<a class="headerlink" href="#movement-of-soil-cells-on-the-terrain-intersecting-with-the-body" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>General description<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>This step focuses on relocating intersecting soil cells that are present in the terrain and intersect with the body.
+The algorithm investigates the eight cells surrounding the intersecting cells in a randomized order to determine if soil can be moved to those positions.
+If there is insufficient space for all the soil, the algorithm incrementally explores the eight directions farther from the intersecting soil column until all the soil has been relocated.</p>
+<p>Note:</p>
+<ul class="simple">
+<li><p>The investigated directions are randomized in order to avoid asymmetrical results.</p></li>
+<li><p>Soil is necessarily moved to the terrain.
+The digging is therefore a two-step process.
+Intersecting cells are first moved to the terrain just outside the body, then avalanche on the body during the relaxation step.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Description of the different cases<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>Three different cases are possible, as illustrated in the vertical slice diagram below:</p>
+<img alt="_images/intersecting_cells_3.png" src="_images/intersecting_cells_3.png" />
+<p>(a) In this case, no body is present in the new position, and all the soil is moved to that position.
+This is done regardless of whether the body is buried deep underground.</p>
+<p>(b) In this case, no space is available below the body.
+No movement is made.</p>
+<p>(c) In this case, some space is available below the body.
+Soil is moved to that position to fill the gap.</p>
+</section>
+</section>
+<section id="concluding-remarks">
+<h2>Concluding remarks<a class="headerlink" href="#concluding-remarks" title="Permalink to this heading"></a></h2>
+<p>When the simulator would have the ability to handle multiple bodies, it may be necessary to handle the movement of soil resting on a body that intersects with a different body separately.
+Additionally, the case where a different body blocks the movement of soil to the terrain would need to be addressed.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="body_soil.html" class="btn btn-neutral float-left" title="Documentation for the update of the soil resting on the body" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="relax.html" class="btn btn-neutral float-right" title="Documentation for the soil relaxation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.1.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="../v1.0.0/intersecting_cells.html">v1.0.0</a></dd>
+      <dd><a href="intersecting_cells.html">v1.1.0</a></dd>
+      <dd><a href="../main/intersecting_cells.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

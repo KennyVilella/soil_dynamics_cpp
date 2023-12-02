@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>body_soil: Doxygen documentation &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="intersecting_cells: Doxygen documentation" href="intersecting_cells.html" />
+    <link rel="prev" title="body_pos: Doxygen documentation" href="body_pos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../body.html">Body</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../body_soil.html">Body soil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intersecting_cells.html">Intersecting cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../relax.html">Relax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utility</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="soil_evolution.html">soil_evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soil_dynamics.html">soil_dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="body_pos.html">body_pos</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">body_soil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intersecting_cells.html">intersecting_cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relax.html">relax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API</a></li>
+      <li class="breadcrumb-item active">body_soil: Doxygen documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_api/body_soil.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="body-soil-doxygen-documentation">
+<h1>body_soil: Doxygen documentation<a class="headerlink" href="#body-soil-doxygen-documentation" title="Permalink to this heading"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414soil_simulator">
+<span id="_CPPv314soil_simulator"></span><span id="_CPPv214soil_simulator"></span><span id="soil_simulator"></span><span class="target" id="namespacesoil__simulator"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">soil_simulator</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP4Bodyf">
+<span id="_CPPv3N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP4Bodyf"></span><span id="_CPPv2N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP4Bodyf"></span><span id="soil_simulator::UpdateBodySoil__SimOutP.std::vector:float:.std::vector:float:.Grid.BodyP.float"></span><span class="target" id="body__soil_8hpp_1ac7f139a55ef6a55ead2ff719c34f9ccd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UpdateBodySoil</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types.html#_CPPv4N14soil_simulator6SimOutE" title="soil_simulator::SimOut"><span class="n"><span class="pre">SimOut</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sim_out</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ori</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4GridE" title="soil_simulator::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="types.html#_CPPv4N14soil_simulator4BodyE" title="soil_simulator::Body"><span class="n"><span class="pre">Body</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">body</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">tol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14soil_simulator14UpdateBodySoilEP6SimOutNSt6vectorIfEENSt6vectorIfEE4GridP4Bodyf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This function moves the soil resting on the body following its movement. </p>
+<p>
+In this function, the movement applied to the base of the soil column is calculated and the soil is moved to this new location. The original position of the soil column in the body frame is stored in the <code class="docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> member of the <code class="docutils literal notranslate"><a class="reference internal" href="types.html#classsoil__simulator_1_1_sim_out"><span class="std std-ref"><span class="pre">SimOut</span></span></a></code> class.</p>
+<p>It is difficult to track accurately each body wall. This is currently done by determining the most likely location considering the movement made, and moving the soil to this location if the vertical distance is lower than a cell height. If it is not, the nine neighbouring cells are investigated. If no neighbouring cell has a body wall located at a distance lower than a cell height, the soil is moved to the cell with the lowest vertical distance. Note that it may still potentially lead to an incorrect choice.</p>
+<p>If no body wall is present, the soil is moved down to the terrain and a warning is issued as it should normally not happen.</p>
+<p>The new positions of the soil resting on the body are collected into <code class="docutils literal notranslate"><span class="pre">sim_out.body_soil_pos_</span></code> along with the required information using the <code class="docutils literal notranslate"><a class="reference internal" href="types.html#structsoil__simulator_1_1body__soil"><span class="std std-ref"><span class="pre">body_soil</span></span></a></code> struct. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_out</strong> – Class that stores simulation outputs. </p></li>
+<li><p><strong>pos</strong> – Cartesian coordinates of the body origin. [m] </p></li>
+<li><p><strong>ori</strong> – Orientation of the body. [Quaternion] </p></li>
+<li><p><strong>grid</strong> – Class that stores information related to the simulation grid. </p></li>
+<li><p><strong>body</strong> – Class that stores information related to the body object. </p></li>
+<li><p><strong>tol</strong> – Small number used to handle numerical approximation errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="body_pos.html" class="btn btn-neutral float-left" title="body_pos: Doxygen documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="intersecting_cells.html" class="btn btn-neutral float-right" title="intersecting_cells: Doxygen documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.1.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="../../v1.0.0/_api/body_soil.html">v1.0.0</a></dd>
+      <dd><a href="body_soil.html">v1.1.0</a></dd>
+      <dd><a href="../../main/_api/body_soil.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
