@@ -9,7 +9,7 @@ sys.path.insert(0, _rootdir)
 sys.path.insert(0, _srcdir)
 
 project = "soil_simulator"
-version = "1.0.0"
+version = "1.1.0"
 copyright = "2023, Vilella Kenny"
 author = "Kenny Vilella"
 
