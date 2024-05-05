@@ -35,7 +35,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     std::vector<float> ori;
     std::vector<std::vector<int>> body_pos;
 
-    // Creating a lambda function to set reset the bucket pose
+    // Creating a lambda function to reset the bucket pose
     auto ResetBucketPose = [&]() {
         bucket->pos_ = {0.0, 0.0, 0.0};
         bucket->ori_ = {1.0, 0.0, 0.0, 0.0};
@@ -215,8 +215,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     // ---------------------------------------------------------------------- //
 
     // Test: BS-UBS-12
-    SetHeight(sim_out, 10, 10, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.15, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 10, NAN, 0.0, 0.1, 0.1, 0.15, NAN, NAN, NAN, NAN);
     PushBodySoilPos(sim_out, 0, 10, 10, {0.0, 0.0, 0.0}, 0.05);
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 10, 10, NAN, 0.0, 0.0, NAN, NAN);
@@ -226,8 +225,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     ResetValueAndTest(sim_out, {}, {{0, 10, 10}}, {{0, 10, 10}});
 
     // Test: BS-UBS-13
-    SetHeight(sim_out, 10, 10, NAN, 0.0, 0.1, NAN, NAN, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.195, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 10, 10, NAN, 0.0, 0.1, 0.1, 0.195, NAN, NAN, NAN, NAN);
     PushBodySoilPos(sim_out, 0, 10, 10, {0.0, 0.0, 0.0}, 0.095);
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 10, 10, NAN, 0.1, 0.2, NAN, NAN);
@@ -350,7 +348,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     ResetBucketPose();
     SetHeight(sim_out, 10, 9, NAN, 0.2, 0.3, 0.0, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
-    sim_out->body_soil_pos_[0].ii = 10;
+    sim_out->body_soil_pos_[0].jj = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 10, 8, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
@@ -359,7 +357,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     ResetBucketPose();
     SetHeight(sim_out, 10, 8, NAN, 0.2, 0.3, 0.0, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
-    sim_out->body_soil_pos_[0].ii = 10;
+    sim_out->body_soil_pos_[0].jj = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 9, 8, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
@@ -369,6 +367,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     SetHeight(sim_out, 9, 8, NAN, 0.2, 0.3, 0.0, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_[0].ii = 10;
+    sim_out->body_soil_pos_[0].jj = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 9, 9, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
@@ -378,6 +377,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     SetHeight(sim_out, 9, 9, NAN, 0.2, 0.3, 0.0, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_[0].ii = 10;
+    sim_out->body_soil_pos_[0].jj = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 11, 8, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
@@ -387,6 +387,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     SetHeight(sim_out, 11, 8, NAN, 0.2, 0.3, 0.0, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_[0].ii = 10;
+    sim_out->body_soil_pos_[0].jj = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 11, 9, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
@@ -396,6 +397,7 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     SetHeight(sim_out, 11, 9, NAN, 0.2, 0.3, 0.0, 0.0, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 10, 10, NAN, NAN, NAN, 0.1, 0.2, NAN, NAN, NAN, NAN);
     sim_out->body_soil_pos_[0].ii = 10;
+    sim_out->body_soil_pos_[0].jj = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 9, 10, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(
@@ -412,7 +414,6 @@ TEST(UnitTestBodySoil, UpdateBodySoil) {
     // Testing for ninth direction
     ResetBucketPose();
     SetHeight(sim_out, 10, 10, NAN, 0.2, 0.3, 0.1, 0.2, NAN, NAN, NAN, NAN);
-    sim_out->body_soil_pos_[0].ii = 10;
     UpdateBodySoil(sim_out, pos, ori, grid, bucket, 1.e-5);
     CheckHeight(sim_out, 11, 10, NAN, 0.1, 0.2, NAN, NAN);
     test_soil_simulator::CheckBodySoilPos(

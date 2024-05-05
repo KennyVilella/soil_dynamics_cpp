@@ -7736,17 +7736,15 @@ TEST(UnitTestIntersectingCells, MoveIntersectingBody) {
     SetHeight(sim_out, 10, 17, NAN, NAN, NAN, NAN, NAN, 0.0, 0.5, NAN, NAN);
     SetHeight(sim_out, 11, 16, NAN, 0.0, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 11, 17, 0.5, 0.0, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
+    SetHeight(sim_out, 11, 18, NAN, 0.0, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 12, 16, NAN, 0.0, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 12, 17, NAN, 0.0, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
-    SetHeight(sim_out, 12, 16, NAN, NAN, NAN, NAN, NAN, 0.6, 0.8, NAN, NAN);
-    SetHeight(sim_out, 12, 17, NAN, NAN, NAN, NAN, NAN, 0.6, 0.8, NAN, NAN);
-    SetHeight(sim_out, 11, 18, NAN, 0.0, 0.5, NAN, NAN, NAN, NAN, NAN, NAN);
     SetHeight(sim_out, 12, 18, NAN, NAN, NAN, NAN, NAN, 0.0, 0.5, NAN, NAN);
     soil_simulator::MoveIntersectingBody(sim_out, 1e-5);
     EXPECT_NEAR(sim_out->terrain_[10][18], 0.5, 1e-5);
     body_pos = {
-        {2, 10, 16}, {2, 10, 17}, {0, 11, 16}, {0, 11, 17}, {0, 12, 16},
-        {2, 12, 16}, {0, 12, 17}, {2, 12, 17}, {0, 11, 18}, {2, 12, 18}};
+        {2, 10, 16}, {2, 10, 17}, {0, 11, 16}, {0, 11, 17}, {0, 11, 18},
+        {0, 12, 16}, {2, 12, 16}, {0, 12, 17}, {2, 12, 17}, {2, 12, 18}};
     ResetValueAndTest(sim_out, {{10, 18}}, body_pos, {});
 
     // Test: IC-MIB-11
