@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation for soil_dynamics_cpp &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation for the implemented types" href="types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body.html">Body</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body_soil.html">Body soil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intersecting_cells.html">Intersecting cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relax.html">Relax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation for soil_dynamics_cpp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-for-soil-dynamics-cpp">
+<h1>Documentation for soil_dynamics_cpp<a class="headerlink" href="#documentation-for-soil-dynamics-cpp" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A deprecated Julia version of this simulator is available <a class="reference external" href="https://github.com/KennyVilella/soil_dynamics_julia">here</a>.</p>
+</div>
+<p>This soil dynamics simulator is a fast first-order model designed to simulate soil displacement caused by the movement of a rigid body.
+Currently, two types of rigid body are supported by this simulator:</p>
+<ul class="simple">
+<li><p>The typical bucket used by hydraulic excavators. A detailed description of the model used for the bucket is available on the <a class="reference external" href="bucket.html">Bucket</a> page of this documentation.</p></li>
+<li><p>The typical blade used by bulldozers. A detailed description of the model used for the blade is available on the <a class="reference external" href="blade.html">Blade</a> page of this documentation.</p></li>
+</ul>
+<p>In this simulator, the movement of soil is modelled using a cellular automata approach on a regular 3D grid.
+The simulation grid is composed of rectangular cells with equal length in the X and Y directions, and a height that is less than or equal to the cell’s length (more details are available on the <a class="reference external" href="grid.html">Grid</a> page of this documentation).
+The fundamental idea of cellular automata is to decompose a simulation grid into cells that can have different states.
+In this case, the state corresponds to soil, body or empty.
+These cells can be moved at every step of the simulation depending on a set of rules.</p>
+<p>At the start of each step, the body cells are assigned following the location of the body, and only soil cells are allowed to move.
+There are three types of movement for soil cells:</p>
+<ul class="simple">
+<li><p><strong>Movement of body soil</strong>.
+Soil on the body should move following the body movement.
+This movement is however challenging because the body does not necessarily follows the global grid.
+A best effort is made to track the soil on the body accurately as described in the <a class="reference external" href="body_soil.html">Body soil</a> page of this documentation.</p></li>
+<li><p><strong>Movement of intersecting soil cells</strong>.
+Intersecting cells refer to cells where both soil and body are present due to the body movement.
+The soil in these intersecting cells has to be moved in response to the body movement.
+The movement of intersecting soil cells follows a complex set of rules that is described in the <a class="reference external" href="intersecting_cells.html">Intersecting cells</a> page of this documentation.</p></li>
+<li><p><strong>Soil relaxation</strong>.
+This refers to the natural movement of soil.
+Here, it is assumed that soil with a slope greater than the repose angle is unstable and should avalanche to reach a configuration where the slope is equal to the repose angle.
+However, implementing this simple model becomes challenging due to the interaction between soil and the body.
+The set of rules applied for soil relaxation is described in the <a class="reference external" href="relax.html">Relax</a> page of this documentation.</p></li>
+</ul>
+<p>Please note that the terrain must be updated every time the body moves by more than one cell.
+This ensures that the simulator keeps track of how the soil should be moved accurately.</p>
+<p>In addition to the core functionalities, the classes used in this simulator are described in the <a class="reference external" href="types.html">Types</a> page of this documentation.
+These classes provide a safe way of passing input arguments to the simulator’s public functions, simplifying and accelerating the implementation.
+Utility functions are described in the <a class="reference external" href="utils.html">Utilility</a> page of this documentation.
+In particular, the functions used to check the outputs of the simulator or to write the outputs into csv files are described.
+An <a class="reference external" href="api.html">API</a> documentation is available with information on all classes and functions.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="types.html" class="btn btn-neutral float-right" title="Documentation for the implemented types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.1.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="../v1.0.0/index.html">v1.0.0</a></dd>
+      <dd><a href="../v1.1.0/index.html">v1.1.0</a></dd>
+      <dd><a href="index.html">v1.1.1</a></dd>
+      <dd><a href="../main/index.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

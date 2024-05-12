@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation for the update of the soil resting on the body &mdash; soil_simulator  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation for the movement of intersecting soil cells" href="intersecting_cells.html" />
+    <link rel="prev" title="Determination of the body position" href="body_pos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            soil_simulator
+          </a>
+              <div class="version">
+                1.1.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body.html">Body</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Body soil</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#challenges">Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#determination-of-the-new-soil-position">Determination of the new soil position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#current-limitations-and-alternatives">Current limitations and alternatives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="intersecting_cells.html">Intersecting cells</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relax.html">Relax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">soil_simulator</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation for the update of the soil resting on the body</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/body_soil.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation-for-the-update-of-the-soil-resting-on-the-body">
+<span id="body-soil"></span><h1>Documentation for the update of the soil resting on the body<a class="headerlink" href="#documentation-for-the-update-of-the-soil-resting-on-the-body" title="Permalink to this heading"></a></h1>
+<p>The second task of the simulator is to move the soil resting on the body following its movement.
+This is done by the <code class="code docutils literal notranslate"><span class="pre">UpdateBodySoil</span></code> function in the <code class="code docutils literal notranslate"><span class="pre">body_soil.cpp</span></code> file.</p>
+<p>As the body is moving, the soil resting on the it should also be moved.
+Because the body frame is not necessarily aligned with the global frame, this task is extremely challenging.
+The current implementation has already been refactored and improved, while still not being good enough for our purpose.
+Another round of improvements is therefore needed.</p>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this heading"></a></h2>
+<p>Before describing the current algorithm, it is important to list the main challenges of this process in order to better understand the choices that have been made.</p>
+<p>(a) In some cases, the body could move by a series of small movements.
+Each individual movement would not be enough to move the soil by one cell, but the addition of multiple small movements would move the soil by one cell.</p>
+<p>(b) Two or more soil columns could potentially merged into one, and then split if the movement is reversed.
+This is particularly true when the body is doing a dumping motion.
+In that case, the base of the body, where most of the soil should have landed, would be almost vertical such that a lot of soil should merged to a few lateral cells.</p>
+<p>(c) When the soil is close to the edge of the body, two body layers could be close enough such that it becomes difficult to assess in which body layer the soil belongs.
+In such cases, some errors may occur and the soil may jump from the inside to the outside of the body, or vice versa.</p>
+<p>Note that (a) means that the last body movement is not enough to asses the position of the body soil.
+It is necessary to have information about the history of the body soil.
+In the current algorithm, (c) is still a problem.
+This is clear as soil falls down from the body when moving it laterally.</p>
+</section>
+<section id="determination-of-the-new-soil-position">
+<h2>Determination of the new soil position<a class="headerlink" href="#determination-of-the-new-soil-position" title="Permalink to this heading"></a></h2>
+<p>In the current implementation, for all soil landing on the body across the simulator, the position of the landing as well as the amount of soil is stored in the <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> field of the <code class="code docutils literal notranslate"><span class="pre">SimOut</span></code> class using the <code class="code docutils literal notranslate"><span class="pre">body_soil</span></code> struct.
+Note that the landing position is converted into the reference body frame (that is the body frame in its reference pose) in order to be independent of the current position of the body.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">UpdateBodySoil</span></code> function iterates over all the soil in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code> and converts the landing position stored into the current pose of the body.
+This gives the estimated position of the body soil in the current pose of the body.
+Unfortunately, this estimated position may not always correspond to an actual position on the body.
+To tackle this issue, the eight cells neighbouring the estimated position is investigated and soil is moved to the first body layer found.
+If no body layer is found, the soil is moved to the neighbouring cells with the lowest vertical difference compared to the estimated position.
+The purpose of this is to ensure the continuity in the body soil movement and reduce the impact of the (c) challenge mentionned in the previous section.</p>
+</section>
+<section id="current-limitations-and-alternatives">
+<h2>Current limitations and alternatives<a class="headerlink" href="#current-limitations-and-alternatives" title="Permalink to this heading"></a></h2>
+<p>The current implementation has several issues that need to be solved:</p>
+<ul class="simple">
+<li><p>The code becomes significantly slower when a high resolution is used due to the number of soil to track in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code>.</p></li>
+<li><p>The algorithm does not always work.
+In particular, soil tends to jump outside the body when close to a vertical body wall.</p></li>
+<li><p>Soil resting on the body seems to always move, even when the body is doing a simple translation outside ground.</p></li>
+</ul>
+<p>An alternative way to deal with the soil resting on the body will be to implement a second grid aligned with the body frame.
+This will however introduce different types of problems.
+For instance, soil relaxation will become very complicated due to the body rotation.</p>
+<p>Overall, it seems better to keep the current approach, while improving the continuity in the body soil movement and reducing the number of soil in <code class="code docutils literal notranslate"><span class="pre">body_soil_pos_</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="body_pos.html" class="btn btn-neutral float-left" title="Determination of the body position" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="intersecting_cells.html" class="btn btn-neutral float-right" title="Documentation for the movement of intersecting soil cells" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vilella Kenny.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: v1.1.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    <dl>
+      <dt>Versions</dt>
+      <dd><a href="../v1.0.0/body_soil.html">v1.0.0</a></dd>
+      <dd><a href="../v1.1.0/body_soil.html">v1.1.0</a></dd>
+      <dd><a href="body_soil.html">v1.1.1</a></dd>
+      <dd><a href="../main/body_soil.html">main</a></dd>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
