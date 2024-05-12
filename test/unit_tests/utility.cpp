@@ -43,7 +43,7 @@ void test_soil_simulator::CheckHeight(
     soil_simulator::SimOut* sim_out, int ii, int jj, float terrain,
     float body_soil_0, float body_soil_1, float body_soil_2, float body_soil_3
 ) {
-    // Checking terrain'
+    // Checking terrain
     if (!std::isnan(terrain))
         EXPECT_NEAR(sim_out->terrain_[ii][jj], terrain, 1e-5);
 

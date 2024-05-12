@@ -4656,7 +4656,6 @@ TEST(UnitTestRelax, RelaxBodySoil) {
     pos0 = soil_simulator::CalcBodyFramePos(10, 14, -0.1, grid, bucket);
     PushBodySoilPos(sim_out, 0, 10, 14, pos0, 0.2);
     soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
-    soil_simulator::RelaxBodySoil(sim_out, grid, bucket, sim_param, 1e-5);
     CheckHeight(sim_out, 10, 14, -0.3, -0.2, -0.1, NAN, NAN);
     CheckHeight(sim_out, 10, 15, -0.6, NAN, NAN, -0.3, -0.1);
     CheckBodySoilPos(sim_out->body_soil_pos_[2], 2, 10, 15, posA, 0.1);
